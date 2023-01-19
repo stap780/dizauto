@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.1"
 
-server '167.71.190.131', user: 'deploy', roles: %w{app db web}, primary: true
+server '104.131.40.131', user: 'deploy', roles: %w{app db web}, primary: true
 set :application,     'dizauto'
 set :repo_url, 'git@github.com:stap780/dizauto.git'
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/sidekiq.yml')
