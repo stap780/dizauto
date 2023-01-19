@@ -28,5 +28,5 @@ set :sidekiq_default_hooks => true
 set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
 set :sidekiq_config_files, ['sidekiq.yml']
 
-append :linked_files, "config/master.key"
+append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
