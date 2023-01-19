@@ -23,6 +23,10 @@ set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
+set :sidekiq_roles => :worker
+set :sidekiq_default_hooks => true
+set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
+set :sidekiq_config_files, ['sidekiq.yml']
 
 append :linked_files, "config/master.key"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
