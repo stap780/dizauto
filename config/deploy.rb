@@ -38,32 +38,44 @@ append :linked_files, "config/master.key", "config/database.yml", "config/secret
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
 
 namespace :rails do
-    desc 'Interact with a remote rails console'
-    task :console do
-      args = []
-      args << '--sandbox' if ENV.key?('sandbox') || ENV.key?('s')
-  
-      run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
-        within current_path do
-          as user: fetch(:console_user) do
-            execute(:rails, :console, '-e', fetch(:console_env), *args)
-          end
-        end
-      end
+    desc "Remote console"
+    task :console, :roles => :app do
+      run_interactively "bundle exec rails console #{rails_env}"
     end
   
-    desc 'Interact with a remote rails dbconsole'
-    task :dbconsole do
-      run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
-        within current_path do
-          as user: fetch(:console_user) do
-            execute(:rails, :dbconsole, '-p', '-e', fetch(:console_env))
-          end
-        end
-      end
+    desc "Remote dbconsole"
+    task :dbconsole, :roles => :app do
+      run_interactively "bundle exec rails dbconsole #{rails_env}"
     end
-  
-    task c: :console
-    task db: :dbconsole
 end
+
+# namespace :rails do
+#     desc 'Interact with a remote rails console'
+#     task :console do
+#       args = []
+#       args << '--sandbox' if ENV.key?('sandbox') || ENV.key?('s')
+  
+#       run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
+#         within current_path do
+#           as user: fetch(:console_user) do
+#             execute(:rails, :console, '-e', fetch(:console_env), *args)
+#           end
+#         end
+#       end
+#     end
+  
+#     desc 'Interact with a remote rails dbconsole'
+#     task :dbconsole do
+#       run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
+#         within current_path do
+#           as user: fetch(:console_user) do
+#             execute(:rails, :dbconsole, '-p', '-e', fetch(:console_env))
+#           end
+#         end
+#       end
+#     end
+  
+#     task c: :console
+#     task db: :dbconsole
+# end
   
