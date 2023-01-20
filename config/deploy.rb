@@ -39,7 +39,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'v
 
 namespace :rails do
     desc "Remote console"
-    task :console, do
+    task :console do
       run_interactively primary(fetch(:console_role)) do
         "bundle exec rails console #{rails_env}"
       end
