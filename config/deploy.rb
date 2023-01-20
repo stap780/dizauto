@@ -30,6 +30,7 @@ set :sidekiq_config_files, ['sidekiq.yml']
 
 set :console_env,   -> { fetch(:rails_env, fetch(:stage, 'production')) }
 set :console_user,  -> { fetch(:user, nil) }
+set :console_role, :app, "deploy@104.131.40.131"
 
 append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
