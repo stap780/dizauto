@@ -3,7 +3,7 @@ lock "~> 3.17.1"
 server '104.131.40.131', port: 22, roles: [:web, :app, :db], primary: true
 set :application, "dizauto"
 set :repo_url, "git@github.com:stap780/dizauto.git"
-# set :branch, fetch(:branch, "main")
+
 
 set :user, 'deploy'
 set :puma_threads,    [4, 16]
@@ -28,9 +28,8 @@ set :sidekiq_default_hooks => true
 set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
 set :sidekiq_config_files, ['sidekiq.yml']
 
-set :console_env, :production
-set :console_user, nil
-set :console_role, :app
+set :console_env,   -> { fetch(:rails_env, fetch(:stage, 'production')) }
+set :console_user,  -> { fetch(:user, nil) }
 
 append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
