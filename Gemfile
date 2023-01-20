@@ -53,6 +53,7 @@ gem "image_processing", "~> 1.2"
 gem 'devise'
 gem 'sidekiq'
 gem 'high_voltage', '~> 3.1'
+gem 'cancancan'
 
 
 group :development, :test do
