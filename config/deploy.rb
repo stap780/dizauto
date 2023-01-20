@@ -51,6 +51,11 @@ namespace :rails do
             run_interactively "bundle exec rails dbconsole #{fetch(:rails_env)}", h.user
         end
     end
+
+    def run_interactively(command, user)
+        info "Running `#{command}` as #{user}@#{server}"
+        exec %Q(ssh #{user}@#{server} -t "bash --login -c 'cd #{fetch(:deploy_to)}/current && #{command}'")
+    end    
 end
 
 # namespace :rails do
