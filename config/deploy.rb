@@ -28,10 +28,10 @@ set :sidekiq_default_hooks => true
 set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
 set :sidekiq_config_files, ['sidekiq.yml']
 
-set :console_env,   -> { fetch(:rails_env, fetch(:stage, 'production')) }
-set :console_user,  -> { fetch(:user, nil) }
-set :console_role, :app
-set :console_shell, '/bin/bash'
+# set :console_env,   -> { fetch(:rails_env, fetch(:stage, 'production')) }
+# set :console_user,  -> { fetch(:user, nil) }
+# set :console_role, :app
+# set :console_shell, '/bin/bash'
 
 
 append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
@@ -40,15 +40,15 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'v
 namespace :rails do
     desc "Remote console"
     task :console do
-      run_interactively primary(fetch(:console_role)) do
-        "bundle exec rails console #{rails_env}"
+      on roles(:app) do |h|
+        run_interactively "bundle exec rails console #{fetch(:rails_env)}", h.user
       end
     end
   
     desc "Remote dbconsole"
     task :dbconsole do
-        run_interactively primary(fetch(:console_role)) do
-            "bundle exec rails dbconsole #{rails_env}"
+        on roles(:app) do |h|
+            run_interactively "bundle exec rails dbconsole #{fetch(:rails_env)}", h.user
         end
     end
 end
