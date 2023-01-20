@@ -29,7 +29,7 @@ set :sidekiq_env => fetch(:rack_env, fetch(:rails_env, fetch(:stage)))
 set :sidekiq_config_files, ['sidekiq.yml']
 
 set :console_env, :production
-set :console_user, 'deploy'
+set :console_user, nil
 set :console_role, :app
 
 append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
