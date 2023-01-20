@@ -30,7 +30,38 @@ set :sidekiq_config_files, ['sidekiq.yml']
 
 set :console_env,   -> { fetch(:rails_env, fetch(:stage, 'production')) }
 set :console_user,  -> { fetch(:user, nil) }
-set :console_role, :app, "deploy@104.131.40.131"
+
 
 append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
+
+namespace :rails do
+    desc 'Interact with a remote rails console'
+    task :console do
+      args = []
+      args << '--sandbox' if ENV.key?('sandbox') || ENV.key?('s')
+  
+      run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
+        within current_path do
+          as user: fetch(:console_user) do
+            execute(:rails, :console, '-e', fetch(:console_env), *args)
+          end
+        end
+      end
+    end
+  
+    desc 'Interact with a remote rails dbconsole'
+    task :dbconsole do
+      run_interactively primary(fetch(:console_role)), shell: fetch(:console_shell) do
+        within current_path do
+          as user: fetch(:console_user) do
+            execute(:rails, :dbconsole, '-p', '-e', fetch(:console_env))
+          end
+        end
+      end
+    end
+  
+    task c: :console
+    task db: :dbconsole
+end
+  
