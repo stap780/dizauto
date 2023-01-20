@@ -1,52 +1,38 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
-<main class="form-signin w-100 m-auto text-center">
-  <form>
-    <img class="mb-4" src="/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
+<div class="row flex-center min-vh-100 py-6">
+  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+    <div class="card">
+      <div class="card-body p-4 p-sm-5">
+        <div class="row flex-between-center mb-2">
+          <div class="col-auto">
+            <h5>Регистрация</h5>
+          </div>
+          <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">Есть регистрация?</span> <span><%= link_to "войти", new_user_session_path%></span></div>
+        </div>
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+          <div class="mb-3">
+          <%# <input class="form-control" type="text" autocomplete="on" placeholder="Name"> %>
+            <%# f.text_field :name, placeholder: "Name", class: "form-control" %>
+          </div>
+          <div class="mb-3">
+            <%= f.email_field :email, class: "form-control", placeholder: "Email address" %>
+          </div>
+          <div class="row gx-2">
+            <div class="mb-3 col-sm-6">
+              <% password_hint = @minimum_password_length ? "#{@minimum_password_length} characters minimum" : ""%>
+              <%= f.password_field :password, class: "form-control", placeholder: "Password", "data-bs-toggle": "popover", "data-bs-content": password_hint %>
+            </div>
+            <div class="mb-3 col-sm-6">
+              <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm Password" %>
+            </div>
+          </div>
+          <%# <div class="form-check"><input class="form-check-input" type="checkbox" id="basic-register-checkbox"><label class="form-label" for="basic-register-checkbox">I accept the <a href="#!">terms </a>and <a href="#!">privacy policy</a></label></div> %>
+          <div class="mb-3">
+            <%= f.submit "Зарегистрироваться", class: "btn btn-primary d-block w-100 mt-3" %>
+          </div>
+        <% end %>
+      </div>
     </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
+  </div>
+</div>
 
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">© 2017–2022</p>
-  </form>
-</main>

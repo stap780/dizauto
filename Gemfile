@@ -52,6 +52,7 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 gem 'devise'
 gem 'sidekiq'
+gem 'high_voltage', '~> 3.1'
 
 
 group :development, :test do

@@ -11,12 +11,11 @@
   </head>
 
   <body>
-      <% if notice %>
-        <p class="alert alert-success"><%= notice %></p>
-      <% end %>
-      <% if alert %>
-        <p class="alert alert-danger"><%= alert %></p>
-      <% end %>
-    <%= yield %>
+    <main class="main <%= current_page_path_as_class %>">
+    <div class="container" data-layout="container">
+      <%= render partial: "/layouts/notice_messages"%>
+      <%= yield %>
+      </div>
+    </main>
   </body>
 </html>
