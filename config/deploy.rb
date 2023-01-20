@@ -41,20 +41,20 @@ namespace :rails do
     desc "Remote console"
     task :console do
       on roles(:app) do |h|
-        run_interactively "bundle exec rails console #{fetch(:rails_env)}", h.user
+        run_interactively "RAILS_ENV=#{fetch(:rails_env)} bundle exec rails c"
       end
     end
   
     desc "Remote dbconsole"
     task :dbconsole do
         on roles(:app) do |h|
-            run_interactively "bundle exec rails dbconsole #{fetch(:rails_env)}", h.user
+            run_interactively "RAILS_ENV=#{fetch(:rails_env)} bundle exec rails dbconsole"
         end
     end
 
-    def run_interactively(command, user)
-        info "Running `#{command}` as #{user}@#{server}"
-        exec %Q(ssh #{user}@#{server} -t "bash --login -c 'cd #{fetch(:deploy_to)}/current && #{command}'")
+    def run_interactively(command)
+        info "Running #{command} as deploy@104.131.40.131"
+        exec %Q(ssh deploy@104.131.40.131 -t "bash --login -c 'cd #{fetch(:deploy_to)}/current && #{command}'")
     end    
 end
 
