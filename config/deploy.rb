@@ -6,6 +6,7 @@ set :repo_url, "git@github.com:stap780/dizauto.git"
 set :branch, fetch(:branch, "main")
 
 set :user, 'deploy'
+set :console_user, 'deploy'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
