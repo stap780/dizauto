@@ -34,8 +34,8 @@ install_plugin Capistrano::Puma  # Default puma tasks
 install_plugin Capistrano::Puma::Systemd
 
 require 'capistrano/sidekiq'
-install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
-install_plugin Capistrano::Sidekiq::Systemd # Then select your service manager
+# install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
+# install_plugin Capistrano::Sidekiq::Systemd # Then select your service manager
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
