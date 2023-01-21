@@ -33,7 +33,6 @@ require "capistrano/puma"
 install_plugin Capistrano::Puma  # Default puma tasks
 install_plugin Capistrano::Puma::Systemd
 
-require 'capistrano/rails/console'
 require 'capistrano/sidekiq'
 # install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
 # install_plugin Capistrano::Sidekiq::Systemd # Then select your service manager
