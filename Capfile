@@ -27,7 +27,6 @@ install_plugin Capistrano::SCM::Git
 #   https://github.com/capistrano/passenger
 #
 require 'capistrano/rails'
-require "capistrano/bundler"
 require "capistrano/rvm"
 
 require "capistrano/puma"
@@ -36,6 +35,8 @@ install_plugin Capistrano::Puma::Systemd
 
 require 'capistrano/rails/console'
 require 'capistrano/sidekiq'
+# install_plugin Capistrano::Sidekiq  # Default sidekiq tasks
+# install_plugin Capistrano::Sidekiq::Systemd # Then select your service manager
 
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
