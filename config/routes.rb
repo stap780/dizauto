@@ -9,9 +9,18 @@ Rails.application.routes.draw do
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
 
-  devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: {
+    registrations:  'users/registrations',
+    sessions:       'users/sessions',
+    passwords:      'users/passwords',
+  }
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # resources :users do
+  #   collection do
+  #     delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
+  #   end
+  # end
+
+
+
 end

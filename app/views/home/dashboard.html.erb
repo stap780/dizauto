@@ -1,5 +1,14 @@
 <div class="row flex-center min-vh-100 py-6">
-DASHBOARD
-  <a class="nav-link" href="/sidekiq" target="_blank">sidekiq</a>
-
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">DASHBOARD</h4>
+            <%if user_signed_in?%>
+            <p class="card-text"><a class="nav-link" href="#"><%= current_user.email %></p>
+            <p class="card-text"><%= link_to 'Sign out', destroy_user_session_path, data: { turbo_method: :delete } %></p>
+            <% end %>
+            <% if current_user.admin?%>
+            <p class="card-text"><a class="nav-link" href="/sidekiq" target="_blank">sidekiq</a></p>
+            <% end %>
+        </div>
+    </div>
 </div>
