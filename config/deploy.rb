@@ -22,7 +22,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
 
-append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml"
+append :linked_files, "config/master.key", "config/database.yml", "config/secrets.yml", "config/sidekiq.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
 
 
