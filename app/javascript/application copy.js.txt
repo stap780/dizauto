@@ -1,0 +1,32 @@
+// Entry point for the build script in your package.json
+import "@hotwired/turbo-rails"
+import "./controllers"
+import * as bootstrap from "bootstrap"
+  
+let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))  
+let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {  
+  return new bootstrap.Popover(popoverTriggerEl)  
+})
+
+export default class extends Controller {
+  connect() {
+      var myModal = new bootstrap.Modal(document.getElementById('helpModal'), {});
+      myModal.show();
+  }
+}
+
+export default class extends Controller {
+  connect() {
+    let alertList = document.querySelectorAll('.alert');
+    console.log(alertList);
+    let alerts =  [].slice.call(alertList).map(function (element) {
+      console.log(element)
+      // const alert = bootstrap.Alert.getOrCreateInstance(element)
+      return new bootstrap.Alert(element)
+      // setTimeout(() => {
+      //   element.close()
+      // }, 1000); // time in milliseconds  
+    });
+  }
+}
+ 
