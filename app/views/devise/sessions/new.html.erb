@@ -1,36 +1,47 @@
-<div class="row flex-center min-vh-100 py-6">
-  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-    <div class="card">
-      <div class="card-body p-4 p-sm-5">
-        <div class="row flex-between-center mb-2">
-          <div class="col-auto">
-            <h5>Войти</h5>
-          </div>
-          <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">или</span> <span><%= link_to "зарегистрироваться", new_user_registration_path%></span></div>
-        </div>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-         <%= render "devise/shared/error_messages", resource: resource %>
-          <div class="mb-3">
-            <%= f.email_field :email, autocomplete: "email" , class: "form-control", placeholder: "Email address"%>
-          </div>
-          <div class="mb-3">
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
-          </div>
-          <div class="row flex-between-center">
-            <div class="col-auto">
-              <div class="form-check mb-0">
-                <%= f.check_box :remember_me, class: "form-check-input", checked: "checked" %>
-                <%= f.label :remember_me, class: "form-check-label mb-0"  %>
-              </div>
-            </div>
-            <div class="col-auto">
-              <%= link_to "Забыли пароль?", new_user_password_path, class: "fs--1" %>
-            </div>
-          </div>
-          <div class="mb-3">
-          <%= f.submit "Поехали!", class: "btn btn-primary d-block w-100 mt-3"%></div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+	<main class="d-flex w-100 h-100">
+		<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
+
+						<div class="text-center mt-4">
+							<h1 class="h2">Войти</h1>
+							<p class="lead"></p>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<div class="text-center mb-3"><%= image_tag "avatars/avatar.jpg", class: "img-fluid rounded-circle", width: "132", height: "132" %></div>
+									 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                   <%= render "devise/shared/error_messages", resource: resource %>
+										<div class="mb-3">
+                      <%= f.email_field :email, autocomplete: "email" , class: "form-control form-control-lg", placeholder: "Email address"%>
+										</div>
+										<div class="mb-3">
+                      <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Password" %>
+											<small>
+                        <%= link_to "Забыли пароль?", new_user_password_path %>
+											</small>
+										</div>
+										<div>
+											<label class="form-check">
+                        <%= f.label :remember_me, class: "form-check-label"  %>
+                        <%= f.check_box :remember_me, class: "form-check-input", checked: "checked" %>
+											</label>
+										</div>
+										<div class="text-center mt-3">
+                      <%= f.submit "Поехали!", class: "btn btn-lg btn-primary"%>
+										</div>
+							<div class="text-center mt-3"><span class="mb-0 undefined">Нужна регистрация?</span> <span><%= link_to " конечно )", new_user_registration_path%></span></div>
+
+									<% end %>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>

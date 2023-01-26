@@ -10,11 +10,18 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  	<style>
+  	
+    <style>
 		body {
 			opacity: 0;
 		}
+    <% unless user_signed_in? %>
+    .wrapper {
+    background: none;
+    }
+      <% end %>
 	</style>
+
   </head>
 <!--
   HOW TO USE: 
@@ -31,7 +38,7 @@
       <%# </div>
     </main> %>
 
-<body data-theme="colored" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+<body data-theme="<% if user_signed_in? %>colored<% else %>default<% end %>" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
     <% if user_signed_in? %>
     <%= render partial: "/layouts/sidebar"%>
