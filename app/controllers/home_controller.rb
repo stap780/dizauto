@@ -3,7 +3,7 @@ class HomeController < ApplicationController
 
   # GET /homes
   # GET /homes.json
-  def index
+  def index # work without registration - start page
   end # index
 
   def dashboard

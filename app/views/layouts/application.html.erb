@@ -8,14 +8,51 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  	<style>
+		body {
+			opacity: 0;
+		}
+	</style>
   </head>
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light, colored
+  data-layout: fluid (default), boxed
+  data-sidebar-position: left (default), right
+  data-sidebar-layout: default (default), compact
+-->
+  <%# <body>
+    <main class="main">
+    <div class="container" data-layout="container"> %>
+      <%# render partial: "/layouts/notice_messages"%>
+      <%# yield %>
+      <%# </div>
+    </main> %>
 
-  <body>
-    <main class="main <%= current_page_path_as_class %>">
-    <div class="container" data-layout="container">
-      <%= render partial: "/layouts/notice_messages"%>
-      <%= yield %>
-      </div>
-    </main>
+<body data-theme="colored" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+	<div class="wrapper">
+    <% if user_signed_in? %>
+    <%= render partial: "/layouts/sidebar"%>
+
+		<div class="main <%= current_page_path_as_class %>">
+    <%= render partial: "/layouts/navbar"%>
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<%= yield %>
+
+				</div>
+			</main>
+
+      <%= render partial: "/layouts/footer"%>
+
+      <% else %>
+        <%= yield %>
+      <% end %>
+		</div>
+	</div>
   </body>
 </html>
