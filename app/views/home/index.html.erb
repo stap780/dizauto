@@ -1,8 +1,17 @@
-<div class="row flex-center min-vh-100 py-6">
-    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-    <a class="d-flex justify-content-center mb-4" href="#">
-    <img class="me-2" src="https://static.insales-cdn.com/assets/1/1243/1533147/1643869384/logo.svg" alt="" width="200">
-    </a>
-    <%= link_to "Войти", new_user_session_path, class: "btn btn-link btn-sm d-block w-100 link-light" %>
+<main class="d-flex w-100 h-100">
+    <div class="container d-flex flex-column">
+        <div class="row vh-100">
+            <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                <div class="d-table-cell align-middle">
+                		<div class="text-center mt-4">
+							<h1 class="h2">DizAuto</h1>
+							<p class="lead">CRM</p>
+						</div>
+                        <div class="text-center mb-3">
+                            <%= link_to "Войти", new_user_session_path, class: "btn btn-link" %>
+                        </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</main>
