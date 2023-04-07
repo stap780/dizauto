@@ -9,17 +9,14 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
   	
     <style>
-		body {
-			opacity: 0;
-		}
+		body { opacity: 0; }
     <% unless user_signed_in? %>
-    .wrapper {
-    background: none;
-    }
-      <% end %>
+    .wrapper { background: none; }
+    <% end %>
 	</style>
 
   </head>
@@ -48,9 +45,13 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
+        <div id="our_flash">
+          <%= render "shared/flash"%>
+        </div>
 
-					<%= yield %>
+          <%= render "shared/toast"%>
 
+          <%= yield %>
 				</div>
 			</main>
 

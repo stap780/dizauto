@@ -1,0 +1,29 @@
+<%= turbo_frame_tag prodprop do %>
+    <%= form_with(model: prodprop, class: "row align-items-center", data: {controller: 'prodprop slimselect'}) do |f|%>
+        <%= render 'shared/errors', object: prodprop%>
+
+        <div class="mb-3 col-md-5">
+            <%= f.label :property_id, t('property_one'), class: "visually-hidden" %>
+            <%= f.select :property_id, Property.pluck(:title, :id), {include_blank: true, prompt: t('property_one')}, 
+                                        {data: {action: "change->prodprop#change_property", 
+                                                slimselect_target: "property"}}  %>
+        </div>
+        <div class="mb-3 col-md-5 wrap-characteristic" id="wrap-characteristic<%=prodprop.id.to_s%>" data-prodprop-target= "characteristicwrap">
+            <%= f.label :characteristic_id, t('characteristic_one'), class: "visually-hidden" %>
+            <% char_collection = prodprop.characteristic_id.present? ? prodprop.property.characteristics.pluck(:title, :id) : []%>
+            <%= f.select :characteristic_id, char_collection, {include_blank: true, prompt: t('characteristic_one')}, 
+                                            {data: {prodprop_target: "characteristic", 
+                                                    slimselect_target: "characteristic"}}  %>
+        </div>
+        <% product_id_value = prodprop.product_id.present? ? prodprop.product_id : params[:product_id] %>
+        <%= f.hidden_field :product_id, class: "form-control", value: product_id_value %>
+        <%= f.hidden_field :title, class: "form-control" %>
+        <%= f.hidden_field :value, class: "form-control" %>
+        
+        <div class="mb-3 col-md-2">
+           <label class="form-label">  </label>
+           <%= button_tag(type: 'submit', :class => "btn btn-sm btn-outline-secondary") do %><i class="fa-solid fa-floppy-disk"></i><% end %>
+        </div>
+
+    <% end %>
+<% end %>

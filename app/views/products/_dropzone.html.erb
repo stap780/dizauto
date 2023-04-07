@@ -1,0 +1,13 @@
+<%= render '/shared/image_form', :f => @product %>
+<%= dropzone_controller_div do %>
+    <%= form_with model: @product, url: update_image_product_path, method: :post, class: "image-form" do |f| %>
+        <%= f.label :images, class: "label d-none" %>
+        <%= f.file_field :images, 'data-dropzone-target': 'input', direct_upload: true, multiple: true  %>
+        
+        <div class="dropzone-msg dz-message needsclick">
+            <h3 class="dropzone-msg-title">Drag here to upload or click here to browse</h3>
+            <span class="dropzone-msg-desc text-sm"></span>
+        </div>
+    <%= f.button 'Save', class: 'd-none btn-primary mt-2' %>
+    <% end %>
+<% end %>

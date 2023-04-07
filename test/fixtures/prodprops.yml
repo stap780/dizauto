@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  value: MyString
+  product_id: 1
+  property_id: 1
+  characteristic_id: 1
+
+two:
+  title: MyString
+  value: MyString
+  product_id: 1
+  property_id: 1
+  characteristic_id: 1

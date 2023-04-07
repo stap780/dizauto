@@ -1,0 +1,8 @@
+<% flash.each do |k, v| %>
+    <%# tag.div v, class: "alert alert-#{k} alert-fade" %>
+    <% f_class = k == 'notice' ? 'info' : k %>
+    <div class="alert alert-<%= f_class %> alert-dismissible alert-fade p-2 alert-fixed" role="alert">
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert-message"><%= v %></div>
+    </div>
+<% end %>

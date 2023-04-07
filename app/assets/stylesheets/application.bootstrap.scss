@@ -5,6 +5,7 @@
  */
 
 // Variables
+@import "lights.css";
 @import "1-variables/app";
 
 @import 'bootstrap/scss/bootstrap';
@@ -86,12 +87,13 @@
 @import "5-vendor/quill";
 @import "5-vendor/simplebar";
 
+@import 'actiontext.css';
+@import "dropzone.css";
+@import "slimselect.css";
+
+
 $h1-font-size: 1rem; // this line was added 
 body {
-    /*display: flex;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;*/
     background-color: #edf2f9;
 }
 a {
@@ -130,4 +132,48 @@ main.page-home{
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
     border: 1px solid #d8e2ef;
     color: #344050;
+}
+.alert {
+    z-index: 7000;
+}
+.alert-fade {
+    animation-name: fadeOut;
+    animation-duration: 0.1s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+}
+.alert-fixed {
+    --mdb-alert-fixed-z-index: 1070;
+    position: fixed;
+    z-index: var(--mdb-alert-fixed-z-index);
+    width: 535px;
+    top: 10px;
+    right: 10px;
+    bottom: unset;
+    left: unset;
+    transform: unset;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+.nav-pills .nav-link {
+    color: black;
+  }
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    color: var(--bs-nav-link-color);;
+    background-color: transparent!important;
 }

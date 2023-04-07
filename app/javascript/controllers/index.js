@@ -4,5 +4,20 @@
 
 import { application } from "./application"
 
+import DropzoneController from "./dropzone_controller"
+application.register("dropzone", DropzoneController)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import ProdpropController from "./prodprop_controller"
+application.register("prodprop", ProdpropController)
+
+import SlimSelectController from "./slimselect_controller"
+application.register("slimselect", SlimSelectController)
+
+import SortableController from "./sortable_controller"
+application.register("sortable", SortableController)
+
+import ToastController from "./toast_controller"
+application.register("toast", ToastController)

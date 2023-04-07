@@ -1,0 +1,56 @@
+<%= link_to "<i data-feather='plus'></i> New user".html_safe, new_user_path, class: "btn btn-primary float-end mt-n1" %>
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle">Users</h1>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+    <div class="row">
+      <div class="col-sm-12">
+        <table id="datatables-products" class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><b>#<%= user.id%></b></td>
+              <td><%= user.email %></td>
+              <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-primary btn-sm" %></td>
+            </tr>
+              <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-5">
+        <div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite">Showing 1 to 10 of 15 entries</div>
+      </div>
+      <div class="col-sm-12 col-md-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="datatables-orders_paginate">
+        <%= will_paginate @users %>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

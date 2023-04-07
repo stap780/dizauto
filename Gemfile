@@ -8,11 +8,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
-
-# Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
-
-# Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
@@ -29,12 +25,7 @@ gem "cssbundling-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-
-# Use Redis adapter to run Action Cable in production
 gem "redis", "~> 4.0"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -42,11 +33,8 @@ gem "redis", "~> 4.0"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
-# Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Use Sass to process CSS
-# gem "sassc-rails"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
@@ -54,7 +42,11 @@ gem 'devise'
 gem 'sidekiq'
 gem 'high_voltage', '~> 3.1'
 gem 'cancancan'
-
+gem 'ransack'
+gem 'will_paginate', '~> 3.3'
+gem 'acts_as_list'
+gem 'requestjs-rails'
+gem 'erb-formatter', '~> 0.4.3'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

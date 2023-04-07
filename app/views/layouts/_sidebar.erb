@@ -26,11 +26,10 @@
 								<a class="dropdown-item" href="pages-profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="pages-settings.html"><i class="align-middle me-1" data-feather="settings"></i> Settings &
-									Privacy</a>
+								<a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
 								<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 								<div class="dropdown-divider"></div>
-								<%if user_signed_in?%>
+								<% if user_signed_in? %>
                                 <%= link_to 'Log out', destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
                                 <% end %>
 								</div>
@@ -43,43 +42,85 @@
 					<li class="sidebar-header">Pages</li>
 					<li class="sidebar-item active">
 						<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
-							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboards</span>
+							 <i class="align-middle" data-feather="bar-chart-2"></i><span class="align-middle">Главная</span>
 						</a>
 						<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-							<li class="sidebar-item active"><a class="sidebar-link" href="index.html">Analytics</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="dashboard-ecommerce.html">E-Commerce <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="dashboard-crypto.html">Crypto <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
+							<li class="sidebar-item active"><%= link_to 'Дашборд', dashboard_path, class: "sidebar-link"%></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#products" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Товары</span>
+						</a>
+						<ul id="products" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
+								<%= link_to 'Каталог', products_path, class: "sidebar-link" %></li>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Экспорт</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#inbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Вх Документы</span>
+						</a>
+						<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="">Убытки</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Акты</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Поступления</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#outbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Продажи</span>
+						</a>
+						<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="">Заказы</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Счета</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Накладные</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#warehouse" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="briefcase"></i> <span class="align-middle">Склад</span>
+						</a>
+						<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item"><a class="sidebar-link" href="">Приёмка</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Перемещение</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Оприходование</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Списание</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#lists" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="list"></i> <span class="align-middle">Справочники</span>
+						</a>
+						<ul id="lists" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item <%= 'active' if current_page?(properties_path) %>">
+								<%= link_to 'Параметры товаров', properties_path, class: "sidebar-link" %></li>
+							</li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Детали</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Округа</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Водители</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Категории Авито</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Виды ремонтных работ</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Склады</a></li>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#settings" data-bs-toggle="collapse" class="sidebar-link collapsed">
+							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Настройки</span>
+						</a>
+						<ul id="settings" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
+								<%= link_to 'Пользователи', users_path, class: "sidebar-link" %></li>
+							</li>						
+							<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Почта</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Avito API</a></li>
 						</ul>
 					</li>
 
-					<li class="sidebar-item">
-						<a data-bs-target="#pages" data-bs-toggle="collapse" class="sidebar-link collapsed">
-							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Pages</span>
-						</a>
-						<ul id="pages" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-settings.html">Settings</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-projects.html">Projects <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-clients.html">Clients <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-orders.html">Orders <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-pricing.html">Pricing <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-chat.html">Chat <span
-										class="sidebar-badge badge bg-primary">Pro</span></a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="pages-blank.html">Blank Page</a></li>
-						</ul>
-					</li>
-
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-							<i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
-						</a>
-					</li>
-
+<!--
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="pages-invoice.html">
 							<i class="align-middle" data-feather="credit-card"></i> <span class="align-middle">Invoice</span>
@@ -267,8 +308,9 @@
 							</li>
 						</ul>
 					</li>
+					-->
 				</ul>
-
+<!--
 				<div class="sidebar-cta">
 					<div class="sidebar-cta-content">
 						<strong class="d-inline-block mb-2">Weekly Sales Report</strong>
@@ -281,5 +323,6 @@
 						</div>
 					</div>
 				</div>
+-->
 			</div>
 		</nav>
