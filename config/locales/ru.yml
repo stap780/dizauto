@@ -339,7 +339,6 @@ ru:
       two_words_connector: " и "
       words_connector: ", "
   time:
-
     am: утра
     formats:
       default: "%a, %d %b %Y, %H:%M:%S %z"
