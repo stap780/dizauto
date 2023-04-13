@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
   def new
     @product = Product.new
     # @product.properties.build
+    @prodprops = @product.prodprops
   end
 
   # GET /products/1/edit
