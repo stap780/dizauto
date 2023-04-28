@@ -1,0 +1,4 @@
+export:
+  cron: "0 * * * *" #every hour
+  class: "ExportScheduler"
+  queue: "export"

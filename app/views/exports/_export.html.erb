@@ -1,0 +1,11 @@
+<tr id="<%= dom_id export %>">
+  <td><b><%= export.id%></b></td>
+  <td><%= export.title%></td>
+  <td><%= link_to export.link, "/"+export.link, target: '_blank' if export.link %></td>
+  <td><%= export.format%></td>
+  <td><%= export.time%></td>
+  <td><%= export.created_at.strftime("%d/%m/%Y")%></td>
+  <td>
+    <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_export_path(export), class: 'px-2' %>
+    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, export, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %></td>
+</tr>

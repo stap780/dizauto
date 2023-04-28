@@ -5,8 +5,7 @@
         <div class="mb-3 col-md-5">
             <%= f.label :property_id, t('property_one'), class: "visually-hidden" %>
             <%= f.select :property_id, Property.pluck(:title, :id), {include_blank: true, prompt: t('property_one')}, 
-                                        {data: {action: "change->prodprop#change_property", 
-                                                slimselect_target: "property"}}  %>
+                                        {data: {action: "change->prodprop#change_property", slimselect_target: "property"}}  %>
         </div>
         <div class="mb-3 col-md-5 wrap-characteristic" id="wrap-characteristic<%=prodprop.id.to_s%>" data-prodprop-target= "characteristicwrap">
             <%= f.label :characteristic_id, t('characteristic_one'), class: "visually-hidden" %>

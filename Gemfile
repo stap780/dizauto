@@ -40,6 +40,7 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 gem 'devise'
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 gem 'high_voltage', '~> 3.1'
 gem 'cancancan'
 gem 'ransack'
@@ -47,6 +48,9 @@ gem 'will_paginate', '~> 3.3'
 gem 'acts_as_list'
 gem 'requestjs-rails'
 gem 'erb-formatter', '~> 0.4.3'
+gem 'liquid'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

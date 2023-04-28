@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
 
   def self.ransackable_attributes(auth_object = nil)
-    ["created_at", "email", "encrypted_password", "id", "remember_created_at", "reset_password_sent_at", "reset_password_token", "role", "updated_at"]
+    User.attribute_names
   end
 
   def set_default_role

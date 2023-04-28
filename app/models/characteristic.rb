@@ -1,8 +1,10 @@
 class Characteristic < ApplicationRecord
     belongs_to :property
+    has_many :prodprops, -> { order(id: :asc) }
+    has_many :products, through: :prodprops
 
     def self.ransackable_attributes(auth_object = nil)
-      ["created_at", "id", "property_id", "title", "updated_at"]
+      Characteristic.attribute_names
     end
 
 end

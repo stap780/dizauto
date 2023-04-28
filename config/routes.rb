@@ -1,6 +1,8 @@
 require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :exports
   resources :prodprops
   resources :properties do
     resources :characteristics

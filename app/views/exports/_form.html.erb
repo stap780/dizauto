@@ -1,0 +1,58 @@
+<%= form_with(model: export, data: {controller: 'export', 'export-dnone-class': 'd-none'}) do |f| %>
+   <%= render "shared/errors", object: export%>
+
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header"></div>
+              <div class="card-body">
+                  <div class="row">
+                      <div class="mb-3 col-md-12">
+                          <%= f.label :title, class: "form-label" %>
+                          <%= f.text_field :title, class: "form-control" %>
+                      </div>
+                      <div class="mb-3 col-md-12">
+                          <%= f.label :link, class: "form-label" %>
+                          <%= f.text_field :link, disabled: true, placeholder: "Ссылка на файл появится после сохранения экспорта",
+                                                                    value: f.object.link.present? ? f.object.link : nil , class: "form-control" %>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                          <%= f.label :time, class: "form-label" %>
+                          <%= f.select :time, Array.new(24){|e| e}, {}, { class: "form-control" }%>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                          <%= f.label :format, class: "form-label" %>
+                          <%= f.select :format, [['csv','csv'],['xml','xml'],['xlsx','xlsx']], {}, {  class: "form-select",
+                                                                                        selected: f.object.format.present? ? f.object.format : ['xml','xml'], 
+                                                                                        data: {action: "change->export#change_format", export_target: "format"} } %>
+                      </div>
+                      <div class="mb-3">
+                        <div class="form-check form-switch">
+                        <%= f.check_box :use_property, {class: "form-check-input", role: "switch"} %>
+                        <%= f.label 'Использовать параметры товаров в выгрузке', class: "form-check-label"%>
+                        </div>
+                      </div>
+                        <div class="mb-3 col-md-12 <% if f.object.format == 'xml'%>d-none<%end%>" data-export-target= "attributes">
+                        <label class="form-label" for="excel_attributes">Поля для выгрузки в эксель</label>
+                        <% Product.attribute_names.each do |key| %>
+                        <div class="form-check">
+                            <%= f.check_box :excel_attributes, { multiple: true, class: "form-check-input", checked: f.object.excel_attributes&.include?(key.to_s) }, key, nil %>
+                            <%= f.label key , class: "form-check-label"%>
+                        </div>
+                        <% end %>
+                      </div>
+                      <div class="mb-3 col-md-12 <% if f.object.format == 'xlsx' || f.object.format == 'csv'%>d-none<%end%>" data-export-target= "xml">
+                          <%= f.label :template, class: "form-label" %>
+                          <%= f.text_area :template, class: "form-control" , rows: 30 %>
+                      </div>
+                  </div>
+              </div>
+              <div class="card-footer">
+                  <%= f.submit class: "btn btn-primary" %>
+                  <%= link_to t('back'), exports_path, class: "btn btn-outline-primary" %>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<% end %>

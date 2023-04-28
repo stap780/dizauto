@@ -14,9 +14,13 @@ class Product < ApplicationRecord
 
 
     def self.ransackable_attributes(auth_object = nil)
-        ["barcode", "costprice", "created_at", "description", "id", "price", "quantity", "sku", "title", "updated_at", "video"]
+        Product.attribute_names
     end
 
+    def properties_data
+        self.prodprops.map{|prodprop| { prodprop.property.title.to_s =>
+                                        prodprop.property.c_val(prodprop.characteristic_id).title.to_s } }
+    end
 
     def normalize_data_white_space
         self.attributes.each do |key, value|

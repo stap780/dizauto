@@ -5,7 +5,7 @@ class Property < ApplicationRecord
     accepts_nested_attributes_for :characteristics, reject_if: ->(attributes){ attributes['title'].blank? }, allow_destroy: true
 
     def self.ransackable_attributes(auth_object = nil)
-        ["created_at", "id", "title", "updated_at"]
+        Property.attribute_names
     end
 
     def c_val(characteristic_id)

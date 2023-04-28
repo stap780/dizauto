@@ -1,22 +1,22 @@
 <%= form_with(model: property) do |f| %>
-<%= render "shared/errors", object: property%>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header"></div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                        <%= f.label :title, class: "form-label" %>
-                        <%= f.text_field :title, class: "form-control" %>
+    <%= render "shared/errors", object: property%>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <%= f.label :title, class: "form-label" %>
+                            <%= f.text_field :title, class: "form-control" %>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <%= f.submit class: "btn btn-primary" %>
-                <%= link_to t('back'), properties_path, class: "btn btn-outline-primary" %>
+                <div class="card-footer">
+                    <%= f.submit class: "btn btn-primary" %>
+                    <%= link_to t('back'), properties_path, class: "btn btn-outline-primary" %>
+                </div>
             </div>
         </div>
     </div>
-  </div>
 <% end %>

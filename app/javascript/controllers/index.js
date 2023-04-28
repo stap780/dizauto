@@ -21,3 +21,6 @@ application.register("sortable", SortableController)
 
 import ToastController from "./toast_controller"
 application.register("toast", ToastController)
+
+import ExportController from "./export_controller"
+application.register("export", ExportController)

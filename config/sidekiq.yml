@@ -3,10 +3,14 @@
 :queues:
     - default
     - mailers
+    - export
+:scheduler:
+  :dynamic: true
+
 
 development:
   :concurrency: 5
 staging:
   :concurrency: 10
 production:
-  :concurrency: 20
+  :concurrency: 20 

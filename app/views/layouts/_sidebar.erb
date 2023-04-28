@@ -56,7 +56,9 @@
 							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
 								<%= link_to 'Каталог', products_path, class: "sidebar-link" %></li>
 							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Экспорт</a></li>
+							<li class="sidebar-item <%= 'active' if current_page?(exports_path) %>">
+								<%= link_to 'Экспорт', exports_path, class: "sidebar-link" %></li>
+							</li>
 						</ul>
 					</li>
 					<li class="sidebar-item">
