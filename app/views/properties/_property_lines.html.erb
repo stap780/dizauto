@@ -1,0 +1,7 @@
+<div class="my-4">
+    <%= turbo_frame_tag Prop.new %>
+</div>
+
+<%= turbo_frame_tag 'props' do %>
+    <%= render @props  if @props.present? %>
+<% end %>

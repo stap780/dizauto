@@ -1,5 +1,5 @@
 <tr id="<%= dom_id characteristic %>">
-  <td><b>#<%= characteristic.id%></b></td>
+  <td><b><%= characteristic.id%></b></td>
   <td><%= characteristic.title %></td>
   <td>
     <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_property_characteristic_path(@property, characteristic), class: 'px-2' %>

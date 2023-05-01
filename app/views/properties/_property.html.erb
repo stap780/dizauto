@@ -1,5 +1,5 @@
 <tr id="<%= dom_id property %>">
-    <td><b>#<%= property.id%></b></td>
+    <td><b><%= property.id%></b></td>
     <td><%= property.title %><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_property_path(property), class: 'px-2' %></td>
     <td>
         <%= property.characteristics.pluck(:title).join(',') if  property.characteristics %>

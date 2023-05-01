@@ -100,7 +100,9 @@
 							<li class="sidebar-item <%= 'active' if current_page?(properties_path) %>">
 								<%= link_to 'Параметры товаров', properties_path, class: "sidebar-link" %></li>
 							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Детали</a></li>
+							<li class="sidebar-item <%= 'active' if current_page?(detals_path) %>">
+								<%= link_to 'Детали', detals_path, class: "sidebar-link" %></li>
+							</li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Округа</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Водители</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Категории Авито</a></li>

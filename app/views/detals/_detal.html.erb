@@ -1,0 +1,8 @@
+<tr id="<%= dom_id detal %>">
+    <td><b><%= detal.id%></b></td>
+    <td><%= detal.sku %></td>
+    <td><%= detal.title %></td>
+    <td><%= detal.description %></td>
+    <td><%= link_to "Edit", edit_detal_path(detal), class: "btn btn-primary btn-sm px-2" %>
+    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, detal, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
+</tr>

@@ -1,7 +1,7 @@
 <tr id="<%= dom_id export %>">
   <td><b><%= export.id%></b></td>
   <td><%= export.title%></td>
-  <td><%= link_to export.link, "/"+export.link, target: '_blank' if export.link %></td>
+  <td><%= link_to export.link, export.link, target: '_blank' if export.link %></td>
   <td><%= export.format%></td>
   <td><%= export.time%></td>
   <td><%= export.created_at.strftime("%d/%m/%Y")%></td>

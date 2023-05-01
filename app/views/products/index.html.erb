@@ -37,7 +37,7 @@
             <tbody>
               <% @products.each do |product| %>
                 <tr id="<%= dom_id product %>">
-                  <td><b>#<%= product.id%></b></td>
+                  <td><b><%= product.id%></b></td>
                   <td><%= product.sku%></td>
                   <td><%= product.barcode%></td>
                   <td><%= product.title%></td>

@@ -1,6 +1,6 @@
 class Property < ApplicationRecord
-    has_many :prodprops, -> { order(id: :asc) }
-    has_many :products, through: :prodprops
+    has_many :props, -> { order(id: :asc) }
+    has_many :products, through: :props
     has_many :characteristics, -> { order(:id) }, dependent: :destroy
     accepts_nested_attributes_for :characteristics, reject_if: ->(attributes){ attributes['title'].blank? }, allow_destroy: true
 

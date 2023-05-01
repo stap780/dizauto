@@ -11,7 +11,9 @@ class Drop::Export < Liquid::Drop
         l_products = []
         @export.products.each do |pr|
             b = pr.attributes
-            b['properties'] = pr.prodprops.map{|l| [l.property.title,l.characteristic.title]}
+            b['properties'] = pr.props.map{|l| [l.property.title,l.characteristic.title]}
+            host = Rails.env.development? ? 'http://localhost:3000' : 'http://95.163.236.170'
+            b['images'] = product.image_urls.map{|h| host+h[:url]}
             l_products.push(b)
         end
         # puts "l_products => "+l_products.to_s

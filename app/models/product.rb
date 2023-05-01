@@ -1,7 +1,9 @@
 class Product < ApplicationRecord
-    has_many :prodprops, -> { order(id: :asc) }
-    has_many :properties, through: :prodprops
-    accepts_nested_attributes_for :prodprops, allow_destroy: true
+    include Rails.application.routes.url_helpers
+
+    has_many :props
+    has_many :properties, through: :props
+    accepts_nested_attributes_for :props, allow_destroy: true
     has_rich_text :description
     has_many_attached :images, dependent: :destroy do |attachable|
         attachable.variant :thumb, resize_and_pad: [120, 120]
@@ -18,14 +20,7 @@ class Product < ApplicationRecord
     end
 
     def properties_data
-        self.prodprops.map{|prodprop| { prodprop.property.title.to_s =>
-                                        prodprop.property.c_val(prodprop.characteristic_id).title.to_s } }
-    end
-
-    def normalize_data_white_space
-        self.attributes.each do |key, value|
-            self[key] = value.squish if value.respond_to?("squish")
-        end
+        self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
     end
 
     def images=(attachables)
@@ -33,6 +28,24 @@ class Product < ApplicationRecord
         if attachables.any?
             attachment_changes["images"] =
             ActiveStorage::Attached::Changes::CreateMany.new("images", self, images.blobs + attachables)
+        end
+    end
+
+    def image_urls
+        return unless self.images.attached?
+        self.images.map do |pr_image|
+            pr_image.blob.attributes.slice('filename', 'byte_size', 'id').merge(url: pr_image_url(pr_image))
+        end
+    end
+
+    def pr_image_url(image)
+        rails_blob_path(image, only_path: true)
+    end
+
+    private
+    def normalize_data_white_space
+        self.attributes.each do |key, value|
+            self[key] = value.squish if value.respond_to?("squish")
         end
     end
 

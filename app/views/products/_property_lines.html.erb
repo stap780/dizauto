@@ -1,9 +1,0 @@
-<%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prodprop_path(product_id: @product.id), class: 'btn btn-primary', data: {turbo_frame: dom_id(Prodprop.new) } %>
-
-<div class="my-4">
-    <%= turbo_frame_tag Prodprop.new %>
-</div>
-
-<%= turbo_frame_tag 'prodprops' do %>
-    <%= render @prodprops %>
-<% end %>

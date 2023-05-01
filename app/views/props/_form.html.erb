@@ -1,0 +1,27 @@
+<%= turbo_frame_tag prop do %>
+    <%= form_with(model: prop, class: "row align-items-center", data: {controller: 'prop slimselect'}) do |f|%>
+        <%= render 'shared/errors', object: prop%>
+
+        <div class="mb-3 col-md-5">
+            <%= f.label :property_id, t('property_one'), class: "visually-hidden" %>
+            <%= f.select :property_id, Property.pluck(:title, :id), {include_blank: true, prompt: t('property_one')}, 
+                                        {data: {action: "change->prop#change_property", slimselect_target: "property"}}  %>
+        </div>
+        <div class="mb-3 col-md-5 wrap-characteristic" id="wrap-characteristic<%=prop.id.to_s%>" data-prop-target= "characteristicwrap">
+            <%= f.label :characteristic_id, t('characteristic_one'), class: "visually-hidden" %>
+            <% char_collection = prop.characteristic_id.present? ? prop.property.characteristics.pluck(:title, :id) : []%>
+            <%= f.select :characteristic_id, char_collection, {include_blank: true, prompt: t('characteristic_one')}, 
+                                            {data: {prop_target: "characteristic", slimselect_target: "characteristic"}}  %>
+        </div>
+        <% product_id_value = prop.product_id.present? ? prop.product_id : params[:product_id] %>
+        <%= f.hidden_field :product_id, class: "form-control", value: product_id_value %>
+        <% detal_id_value = prop.detal_id.present? ? prop.detal_id : params[:detal_id] %>
+        <%= f.hidden_field :detal_id, class: "form-control", value: detal_id_value %>
+        
+        <div class="mb-3 col-md-2">
+           <label class="form-label">  </label>
+           <%= button_tag(type: 'submit', :class => "btn btn-sm btn-outline-secondary") do %><i class="fa-solid fa-floppy-disk"></i><% end %>
+        </div>
+
+    <% end %>
+<% end %>

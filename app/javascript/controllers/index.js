@@ -10,8 +10,8 @@ application.register("dropzone", DropzoneController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
-import ProdpropController from "./prodprop_controller"
-application.register("prodprop", ProdpropController)
+import PropController from "./prop_controller"
+application.register("prop", PropController)
 
 import SlimSelectController from "./slimselect_controller"
 application.register("slimselect", SlimSelectController)

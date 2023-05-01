@@ -1,0 +1,17 @@
+<%= turbo_frame_tag prop do %>
+    <div class="row" >
+        <div class="mb-3 col-md-3 d-none">
+            <%= prop.product_id%>
+        </div>
+        <div class="mb-3 col-md-3">
+            <%= prop.property.title.to_s%>
+        </div>
+        <div class="mb-3 col-md-3">
+            <%= prop.property.c_val(prop.characteristic_id).title.to_s if prop.present? %>
+        </div>
+        <div class="mb-3 col-md-3">
+            <%= link_to '<i class="fas fa-pencil"></i>'.html_safe, edit_prop_path(prop), class: 'px-2'%>
+            <%= link_to '<i class="fas fa-trash"></i>'.html_safe, prop_path(prop), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+        </div>
+    </div>
+<% end %>
