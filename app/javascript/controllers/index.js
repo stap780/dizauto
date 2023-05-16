@@ -24,3 +24,6 @@ application.register("toast", ToastController)
 
 import ExportController from "./export_controller"
 application.register("export", ExportController)
+
+import CompanyController from "./company_controller"
+application.register("company", CompanyController)

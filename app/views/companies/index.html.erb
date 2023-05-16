@@ -1,0 +1,54 @@
+<%= link_to "<i data-feather='plus'></i> #{Company.model_name.human}".html_safe, new_company_path, class: "btn btn-primary float-end mt-n1" %>
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle"><%= Company.model_name.human(count: 2)%></h1>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-detals_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="datatables-companies" class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th><%= t('helpers.label.company.inn')%></th>
+                <th><%= t('helpers.label.company.kpp')%></th>
+                <th><%= t('helpers.label.company.title')%></th>
+                <th><%= t('helpers.label.company.ur_address')%></th>
+                <th><%= t('helpers.label.company.fact_address')%></th>
+                <th><%= t('helpers.label.company.ogrn')%></th>
+                <th><%= t('helpers.label.company.okpo')%></th>
+                <th><%= t('helpers.label.company.bik')%></th>
+                <th><%= t('helpers.label.company.bank_title')%></th>
+                <th><%= t('helpers.label.company.bank_account')%></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @companies.each do |company| %>
+                  <%= render company %>
+              <% end %>
+              </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @companies %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { get } from "@rails/request.js"
 
-// Connects to data-controller="prop"
 export default class extends Controller {
   static targets = ['format','attributes','xml' ]
   static classes = [ "dnone" ]

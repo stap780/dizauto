@@ -1,0 +1,16 @@
+
+<tr id="<%= dom_id company %>">
+    <td><b><%= company.id%></b></td>
+    <td><%= company.inn %></td>
+    <td><%= company.kpp %></td>
+    <td><%= company.title %></td>
+    <td><%= company.ur_address %></td>
+    <td><%= company.fact_address %></td>
+    <td><%= company.ogrn %></td>
+    <td><%= company.okpo %></td>
+    <td><%= company.bik %></td>
+    <td><%= company.bank_title %></td>
+    <td><%= company.bank_account %></td>
+    <td><%= link_to "Edit", edit_company_path(company), class: "btn btn-primary btn-sm px-2" %>
+    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, company, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
+</tr>
