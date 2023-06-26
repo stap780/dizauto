@@ -1,0 +1,26 @@
+<%# form_tag update_from_file_incases_path, method: :put do %>
+  
+  <div class="row">
+      <div class="col-md-12">
+          <div class="card">
+              <div class="card-header py-3 px-3 border-bottom">
+              Информация из импортируемого файла. (Всего убытков: <%= @virtual_incases.count.to_s %>)
+              </div>
+              <div class="card-body">
+                <% @virtual_incases.each_with_index do |v_incase, index|%>
+                    <%= turbo_frame_tag "import_incase_#{index.to_s}" do %>
+                        <%= render "form_import", incase: @incase, nested_form_index: index, import_incase_data: v_incase %>
+                    <% end %>
+                <% end %>
+
+                <%# render 'old_group_by_unumber'%>
+              </div>
+              <div class="card-footer">
+                <%# submit_tag "Сохранить", class: "btn btn-success" %>
+                <%# link_to 'Назад', :back, class: 'btn btn-outline-primary'  %>
+              </div>
+          </div>
+      </div>
+  </div>
+
+<%# end %>

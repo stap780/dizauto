@@ -1,0 +1,12 @@
+<tr id="<%= dom_id email_setup %>">
+  <td><%= email_setup.address%></td>
+  <td><%= email_setup.domain %></td>
+  <td><%= email_setup.authentication%></td>
+  <td><%= email_setup.user_name%></td>
+  <td><%= email_setup.user_password%></td>
+  <td><%= email_setup.port%></td>
+  <td><%= email_setup.tls%></td>
+  <td>
+    <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_email_setup_path(email_setup), class: 'px-2' %>
+    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, email_setup, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %></td>
+</tr>

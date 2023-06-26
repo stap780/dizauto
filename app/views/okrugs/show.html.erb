@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @okrug %>
+
+<div>
+  <%= link_to "Edit this okrug", edit_okrug_path(@okrug) %> |
+  <%= link_to "Back to okrugs", okrugs_path %>
+
+  <%= button_to "Destroy this okrug", @okrug, method: :delete %>
+</div>

@@ -4,17 +4,35 @@
 
 import { application } from "./application"
 
+import CompanyController from "./company_controller"
+application.register("company", CompanyController)
+
 import DropzoneController from "./dropzone_controller"
 application.register("dropzone", DropzoneController)
+
+import ExportController from "./export_controller"
+application.register("export", ExportController)
+
+import FormController from "./form_controller"
+application.register("form", FormController)
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import IncaseController from "./incase_controller"
+application.register("incase", IncaseController)
+
+import ModalController from "./modal_controller"
+application.register("modal", ModalController)
+
+import NestedFormController from "./nested_form_controller"
+application.register("nested-form", NestedFormController)
+
 import PropController from "./prop_controller"
 application.register("prop", PropController)
 
-import SlimSelectController from "./slimselect_controller"
-application.register("slimselect", SlimSelectController)
+import SlimselectController from "./slimselect_controller"
+application.register("slimselect", SlimselectController)
 
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
@@ -22,8 +40,5 @@ application.register("sortable", SortableController)
 import ToastController from "./toast_controller"
 application.register("toast", ToastController)
 
-import ExportController from "./export_controller"
-application.register("export", ExportController)
-
-import CompanyController from "./company_controller"
-application.register("company", CompanyController)
+import TurboController from "./turbo_controller"
+application.register("turbo", TurboController)

@@ -8,7 +8,7 @@ export default class extends Controller {
     
   }
   change_property(e) {  
-    e.preventDefault()
+    e.preventDefault();
     //console.log('hello');
     //console.log('event',e);
     //console.log('property e.target',e.target);

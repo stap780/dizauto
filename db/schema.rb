@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_01_134551) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_062342) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,12 +73,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_134551) do
     t.string "bank_account"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tip"
+    t.string "short_title"
   end
 
   create_table "detals", force: :cascade do |t|
     t.string "sku"
     t.string "title"
     t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "email_setups", force: :cascade do |t|
+    t.string "address"
+    t.integer "port"
+    t.string "domain"
+    t.string "authentication"
+    t.string "user_name"
+    t.string "user_password"
+    t.boolean "tls"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -93,6 +107,49 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_134551) do
     t.datetime "updated_at", null: false
     t.string "excel_attributes"
     t.boolean "use_property"
+  end
+
+  create_table "incases", force: :cascade do |t|
+    t.string "region"
+    t.integer "strah_id"
+    t.string "stoanumber"
+    t.string "unumber"
+    t.integer "company_id"
+    t.string "carnumber"
+    t.datetime "date"
+    t.string "modelauto"
+    t.decimal "totalsum", precision: 12, scale: 2
+    t.string "status"
+    t.string "tip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "incase_id"
+    t.string "title"
+    t.integer "quantity"
+    t.string "katnumber"
+    t.decimal "price", precision: 12, scale: 2
+    t.decimal "sum", precision: 12, scale: 2
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "okrugs", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "places", force: :cascade do |t|
+    t.string "sector"
+    t.string "cell"
+    t.integer "product_id"
+    t.integer "warehouse_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -134,6 +191,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_134551) do
     t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "warehouses", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

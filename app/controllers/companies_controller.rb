@@ -29,7 +29,7 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to company_url(@company), notice: "Company was successfully created." }
+        format.html { redirect_to companies_url, notice: "Company was successfully created." }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to company_url(@company), notice: "Company was successfully updated." }
+        format.html { redirect_to companies_url, notice: "Company was successfully updated." }
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,6 +69,6 @@ class CompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def company_params
-      params.require(:company).permit(:inn, :kpp, :title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account)
+      params.require(:company).permit(:tip,:inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account)
     end
 end

@@ -1,0 +1,6 @@
+<% @file_data.each do |file_data|%>
+    <%#` file_data.to_s %>
+    <% file_data.each do |k,v|%>
+        <%=hidden_field_tag "lines[][#{k}]", v %>
+    <%end%>
+<%end%>

@@ -4,6 +4,10 @@ class Product < ApplicationRecord
     has_many :props
     has_many :properties, through: :props
     accepts_nested_attributes_for :props, allow_destroy: true
+    has_many :places
+    has_many :warehouses, through: :places
+    accepts_nested_attributes_for :places, allow_destroy: true
+    
     has_rich_text :description
     has_many_attached :images, dependent: :destroy do |attachable|
         attachable.variant :thumb, resize_and_pad: [120, 120]

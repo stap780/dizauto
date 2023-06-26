@@ -1,0 +1,51 @@
+
+<%= link_to "<i data-feather='plus'></i> #{EmailSetup.model_name.human}".html_safe, new_email_setup_path, class: "btn btn-primary float-end mt-n1" %>
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle"><%= EmailSetup.model_name.human(count: 2)%></h1>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="datatables-exports" class="table table-striped">
+            <thead>
+              <tr>
+                <th><%= t('address')%></th>
+                <th><%= t('domain')%></th>
+                <th><%= t('authentication')%></th>
+                <th><%= t('user_name')%></th>
+                <th><%= t('user_password')%></th>
+                <th><%= t('port')%></th>
+                <th><%= t('tls')%></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @email_setups.each do |email_setup| %>
+                <%= render email_setup %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @email_setups %>
+      </div>
+    </div>
+  </div>
+</div>

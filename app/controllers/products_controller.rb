@@ -96,8 +96,8 @@ class ProductsController < ApplicationController
   end
 
   def reorder_image
-    puts "params => "+params.to_s
-    puts "params[:id] => "+params[:id].to_s
+    puts "reorder_image params => "+params.to_s
+    puts "reorder_image params[:id] => "+params[:id].to_s
     # @product = Product.find(params[:id])
     @image = @product.images.find_by blob_id: params[:blob_id]
     @image.insert_at params[:new_position]

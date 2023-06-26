@@ -19,6 +19,7 @@
     "simplebar": "5.3.6",
     "slim-select": "^2.4.5",
     "sortablejs": "^1.15.0",
+    "stimulus-rails-nested-form": "^4.1.0",
     "trix": "^2.0.4"
   },
   "scripts": {

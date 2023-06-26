@@ -66,7 +66,9 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Вх Документы</span>
 						</a>
 						<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="">Убытки</a></li>
+							<li class="sidebar-item <%= 'active' if current_page?(incases_path) %>">
+								<%= link_to 'Убытки', incases_path, class: "sidebar-link" %></li>
+							</li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Акты</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Поступления</a></li>
 						</ul>
@@ -106,11 +108,15 @@
 							<li class="sidebar-item <%= 'active' if current_page?(companies_path) %>">
 								<%= link_to 'Контрагенты', companies_path, class: "sidebar-link" %></li>
 							</li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Округа</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Водители</a></li>
+							<li class="sidebar-item <%= 'active' if current_page?(okrugs_path) %>">
+								<%= link_to 'Округа', okrugs_path, class: "sidebar-link" %></li>
+							</li>
+							<!--<li class="sidebar-item"><a class="sidebar-link" href="">Водители</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Категории Авито</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Виды ремонтных работ</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Склады</a></li>
+							<li class="sidebar-item"><a class="sidebar-link" href="">Виды ремонтных работ</a></li>-->
+							<li class="sidebar-item <%= 'active' if current_page?(warehouses_path) %>">
+								<%= link_to 'Склады', warehouses_path, class: "sidebar-link" %></li>
+							</li>
 						</ul>
 					</li>
 					<li class="sidebar-item">
@@ -121,8 +127,10 @@
 							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
 								<%= link_to 'Пользователи', users_path, class: "sidebar-link" %></li>
 							</li>						
+							<li class="sidebar-item <%= 'active' if current_page?(email_setups_path) %>">
+								<%= link_to 'Почта', email_setups_path, class: "sidebar-link" %></li>
+							</li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Почта</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Avito API</a></li>
 						</ul>
 					</li>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @email_setup %>
+
+<div>
+  <%= link_to "Edit this email setup", edit_email_setup_path(@email_setup) %> |
+  <%= link_to "Back to email setups", email_setups_path %>
+
+  <%= button_to "Destroy this email setup", @email_setup, method: :delete %>
+</div>

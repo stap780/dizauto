@@ -2,6 +2,20 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :email_setups
+  resources :line_items
+  resources :incases do
+    collection do
+      get :file_import
+      post :import_setup
+      post :convert_file_data
+      post :create_from_import
+      #put :update_from_file
+    end
+  end
+  resources :places
+  resources :warehouses
+  resources :okrugs
   resources :companies
   resources :detals
   resources :exports

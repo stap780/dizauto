@@ -26,9 +26,10 @@ export default class extends Controller {
         await fetch(innRequest)
             .then((response) => response.json())
             .then((data) => {
-                //console.log(data);
+                console.log(data);
                 for (const comp of data.suggestions) {
                     document.getElementById('company_title').value = comp.data.name.full_with_opf;
+                    document.getElementById('company_short_title').value = comp.data.name.short;
                     document.getElementById('company_kpp').value = comp.data.kpp;
                     document.getElementById('company_ogrn').value = comp.data.ogrn;
                     document.getElementById('company_okpo').value = comp.data.okpo;

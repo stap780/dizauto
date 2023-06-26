@@ -1,0 +1,14 @@
+<tr id="<%= dom_id incase %>">
+    <td><b><%=link_to incase.id, edit_incase_path(incase)%></b></td>
+    <td><%= incase.region %></td>
+    <td><%= incase.strah.short_title %></td>
+    <td><%= incase.stoanumber %></br><%= incase.company.short_title %></td>
+    <td><%= incase.unumber %></td>
+    <td><%= incase.carnumber %></br><%= incase.modelauto %></td>
+    <td><%= incase.date.strftime("%d/%m/%Y") %></td>
+    <td><%= incase.totalsum %></td>
+    <td><%= incase.status %></td>
+    <td><%= incase.tip %></td>
+    <td><%# link_to '<i data-feather="edit-2"></i>'.html_safe, edit_incase_path(incase), class: "px-2" %>
+    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, incase, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
+</tr>

@@ -29,7 +29,9 @@ class ExportsController < ApplicationController
 
     respond_to do |format|
       if @export.save
-        format.html { redirect_to export_url(@export), notice: "Экспорт создан" }
+        Rails.env.development? ? ExportCreator.call(@export) : ExportJob.perform_later(@export)
+
+        format.html { redirect_to exports_url, notice: "Экспорт создан" }
         format.json { render :show, status: :created, location: @export }
       else
         format.html { render :new, status: :unprocessable_entity }

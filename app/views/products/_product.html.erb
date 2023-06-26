@@ -1,42 +1,11 @@
-<div id="<%= dom_id product %>">
-  <p>
-    <strong>Sku:</strong>
-    <%= product.sku %>
-  </p>
 
-  <p>
-    <strong>Barcode:</strong>
-    <%= product.barcode %>
-  </p>
+<td><b><%= product.id%></b></td>
+<td><%= product.sku%></td>
+<td><%= product.barcode%></td>
+<td><%= product.title%></td>
+<td><%= product.quantity%></td>
+<td><%= product.price%></td>
+<td><%= product.created_at.strftime("%d/%m/%Y")%></td>
+<td><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_product_path(product), class: "px-2" %>
+<%= link_to '<i data-feather="trash-2"></i>'.html_safe, product, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
 
-  <p>
-    <strong>Title:</strong>
-    <%= product.title %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= product.description %>
-  </p>
-
-  <p>
-    <strong>Quantity:</strong>
-    <%= product.quantity %>
-  </p>
-
-  <p>
-    <strong>Costprice:</strong>
-    <%= product.costprice %>
-  </p>
-
-  <p>
-    <strong>Price:</strong>
-    <%= product.price %>
-  </p>
-
-  <p>
-    <strong>Video:</strong>
-    <%= product.video %>
-  </p>
-
-</div>

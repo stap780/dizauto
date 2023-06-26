@@ -3,6 +3,6 @@
     <td><%= detal.sku %></td>
     <td><%= detal.title %></td>
     <td><%= detal.description %></td>
-    <td><%= link_to "Edit", edit_detal_path(detal), class: "btn btn-primary btn-sm px-2" %>
+    <td><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_detal_path(detal), class: "px-2" %>
     <%= link_to '<i data-feather="trash-2"></i>'.html_safe, detal, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
 </tr>

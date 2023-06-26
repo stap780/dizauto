@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  region: MyString
+  strah_id: 1
+  stoanumber: MyString
+  unumber: MyString
+  company_id: 1
+  carnumber: MyString
+  date: 2023-05-24 16:29:43
+  modelauto: MyString
+  totalsum: 9.99
+  status: MyString
+  tip: MyString
+
+two:
+  region: MyString
+  strah_id: 1
+  stoanumber: MyString
+  unumber: MyString
+  company_id: 1
+  carnumber: MyString
+  date: 2023-05-24 16:29:43
+  modelauto: MyString
+  totalsum: 9.99
+  status: MyString
+  tip: MyString

@@ -16,17 +16,17 @@
                           <%= f.text_field :link, disabled: true, placeholder: "Ссылка на файл появится после сохранения экспорта",
                                                                     value: f.object.link.present? ? f.object.link : nil , class: "form-control" %>
                       </div>
-                      <div class="mb-3 col-md-6">
+                      <div class="mb-3 col-md-4">
                           <%= f.label :time, class: "form-label" %>
-                          <%= f.select :time, Array.new(24){|e| e}, {}, { class: "form-control" }%>
+                          <%= f.select :time, Array.new(24){|e| e}, {}, { class: "form-select" }%>
                       </div>
-                      <div class="mb-3 col-md-6">
+                      <div class="mb-3 col-md-4">
                           <%= f.label :format, class: "form-label" %>
                           <%= f.select :format, [['csv','csv'],['xml','xml'],['xlsx','xlsx']], {}, {  class: "form-select",
                                                                                         selected: f.object.format.present? ? f.object.format : ['xml','xml'], 
                                                                                         data: {action: "change->export#change_format", export_target: "format"} } %>
                       </div>
-                      <div class="mb-3">
+                      <div class="col-md-4 align-self-center">
                         <div class="form-check form-switch">
                         <%= f.check_box :use_property, {class: "form-check-input", role: "switch"} %>
                         <%= f.label 'Использовать параметры товаров в выгрузке', class: "form-check-label"%>
