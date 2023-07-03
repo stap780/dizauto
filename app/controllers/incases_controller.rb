@@ -1,5 +1,5 @@
 class IncasesController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_incase, only: %i[ show edit update destroy ]
 
   # GET /incases or /incases.json

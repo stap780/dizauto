@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_product, only: %i[ show edit update destroy delete_image reorder_image update_image ]
 
   # GET /products or /products.json

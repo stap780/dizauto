@@ -3,7 +3,8 @@ import ApexCharts from "apexcharts";
 
 window.ApexCharts = ApexCharts;
 
-document.addEventListener("DOMContentLoaded", function() {
+//document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('turbo:load', function() {
   window.Apex = {
     colors: [
       window.theme.primary,

@@ -1,5 +1,5 @@
 class ExportsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_export, only: %i[ show edit update destroy ]
 
   # GET /exports or /exports.json

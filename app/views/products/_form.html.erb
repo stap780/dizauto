@@ -13,17 +13,23 @@
               <li class="nav-item border border-primary rounded" role="presentation">
                 <a class="nav-link" id="productEditProperty-tab" data-bs-toggle="tab" data-bs-target="#productEditProperty">Параметры</a>
               </li>
+              <li class="nav-item border border-primary rounded" role="presentation">
+                <a class="nav-link" id="productEditHistory-tab" data-bs-toggle="tab" data-bs-target="#productEditHistory">История</a>
+              </li>
             </ul>
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                <div class="tab-pane active" id="productEditMain" role="tabpanel" aria-labelledby="productEditMain-tab">
-                    <%= render "form_lines", f: form %>
-                </div>
-                <div class="tab-pane" id="productEditProperty" role="tabpanel" aria-labelledby="productEditProperty-tab">
-                    <%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(product_id: @product.id), class: 'btn btn-primary', data: {turbo_frame: dom_id(Prop.new) } %>
-                    <%= render "properties/property_lines", f: form %>
-                </div>
+                    <div class="tab-pane active" id="productEditMain" role="tabpanel" aria-labelledby="productEditMain-tab">
+                        <%= render "form_lines", f: form %>
+                    </div>
+                    <div class="tab-pane" id="productEditProperty" role="tabpanel" aria-labelledby="productEditProperty-tab">
+                        <%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(product_id: @product.id), class: 'btn btn-primary', data: {turbo_frame: dom_id(Prop.new) } %>
+                        <%= render "properties/property_lines", f: form %>
+                    </div>
+                    <div class="tab-pane" id="productEditHistory" role="tabpanel" aria-labelledby="productEditHistory-tab">
+                        <%= render "shared/history", f: form %>
+                    </div>
                 </div>
             </div>
             <div class="card-footer">

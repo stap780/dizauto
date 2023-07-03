@@ -1,5 +1,5 @@
 class EmailSetupsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_email_setup, only: [:show, :edit, :update, :destroy]
 
   # GET /email_setups

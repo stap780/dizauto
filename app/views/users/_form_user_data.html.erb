@@ -1,0 +1,28 @@
+<div class="mb-3 col-md-4">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-4">
+    <%= f.label :phone, class: "form-label" %>
+    <%= f.text_field :phone, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-4">
+    <%= f.label :email, class: "form-label" %>
+    <%= f.text_field :email, class: "form-control" %>
+</div>
+<% if f.object.new_record? %>
+<div class="mb-3 col-md-6">
+    <%= f.label :password, class: "form-label" %>
+    <%=f.password_field :password, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-6">
+    <%= f.label :password_confirmation, class: "form-label" %>
+    <%=f.password_field :password_confirmation, class: "form-control" %>
+</div>
+<% end %>
+<div class="mb-3 col-md-4">
+    <%= f.label :role, class: "form-label" %>
+    <%= f.select :role, User::Role, {}, {  class: "form-select", data: {action: "change->user#change_role", user_target: "role"} } %>
+</div>
+
+

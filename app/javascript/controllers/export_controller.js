@@ -22,6 +22,6 @@ export default class extends Controller {
     if (this.formatTarget.value == 'csv') {
       this.xmlTarget.classList.add(this.dnoneClass);
       this.attributesTarget.classList.remove(this.dnoneClass);
+    }
   }
-}
 } 

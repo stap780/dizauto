@@ -1,5 +1,5 @@
 class PropsController < ApplicationController
-    before_action :authenticate_user!
+    load_and_authorize_resource
     before_action :set_prop, only: %i[ show edit update destroy ]
   
     # GET /properties or /properties.json

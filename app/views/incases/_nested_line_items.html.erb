@@ -3,7 +3,7 @@
     <%= render "line_items/form_data", f: f, import_line: import_line %>
   <% else %>
     <%= render "line_items/form_data", f: f, import_line: nil %>
-    <% end %>
+  <% end %>
   <td>
   <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa fa-trash"></i></button>
   <%= f.hidden_field :_destroy %>

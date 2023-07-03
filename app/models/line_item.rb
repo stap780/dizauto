@@ -1,6 +1,8 @@
 class LineItem < ApplicationRecord
 
     belongs_to :incase
+    audited associated_with: :incase
+
     validates :title, :presence => true
     before_save :normalize_data_white_space
 

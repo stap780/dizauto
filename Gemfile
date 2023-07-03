@@ -53,6 +53,7 @@ gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'roo'
 gem 'roo-xls'
+gem "audited"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

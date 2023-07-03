@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
     include Rails.application.routes.url_helpers
+    audited
 
     has_many :props
     has_many :properties, through: :props
@@ -14,6 +15,8 @@ class Product < ApplicationRecord
         attachable.variant :standart, resize_and_pad: [800, 800]
     end
     accepts_nested_attributes_for :images_attachments, allow_destroy: true
+    has_associated_audits
+
     before_save :normalize_data_white_space
 
     validates :title, presence: true
@@ -47,11 +50,11 @@ class Product < ApplicationRecord
     end
 
     private
+
     def normalize_data_white_space
         self.attributes.each do |key, value|
             self[key] = value.squish if value.respond_to?("squish")
         end
     end
-
 
 end

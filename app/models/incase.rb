@@ -1,8 +1,11 @@
 class Incase < ApplicationRecord
+    audited
     belongs_to :company
     belongs_to :strah, class_name: "Company", foreign_key: "strah_id"
     has_many   :line_items, dependent: :destroy
 	accepts_nested_attributes_for :line_items, allow_destroy: true, :reject_if => :all_blank #, reject_if: proc { |attributes| attributes['здесь пишем атрибут из line_items'].blank? }
+    has_associated_audits
+    
     before_save :normalize_data_white_space
 
 	validates :date, presence: true

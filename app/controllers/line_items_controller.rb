@@ -1,5 +1,5 @@
 class LineItemsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_line_item, only: %i[ show edit update destroy ]
 
   # GET /line_items or /line_items.json

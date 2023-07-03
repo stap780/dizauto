@@ -1,0 +1,15 @@
+<div class="row mt-2 <% if f.object.role == 'admin' %>d-none<%end%>" id="wrap-nested-permissions" data-user-target= "nested">
+<div class="h3 my-3">Доступ</div>
+    <%= f.fields_for :permissions do |ff| %>
+    <div class="mb-3 col-md-6">
+    <div class="h4"><%= ff.object.pmodel %></div>
+        <%= ff.hidden_field :pmodel, value: ff.object.pmodel %>
+
+        <% Permission::Actions.each do |action| %>
+            <%= ff.check_box :pactions, { multiple: true, class: 'form-check-input' }, action, nil %>
+            <%= ff.label action %>
+        <% end %>
+    </div>
+    <% end %>
+
+</div>

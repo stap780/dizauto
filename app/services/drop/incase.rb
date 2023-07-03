@@ -3,7 +3,6 @@ class Drop::Incase < Liquid::Drop
     def initialize(incase)
         @incase = incase
     end
-    region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :status, :tip
 
     def region
         @incase.region

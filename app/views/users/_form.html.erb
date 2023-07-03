@@ -1,5 +1,6 @@
-<%= form_with(model: user) do |f| %>
-    <%= render "shared/errors", object: user%>
+<%= form_with(model: user, data: {controller: 'user nested-form', 'user-dnone-class': 'd-none',
+    nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
+    <%= render "shared/errors", object: @user%>
 
     <div class="row">
 
@@ -7,12 +8,11 @@
             <div class="card">
                 <div class="card-header">
                 </div>
-                <div class="card-body">
-                    <div class="mb-3 col-md-6">
-                        <%= f.label :email, class: "form-label" %>
-                        <%= f.text_field :email, class: "form-control" %>
-                    </div>
+                <div class="card-body row">
+                    <%= render 'form_user_data', f: f %>
+                    <%= render 'form_nested_permission', f: f %>
                 </div>
+                
                 <div class="card-footer">
                     <%= f.submit class: "btn btn-primary" %>
                     <%= link_to "Back", users_path, class: "btn btn-outline-primary" %>

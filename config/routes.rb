@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :permissions
   resources :email_setups
   resources :line_items
   resources :incases do
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-  root to: 'home#index'
+  root to: 'home#dashboard'
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
   devise_for :users, controllers: {
@@ -46,6 +47,10 @@ Rails.application.routes.draw do
     sessions:       'users/sessions',
     passwords:      'users/passwords',
   }
+  # devise patch create users inside service
+    get  'users/admin_new' => 'users#admin_new'
+    post 'users/admin_create' => 'users#admin_create'
+  #########
 
   resources :users
 

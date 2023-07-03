@@ -1,5 +1,5 @@
 class Company < ApplicationRecord
-    
+    audited
     has_many :incases
 
     validates :title, presence: true

@@ -1,7 +1,9 @@
 
-<%= form_with(model: incase, data: { controller: 'nested-form',
+<%# form_with(model: incase, data: { controller: 'nested-form',
     nested_form_wrapper_selector_value: '.nested-form-wrapper'+nested_form_index.to_s }, class: 'incase-form') do |f| %>
-    
+ <%= form_with(model: incase, data: { controller: 'nested-form',
+    nested_form_wrapper_selector_value: '.nested-form-wrapper' }, class: 'incase-form') do |f| %>
+   
     <%= render 'shared/errors', object: incase%>
 
     <div class="row">
@@ -11,59 +13,16 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-3 col-md-1 px-1">
-                            <%= f.label :region, class: "form-label" %>
-                            <%= f.select :region, Incase::REGION, {include_blank: true}, {class: "form-select"}%>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :strah_id, class: "form-label" %>
-                            <%= f.select :strah_id, Company.strah.pluck(:short_title, :id), {include_blank: true}, {class: "form-select"}%>
-                        </div>
-                        <div class="mb-3 col-md-3 px-1">
-                            <%= f.label :stoanumber, class: "form-label" %>
-                            <%= f.text_field :stoanumber, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-3 px-1">
-                            <%= f.label :unumber, class: "form-label" %>
-                            <%= f.text_field :unumber, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-3 px-1">
-                            <%= f.label :company_id, class: "form-label" %>
-                            <%= f.select :company_id, Company.standart.pluck(:short_title, :id), {include_blank: true}, { class: "form-select" }%>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :carnumber, class: "form-label" %>
-                            <%= f.text_field :carnumber, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :date, class: "form-label" %>
-                            <%= f.date_field :date, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :modelauto, class: "form-label" %>
-                            <%= f.text_field :modelauto, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :totalsum, class: "form-label" %>
-                            <%= f.text_field :totalsum, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :status, class: "form-label" %>
-                            <%= f.select :status, Incase::STATUS, {include_blank: true}, {class: "form-select"}%>
-                        </div>
-                        <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :tip, class: "form-label" %>
-                            <%= f.select :tip, Incase::TIP, {include_blank: true}, {class: "form-select"} %>
-                        </div>
+                        <%= render 'incase_form_data', f: f %>
                     </div>
                     <div class="row">
                         <div class="col-md-2 mb-2">
                             <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
                         </div>
                         <template data-nested-form-target="template">
-                        <%= f.fields_for :line_items, LineItem.new, child_index: 'NEW_RECORD' do |line_items| %>
-                            <%= render "nested_line_items", f: line_items, nested_form_index: nil %>
-                        <% end %>
+                            <%= f.fields_for :line_items, LineItem.new, child_index: 'NEW_RECORD' do |line_items| %>
+                                <%= render "nested_line_items", f: line_items, nested_form_index: nil %>
+                            <% end %>
                         </template>
                         <div class="table-responsive">
                             <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
@@ -82,7 +41,7 @@
                                     <%= f.fields_for :line_items do |line_items| %>
                                         <%= render "nested_line_items", f: line_items, nested_form_index: nil %>
                                     <% end %>
-                                <tr data-nested-form-target="target"></tr>
+                                    <tr data-nested-form-target="target"></tr>
                                 </tbody>
                             </table>
                         </div>

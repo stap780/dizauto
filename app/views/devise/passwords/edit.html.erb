@@ -8,7 +8,7 @@
           </div>
           <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">Есть регистрация?</span> <span><%= link_to "войти", new_user_session_path%></span></div>
         </div>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
         <%= f.hidden_field :reset_password_token %>
           <div class="mb-3">

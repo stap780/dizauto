@@ -42,3 +42,6 @@ application.register("toast", ToastController)
 
 import TurboController from "./turbo_controller"
 application.register("turbo", TurboController)
+
+import UserController from "./user_controller"
+application.register("user", UserController)

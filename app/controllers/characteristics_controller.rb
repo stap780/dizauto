@@ -1,5 +1,5 @@
 class CharacteristicsController < ApplicationController
-  before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :get_property
   before_action :set_characteristic, only: %i[ show edit update destroy ]
 

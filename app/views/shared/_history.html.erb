@@ -1,0 +1,30 @@
+<%if !f.object.new_record? && f.object.audits.present? %>
+<div class="table-responsive-md">
+    <table class="table table-light">
+        <thead>
+            <tr>
+                <th scope="col">Action</th>
+                <th scope="col">Attribute </th>
+                <th scope="col">Old value</th>
+                <th scope="col">New value</th>
+                <th scope="col">Time</th>
+                <th scope="col">User</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% f.object.own_and_associated_audits.each do |audit| %>
+            <% audit.audited_changes.each do |key, value| %>
+            <tr class="">
+                <td scope="row"><%= audit.action %></td>
+                <td><%= key %></td>
+                <td><%= value[0] %></td>
+                <td><%= value[1] %></td>
+                <td><%= audit.created_at %></td>
+                <td><%= audit.user.name %></td>
+            </tr>
+             <% end %>
+        <% end %>
+        </tbody>
+    </table>
+</div>
+<% end %>

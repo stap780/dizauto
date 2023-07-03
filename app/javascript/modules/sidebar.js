@@ -42,4 +42,6 @@ const initializeSidebarCollapse = () => {
 }
 
 // Wait until page is loaded
-document.addEventListener("DOMContentLoaded", () => initialize());
+//document.addEventListener("DOMContentLoaded", () => initialize());
+
+document.addEventListener('turbo:load', () => initialize());

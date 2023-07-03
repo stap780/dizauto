@@ -25,7 +25,7 @@ import "@fortawesome/fontawesome-free/js/all";
 window.bootstrap = bootstrap;
 
 document.addEventListener('turbo:load', () => {
-  feather.replace();
+
   
   //console.log("DOM готов!");
   
