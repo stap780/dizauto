@@ -1,0 +1,9 @@
+<tr id="<%= dom_id incase_tip %>">
+    <%= tag.td tag.b(incase_tip.id) %>
+    <%= tag.td(incase_tip.title)%>
+    <%= tag.td(incase_tip.color)%>
+    <td>
+        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_incase_tip_path(incase_tip), class: 'px-2' %>
+        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, incase_tip, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+    </td>
+</tr>

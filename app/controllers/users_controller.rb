@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       Permission.all_models.size.times do |index|
         @user.permissions.build(
           :pmodel => Permission.all_models[index],
-          :pactions => ['read']
+          :pactions => ['']
         )
       end
     end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
         Permission.all_models.size.times do |index|
           @user.permissions.build(
             :pmodel => Permission.all_models[index],
-            :pactions => ['read']
+            :pactions => ['']
           )
         end
       end
@@ -54,6 +54,9 @@ class UsersController < ApplicationController
       @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
       respond_to do |format|
         if @user.update(user_params)
+          if params[:user][:role] == 'admin'
+            Permission.where(user_id: @user.id).delete_all
+          end    
           format.html { redirect_to users_url, notice: "User was successfully updated." }
           format.json { render :show, status: :ok, location: @user }
         else
@@ -75,8 +78,7 @@ class UsersController < ApplicationController
       else
         redirect_to users_url, notice: 'Нельзя удалить последнего пользователя или админа'
       end
-    end
-  
+    end 
   
     def delete_image
       ActiveStorage::Attachment.where(id: params[:image_id])[0].purge
@@ -85,20 +87,19 @@ class UsersController < ApplicationController
         format.json { render json: { :status => "ok", :message => "destroyed" } }
       end
     end
-  
+
+    #  для devise чтобы создавать пользователя внутри сервиса
 
     def admin_new
       @user = User.new
       Permission.all_models.size.times do |index|
         @user.permissions.build(
           :pmodel => Permission.all_models[index],
-          :pactions => ['read']
+          :pactions => ['']
         )
       end
     end
 
-    #  для devise чтобы создавать пользователя внутри сервиса
-    # POST /add_new or /add_new.json
     def admin_create
       @user = User.new(user_params)
 
@@ -113,8 +114,10 @@ class UsersController < ApplicationController
       end
     end
 
-    # PATCH/PUT /users/1 or /users/1.json
     def admin_update
+      if params[:user][:role] == 'admin'
+        Permission.where(user_id: @user.id).delete_all
+      end
       @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
       respond_to do |format|
         if @user.update(user_params)
@@ -135,7 +138,7 @@ class UsersController < ApplicationController
       # Only allow a trusted parameter "white list" through.
     def user_params
       params.require(:user).permit(:name, :phone, :email, :role, :avatar, :password, :password_confirmation, 
-        permissions_attributes: [:id, :pmodel, :user_id, :_destroy, pactions: []])
+        permissions_attributes: [:id, :pmodel, :user_id, pactions: []])
     end
 
   

@@ -1,0 +1,17 @@
+<div class="row nested-form-wrapper" data-new-record="<%= f.object.new_record? %>"
+    data-controller="prop" data-prop-url-value="<%= characteristics_props_path %>" data-prop-param-value="property_id">
+    <div class="mb-3 col-md-5">
+        <%= f.select :property_id, Property.pluck(:title, :id), {include_blank: true, prompt: t('property_one')}, 
+                                    {data: {controller: "slimselect", action: "change->prop#change" }}  %>
+    </div>
+    <div class="mb-3 col-md-5" data-prop-target='characteristicwrap'>
+        <% char_collection = f.object.characteristic_id.present? ? f.object.property.characteristics.pluck(:title, :id) : []%>
+        <%= f.select :characteristic_id, char_collection, {include_blank: true, prompt: t('characteristic_one')}, 
+                                        {data: {controller: "slimselect", prop_target: "select" }}  %>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa fa-trash"></i></button>
+        <%= f.hidden_field :_destroy %>
+    </div>
+
+</div>

@@ -1,6 +1,2 @@
-<div class="mb-3">
-  <%= link_to t('back'), incases_path, class: "btn btn-outline-primary" %>
-  <h1 class="h3 d-inline align-middle">Редактировать</h1>
-</div>
 
-<%= render "form", incase: @incase, nested_form_index: 0, import_incase_data: nil %>
+<%= render 'shared/new_edit', object: @incase, tip: :edit %>

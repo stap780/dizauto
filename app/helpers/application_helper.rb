@@ -62,5 +62,21 @@ module ApplicationHelper
       end
   end
 
+  def li_menu_link_to(name = nil, options = nil, html_options = nil, &block)
+    status = current_page?(options) ?  'active' : ''
+    content_tag :li, class: "sidebar-item #{status}" do
+      link_to(name, options, html_options, &block)
+    end
+  end
+
+  def inline_error_for(field, form_obj)
+    html = []
+    if form_obj.errors[field].any?
+      html << form_obj.errors[field].map do |msg|
+        tag.div(msg, class: "invalid-feedback")
+      end
+    end
+    html.join.html_safe
+  end
   
 end

@@ -7,8 +7,33 @@ class ProductsController < ApplicationController
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @products = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = 'products.xlsx'
+    # puts '@search.present? '+@search.present?.to_s
+    # puts '@search.result.present? '+@search.result.present?.to_s
+    # puts '@search.result.count '+@search.result.count.to_s
+    collection = @search.present? ? @search.result(distinct: true) : @products
+    # puts 'collection.count '+collection.count.to_s
+    respond_to do |format|
+      format.html
+      format.zip do
+        # compressed_filestream = Zip::OutputStream.write_buffer do |zos|
+        #   content = render_to_string formats: [:xlsx], template: "products/index"
+        #   zos.put_next_entry(filename)
+        #   zos.print content
+        # end
+        # compressed_filestream.rewind
+        # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
+        service = CreateXlsx.new(collection, {filename: filename, template: "products/index"} )
+        compressed_filestream = service.call
+        send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
+      end
+    end
   end
 
+  def search
+    index
+  end
+  
   # GET /products/1 or /products/1.json
   def show
   end
@@ -16,13 +41,10 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = Product.new
-    # @product.properties.build
-    @props = @product.props
   end
 
   # GET /products/1/edit
   def edit
-    # @product.properties.build
     @props = @product.props
   end
 
@@ -43,6 +65,7 @@ class ProductsController < ApplicationController
 
   def characteristics
     @target = params[:target]
+    puts @target
     @property = Property.find(params[:property_id])
     @characteristics = @property.characteristics.pluck(:title, :id)
     respond_to do |format|
@@ -114,6 +137,6 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:sku, :barcode, :title, :description, :quantity, :costprice, :price, :video, images: [], 
                                       images_attachments_attributes: [:id, :position, :_destroy],
-                                      prop_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy])
+                                      props_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy])
     end
 end

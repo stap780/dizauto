@@ -1,0 +1,52 @@
+<%= form_with(model: order, data: { controller: 'nested-form slimselect', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
+                class: 'order-form' ) do |f| %>
+   <%= render 'shared/errors', object: order%>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header"></div>
+                <div class="card-body">
+                    <div class="row">
+                        <%= render 'form_data', f: f%>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 mb-2">
+                            <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                        </div>
+                        <template data-nested-form-target="template">
+                            <%= f.fields_for :order_items, OrderItem.new, child_index: 'NEW_RECORD' do |item| %>
+                                <%= render "nested_items", f: item %>
+                            <% end %>
+                        </template>
+                        <div class="table-responsive">
+                            <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
+                                <thead class="">
+                                    <tr>
+                                        <th scope="col" class="col-6">product_id</th>
+                                        <th scope="col" class="col-1">quantity</th>
+                                        <th scope="col" class="col-1">price</th>
+                                        <th scope="col" class="col-2">discount</th>
+                                        <th scope="col" class="col-1">sum</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="">
+                                    <%= f.fields_for :order_items do |item| %>
+                                        <%= render "nested_items", f: item %>
+                                    <% end %>
+                                    <tr data-nested-form-target="target"></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <%= f.submit class: "btn btn-primary" %>
+                    <%= link_to t('back'), orders_path, class: "btn btn-outline-primary" %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<% end %>

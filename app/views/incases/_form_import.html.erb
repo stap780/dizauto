@@ -70,8 +70,8 @@
                             <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
                         </div>
                         <template data-nested-form-target="template">
-                        <%= f.fields_for :line_items, LineItem.new, child_index: 'NEW_RECORD' do |line_items| %>
-                            <%= render "nested_line_items", f: line_items, nested_form_index: nested_form_index, import_line: nil %>
+                        <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |incase_items| %>
+                            <%= render "nested_items", f: incase_items, nested_form_index: nested_form_index, import_line: nil %>
                         <% end %>
                         </template>
                         <div class="table-responsive">
@@ -89,8 +89,8 @@
                                 </thead>
                                 <tbody class="">
                                 <% import_incase_data['lines'].each do |import_line| %>
-                                    <%= f.fields_for :line_items, LineItem.new do |line_items| %>
-                                    <%= render "nested_line_items", f: line_items, nested_form_index: nested_form_index, import_line: import_line %>
+                                    <%= f.fields_for :incase_items, IncaseItem.new do |incase_items| %>
+                                    <%= render "nested_items", f: incase_items, nested_form_index: nested_form_index, import_line: import_line %>
                                     <% end %>
                                 <% end %>
                                 <tr data-nested-form-target="target"></tr>

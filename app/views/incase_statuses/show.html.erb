@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @incase_status %>
+
+<div>
+  <%= link_to "Edit this incase status", edit_incase_status_path(@incase_status) %> |
+  <%= link_to "Back to incase statuses", incase_statuses_path %>
+
+  <%= button_to "Destroy this incase status", @incase_status, method: :delete %>
+</div>

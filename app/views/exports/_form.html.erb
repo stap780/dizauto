@@ -41,7 +41,7 @@
                         </div>
                         <% end %>
                       </div>
-                      <div class="mb-3 col-md-12 <% if f.object.format == 'xlsx' && f.object.format == 'csv'%>d-none<%end%>" data-export-target= "xml">
+                      <div class="mb-3 col-md-12 <% if f.object.format == 'xlsx' && f.object.format == 'csv' || f.object.new_record?%>d-none<%end%>" data-export-target= "xml">
                           <%= f.label :template, class: "form-label" %>
                           <%= f.text_area :template, class: "form-control" , rows: 30 %>
                       </div>

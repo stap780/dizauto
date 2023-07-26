@@ -15,12 +15,12 @@
         <% f.object.own_and_associated_audits.each do |audit| %>
             <% audit.audited_changes.each do |key, value| %>
             <tr class="">
-                <td scope="row"><%= audit.action %></td>
+                <td><%= audit.action %></td>
                 <td><%= key %></td>
-                <td><%= value[0] %></td>
-                <td><%= value[1] %></td>
-                <td><%= audit.created_at %></td>
-                <td><%= audit.user.name %></td>
+                <td><%= value.respond_to?('each') ? value[0] : value %></td>
+                <td><%= value.respond_to?('each') ? value[1] : value %></td>
+                <td><%= audit.created_at.strftime("%d/%m/%Y %H:%m") %></td>
+                <td><%= audit.user.present? ? audit.user.name : 'no name'%></td>
             </tr>
              <% end %>
         <% end %>

@@ -4,6 +4,15 @@
 
 import { application } from "./application"
 
+import ActionController from "./action_controller"
+application.register("action", ActionController)
+
+import CheckboxController from "./checkbox_controller"
+application.register("checkbox", CheckboxController)
+
+import ColorPickerController from "./color_picker_controller"
+application.register("color-picker", ColorPickerController)
+
 import CompanyController from "./company_controller"
 application.register("company", CompanyController)
 
@@ -12,6 +21,12 @@ application.register("dropzone", DropzoneController)
 
 import ExportController from "./export_controller"
 application.register("export", ExportController)
+
+import FilterController from "./filter_controller"
+application.register("filter", FilterController)
+
+import FlatpickrController from "./flatpickr_controller"
+application.register("flatpickr", FlatpickrController)
 
 import FormController from "./form_controller"
 application.register("form", FormController)
@@ -27,6 +42,9 @@ application.register("modal", ModalController)
 
 import NestedFormController from "./nested_form_controller"
 application.register("nested-form", NestedFormController)
+
+import ProductController from "./product_controller"
+application.register("product", ProductController)
 
 import PropController from "./prop_controller"
 application.register("prop", PropController)

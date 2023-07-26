@@ -1,0 +1,11 @@
+<tr id="<%= dom_id template %>">
+  <%= tag.td tag.b(template.id) %>
+  <%= tag.td(template.title)%>
+  <%= tag.td(template.subject)%>
+  <%= tag.td(template.receiver)%>
+  <%= tag.td(template.content)%>
+    <td>
+        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_template_path(template), class: 'px-2' %>
+        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, template, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+    </td>
+</tr>

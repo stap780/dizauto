@@ -45,7 +45,7 @@
 							 <i class="align-middle" data-feather="bar-chart-2"></i><span class="align-middle">Главная</span>
 						</a>
 						<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
-							<li class="sidebar-item active"><%= link_to 'Дашборд', dashboard_path, class: "sidebar-link"%></li>
+							<%= li_menu_link_to 'Дашборд', dashboard_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 					<li class="sidebar-item">
@@ -53,12 +53,8 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Товары</span>
 						</a>
 						<ul id="products" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
-								<%= link_to 'Каталог', products_path, class: "sidebar-link" %></li>
-							</li>
-							<li class="sidebar-item <%= 'active' if current_page?(exports_path) %>">
-								<%= link_to 'Экспорт', exports_path, class: "sidebar-link" %></li>
-							</li>
+							<%= li_menu_link_to 'Каталог', products_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Экспорт', exports_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 					<li class="sidebar-item">
@@ -66,9 +62,7 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Вх Документы</span>
 						</a>
 						<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item <%= 'active' if current_page?(incases_path) %>">
-								<%= link_to 'Убытки', incases_path, class: "sidebar-link" %></li>
-							</li>
+							<%= li_menu_link_to 'Убытки', incases_path, class: "sidebar-link" %>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Акты</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Поступления</a></li>
 						</ul>
@@ -78,7 +72,7 @@
 							<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Продажи</span>
 						</a>
 						<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item"><a class="sidebar-link" href="">Заказы</a></li>
+							<%= li_menu_link_to 'Заказы', orders_path, class: "sidebar-link" %>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Счета</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Накладные</a></li>
 						</ul>
@@ -90,7 +84,6 @@
 						<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 							<li class="sidebar-item"><a class="sidebar-link" href="">Приёмка</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Перемещение</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Оприходование</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Списание</a></li>
 						</ul>
 					</li>
@@ -99,23 +92,26 @@
 							<i class="align-middle" data-feather="list"></i> <span class="align-middle">Справочники</span>
 						</a>
 						<ul id="lists" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item <%= 'active' if current_page?(properties_path) %>">
-								<%= link_to 'Параметры товаров', properties_path, class: "sidebar-link" %></li>
+							<%= li_menu_link_to 'Параметры товаров', properties_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Детали', detals_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Клиенты', clients_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Компании', companies_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Округа', okrugs_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Склады', warehouses_path, class: "sidebar-link" %>
+							<li class="sidebar-item">
+								<a data-bs-target="#multi-order" data-bs-toggle="collapse" class="sidebar-link collapsed">Заказы</a>
+								<ul id="multi-order" class="sidebar-dropdown list-unstyled collapse">
+									<%= li_menu_link_to 'Статусы заказов', order_statuses_path, class: "sidebar-link" %>
+									<%= li_menu_link_to 'Способы оплаты', payment_types_path, class: "sidebar-link" %>
+									<%= li_menu_link_to 'Способы доставки', delivery_types_path, class: "sidebar-link" %>
+								</ul>
 							</li>
-							<li class="sidebar-item <%= 'active' if current_page?(detals_path) %>">
-								<%= link_to 'Детали', detals_path, class: "sidebar-link" %></li>
-							</li>
-							<li class="sidebar-item <%= 'active' if current_page?(companies_path) %>">
-								<%= link_to 'Контрагенты', companies_path, class: "sidebar-link" %></li>
-							</li>
-							<li class="sidebar-item <%= 'active' if current_page?(okrugs_path) %>">
-								<%= link_to 'Округа', okrugs_path, class: "sidebar-link" %></li>
-							</li>
-							<!--<li class="sidebar-item"><a class="sidebar-link" href="">Водители</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Категории Авито</a></li>
-							<li class="sidebar-item"><a class="sidebar-link" href="">Виды ремонтных работ</a></li>-->
-							<li class="sidebar-item <%= 'active' if current_page?(warehouses_path) %>">
-								<%= link_to 'Склады', warehouses_path, class: "sidebar-link" %></li>
+							<li class="sidebar-item">
+								<a data-bs-target="#multi-incase" data-bs-toggle="collapse" class="sidebar-link collapsed">Убытки</a>
+								<ul id="multi-incase" class="sidebar-dropdown list-unstyled collapse">
+									<%= li_menu_link_to 'Статусы убытков', incase_statuses_path, class: "sidebar-link" %>
+									<%= li_menu_link_to 'Типы убытков', incase_tips_path, class: "sidebar-link" %>
+								</ul>
 							</li>
 						</ul>
 					</li>
@@ -124,14 +120,17 @@
 							<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Настройки</span>
 						</a>
 						<ul id="settings" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
-							<li class="sidebar-item <%= 'active' if current_page?(products_path) %>">
-								<%= link_to 'Пользователи', users_path, class: "sidebar-link" %></li>
-							</li>						
-							<li class="sidebar-item <%= 'active' if current_page?(email_setups_path) %>">
-								<%= link_to 'Почта', email_setups_path, class: "sidebar-link" %></li>
-							</li>
+							<%= li_menu_link_to 'Пользователи', users_path, class: "sidebar-link" %>
+							<%= li_menu_link_to 'Почта', email_setups_path, class: "sidebar-link" %>
 							<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
 							<li class="sidebar-item"><a class="sidebar-link" href="">Avito API</a></li>
+							<li class="sidebar-item">
+								<a data-bs-target="#multi-trigger" data-bs-toggle="collapse" class="sidebar-link collapsed">Автоматизация</a>
+								<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse">
+									<%= li_menu_link_to 'Триггеры', triggers_path, class: "sidebar-link" %>
+									<%= li_menu_link_to 'Шаблоны', templates_path, class: "sidebar-link" %>
+								</ul>
+							</li>
 						</ul>
 					</li>
 

@@ -1,0 +1,9 @@
+<%# turbo_stream.replace @target do %>
+  <%# options_for_select @characteristics %>
+<%# end %>
+
+<%= turbo_stream.replace @wraptarget do %>
+    <div class="mb-3 col-md-5" data-prop-target='characteristicwrap' id='<%= @wraptarget%>' >
+        <%= select_tag @targetname, options_for_select(@characteristics), data: {controller: "slimselect", prop_target: "select" } %>
+    </div>
+<% end %>

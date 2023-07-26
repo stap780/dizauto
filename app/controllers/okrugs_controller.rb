@@ -4,7 +4,6 @@ class OkrugsController < ApplicationController
 
   # GET /okrugs or /okrugs.json
   def index
-    # @okrugs = Okrug.all
     @search = Okrug.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @okrugs = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)

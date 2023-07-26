@@ -1,8 +1,8 @@
 
 <%# form_with(model: incase, data: { controller: 'nested-form',
     nested_form_wrapper_selector_value: '.nested-form-wrapper'+nested_form_index.to_s }, class: 'incase-form') do |f| %>
- <%= form_with(model: incase, data: { controller: 'nested-form',
-    nested_form_wrapper_selector_value: '.nested-form-wrapper' }, class: 'incase-form') do |f| %>
+ <%= form_with(model: incase, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
+                class: 'incase-form' ) do |f| %>
    
     <%= render 'shared/errors', object: incase%>
 
@@ -13,15 +13,15 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <%= render 'incase_form_data', f: f %>
+                        <%= render 'form_data', f: f %>
                     </div>
                     <div class="row">
                         <div class="col-md-2 mb-2">
                             <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
                         </div>
                         <template data-nested-form-target="template">
-                            <%= f.fields_for :line_items, LineItem.new, child_index: 'NEW_RECORD' do |line_items| %>
-                                <%= render "nested_line_items", f: line_items, nested_form_index: nil %>
+                            <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |item| %>
+                                <%= render "nested_items", f: item, nested_form_index: nil %>
                             <% end %>
                         </template>
                         <div class="table-responsive">
@@ -38,8 +38,8 @@
                                     </tr>
                                 </thead>
                                 <tbody class="">
-                                    <%= f.fields_for :line_items do |line_items| %>
-                                        <%= render "nested_line_items", f: line_items, nested_form_index: nil %>
+                                    <%= f.fields_for :incase_items do |item| %>
+                                        <%= render "nested_items", f: item, nested_form_index: nil %>
                                     <% end %>
                                     <tr data-nested-form-target="target"></tr>
                                 </tbody>

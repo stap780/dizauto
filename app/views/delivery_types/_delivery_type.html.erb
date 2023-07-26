@@ -1,0 +1,10 @@
+<tr id="<%= dom_id delivery_type %>">
+    <td><b><%= delivery_type.id%></b></td>
+    <td><%= delivery_type.title %></td>
+     <td><%= delivery_type.price %></td>
+     <td><%= delivery_type.desc %></td>
+    <td>
+        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_delivery_type_path(delivery_type), class: 'px-2' %>
+        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, delivery_type, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+    </td>
+</tr>

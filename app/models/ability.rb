@@ -15,11 +15,13 @@ class Ability
     else
       user.permissions.each do |permission|
         model = permission.pmodel.constantize
-        permission.pactions.each do |action|
-          action = action.to_sym
-          puts "#{action}"+" - "+"#{model}" if cname == model
-          can :read, :all if model == cname
-          can action, model
+        if permission.pactions.present?
+          permission.pactions.each do |action|
+            action = action.to_sym
+            puts "#{action}"+" - "+"#{model}" if cname == model
+            can :read, :all if model == cname
+            can action, model
+          end
         end
       end
     end

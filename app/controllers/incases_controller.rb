@@ -4,10 +4,20 @@ class IncasesController < ApplicationController
 
   # GET /incases or /incases.json
   def index
-    # @incases = Incase.all
-    @search = Incase.ransack(params[:q])
+    @search = Incase.includes(:strah, :incase_items).ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @incases = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = 'incases.xlsx'
+    collection = @search.present? ? @search.result(distinct: true) : @incases
+    respond_to do |format|
+      format.html
+      format.zip do
+        service = CreateXlsx.new(collection, {filename: filename, template: "incases/index"} )
+        compressed_filestream = service.call
+        send_data compressed_filestream.read, filename: 'incases.zip', type: 'application/zip'
+      end
+    end
+    
   end
 
   # GET /incases/1 or /incases/1.json
@@ -17,7 +27,6 @@ class IncasesController < ApplicationController
   # GET /incases/new
   def new
     @incase = Incase.new
-    #@line_items = @incase.line_items.build #@incase.line_items
   end
 
   # GET /incases/1/edit
@@ -31,6 +40,7 @@ class IncasesController < ApplicationController
       if params[:commit].include?('Создать из импорта')
         @turbo_id = params[:commit].remove('Создать из импорта').to_s
         if @incase.save
+          @incase.automation_on_create
           flash.now[:success] = "Incase was successfully created"
           format.turbo_stream
         else
@@ -38,6 +48,7 @@ class IncasesController < ApplicationController
         end
       else
         if @incase.save
+          @incase.automation_on_create
           format.html { redirect_to incases_url, notice: "Incase was successfully created." }
           format.json { render :show, status: :created, location: @incase }
         else
@@ -56,6 +67,7 @@ class IncasesController < ApplicationController
   def update
     respond_to do |format|
       if @incase.update(incase_params)
+          @incase.automation_on_update
         format.html { redirect_to incases_url, notice: "Incase was successfully updated." }
         format.json { render :show, status: :ok, location: @incase }
       else
@@ -113,7 +125,7 @@ class IncasesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def incase_params
-      params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :status, :tip,
-        :line_items_attributes =>[:id, :incase_id, :title, :quantity, :katnumber, :price, :sum, :status, :_destroy])
+      params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :incase_status_id, :incase_tip_id,
+        incase_items_attributes: [:id, :incase_id, :title, :quantity, :katnumber, :price, :sum, :status, :_destroy])
     end
 end

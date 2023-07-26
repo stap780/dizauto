@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  event: MyString
+  condition: MyString
+  action: MyString
+  template_id: 1
+  pause: false
+  pause_time: MyString
+
+two:
+  title: MyString
+  event: MyString
+  condition: MyString
+  action: MyString
+  template_id: 1
+  pause: false
+  pause_time: MyString

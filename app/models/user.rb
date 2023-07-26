@@ -2,8 +2,8 @@
     has_one_attached :avatar, dependent: :destroy
     after_initialize :set_default_role, :if => :new_record?
 
-    has_many :permissions
-    accepts_nested_attributes_for :permissions, allow_destroy: true, reject_if: :all_blank
+    has_many :permissions, -> { order(pmodel: :asc) }
+    accepts_nested_attributes_for :permissions, allow_destroy: true
     # Include default devise modules. Others available are:
     # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
     devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable

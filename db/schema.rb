@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_25_135831) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
+  end
+
+  create_table "actions", force: :cascade do |t|
+    t.string "action_name"
+    t.text "action_params", default: [], array: true
+    t.integer "trigger_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -82,6 +90,23 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "client_companies", force: :cascade do |t|
+    t.integer "client_id"
+    t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "surname"
+    t.string "name"
+    t.string "middlename"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "inn"
     t.string "kpp"
@@ -97,6 +122,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.datetime "updated_at", null: false
     t.string "tip"
     t.string "short_title"
+  end
+
+  create_table "delivery_types", force: :cascade do |t|
+    t.string "title"
+    t.decimal "price"
+    t.string "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "detals", force: :cascade do |t|
@@ -131,6 +164,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.boolean "use_property"
   end
 
+  create_table "incase_items", force: :cascade do |t|
+    t.integer "incase_id"
+    t.string "title"
+    t.integer "quantity"
+    t.string "katnumber"
+    t.decimal "price", precision: 12, scale: 2, default: "0.0"
+    t.decimal "sum", precision: 12, scale: 2, default: "0.0"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incase_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incase_tips", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "incases", force: :cascade do |t|
     t.string "region"
     t.integer "strah_id"
@@ -140,21 +199,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.string "carnumber"
     t.datetime "date"
     t.string "modelauto"
-    t.decimal "totalsum", precision: 12, scale: 2
-    t.string "status"
-    t.string "tip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "line_items", force: :cascade do |t|
-    t.integer "incase_id"
-    t.string "title"
-    t.integer "quantity"
-    t.string "katnumber"
-    t.decimal "price", precision: 12, scale: 2
-    t.decimal "sum", precision: 12, scale: 2
-    t.string "status"
+    t.decimal "totalsum", precision: 12, scale: 2, default: "0.0"
+    t.string "incase_status_id"
+    t.string "incase_tip_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -163,6 +210,42 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "product_id"
+    t.decimal "price"
+    t.integer "discount"
+    t.decimal "sum"
+    t.integer "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity"
+  end
+
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "color"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "client_id"
+    t.string "manager_id"
+    t.string "payment_type_id"
+    t.string "delivery_type_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order_status_id"
+  end
+
+  create_table "payment_types", force: :cascade do |t|
+    t.string "title"
+    t.string "desc"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "margin", default: 0
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -208,6 +291,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_02_161638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "detal_id"
+  end
+
+  create_table "templates", force: :cascade do |t|
+    t.string "title"
+    t.string "subject"
+    t.string "receiver"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "triggers", force: :cascade do |t|
+    t.string "title"
+    t.string "event"
+    t.string "condition"
+    t.boolean "pause"
+    t.string "pause_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "active", default: false
   end
 
   create_table "users", force: :cascade do |t|

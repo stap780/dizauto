@@ -7,12 +7,11 @@ import * as bootstrap from "bootstrap"
 import "./modules/sidebar"
 import "./modules/theme"
 import "./modules/feather"
- 
 // Charts
 //import "./modules/chartjs"
  
 // Forms
-import "./modules/flatpickr"
+// import "./modules/flatpickr"
  
 // // Maps
 // import "./modules/vector-maps"
@@ -20,7 +19,6 @@ import "./modules/flatpickr"
 import "trix"
 import "@rails/actiontext"
 import "@fortawesome/fontawesome-free/js/all";
-
 
 window.bootstrap = bootstrap;
 

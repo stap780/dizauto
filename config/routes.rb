@@ -2,9 +2,25 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :incase_tips
+  resources :incase_statuses
+  resources :actions do
+    collection do
+      get :values
+    end
+  end
+  resources :templates
+  resources :triggers
+  resources :delivery_types
+  resources :payment_types
+  resources :order_items
+  resources :order_statuses
+  resources :orders
+  resources :client_companies
+  resources :clients
   resources :permissions
   resources :email_setups
-  resources :line_items
+  resources :incase_items
   resources :incases do
     collection do
       get :file_import
@@ -20,7 +36,11 @@ Rails.application.routes.draw do
   resources :companies
   resources :detals
   resources :exports
-  resources :props
+  resources :props do
+    collection do
+      get :characteristics
+    end
+  end
   resources :properties do
     resources :characteristics
   end
@@ -28,8 +48,10 @@ Rails.application.routes.draw do
     member do
       patch 'reorder_image'
       post 'update_image'
+      patch 'autosave'
     end
     collection do
+      match 'search' => 'products#search', via: [:get, :post], as: :search
       get :characteristics
       post :delete_selected
       delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'

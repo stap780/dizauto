@@ -1,0 +1,50 @@
+<%= link_to "<i data-feather='plus'></i> #{Trigger.model_name.human}".html_safe, new_trigger_path, class: "btn btn-primary float-end mt-n1" %>
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle"><%= Trigger.model_name.human(count: 2)%></h1>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-trigger_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="datatables-trigger" class="table table-striped">
+            <thead>
+              <tr>
+                <%=tag.th('#')%>
+                <%=tag.th(t('helpers.label.trigger.active'))%>
+                <%=tag.th(t('helpers.label.trigger.title'))%>
+                <%=tag.th(t('helpers.label.trigger.event'))%>
+                <%=tag.th(t('helpers.label.trigger.condition'))%>               
+                <%=tag.th(t('helpers.label.trigger.action'))%>
+                <%=tag.th(t('helpers.label.trigger.pause'))%>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @triggers.each do |trigger| %>
+                  <%= render trigger %>
+              <% end %>
+              </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @triggers %>
+      </div>
+    </div>
+  </div>
+</div>

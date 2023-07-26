@@ -1,9 +1,0 @@
-<%# turbo_stream.update @target do %>
-    <%# options_for_select @characteristics %>
-<%= turbo_stream.replace @target do %>
-    <div class="mb-3 col-md-5 wrap-characteristic" data-prop-target= "characteristicwrap" id="<%= @target.to_s%>">
-        <label class="visually-hidden" for="prop_characteristic_id"><%= t('characteristic_one')%></label>
-        <%= select_tag 'prop[characteristic_id]', options_for_select(@characteristics), 
-            data: { prop_target: 'characteristic', slimselect_target: "characteristic"} %>
-    </div>
-<% end %>

@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @incase_tip %>
+
+<div>
+  <%= link_to "Edit this incase tip", edit_incase_tip_path(@incase_tip) %> |
+  <%= link_to "Back to incase tips", incase_tips_path %>
+
+  <%= button_to "Destroy this incase tip", @incase_tip, method: :delete %>
+</div>

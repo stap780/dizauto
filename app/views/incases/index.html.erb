@@ -1,7 +1,22 @@
-<%= link_to "<i data-feather='plus'></i> #{Incase.model_name.human}".html_safe, new_incase_path, class: "btn btn-primary float-end mt-n1" %>
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= Incase.model_name.human(count: 2)%></h1>
+
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Incase.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: { bs_toggle: 'offcanvas'} do %>
+      <span><i data-feather='sliders'></i></span>
+      <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle <% unless params[:q].present?%>d-none<% end %>">
+        <span class="visually-hidden"></span>
+      </span>
+    <% end %>
+    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, incases_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i data-feather='plus'></i> #{Incase.model_name.human}".html_safe, new_incase_path, class: "btn btn-primary" %>
+  </div>
 </div>
+
+<%= render 'filter', q: @search, title: 'Incase filter'%>
+
 
 <div class="card">
   <div class="card-header pb-0">
@@ -12,6 +27,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <%= link_to 'File import'.html_safe, file_import_incases_path, class: 'dropdown-item', data: {controller: 'turbo'} %>
+          <%= link_to '.xlsx', incases_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
         </div>
       </div>
     </div>
@@ -25,6 +41,8 @@
             <thead>
               <tr>
                 <th>#</th>
+                <th><%= t('helpers.label.incase.status')%></th>
+                <th><%= t('helpers.label.incase.tip')%></th>
                 <th><%= t('helpers.label.incase.region')%></th>
                 <th><%= t('helpers.label.incase.strah_id')%></th>
                 <th><%= t('helpers.label.incase.stoa')%></th>
@@ -32,8 +50,6 @@
                 <th><%= t('helpers.label.incase.car')%></th>
                 <th><%= t('helpers.label.incase.date')%></th>
                 <th><%= t('helpers.label.incase.totalsum')%></th>
-                <th><%= t('helpers.label.incase.status')%></th>
-                <th><%= t('helpers.label.incase.tip')%></th>
                 <th></th>
               </tr>
             </thead>

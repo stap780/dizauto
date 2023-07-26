@@ -1,0 +1,49 @@
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= title %></h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
+		<div class="form-group">
+        <div class="row g-1 mb-2">
+          <div class="col-md-12">
+            <div class="label">Sku, Barcode, Title</div>
+            <%= f.search_field :sku_or_barcode_or_title_cont_all, class: "form-control input-sm"%>
+          </div>
+          <div class="col-md-6" data-controller="checkbox">
+            <div class="label">Quantity</div>
+            <div class="form-check form-check-inline">
+              <%= f.label :all_quantity, class: 'form-check-label' do %>
+              <%= f.check_box :all_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> all<% end %>
+            </div>
+            <div class="form-check form-check-inline"> 
+              <%= f.label :no_quantity, class: 'form-check-label' do %>
+              <%= f.check_box :no_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> = 0<% end %>
+              </div>
+              <div class="form-check form-check-inline">
+              <%= f.label :yes_quantity, class: 'form-check-label' do %>
+              <%= f.check_box :yes_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> > 0<% end %>
+            </div>
+          </div>
+          <div class="col-md-6" data-controller="checkbox">
+            <div class="label">Price</div>
+            <div class="form-check form-check-inline"> 
+              <%= f.label :no_price, class: 'form-check-label' do %>
+              <%= f.check_box :no_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> = 0<% end %>
+              </div>
+              <div class="form-check form-check-inline">
+              <%= f.label :yes_price, class: 'form-check-label' do %>
+              <%= f.check_box :yes_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> > 0<% end %>
+            </div>
+          </div>
+            
+        </div>
+
+  			<div class="btn-group btn-group-sm" role="group"> 
+          <%= f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search", "bs-toggle":"offcanvas"}  %>
+  			</div>
+		</div>	
+    <% end %>
+  </div>
+</div>

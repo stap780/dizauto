@@ -1,0 +1,9 @@
+<%= form_with(model: incase_item) do |form| %>
+  <%= render 'shared/errors', object: incase_item%>
+
+  <%= render 'form_data', form: f, import_line: nil %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

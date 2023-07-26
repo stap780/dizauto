@@ -1,5 +1,5 @@
 <%= form_with(model: detal) do |f| %>
-  <%= render 'shared/errors', object: detal%>
+    <%= render 'shared/errors', object: detal%>
 
     <div class="row">
         <div class="col-md-12">
@@ -20,10 +20,10 @@
                             <%= f.rich_text_area :description, class: "form-control" %>
                         </div>
                         <div class="mb-3 col-md-6">
-                          <% disabled_class = f.object.new_record? ? 'disabled' : '' %>
-                          <%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(detal_id: @detal.id), 
+                            <% disabled_class = f.object.new_record? ? 'disabled' : '' %>
+                            <%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(detal_id: @detal.id), 
                                                             class: "btn btn-primary #{disabled_class}", data: {turbo_frame: dom_id(Prop.new) } %>
-                          <%= render "properties/property_lines", f: f %>
+                            <%= render "props/property_lines", f: f %>
                         </div>
                     </div>
                 </div>
@@ -34,6 +34,5 @@
             </div>
         </div>
     </div>
-
 
 <% end %>

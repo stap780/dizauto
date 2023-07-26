@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @trigger %>
+
+<div>
+  <%= link_to "Edit this trigger", edit_trigger_path(@trigger) %> |
+  <%= link_to "Back to triggers", triggers_path %>
+
+  <%= button_to "Destroy this trigger", @trigger, method: :delete %>
+</div>

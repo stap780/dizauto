@@ -1,0 +1,22 @@
+<tr id="<%= dom_id trigger %>">
+        <%= tag.td tag.b(trigger.id) %>
+        <%= tag.td(trigger.active.to_s) %>
+        <%= tag.td(trigger.title)%>
+        <%= tag.td(trigger.event)%>
+        <%= tag.td(trigger.condition)%>
+        <%= tag.td do %>
+            <% if trigger.actions.respond_to?('each') %>
+                <% trigger.actions.each do |a| %>
+                    <%= a.title_values %><br>
+                <% end %>
+            <% end %>
+        <% end %>
+        <%= tag.td do %>
+            <%= trigger.pause %>
+            <%= trigger.pause_time %>
+        <% end %>
+    <td>
+        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_trigger_path(trigger), class: 'px-2' %>
+        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, trigger, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+    </td>
+</tr>

@@ -3,10 +3,37 @@ import { get } from "@rails/request.js"
 
 // Connects to data-controller="prop"
 export default class extends Controller {
-  static targets = ['characteristic', 'characteristicwrap']
-  connect() {
-    
+  static targets = ['select','characteristic', 'characteristicwrap']
+  static values = {
+    url: String,
+    param: String
   }
+
+  connect() {
+    if (this.selectTarget.id === "") {
+      this.selectTarget.id = Math.random().toString(36)
+    }
+    if (this.characteristicwrapTarget.id === "") {
+      this.characteristicwrapTarget.id = this.selectTarget.id+'_wrap'
+    }
+  }
+
+  change(event) {
+    console.log('event', event)
+    let params = new URLSearchParams()
+    params.append(this.paramValue, event.target.selectedOptions[0].value)
+    params.append("target", this.selectTarget.id)
+    params.append("wraptarget", this.selectTarget.id+'_wrap')
+    params.append("targetname", this.selectTarget.name)
+    
+    // console.log('params', params)
+    // console.log('this.urlValue', this.urlValue)
+
+    get(`${this.urlValue}?${params}`, {
+      responseKind: "turbo-stream"
+    })
+  }
+
   change_property(e) {  
     e.preventDefault();
     //console.log('hello');
@@ -28,3 +55,4 @@ export default class extends Controller {
     })
   }
 }
+ 

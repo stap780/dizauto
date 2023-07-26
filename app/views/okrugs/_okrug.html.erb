@@ -1,6 +1,6 @@
 <tr id="<%= dom_id okrug %>">
-    <td><b><%= okrug.id%></b></td>
-    <td><%= okrug.title %></td>
+    <%= tag.td tag.b(okrug.id) %>
+    <%= tag.td(okrug.title)%>
     <td>
         <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_okrug_path(okrug), class: 'px-2' %>
         <%= link_to '<i data-feather="trash-2"></i>'.html_safe, okrug, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>

@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Line items</h1>
+
+<div id="incase_items">
+  <% @incase_items.each do |incase_item| %>
+    <%= render incase_item %>
+    <p>
+      <%= link_to "Show this line item", incase_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New line item", new_incase_item_path %>

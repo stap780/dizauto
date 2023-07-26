@@ -1,8 +1,2 @@
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle">Редактирование</h1>
-</div>
 
-<%= render "form", property: @property %>
-
- <%# link_to "Show this property", @property %> 
-<%# link_to "Back to properties", properties_path %>
+<%= render 'shared/new_edit', object: @property, tip: :edit %>

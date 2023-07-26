@@ -3,27 +3,16 @@ import SlimSelect from 'slim-select'
 
 // Connects to data-controller="slim-select"
 export default class extends Controller {
-  static targets = [ 'property','characteristic' ]
+
+  //static targets = [ 'property','characteristic','client' ]
   connect() {
-    //const select = this.element.querySelector('select')
-    //console.log('this element', this.element);
-  }
-  propertyTargetConnected(element) {
-    // console.log('propertyTargetConnected element', element);
-    var select_property = new SlimSelect({
-      select: element,
-      closeOnSelect: false
+    //console.log('connect slimselect')
+    new SlimSelect ({
+      select: this.element,
+      settings: {
+        //minSelected: 1,
+        maxSelected: 1,
+      },
     })
-  }
-  characteristicTargetConnected(element) {
-    var select_characteristic = new SlimSelect({
-      select: element,
-      closeOnSelect: false
-    })
-    // select_characteristic.setData([
-    //   {text: 'Value 1', value: 'value1'},
-    //   {text: 'Value 2', value: 'value2'},
-    //   {text: 'Value 3', value: 'value3'}
-    // ])
   }
 }

@@ -4926,8 +4926,8 @@ textarea.form-control-lg {
 }
 
 .badge {
-    --bs-badge-padding-x: 0.45em;
-    --bs-badge-padding-y: 0.3em;
+    --bs-badge-padding-x: 0.55em;
+    --bs-badge-padding-y: 0.35em;
     --bs-badge-font-size: 80%;
     --bs-badge-font-weight: 600;
     --bs-badge-color: #fff;

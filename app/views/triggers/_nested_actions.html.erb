@@ -1,0 +1,19 @@
+<div id="<%= dom_id f.object %>" class="nested-form-wrapper row" data-new-record="<%= f.object.new_record? %>"
+    data-controller="action" data-action-url-value="<%= values_actions_path %>" data-action-param-value="action_name">
+    <div class="p-0 col-md-5 action_name">
+        <%= f.select :action_name, Action::Name.map{ |r| [ r[0], r[1] ] }, {include_blank: true}, 
+        { class: "p-1", data: {controller: 'slimselect', action: "change->action#change"}} %>
+    </div>
+    <div class="p-0 col-md-5 action_params" data-action-target='action_params_wrap'>
+         <% collection = f.object.action_name.present? ? Action.get_collection(f.object.action_name) : []%>
+
+        <%= f.select :action_params, collection, { include_blank: true }, 
+                                        { multiple: true, data: {controller: "slimselect", action_target: "select" }} %>
+    </div>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-link" data-action="nested-form#remove">
+        <i class="fa fa-trash"></i></button>
+        <%= f.hidden_field :_destroy %>
+    </div>
+
+</div>

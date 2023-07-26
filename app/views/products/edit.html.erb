@@ -1,5 +1,1 @@
-<div class="mb-3">
-  <%= link_to t('back'), products_path, class: "btn btn-outline-primary" %>
-  <h1 class="h3 d-inline align-middle px-2">Редактирование</h1>
-</div>
-<%= render "form", product: @product %>
+<%= render 'shared/new_edit', object: @product, tip: :edit %>

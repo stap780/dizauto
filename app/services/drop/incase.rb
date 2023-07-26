@@ -4,6 +4,10 @@ class Drop::Incase < Liquid::Drop
         @incase = incase
     end
 
+    def do_work
+        'do_work'
+    end
+
     def region
         @incase.region
     end
@@ -37,15 +41,15 @@ class Drop::Incase < Liquid::Drop
     end
 
     def totalsum
-        @incase.totalsum
+        @incase.totalsum.to_i
     end
 
     def status
-        @incase.status
+        @incase.incase_status.present? ? @incase.incase_status.title : ''
     end
 
     def tip
-        @incase.tip
+        @incase.tip.present? ? @incase.tip.title : ''
     end
 
     def line_items
@@ -53,7 +57,7 @@ class Drop::Incase < Liquid::Drop
         # products = @export.products.map(&:attributes)
         #.map{|line| {"id" => line.id, "sku" => line.sku, "price" => line.price, "quantity" => line.quantity, "title"=> line.title}}
         l_products = []
-        @incase.line_items.each do |li|
+        @incase.incase_items.each do |li|
             b = li.attributes
             # b = pr.attributes
             # b['properties'] = pr.props.map{|l| [l.property.title,l.characteristic.title]}

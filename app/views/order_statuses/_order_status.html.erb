@@ -1,0 +1,9 @@
+<tr id="<%= dom_id order_status %>">
+    <td><b><%= order_status.id%></b></td>
+    <td><%= order_status.title %></td>
+    <td><%= order_status.color %></td>
+    <td>
+        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_order_status_path(order_status), class: 'px-2' %>
+        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, order_status, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+    </td>
+</tr>

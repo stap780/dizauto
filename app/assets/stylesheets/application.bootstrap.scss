@@ -11,6 +11,7 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
+
 // Theme mixins
 @import "2-mixins/badge";
 @import "2-mixins/button";
@@ -80,7 +81,7 @@
 @import "5-vendor/datatables-select";
 @import "5-vendor/datatables-fixedHeader";
 @import "5-vendor/choices";
-@import "5-vendor/flatpickr";
+// @import "5-vendor/flatpickr";
 @import "5-vendor/fullcalendar";
 @import "5-vendor/highlight";
 @import "5-vendor/jsvectormap";
@@ -90,6 +91,9 @@
 @import 'actiontext.scss';
 @import "dropzone.css";
 @import "slimselect.css";
+@import "filter.css";
+@import "color_picker_nano.css";
+
 
 
 $h1-font-size: 1rem; // this line was added 
@@ -174,4 +178,28 @@ main.page-home{
 .nav-pills .show > .nav-link {
     color: var(--bs-nav-link-color);;
     background-color: transparent!important;
+}
+
+.loading { visibility: hidden; }
+turbo-frame[busy] .loading { visibility: visible; }
+
+option:disabled {
+    display: none;
+}
+
+table.barby-barcode {
+    border-spacing: 0
+}
+
+td.barby-cell {
+    width: 3px;
+    height: 100px
+}
+
+td.barby-cell.on {
+    background: #000
+}
+.badge {
+    --bs-badge-padding-x: 0.55em;
+    --bs-badge-padding-y: 0.35em;
 }

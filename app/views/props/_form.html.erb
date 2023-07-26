@@ -1,6 +1,6 @@
 <%= turbo_frame_tag prop do %>
     <%= form_with(model: prop, class: "row align-items-center", data: {controller: 'prop slimselect'}) do |f|%>
-        <%= render 'shared/errors', object: prop%>
+        <%= render 'shared/errors', object: prop %>
 
         <div class="mb-3 col-md-5">
             <%= f.label :property_id, t('property_one'), class: "visually-hidden" %>

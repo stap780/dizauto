@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-md-3 mb-2">
+        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add property</button>
+    </div>
+    <template data-nested-form-target="template">
+        <%= f.fields_for :props, Prop.new, child_index: 'NEW_RECORD' do |prop| %>
+            <%= render "props/nested_data", f: prop %>
+        <% end %>
+    </template>
+    
+        <%= f.fields_for :props, data: {controller: 'prop slimselect'} do |prop| %>
+            <%= render "props/nested_data", f: prop %>
+        <% end %>
+    <div data-nested-form-target="target"></div>
+</div>
