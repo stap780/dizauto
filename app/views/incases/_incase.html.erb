@@ -1,10 +1,10 @@
 <tr id="<%= dom_id incase %>">
     <td><b><%= incase.id%></b></td>
     <%= tag.td do %>
-        <%=tag.span(incase.incase_status.title, class: 'badge text-teal-800', style: 'background-color:'+incase.incase_status.color) if incase.incase_status%>
+        <%=tag.span(incase.incase_status.title, class: 'badge text-dark', style: 'background-color:'+incase.incase_status.color) if incase.incase_status%>
     <% end %>
     <%= tag.td do %>
-        <%= tag.span(incase.incase_tip.title, class: 'badge text-teal-800', style: 'background-color:'+incase.incase_tip.color) if incase.incase_tip%>
+        <%= tag.span(incase.incase_tip.title, class: 'badge text-dark', style: 'background-color:'+incase.incase_tip.color) if incase.incase_tip%>
      <% end %>
     <td><%= incase.region %></td>
     <td><%= incase.strah.short_title %></td>

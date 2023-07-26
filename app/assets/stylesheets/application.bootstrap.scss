@@ -4,89 +4,89 @@
  * Copyright 2022 AdminKit
  */
 
-// Variables
+// // Variables
 @import "lights.css";
 @import "1-variables/app";
 
-@import 'bootstrap/scss/bootstrap';
+// @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 
 
-// Theme mixins
-@import "2-mixins/badge";
-@import "2-mixins/button";
-@import "2-mixins/modal";
-@import "2-mixins/switch";
-@import "2-mixins/tabs";
-@import "2-mixins/theme";
+// // Theme mixins
+// @import "2-mixins/badge";
+// @import "2-mixins/button";
+// @import "2-mixins/modal";
+// @import "2-mixins/switch";
+// @import "2-mixins/tabs";
+// @import "2-mixins/theme";
 
-// Theme components
-@import "3-components/accordion";
-@import "3-components/alert";
-@import "3-components/avatar";
-@import "3-components/badges";
-@import "3-components/buttons";
-@import "3-components/card";
-@import "3-components/chart";
-@import "3-components/chat";
-@import "3-components/content";
-@import "3-components/dropdown";
-@import "3-components/feather";
-@import "3-components/footer";
-@import "3-components/forms";
-@import "3-components/hamburger";
-@import "3-components/list-group";
-@import "3-components/main";
-@import "3-components/modal";
-@import "3-components/navbar";
-@import "3-components/pagination";
-@import "3-components/progress";
-@import "3-components/reboot";
-@import "3-components/settings";
-@import "3-components/sidebar";
-@import "3-components/sizing";
-@import "3-components/stat";
-@import "3-components/tables";
-@import "3-components/tabs";
-@import "3-components/timeline";
-@import "3-components/type";
-@import "3-components/wrapper";
+// // Theme components
+// @import "3-components/accordion";
+// @import "3-components/alert";
+// @import "3-components/avatar";
+// @import "3-components/badges";
+// @import "3-components/buttons";
+// @import "3-components/card";
+// @import "3-components/chart";
+// @import "3-components/chat";
+// @import "3-components/content";
+// @import "3-components/dropdown";
+// @import "3-components/feather";
+// @import "3-components/footer";
+// @import "3-components/forms";
+// @import "3-components/hamburger";
+// @import "3-components/list-group";
+// @import "3-components/main";
+// @import "3-components/modal";
+// @import "3-components/navbar";
+// @import "3-components/pagination";
+// @import "3-components/progress";
+// @import "3-components/reboot";
+// @import "3-components/settings";
+// @import "3-components/sidebar";
+// @import "3-components/sizing";
+// @import "3-components/stat";
+// @import "3-components/tables";
+// @import "3-components/tabs";
+// @import "3-components/timeline";
+// @import "3-components/type";
+// @import "3-components/wrapper";
 
-// Theme utilities
-@import "4-utilities/background";
-@import "4-utilities/cursors";
-@import "4-utilities/overflow";
+// // Theme utilities
+// @import "4-utilities/background";
+// @import "4-utilities/cursors";
+// @import "4-utilities/overflow";
 
-// 3rd party plugins
-// @import "~@fortawesome/fontawesome-free/scss/brands";
-// @import "~@fortawesome/fontawesome-free/scss/fontawesome";
-// @import "~@fortawesome/fontawesome-free/scss/regular";
-// @import "~@fortawesome/fontawesome-free/scss/solid";
-// @import "~apexcharts/src/assets/apexcharts";
-// @import "~choices.js/src/styles/choices";
-// @import "~datatables.net-bs5/css/dataTables.bootstrap5";
-// @import "~datatables.net-buttons-bs5/css/buttons.bootstrap5";
-// @import "~datatables.net-responsive-bs5/css/responsive.bootstrap5";
-// @import "~datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
-// @import "~dragula/dist/dragula";
-@import "flatpickr/dist/flatpickr";
-// @import "~fullcalendar/main";
-// @import "jsvectormap/dist/css/jsvectormap";
-// @import "~quill/dist/quill.bubble";
-// @import "~quill/dist/quill.snow";
-@import "simplebar/dist/simplebar";
-// @import "~notyf/notyf.min";
+// // 3rd party plugins
+// // @import "~@fortawesome/fontawesome-free/scss/brands";
+// // @import "~@fortawesome/fontawesome-free/scss/fontawesome";
+// // @import "~@fortawesome/fontawesome-free/scss/regular";
+// // @import "~@fortawesome/fontawesome-free/scss/solid";
+// // @import "~apexcharts/src/assets/apexcharts";
+// // @import "~choices.js/src/styles/choices";
+// // @import "~datatables.net-bs5/css/dataTables.bootstrap5";
+// // @import "~datatables.net-buttons-bs5/css/buttons.bootstrap5";
+// // @import "~datatables.net-responsive-bs5/css/responsive.bootstrap5";
+// // @import "~datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
+// // @import "~dragula/dist/dragula";
+// @import "flatpickr/dist/flatpickr";
+// // @import "~fullcalendar/main";
+// // @import "jsvectormap/dist/css/jsvectormap";
+// // @import "~quill/dist/quill.bubble";
+// // @import "~quill/dist/quill.snow";
+// @import "simplebar/dist/simplebar";
+// // @import "~notyf/notyf.min";
 
-// 3rd party plugin styles
-@import "5-vendor/datatables-select";
-@import "5-vendor/datatables-fixedHeader";
-@import "5-vendor/choices";
-// @import "5-vendor/flatpickr";
-@import "5-vendor/fullcalendar";
-@import "5-vendor/highlight";
-@import "5-vendor/jsvectormap";
-@import "5-vendor/quill";
-@import "5-vendor/simplebar";
+// // 3rd party plugin styles
+// @import "5-vendor/datatables-select";
+// @import "5-vendor/datatables-fixedHeader";
+// @import "5-vendor/choices";
+// // @import "5-vendor/flatpickr";
+// @import "5-vendor/fullcalendar";
+// @import "5-vendor/highlight";
+// @import "5-vendor/jsvectormap";
+// @import "5-vendor/quill";
+// @import "5-vendor/simplebar";
 
 @import 'actiontext.scss';
 @import "dropzone.css";
@@ -96,47 +96,47 @@
 
 
 
-$h1-font-size: 1rem; // this line was added 
-body {
-    background-color: #edf2f9;
-}
-a {
-    color: #2c7be5;
-    text-decoration: none;
-}
-main.page-home{
-    background-color: #005A3C; 
-}
-.fs--1 {
-    font-size: .8333333333rem !important;
-}
-.flex-center {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-.flex-between-center {
-    -webkit-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
+// $h1-font-size: 1rem; // this line was added 
+// body {
+//     background-color: #edf2f9;
+// }
+// a {
+//     color: #2c7be5;
+//     text-decoration: none;
+// }
+// main.page-home{
+//     background-color: #005A3C; 
+// }
+// .fs--1 {
+//     font-size: .8333333333rem !important;
+// }
+// .flex-center {
+//     -webkit-box-align: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+//     -webkit-box-pack: center;
+//     -ms-flex-pack: center;
+//     justify-content: center;
+// }
+// .flex-between-center {
+//     -webkit-box-pack: justify;
+//     -ms-flex-pack: justify;
+//     justify-content: space-between;
+//     -webkit-box-align: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+// }
 .card {
     box-shadow: 0 7px 14px 0 rgb(65 69 88 / 10%), 0 3px 6px 0 rgb(0 0 0 / 7%);
 }
 
-.form-control {
-    border-radius: 0.25rem;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
-    border: 1px solid #d8e2ef;
-    color: #344050;
-}
+// .form-control {
+//     border-radius: 0.25rem;
+//     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+//     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+//     border: 1px solid #d8e2ef;
+//     color: #344050;
+// }
 
 .alert-fade {
     animation-name: fadeOut;
@@ -171,21 +171,21 @@ main.page-home{
         padding: 0;
     }
 }
-.nav-pills .nav-link {
-    color: black;
-  }
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-    color: var(--bs-nav-link-color);;
-    background-color: transparent!important;
-}
+// .nav-pills .nav-link {
+//     color: black;
+//   }
+// .nav-pills .nav-link.active,
+// .nav-pills .show > .nav-link {
+//     color: var(--bs-nav-link-color);;
+//     background-color: transparent!important;
+// }
 
-.loading { visibility: hidden; }
-turbo-frame[busy] .loading { visibility: visible; }
+// .loading { visibility: hidden; }
+// turbo-frame[busy] .loading { visibility: visible; }
 
-option:disabled {
-    display: none;
-}
+// option:disabled {
+//     display: none;
+// }
 
 table.barby-barcode {
     border-spacing: 0
@@ -198,8 +198,4 @@ td.barby-cell {
 
 td.barby-cell.on {
     background: #000
-}
-.badge {
-    --bs-badge-padding-x: 0.55em;
-    --bs-badge-padding-y: 0.35em;
 }

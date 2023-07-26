@@ -1,0 +1,18 @@
+<% flash.each do |k, v| %>
+    <%# tag.div v, class: "alert alert-#{k} alert-fade" %>
+    <% f_class = k == 'notice' ? 'info' : k %>
+
+    <div class="notyf">
+        <div class="notyf__toast notyf__toast--dismissible notyf__toast--upper text-bg-<%= f_class %>">
+            <div class="notyf__wrapper">
+                <%# <div class="notyf__icon">
+                    <i class="notyf__icon--error" style="color: rgb(255, 193, 7);"></i>
+                </div> %>
+                <div class="notyf__message"><%= v %></div>
+                <div class="notyf__dismiss">
+                    <button class="notyf__dismiss-btn" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
