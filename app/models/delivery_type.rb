@@ -4,7 +4,7 @@ class DeliveryType < ApplicationRecord
     before_save :normalize_data_white_space
 
     def self.ransackable_attributes(auth_object = nil)
-        Delivery.attribute_names
+        DeliveryType.attribute_names
     end
 
     def title_price

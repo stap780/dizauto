@@ -28,6 +28,7 @@ class IncaseTipsController < ApplicationController
 
     respond_to do |format|
       if @incase_tip.save
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully created." }
         format.json { render :show, status: :created, location: @incase_tip }
       else
@@ -41,6 +42,7 @@ class IncaseTipsController < ApplicationController
   def update
     respond_to do |format|
       if @incase_tip.update(incase_tip_params)
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully updated." }
         format.json { render :show, status: :ok, location: @incase_tip }
       else
@@ -57,6 +59,7 @@ class IncaseTipsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 

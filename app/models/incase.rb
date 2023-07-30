@@ -40,7 +40,7 @@ class Incase < ApplicationRecord
             # fi = 'company' if fi == 'company_id' # fi = 'strah' if fi == 'strah_id'
             our_fields.push(fi) if fi != 'id' && fi != 'created_at' && fi != 'updated_at' && fi != 'status' && fi != 'tip'
         end
-        LineItem.attribute_names.each do |fi|
+        IncaseItem.attribute_names.each do |fi|
             our_fields.push(fi) if fi != 'incase_id' && fi != 'id' && fi != 'created_at' && fi != 'updated_at'
         end
         our_fields.reject(&:blank?)

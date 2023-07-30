@@ -1,7 +1,19 @@
-<%= link_to "<i data-feather='plus'></i> #{Detal.model_name.human}".html_safe, new_detal_path, class: "btn btn-primary float-end mt-n1" %>
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= Detal.model_name.human(count: 2)%></h1>
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Detal.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
+      <span><i data-feather='sliders'></i></span>
+      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
+        <span class="visually-hidden"></span>
+      </span>
+    <% end %>
+    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, detals_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i data-feather='plus'></i> #{Detal.model_name.human}".html_safe, new_detal_path, class: "btn btn-primary" %>
+  </div>
 </div>
+<%= render 'filter', q: @search, title: 'Incase filter' %>
 
 <div class="card">
   <div class="card-header pb-0">
@@ -12,6 +24,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
+          <%= link_to '.xlsx', detals_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
         </div>
       </div>
     </div>

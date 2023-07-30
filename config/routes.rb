@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :incase_item_statuses
   resources :incase_tips
   resources :incase_statuses
   resources :actions do

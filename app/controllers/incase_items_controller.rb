@@ -66,6 +66,6 @@ class IncaseItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def incase_item_params
-      params.require(:incase_item).permit(:incase_id, :title, :quantity, :katnumber, :price, :sum, :status)
+      params.require(:incase_item).permit(:incase_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id)
     end
 end

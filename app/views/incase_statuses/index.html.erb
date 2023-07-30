@@ -1,4 +1,5 @@
-<%= link_to "<i data-feather='plus'></i> #{IncaseStatus.model_name.human}".html_safe, new_incase_status_path, class: "btn btn-primary float-end mt-n1" %>
+<%= link_to "<i data-feather='plus'></i> #{IncaseStatus.model_name.human}".html_safe, 
+new_incase_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseStatus.new) } %>
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= IncaseStatus.model_name.human(count: 2)%></h1>
 </div>
@@ -19,25 +20,20 @@
   </div>
   <div class="card-body">
     <div id="datatables-incase_status_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-incase_status" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.incase_status.title')%></th>
-                <th><%= t('helpers.label.incase_status.color')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @incase_statuses.each do |incase_status| %>
-                  <%= render incase_status %>
-              <% end %>
-              </tbody>
-          </table>
+        <%= turbo_frame_tag IncaseStatus.new %>
+
+        <div class="col-sm-12 list-group list-group-striped">
+          <div class="row py-2 px-4">
+            <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+            <%= tag.div( t( 'helpers.label.incase_status.title'), class: 'col-md-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_status.color'), class: 'col-md-5 fw-semibold' )%>
+            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
+          </div>
+          <%= turbo_frame_tag 'incase_statuses' do %>
+              <%= render @incase_statuses %>
+          <% end %>
         </div>
-      </div>
+
       <div class="row paginate-wrap">
         <%= render "shared/paginate", f: @incase_statuses %>
       </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_25_135831) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_29_144029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -164,6 +164,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_135831) do
     t.boolean "use_property"
   end
 
+  create_table "incase_item_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "incase_items", force: :cascade do |t|
     t.integer "incase_id"
     t.string "title"
@@ -171,9 +178,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_25_135831) do
     t.string "katnumber"
     t.decimal "price", precision: 12, scale: 2, default: "0.0"
     t.decimal "sum", precision: 12, scale: 2, default: "0.0"
-    t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "incase_item_status_id"
   end
 
   create_table "incase_statuses", force: :cascade do |t|

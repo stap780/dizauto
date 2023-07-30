@@ -6,5 +6,5 @@
 <td><%= order.payment_type_id%></td>
 <td><%= order.delivery_type_id%></td>
 <td><%= order.created_at.strftime("%d/%m/%Y")%></td>
-<td><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_order_path(order), class: "px-2" %>
+<td class="text-nowrap"><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_order_path(order), class: "px-2" %>
 <%= link_to '<i data-feather="trash-2"></i>'.html_safe, order, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>

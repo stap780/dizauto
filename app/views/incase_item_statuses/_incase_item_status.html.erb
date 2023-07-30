@@ -1,0 +1,13 @@
+<%= turbo_frame_tag incase_item_status, class: "list-group-item py-2 border-start-0 border-end-0" do %>
+    <div class="row">
+        <%= tag.div tag.b(incase_item_status.id), class: "col-md-1" %>
+        <%= tag.div(incase_item_status.title, class: "col-md-5")%>
+        <%= tag.div('', class: "col-md-5") do %>
+            <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{incase_item_status.color};")%>
+        <% end %>
+        <div class= "col-md-1">
+            <%= link_to edit_icon, edit_incase_item_status_path(incase_item_status), class: 'px-2' %>
+            <%= link_to trash_icon, incase_item_status, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+        </div>
+    </div>
+<% end %>

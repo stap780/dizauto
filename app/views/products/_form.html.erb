@@ -1,21 +1,21 @@
 <div class="row">
-<%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'col-md-8') do |form| %>
- <%= render "shared/errors", object: product%>
+    <%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'col-md-8') do |form| %>
+        <%= render "shared/errors", object: product%>
 
         <div class="card">
             <div class="card-header py-3 px-3 border-bottom">
             <ul class="nav nav-pills" id="productEditTab" role="tablist">
-              <li class="nav-item border border-primary rounded" role="presentation">
+                <li class="nav-item border border-primary rounded" role="presentation">
                 <a class="nav-link active" id="productEditMain-tab" data-bs-toggle="tab" data-bs-target="#productEditMain">Основные</a>
-              </li>
-              <li class="nav-item border border-primary rounded" role="presentation">
+                </li>
+                <li class="nav-item border border-primary rounded" role="presentation">
                 <a class="nav-link" id="productEditProperty-tab" data-bs-toggle="tab" data-bs-target="#productEditProperty" data-action= "click->product#tab_click">Параметры</a>
-              </li>
-              <% if !form.object.new_record? %>
-              <li class="nav-item border border-primary rounded" role="presentation">
+                </li>
+                <% if !form.object.new_record? %>
+                <li class="nav-item border border-primary rounded" role="presentation">
                 <a class="nav-link" id="productEditHistory-tab" data-bs-toggle="tab" data-bs-target="#productEditHistory">История</a>
-              </li>
-              <% end %>
+                </li>
+                <% end %>
             </ul>
             </div>
             <div class="card-body">
@@ -43,28 +43,28 @@
             </div>
         </div>
 
-<% end %>
+    <% end %>
+
     <div class="col-md-4">
-                <% if product.barcode.present? %>
-                <div class="card">
+        <% if product.barcode.present? %>
+            <div class="card">
                 <div class="card-body">
                     <%= product.get_barcode %>
-                    </div>
-                    </div>
-                <% end %>
+                </div>
+            </div>
+        <% end %>
+
         <div class="card">
-            <!--<div class="card-header">
-                <h4 class="card-title mb-0">Photo</h4>
-            </div>-->
             <div class="card-body">
-            <% if product.new_record?%>
-                <p>Сохраните товар</p>
-            <% else %>
-                <%= turbo_frame_tag "images_product_#{@product.id}" do %>
-                    <%= render 'dropzone' %>
+                <% if product.new_record?%>
+                    <p>Сохраните товар</p>
+                <% else %>
+                    <%= turbo_frame_tag "images_product_#{@product.id}" do %>
+                        <%= render 'dropzone' %>
+                    <% end %>
                 <% end %>
-            <% end %>
             </div>
         </div>
     </div>
+
 </div>

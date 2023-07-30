@@ -7,18 +7,18 @@
             <div class="card-header">
             </div>
             <div class="card-body">
-              <div class="row">
-                  <div class="mb-3 col-md-6">
+              <div class="row col-md-7">
+                  <div class="mb-3 col-md-12">
                     <%= f.label :title, class: "form-label" %>
                     <%= f.text_field :title, class: "form-control" %>
+                  </div>
+                  <div class="mb-3 col-md-12">
+                    <%= f.label :desc, class: "form-label" %>
+                    <%= f.text_field :desc, class: "form-control" %>
                   </div>
                   <div class="mb-3 col-md-6">
                     <%= f.label :price, class: "form-label" %>
                     <%= f.text_field :price, class: "form-control" %>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <%= f.label :desc, class: "form-label" %>
-                    <%= f.text_field :desc, class: "form-control" %>
                   </div>
               </div>            
             </div>

@@ -1,4 +1,5 @@
-<%= link_to "<i data-feather='plus'></i> #{IncaseTip.model_name.human}".html_safe, new_incase_tip_path, class: "btn btn-primary float-end mt-n1" %>
+<%= link_to "<i data-feather='plus'></i> #{IncaseTip.model_name.human}".html_safe, 
+    new_incase_tip_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseTip.new) } %>
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= IncaseTip.model_name.human(count: 2)%></h1>
 </div>
@@ -19,25 +20,19 @@
   </div>
   <div class="card-body">
     <div id="datatables-incase_tip_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-incase_tip" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.incase_tip.title')%></th>
-                <th><%= t('helpers.label.incase_tip.color')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @incase_tips.each do |incase_tip| %>
-                  <%= render incase_tip %>
-              <% end %>
-              </tbody>
-          </table>
+        <%= turbo_frame_tag IncaseTip.new %>
+        <div class="col-sm-12 list-group list-group-striped">
+          <div class="row py-2 px-4">
+            <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+            <%= tag.div( t( 'helpers.label.incase_tip.title'), class: 'col-md-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_tip.color'), class: 'col-md-5 fw-semibold' )%>
+            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
+          </div>
+          <%= turbo_frame_tag 'incase_tips' do %>
+              <%= render @incase_tips %>
+          <% end %>
         </div>
-      </div>
+
       <div class="row paginate-wrap">
         <%= render "shared/paginate", f: @incase_tips %>
       </div>

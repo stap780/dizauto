@@ -6,6 +6,6 @@
 <td><%= product.quantity%></td>
 <td><%= product.price%></td>
 <td><%= product.created_at.strftime("%d/%m/%Y")%></td>
-<td><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_product_path(product), class: "px-2" %>
+<td class="text-nowrap"><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_product_path(product), class: "px-2" %>
 <%= link_to '<i data-feather="trash-2"></i>'.html_safe, product, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
 

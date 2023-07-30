@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+attributes = Detal.attribute_names
+wb.add_worksheet(name: "Detals") do |sheet|
+    sheet.add_row attributes
+  collection.each do |item|
+    sheet.add_row attributes.map{ |attr| item.send(attr) }
+  end
+end

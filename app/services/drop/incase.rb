@@ -4,7 +4,7 @@ class Drop::Incase < Liquid::Drop
         @incase = incase
     end
 
-    def do_work
+    def do_work #this is for check condition true/false
         'do_work'
     end
 
@@ -67,6 +67,10 @@ class Drop::Incase < Liquid::Drop
         end
         # puts "l_products => "+l_products.to_s
         l_products
+    end
+
+    def line_items_statuses
+        @incase.incase_items.map{|i_i| i_i.incase_item_status.title}
     end
 
 end

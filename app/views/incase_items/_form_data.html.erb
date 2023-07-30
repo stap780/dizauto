@@ -35,5 +35,5 @@
     <% end %>
 </td>
 <td class="p-0 status">
-    <%= f.select :status, IncaseItem::STATUS, {}, { class: "form-select form-select-lg" }%>
+    <%= f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), {}, { class: "form-select form-select-lg" }%>
 </td>

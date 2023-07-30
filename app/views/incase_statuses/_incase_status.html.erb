@@ -1,9 +1,13 @@
-<tr id="<%= dom_id incase_status %>">
-    <%= tag.td tag.b(incase_status.id) %>
-    <%= tag.td(incase_status.title)%>
-    <%= tag.td(incase_status.color)%>
-    <td>
-        <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_incase_status_path(incase_status), class: 'px-2' %>
-        <%= link_to '<i data-feather="trash-2"></i>'.html_safe, incase_status, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
-    </td>
-</tr>
+<%= turbo_frame_tag incase_status, class: "list-group-item py-2 border-start-0 border-end-0" do %>
+    <div class="row">
+        <%= tag.div tag.b(incase_status.id), class: "col-md-1" %>
+        <%= tag.div(incase_status.title, class: "col-md-5")%>
+        <%= tag.div('', class: "col-md-5") do %>
+            <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{incase_status.color};")%>
+        <% end %>
+        <div class= "col-md-1">
+            <%= link_to edit_icon, edit_incase_status_path(incase_status), class: 'px-2' %>
+            <%= link_to trash_icon, incase_status, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+        </div>
+    </div>
+<% end %>

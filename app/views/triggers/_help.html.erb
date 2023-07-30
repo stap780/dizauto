@@ -1,0 +1,107 @@
+<div class="row">
+<div class="col-md-12">
+<p>Основные операции</p>
+<table class="table table-striped-columns">
+  <tbody>
+    <tr>
+      <td><code>==</code></td>
+      <td>equals</td>
+      <td><code>!=</code></td>
+      <td>does not equal</td>
+    </tr>
+    <tr>
+      <td><code>&gt;</code></td>
+      <td>greater than</td>
+      <td><code>&lt;</code></td>
+      <td>less than</td>
+    </tr>
+    <tr>
+      <td><code>&gt;=</code></td>
+      <td>greater than or equal to</td>
+      <td><code>&lt;=</code></td>
+      <td>less than or equal to</td>
+    </tr>
+    <tr>
+      <td><code>or</code></td>
+      <td>logical or</td>
+      <td><code>and</code></td>
+      <td>logical and</td>
+    </tr>
+    <tr>
+      <td><code>contains</code></td>
+      <td colspan=3>checks for the presence of a substring inside a string</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="col-md-12 h5">Пример</div>
+<div class="col-md-12 h5 mb-3">{% if incase.strah == 'Альфа' and incase.totalsum == 0 and incase.line_items_statuses contains 'Нет' %} {{do_work}} {% endif %}</div>
+    <div class="col-md-6">
+        <%= tag.div("#{Incase.model_name.human(count: 2)} (incase)", class: "h4")%>
+
+        <div class="table-responsive">
+            <table class="table table-striped-columns">
+                <thead>
+                    <tr>
+                        <th scope="col">значение</th>
+                        <th scope="col">описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">region</td>
+                        <td><%= t('helpers.label.incase.region')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">strah</td>
+                        <td><%= t('helpers.label.incase.strah_id')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">stoanumber</td>
+                        <td><%= t('helpers.label.incase.stoanumber')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">unumber</td>
+                        <td><%= t('helpers.label.incase.unumber')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">company</td>
+                        <td><%= t('helpers.label.incase.company_id')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">carnumber</td>
+                        <td><%= t('helpers.label.incase.carnumber')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">date</td>
+                        <td><%= t('helpers.label.incase.date')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">modelauto</td>
+                        <td><%= t('helpers.label.incase.modelauto')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">totalsum</td>
+                        <td><%= t('helpers.label.incase.totalsum')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">status</td>
+                        <td><%= t('helpers.label.incase.incase_status_id')%></td>
+                    </tr>
+                     <tr class="">
+                        <td scope="row">tip</td>
+                        <td><%= t('helpers.label.incase.incase_tip_id')%></td>
+                    </tr>
+                     <tr class="">
+                        <td scope="row">line_items_statuses</td>
+                        <td>статусы позиций убытка</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <div class="col-md-6">
+        <%= tag.dev("#{Order.model_name.human(count: 2)} (order)", class: 'h4')%>
+    </div>
+</div>

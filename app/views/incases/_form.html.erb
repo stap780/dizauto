@@ -1,51 +1,66 @@
-
-<%# form_with(model: incase, data: { controller: 'nested-form',
-    nested_form_wrapper_selector_value: '.nested-form-wrapper'+nested_form_index.to_s }, class: 'incase-form') do |f| %>
- <%= form_with(model: incase, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
-                class: 'incase-form' ) do |f| %>
-   
+ <%= form_with(model: incase, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, class: 'incase-form' ) do |f| %>
     <%= render 'shared/errors', object: incase%>
 
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
+            <ul class="nav nav-pills" id="incaseEditTab" role="tablist">
+                <li class="nav-item border border-primary rounded" role="presentation">
+                <a class="nav-link active" id="incaseEditMain-tab" data-bs-toggle="tab" data-bs-target="#incaseEditMain">Основные</a>
+                </li>
+                <% if !f.object.new_record? %>
+                <li class="nav-item border border-primary rounded" role="presentation">
+                <a class="nav-link" id="incaseEditHistory-tab" data-bs-toggle="tab" data-bs-target="#incaseEditHistory">История</a>
+                </li>
+                <% end %>
+            </ul>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <%= render 'form_data', f: f %>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 mb-2">
-                            <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="incaseEditMain" role="tabpanel" aria-labelledby="incaseEditMain-tab">
+                        <div class="row">
+                            <%= render 'form_data', f: f %>
                         </div>
-                        <template data-nested-form-target="template">
-                            <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |item| %>
-                                <%= render "nested_items", f: item, nested_form_index: nil %>
-                            <% end %>
-                        </template>
-                        <div class="table-responsive">
-                            <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
-                                <thead class="">
-                                    <tr>
-                                        <th scope="col" class="col-3">title</th>
-                                        <th scope="col" class="col-1">quantity</th>
-                                        <th scope="col" class="col-2">katnumber</th>
-                                        <th scope="col" class="col-1">price</th>
-                                        <th scope="col" class="col-1">sum</th>
-                                        <th scope="col" class="col-2">status</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="">
-                                    <%= f.fields_for :incase_items do |item| %>
-                                        <%= render "nested_items", f: item, nested_form_index: nil %>
-                                    <% end %>
-                                    <tr data-nested-form-target="target"></tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                            </div>
+                            <template data-nested-form-target="template">
+                                <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |item| %>
+                                    <%= render "nested_items", f: item, nested_form_index: nil %>
+                                <% end %>
+                            </template>
+                            <div class="table-responsive">
+                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
+                                    <thead class="">
+                                        <tr>
+                                            <%=tag.th(t('helpers.label.incase_item.title'), scope:'col', class: 'col-4')%>
+                                            <%=tag.th(t('helpers.label.incase_item.quantity'), scope:'col', class: 'col-1')%>
+                                            <%=tag.th(t('helpers.label.incase_item.katnumber'), scope:'col', class: 'col-2')%>
+                                            <%=tag.th(t('helpers.label.incase_item.price'), scope:'col', class: 'col-1')%>
+                                            <%=tag.th(t('helpers.label.incase_item.sum'), scope:'col', class: 'col-1')%>
+                                            <%=tag.th(t('helpers.label.incase_item.status'), scope:'col', class: 'col-2')%>
+                                            <%=tag.th('', scope:'col', class: 'col-1')%>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <%= f.fields_for :incase_items do |item| %>
+                                            <%= render "nested_items", f: item, nested_form_index: nil %>
+                                        <% end %>
+                                        <tr data-nested-form-target="target"></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <% if !f.object.new_record? %>
+                    <div class="tab-pane" id="incaseEditHistory" role="tabpanel" aria-labelledby="incaseEditHistory-tab">
+                        <%= render "shared/history", f: f %>
+                    </div>
+                    <% end %>
+                </div>
+
                 </div>
                 <div class="card-footer">
                     <%= f.submit class: "btn btn-primary", data: {disable_with: false} %>

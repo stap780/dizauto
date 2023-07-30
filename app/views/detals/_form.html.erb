@@ -1,4 +1,4 @@
-<%= form_with(model: detal) do |f| %>
+<%= form_with(model: detal, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
     <%= render 'shared/errors', object: detal%>
 
     <div class="row">
@@ -20,12 +20,13 @@
                             <%= f.rich_text_area :description, class: "form-control" %>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <% disabled_class = f.object.new_record? ? 'disabled' : '' %>
-                            <%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(detal_id: @detal.id), 
+                            <%# disabled_class = f.object.new_record? ? 'disabled' : '' %>
+                            <%# link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(detal_id: @detal.id), 
                                                             class: "btn btn-primary #{disabled_class}", data: {turbo_frame: dom_id(Prop.new) } %>
-                            <%= render "props/property_lines", f: f %>
+                            <%# render "props/property_lines", f: f %>
                         </div>
                     </div>
+                    <%= render "props_nested", f: f %>
                 </div>
                 <div class="card-footer">
                     <%= f.submit class: "btn btn-primary" %>

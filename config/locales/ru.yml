@@ -38,6 +38,20 @@ ru:
   back: "Назад"
   activerecord:
     models:
+      attributes:
+        title: "Название"
+      incase: 
+        one: "убыток"
+        other: "Убытки"
+      incase_item_status:
+        one: "статус детали убытка"
+        other: "Статусы деталей убытка"
+      incase_status:
+        one: "статус убытка"
+        other: "Статусы убытка"
+      incase_tip:
+        one: "тип убытка"
+        other: "Типы убытка"
       property:
         one: "параметр"
         other: "Параметры"
@@ -47,22 +61,89 @@ ru:
       product: 
         one: "товар"
         other: "Товары"
+      order: 
+        one: "заказ"
+        other: "Заказы"
       okrug: 
         one: "округ"
         other: "Округа"
+      trigger: 
+        one: "триггер"
+        other: "Триггеры"
       warehouse: 
         one: "склад"
         other: "Склады"
-      attributes:
-        title: "Название"
     errors:
       messages:
         record_invalid: 'Возникли ошибки: %{errors}'
         restrict_dependent_destroy:
           has_one: 'Невозможно удалить запись, так как существует зависимость: %{record}'
           has_many: 'Невозможно удалить запись, так как существуют зависимости: %{record}'
+  incase_item_statuses:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  incase_statuses:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  incase_tips:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
   helpers:
     label:
+      trigger:
+        title: "Название"
+        active: "Вкл?"
+        event: "Событие"
+        condition: "Условие"
+        action: "Действие"
+        pause: "Отложить отправку?"
+        pause_time: "Кол-во минут"
+      incase:
+        incase_status_id: "Статус"
+        incase_tip_id: "Тип"
+        region: "Регион"
+        strah_id: "Страховая"
+        stoanumber: "СТОА"
+        unumber: "Номер убытка"
+        carnumber: "Номер машины"
+        date: "Дата"
+        totalsum: "Сумма"
+        company_id: "Компания"
+        modelauto: "Машина"
+      incase_item:
+        title: "Название"
+        quantity: "Кол-во"
+        katnumber: "Каталож.Номер"
+        price: "Цена"
+        sum: "Сумма"
+        status: "Статус"
+      incase_item_status:
+        title: "Название"
+        color: "Цвет"
+      incase_status:
+        title: "Название"
+        color: "Цвет"
+      incase_tip:
+        title: "Название"
+        color: "Цвет"
       property:
         title: "Название"
       characteristic:

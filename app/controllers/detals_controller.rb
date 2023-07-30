@@ -8,6 +8,16 @@ class DetalsController < ApplicationController
     @search = Detal.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @detals = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = 'detals.xlsx'
+    collection = @search.present? ? @search.result(distinct: true) : @detals
+    respond_to do |format|
+      format.html
+      format.zip do
+        service = CreateXlsx.new(collection, {filename: filename, template: "detals/index"} )
+        compressed_filestream = service.call
+        send_data compressed_filestream.read, filename: 'detals.zip', type: 'application/zip'
+      end
+    end
   end
 
   # GET /detals/1 or /detals/1.json

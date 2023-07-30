@@ -75,7 +75,8 @@
     --bs-link-color: #3b7ddd;
     --bs-link-hover-color: #2f64b1;
     --bs-code-color: #e83e8c;
-    --bs-highlight-bg: #fef1d5
+    --bs-highlight-bg: #fef1d5;
+    --sidebar-width: 210px;
 }
 
 *,:after,:before {
@@ -14806,7 +14807,7 @@ textarea.form-control-lg {
 
 @media(min-width: 992px) {
     .content {
-        padding:2rem 2rem 1.5rem
+        padding: 1.5rem
     }
 }
 
@@ -15454,8 +15455,8 @@ body[data-sidebar-position=right] {
 
 .sidebar {
     direction: ltr;
-    max-width: 264px;
-    min-width: 264px;
+    max-width: var(--sidebar-width);/*264px;*/
+    min-width: var(--sidebar-width);/*264px;*/
     transition: margin-left .35s ease-in-out,left .35s ease-in-out,margin-right .35s ease-in-out,right .35s ease-in-out
 }
 
@@ -15821,12 +15822,12 @@ body[data-theme=colored] .sidebar-brand:hover {
 }
 
 body:not([data-sidebar-position=right]) .sidebar.collapsed {
-    margin-left: -264px
+    margin-left: calc(-1*var(--sidebar-width));/*-264px*/
 }
 
 @media(max-width: 991.98px) {
     body:not([data-sidebar-position=right]) .sidebar {
-        margin-left:-264px
+        margin-left:calc(-1*var(--sidebar-width));/*-264px*/
     }
 
     body:not([data-sidebar-position=right]) .sidebar.collapsed {
@@ -15839,12 +15840,12 @@ body:not([data-sidebar-position=right]) .sidebar-toggle {
 }
 
 body[data-sidebar-position=right] .sidebar.collapsed {
-    margin-right: -264px
+    margin-right: calc(-1*var(--sidebar-width));/*-264px*/
 }
 
 @media(max-width: 991.98px) {
     body[data-sidebar-position=right] .sidebar {
-        margin-right:-264px
+        margin-right:calc(-1*var(--sidebar-width));/*-264px*/
     }
 
     body[data-sidebar-position=right] .sidebar.collapsed {
@@ -31885,5 +31886,27 @@ body[data-theme=colored] .simplebar-scrollbar:before {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    width: 264px
+    width: var(--sidebar-width);/*-264px*/
+}
+
+.list-group.list-group-striped .list-group-item:not(.active):nth-of-type(even) {
+    background-color: var(--bs-list-group-action-hover-bg);
+}
+.list-group.list-group-striped .list-group-item:not(.active):hover {
+    background-color: var(--bs-list-group-action-active-bg);
+}
+.spinner-grow-static {
+    --bs-spinner-width: 2rem;
+    --bs-spinner-height: 2rem;
+    --bs-spinner-vertical-align: -0.125em;
+    --bs-spinner-animation-speed: 0.75s;
+    --bs-spinner-animation-name: spinner-grow;
+    background-color: transparent;
+    opacity: 1;
+    animation: unset;
+    border-radius: 50%;
+    display: inline-block;
+    height: var(--bs-spinner-height);
+    vertical-align: var(--bs-spinner-vertical-align);
+    width: var(--bs-spinner-width);
 }

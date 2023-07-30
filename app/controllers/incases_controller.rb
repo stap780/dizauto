@@ -41,7 +41,7 @@ class IncasesController < ApplicationController
         @turbo_id = params[:commit].remove('Создать из импорта').to_s
         if @incase.save
           @incase.automation_on_create
-          flash.now[:success] = "Incase was successfully created"
+          flash.now[:success] = t('.success')
           format.turbo_stream
         else
           format.turbo_stream { render :import_incase_error, status: :unprocessable_entity }
@@ -126,6 +126,6 @@ class IncasesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def incase_params
       params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :incase_status_id, :incase_tip_id,
-        incase_items_attributes: [:id, :incase_id, :title, :quantity, :katnumber, :price, :sum, :status, :_destroy])
+        incase_items_attributes: [:id, :incase_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])
     end
 end

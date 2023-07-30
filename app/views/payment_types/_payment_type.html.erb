@@ -3,7 +3,7 @@
     <td><%= payment_type.title %></td>
      <td><%= payment_type.margin %></td>
      <td><%= payment_type.desc %></td>
-    <td>
+    <td class="text-nowrap">
         <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_payment_type_path(payment_type), class: 'px-2' %>
         <%= link_to '<i data-feather="trash-2"></i>'.html_safe, payment_type, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
     </td>

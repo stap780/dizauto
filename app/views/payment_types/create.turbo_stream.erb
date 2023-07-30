@@ -1,0 +1,3 @@
+<%= turbo_stream.update PaymentType.new, '' %>
+<%= turbo_stream.prepend "payment_types", render(@payment_type) %>
+<%= prepend_flash %>

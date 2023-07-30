@@ -17,12 +17,12 @@
             <tr class="">
                 <td><%= audit.action %></td>
                 <td><%= key %></td>
-                <td><%= value.respond_to?('each') ? value[0] : value %></td>
-                <td><%= value.respond_to?('each') ? value[1] : value %></td>
+                <td><%= value.respond_to?('each') ? history_value(key, value[0]) : value %></td>
+                <td><%= value.respond_to?('each') ? history_value(key, value[1]) : value %></td>
                 <td><%= audit.created_at.strftime("%d/%m/%Y %H:%m") %></td>
                 <td><%= audit.user.present? ? audit.user.name : 'no name'%></td>
             </tr>
-             <% end %>
+            <% end %>
         <% end %>
         </tbody>
     </table>

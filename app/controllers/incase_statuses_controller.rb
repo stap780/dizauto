@@ -28,6 +28,7 @@ class IncaseStatusesController < ApplicationController
 
     respond_to do |format|
       if @incase_status.save
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully created." }
         format.json { render :show, status: :created, location: @incase_status }
       else
@@ -41,6 +42,7 @@ class IncaseStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @incase_status.update(incase_status_params)
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully updated." }
         format.json { render :show, status: :ok, location: @incase_status }
       else
@@ -57,6 +59,7 @@ class IncaseStatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 

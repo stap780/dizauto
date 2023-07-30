@@ -1,32 +1,34 @@
+<%= turbo_frame_tag incase_tip do %>
 <%= form_with(model: incase_tip ) do |f| %>
     <%= render "shared/errors", object: incase_tip %>
 
     <div class="row">
-      <div class="col-md-12">
-          <div class="card">
-              <div class="card-header">
-              </div>
-              <div class="card-body">
-                <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <%= f.label :title, class: "form-label" %>
-                      <%= f.text_field :title, class: "form-control" %>
-                      <%= inline_error_for(:title, incase_tip)%>
-                    </div>
-                    <div class="mb-3 col-md-6" data-controller="color-picker">
-                      <%= f.label :color, class: "form-label" %>
-                      <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
-                      <%= inline_error_for(:color, incase_tip)%>
-                      <span data-color-picker-target="button"></span>
-                    </div>
-                </div>            
-              </div>
-              <div class="card-footer">
+      <div class="card">
+          <div class="card-body">
+            <div class="hstack gap-3">
+                <div class="col-md-5 row">
+                  <%= f.label :title, class: "col-sm-4 col-form-label" %>
+                  <div class="col-sm-8">
+                    <%= f.text_field :title, class: "form-control" %>
+                    <%= inline_error_for(:title, incase_tip)%>
+                  </div>
+                </div>
+                <div class="col-md-3 row" data-controller="color-picker">
+                  <%= f.label :color, class: "col-sm-3 col-form-label" %>
+                  <div class="col-sm-9">
+                    <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
+                    <%= inline_error_for(:color, incase_tip)%>
+                    <span data-color-picker-target="button"></span>
+                  </div>
+                </div>
+                <div class="col-md-4">
                   <%= f.submit class: "btn btn-primary" %>
-                  <%= link_to t('back'), :back, class: "btn btn-outline-primary" %>
-              </div>
+                  <%= link_to t('back'), incase_tips_path, class: "btn btn-outline-primary" %>
+                </div>
+            </div>            
           </div>
       </div>
-  </div>
+    </div>
 
+<% end %>
 <% end %>

@@ -35,10 +35,8 @@
               </tr>
             </thead>
             <tbody>
-              <% @triggers.each do |trigger| %>
-                  <%= render trigger %>
-              <% end %>
-              </tbody>
+              <%= render @triggers %>
+            </tbody>
           </table>
         </div>
       </div>

@@ -57,12 +57,12 @@
                             <%= f.text_field :totalsum, class: "form-control", value: import_incase_data['totalsum']  %>
                         </div>
                         <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :status, class: "form-label" %>
-                            <%= f.select :status, Incase::STATUS, {selected: import_incase_data['status'], include_blank: true}, {class: "form-select"}%>
+                            <%= f.label :incase_status_id, class: "form-label" %>
+                            <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {selected: import_incase_data['status'], include_blank: true}, {class: "form-select"}%>
                         </div>
                         <div class="mb-3 col-md-2 px-1">
-                            <%= f.label :tip, class: "form-label" %>
-                            <%= f.select :tip, Incase::TIP, {selected: import_incase_data['tip'], include_blank: true}, {class: "form-select"}%>
+                            <%= f.label :incase_tip_id, class: "form-label" %>
+                            <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {selected: import_incase_data['tip'], include_blank: true}, {class: "form-select"}%>
                         </div>
                     </div>
                     <div class="row" <% if defined?(import_incase_data) && import_incase_data%>data-virtual-incase-lines="<%= import_incase_data['lines']%>"<%end%>>
@@ -78,13 +78,13 @@
                             <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
                                 <thead class="">
                                     <tr>
-                                        <th scope="col" class="col-3">title</th>
-                                        <th scope="col" class="col-1">quantity</th>
-                                        <th scope="col" class="col-2">katnumber</th>
-                                        <th scope="col" class="col-1">price</th>
-                                        <th scope="col" class="col-1">sum</th>
-                                        <th scope="col" class="col-2">status</th>
-                                        <th></th>
+                                        <%=tag.th(t('helpers.label.incase_item.title'), scope:'col', class: 'col-4')%>
+                                        <%=tag.th(t('helpers.label.incase_item.quantity'), scope:'col', class: 'col-1')%>
+                                        <%=tag.th(t('helpers.label.incase_item.katnumber'), scope:'col', class: 'col-2')%>
+                                        <%=tag.th(t('helpers.label.incase_item.price'), scope:'col', class: 'col-1')%>
+                                        <%=tag.th(t('helpers.label.incase_item.sum'), scope:'col', class: 'col-1')%>
+                                        <%=tag.th(t('helpers.label.incase_item.status'), scope:'col', class: 'col-2')%>
+                                        <%=tag.th('', scope:'col', class: 'col-1')%>
                                     </tr>
                                 </thead>
                                 <tbody class="">

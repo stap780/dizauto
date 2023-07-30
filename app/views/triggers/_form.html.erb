@@ -5,63 +5,28 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
+            <ul class="nav nav-pills" id="triggerEditTab" role="tablist">
+                <li class="nav-item border border-primary rounded" role="presentation">
+                <a class="nav-link active" id="triggerEditMain-tab" data-bs-toggle="tab" data-bs-target="#triggerEditMain">Основные</a>
+                </li>
+                <li class="nav-item border border-primary rounded" role="presentation">
+                <a class="nav-link" id="triggerEditHelp-tab" data-bs-toggle="tab" data-bs-target="#triggerEditHelp">Помощь</a>
+                </li>
+            </ul>
             </div>
             <div class="card-body">
-              <div class="row col-md-8">
-                  <div class="col-md-2 align-self-center">
-                    <div class="form-check form-switch">
-                      <%= f.check_box :active, {class: "form-check-input", role: "switch"} %>
-                      <%= f.label :active, class: "form-check-label"%>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="triggerEditMain" role="tabpanel" aria-labelledby="triggerEditMain-tab">
+                        <%= render "form_data", f: f %>
                     </div>
-                  </div>
-                  <div class="mb-3 col-md-10">
-                    <%= f.label :title, class: "form-label" %>
-                    <%= f.text_field :title, class: "form-control" %>
-                  </div>
-                  <div class="mb-3 col-md-12">
-                    <%= f.label :event, class: "form-label" %>
-                    <%= f.select :event, Trigger::Event.map{ |r| [r[0], r[1], { value2: r[2]}] }, {}, {class: "form-select"} %>
-                  </div>
-                  <div class="mb-3 col-md-12">
-                    <%= f.label :condition, class: "form-label" %>
-                    <%= f.text_area :condition, class: "form-control" %>
-                  </div>
-                  <div class="mb-3 col-md-12">
-                  <div class="text-bg-light p-3">
-                    <div class="mb-2">
-                        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add action</button>
+                    <div class="tab-pane" id="triggerEditHelp" role="tabpanel" aria-labelledby="triggerEditHelp-tab">              
+                        <%= render "help", f: f %>
                     </div>
-                    <template data-nested-form-target="template">
-                        <%= f.fields_for :actions, Action.new, child_index: 'NEW_RECORD' do |action| %>
-                            <%= render "nested_actions", f: action %>
-                        <% end %>
-                    </template> 
-                    <div class="d-flex my-2 text-center">
-                      <div class="p-0 col-md-5">Action name</div>
-                      <div class="p-0 col-md-5">Action param</div>
-                      <div class="p-0 col-md-2"></div>
-                    </div>
-                        <%= f.fields_for :actions, data: {controller: 'action slimselect'} do |action| %>
-                            <%= render "nested_actions", f: action %>
-                        <% end %>
-                    <div data-nested-form-target="target"></div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 align-self-center">
-                    <div class="form-check form-switch">
-                    <%= f.check_box :pause, {class: "form-check-input", role: "switch"} %>
-                    <%= f.label :pause, class: "form-check-label"%>
-                    </div>
-                  </div>
-                  <div class="mb-3 col-md-8">
-                    <%= f.label :pause_time, class: "form-label" %>
-                    <%= f.number_field :pause_time, class: "form-control" %>
-                  </div>
-              </div>            
+                </div>
             </div>
             <div class="card-footer">
-                <%= f.submit class: "btn btn-primary" %>
-                <%= link_to t('back'), triggers_path, class: "btn btn-outline-primary" %>
+              <%= f.submit class: "btn btn-primary" %>
+              <%= link_to t('back'), triggers_path, class: "btn btn-outline-primary" %>
             </div>
         </div>
     </div>
