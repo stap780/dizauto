@@ -23,6 +23,4 @@ namespace :file do
         end
       puts "finish create_log_zip_every_day"
     end
-  
 end
-  
