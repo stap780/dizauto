@@ -3,10 +3,14 @@ class Client < ApplicationRecord
     has_many :companies, through: :client_companies
 
     validates :name, presence: true
+    validates :email, presence: true
+    validates :email, uniqueness: true
 
     before_save :normalize_data_white_space
 
-
+    def full_name
+        self.name+' '+self.surname
+    end
 
     def self.ransackable_attributes(auth_object = nil)
         Client.attribute_names

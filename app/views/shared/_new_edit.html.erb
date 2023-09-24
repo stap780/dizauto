@@ -1,5 +1,4 @@
 <% tip_text = tip == :new ? 'Создать' : 'Редактировать' %>
 
 <%= tag.h1 "#{tip_text} #{object.model_name.human}", class: 'h3 align-middle mb-3'%>
-
 <%= render "#{object.class.name.underscore.pluralize}/form", "#{object.class.name.underscore}": object %>

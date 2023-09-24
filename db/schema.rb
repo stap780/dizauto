@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_29_144029) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_144029) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "commentable_type"
+    t.integer "commentable_id"
+    t.integer "user_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "inn"
     t.string "kpp"
@@ -122,6 +132,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_144029) do
     t.datetime "updated_at", null: false
     t.string "tip"
     t.string "short_title"
+    t.string "info"
   end
 
   create_table "delivery_types", force: :cascade do |t|
@@ -300,13 +311,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_29_144029) do
     t.integer "detal_id"
   end
 
-  create_table "templates", force: :cascade do |t|
+  create_table "supplies", force: :cascade do |t|
+    t.integer "company_id"
+    t.integer "warehouse_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "templs", force: :cascade do |t|
     t.string "title"
     t.string "subject"
     t.string "receiver"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "tip"
+    t.string "modelname"
   end
 
   create_table "triggers", force: :cascade do |t|

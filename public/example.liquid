@@ -1,0 +1,88 @@
+<!DOCTYPE html >
+<html>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <head>
+	  <title>Акт сдачи-приёмки {{incase.id.to_s }}</title>
+		<style>
+		.navbar, .footer {display: none;}
+		.body  { font-size: 12px; color: #000; background-color: #fff; font-family:'Gill Sans','lucida grande', helvetica, arial, sans-serif; font-weight: bold;}
+		table { font-size: 12px; width: 100%;}
+		.text { font-size: 12px; font-weight: bold;}
+		.products_table { text-align: left; border-collapse: collapse; font-size: 12px; margin-top: 15px; margin-bottom: 15px;}
+		.products_table tr{ line-height: 23px; }   
+		h2 {font-size:16px;text-align: center;}
+		.alwaysbreak { page-break-before: always; }
+		.nobreak:before { clear:both; }
+		.nobreak { page-break-inside: avoid; }
+		</style>
+  </head>
+  <body>
+<table style=" margin-top: 5px; margin-bottom: 5px;">
+	<tbody>
+		<tr>
+			<td style="font-size: 14px;">{{company.title}}</td>
+			<td colspan="2"></td>
+		</tr>
+		<tr>
+			<td>{{ company.ur_address }}</td>
+            <td style="text-align: right;">{% for client in company.clients %}{{client.phone}} {%endfor%}</td>
+		</tr>
+		<tr>
+			<td><{{ company.comment }}</td>
+		</tr>
+	</tbody>
+</table>
+<table style="margin-top: 15px; margin-bottom: 15px;">
+	<tbody>
+		<tr>
+			<td colspan="2"><h2>Акт приёма-передачи  № {{incase.id }}</h2></td>
+		</tr>
+	</tbody>
+</table>
+<table style="margin-top: 10px; margin-bottom: 15px;">
+	<tbody>
+		<tr>
+			<td style="font-weight: bold;width: 400px;">Передающая сторона</td>
+			<td style="font-weight: bold;">Принимающая сторона</td>
+		</tr>
+		<tr>
+			<td>_________________________</td>
+			<td>ООО "АвтоДизайн" от имени</td>
+		</tr>
+		<tr>
+			<td>_________________________</td>
+			<td>{{ company.title }} по договору хранения {{ company.info}}</td>
+		</tr>
+		<tr>
+			<td>М П</td>
+			<td>_______________/_______________</td>
+		</tr>
+	</tbody>
+</table>
+<table style="margin-top: 25px; margin-bottom: 25px;">
+	<tbody>
+		<tr>
+		<td>г Москва</td>
+		<td style="text-align: right;">{{ incase.date.strftime("%d/%m/%Y") }}</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="text">Передающая сторона передаст Принимающей стороне повреждённые детали, узлы и агрегаты транспортных средств (ТС) в соответствии с нижеперечисленными заказ-нарядами.</div>
+<table class="products_table">
+	<tr style="border: 1px solid black; border-left: none;border-right: none;">
+		<td style="width:20%;">Номер З/Н {{ incase.stoanumber }}</td>
+		<td style="width:45%;"><strong>ТС: {{ incase.modelauto }} ( {{ incase.carnumber }} )</strong></td>
+		<td style="width:35%;">№ ВД {{ incase.unumber }} от {{ incase.date.strftime("%d/%m/%Y") }}</td>
+	</tr>
+	{% for i in incase.line_items %}
+	<tr style="border-bottom: 1px dotted black; border-left: none;border-right: none; ">
+		<td colspan="2" style="border-left: none;border-right: none;">{{ i['title'] }} ( {{ i['katnumber'] }} )</td>
+		<td style="border-left: none;border-right: none;"><input type="checkbox">Да <input type="checkbox">Нет Примечание: 
+		</td>
+	</tr>
+    {% endfor %}
+</table>
+
+  </body>
+</html>

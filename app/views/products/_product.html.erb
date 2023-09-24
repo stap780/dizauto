@@ -1,11 +1,16 @@
-
-<td><b><%= product.id%></b></td>
-<td><%= product.sku%></td>
-<td><%= product.barcode%></td>
-<td><%= product.title%></td>
-<td><%= product.quantity%></td>
-<td><%= product.price%></td>
-<td><%= product.created_at.strftime("%d/%m/%Y")%></td>
-<td class="text-nowrap"><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_product_path(product), class: "px-2" %>
-<%= link_to '<i data-feather="trash-2"></i>'.html_safe, product, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %></td>
-
+<tr id="<%= dom_id product %>">
+    <td><%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %></td>
+    <%= tag.td tag.b( product.id ) %>
+    <%= tag.td( product.sku ) %>
+    <%= tag.td( product.barcode ) %>
+    <%= tag.td( product.title ) %>
+    <%= tag.td( product.quantity ) %>
+    <%= tag.td( product.price ) %>
+    <%= tag.td( product.created_at.strftime("%d/%m/%Y") ) %>
+    <%= tag.td do %>
+        <span class="no-wrap d-flex align-items-center">
+            <%= render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
+            <%= render 'shared/edit_delete_link', object: product %>
+        </span>
+    <% end %>
+</tr>

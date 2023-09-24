@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :supplies
   resources :incase_item_statuses
   resources :incase_tips
   resources :incase_statuses
@@ -10,31 +11,55 @@ Rails.application.routes.draw do
       get :values
     end
   end
-  resources :templates
+  resources :templs
   resources :triggers
   resources :delivery_types
   resources :payment_types
   resources :order_items
   resources :order_statuses
-  resources :orders
-  resources :client_companies
-  resources :clients
+  resources :orders  do
+    resources :comments, module: :orders
+    member do
+      get :print
+    end
+  end
+  resources :client_companies do
+    collection do
+      get :new_turbo
+    end
+  end
+  resources :clients do
+    collection do
+      post :create_turbo
+      get :new_turbo
+    end
+  end
   resources :permissions
   resources :email_setups
   resources :incase_items
   resources :incases do
+    resources :comments, module: :incases
+    member do
+      get 'act'
+      get :print
+    end
     collection do
       get :file_import
       post :import_setup
       post :convert_file_data
       post :create_from_import
       #put :update_from_file
+      post :bulk_print
+      get :pending_bulk 
+      get :success_bulk
     end
   end
   resources :places
   resources :warehouses
   resources :okrugs
-  resources :companies
+  resources :companies do
+    resources :comments, module: :companies
+  end
   resources :detals
   resources :exports
   resources :props do
@@ -49,13 +74,16 @@ Rails.application.routes.draw do
     member do
       patch 'reorder_image'
       post 'update_image'
-      patch 'autosave'
+      get :print
     end
     collection do
       match 'search' => 'products#search', via: [:get, :post], as: :search
       get :characteristics
       post :delete_selected
       delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
+      post :print_etiketki
+      get :pending_etiketki 
+      get :success_etiketki
     end
   end
 

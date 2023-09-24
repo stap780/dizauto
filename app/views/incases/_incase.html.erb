@@ -1,22 +1,30 @@
 <tr id="<%= dom_id incase %>">
-    <td><b><%= incase.id%></b></td>
+    <td><%= check_box_tag "incase_ids[]", incase.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
+    <%= tag.td tag.b(incase.id) %>
     <%= tag.td do %>
-        <%=tag.span(incase.incase_status.title, class: 'badge text-dark', style: 'background-color:'+incase.incase_status.color) if incase.incase_status%>
+        <%= tag.span(   incase.incase_status.title,
+                        class: 'w-100', 
+                        style: 'background-color:'+incase.incase_status.color,
+                        data: {controller: 'badge', badge_target: 'value', bg_color: incase.incase_status.color }) if incase.incase_status %>
     <% end %>
     <%= tag.td do %>
-        <%= tag.span(incase.incase_tip.title, class: 'badge text-dark', style: 'background-color:'+incase.incase_tip.color) if incase.incase_tip%>
-     <% end %>
-    <td><%= incase.region %></td>
-    <td><%= incase.strah.short_title %></td>
+        <%= tag.span(   incase.incase_tip.title, 
+                        class: 'w-100', 
+                        style: 'background-color:'+incase.incase_tip.color,
+                        data: {controller: 'badge', badge_target: 'value', bg_color: incase.incase_tip.color } ) if incase.incase_tip%>
+    <% end %>
+    <%= tag.td(incase.region) %>
+    <%= tag.td(incase.strah.short_title) %>
     <td><%= incase.stoanumber %></br><%= incase.company.short_title %></td>
-    <td><%= incase.unumber %></td>
+    <%= tag.td(incase.unumber) %>
     <td><%= incase.carnumber %></br><%= incase.modelauto %></td>
-    <td><%= incase.date.strftime("%d/%m/%Y") %></td>
-    <td><%= incase.totalsum %></td>
-    <td>
-    <span class="d-flex">
-    <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_incase_path(incase), class: "px-2" %>
-    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, incase, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %>
+    <%= tag.td(incase.date.strftime("%d/%m/%Y")) %>
+    <%= tag.td(incase.totalsum) %>
+    <%= tag.td do %>
+    <span class="no-wrap d-flex align-items-center">
+        <%# link_to '<i class="fa-solid fa-print"></i>'.html_safe, act_incase_path(incase, format: :pdf), class: "px-2" %>
+        <%# render 'shared/print', object: incase, templates: Templ.incase_print if Templ.incase_print.presence %>
+        <%= render 'shared/edit_delete_link', object: incase %>
     </span>
-    </td>
+    <% end %>
 </tr>

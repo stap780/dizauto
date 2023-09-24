@@ -7,6 +7,8 @@ class Order < ApplicationRecord
     belongs_to :manager, class_name: "User", foreign_key: "manager_id"
     has_many :order_items
     accepts_nested_attributes_for :order_items, reject_if: ->(attributes){ attributes['price'].blank? }, allow_destroy: true
+
+    validates :order_items, presence: true
     validates :order_status_id, presence: true
     validates :client_id, presence: true
     before_save :normalize_data_white_space

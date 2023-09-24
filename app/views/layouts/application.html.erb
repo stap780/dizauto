@@ -41,18 +41,21 @@
     <%= render partial: "/layouts/sidebar"%>
 
 		<div class="main <%= current_page_path_as_class %>">
-    <%= render partial: "/layouts/navbar"%>
+      <%= render partial: "/layouts/navbar"%>
 
 			<main class="content">
 				<div class="container-fluid p-0">
+        <%= render "shared/modal_wrap"%>
         <div id="our_flash">
           <%= render "shared/flash"%>
         </div>
+        <%= turbo_stream_from "products" %>
+        <%= turbo_stream_from "bulk_actions" %>
         <!--<div id="our_notif">
           <%# render "shared/notyf"%>
         </div>-->
-                  <%= yield %>
-          <%= turbo_frame_tag 'modal' %>
+          <%= yield %>
+
           <%= render "shared/toast"%>
 				</div>
 			</main>

@@ -97,7 +97,7 @@ class Product < ApplicationRecord
         end
     end
 
-    def get_barcode
+    def html_barcode
         barcode = Barby::EAN13.new(self.barcode[0...-1])
         barcode_for_html = Barby::HtmlOutputter.new(barcode)
         barcode_for_html.to_html.html_safe

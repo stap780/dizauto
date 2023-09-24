@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-          format.html { redirect_to users_url, notice: "Permission was successfully created." }
+          format.html { redirect_to users_url, notice: t('.success') }
           format.json { render :show, status: :created, location: @permission }
         else
           format.html { render :new, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class UsersController < ApplicationController
           if params[:user][:role] == 'admin'
             Permission.where(user_id: @user.id).delete_all
           end    
-          format.html { redirect_to users_url, notice: "User was successfully updated." }
+          format.html { redirect_to users_url, notice: t('.success') }
           format.json { render :show, status: :ok, location: @user }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -72,7 +72,7 @@ class UsersController < ApplicationController
         @user.destroy!
   
         respond_to do |format|
-          format.html { redirect_to users_url, notice: 'Пользователь удалён' }
+          format.html { redirect_to users_url, notice: t('.success') }
           format.json { head :no_content }
         end
       else
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         if @user.save
-          format.html { redirect_to users_url, notice: "User was successfully created." }
+          format.html { redirect_to users_url, notice: t('.success') }
           format.json { render :show, status: :created, location: @permission }
         else
           format.html { render :admin_new, status: :unprocessable_entity }
@@ -121,7 +121,7 @@ class UsersController < ApplicationController
       @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
       respond_to do |format|
         if @user.update(user_params)
-          format.html { redirect_to users_url, notice: "User was successfully updated." }
+          format.html { redirect_to users_url, notice: t('.success') }
           format.json { render :show, status: :ok, location: @user }
         else
           format.html { render :edit, status: :unprocessable_entity }

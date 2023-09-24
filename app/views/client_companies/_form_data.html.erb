@@ -1,0 +1,5 @@
+<div class="col-md-10">
+    <%= f.select :client_id, Client.all.map{|cl| [cl.full_name, cl.id]}, {include_blank: true}, { class: "p-1", data: {controller: 'slimselect'}} %>
+</div>
+<%= f.hidden_field :company_id %>
+<%= f.hidden_field :id %>

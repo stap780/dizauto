@@ -1,0 +1,8 @@
+<div id="<%= dom_id f.object %>" class="nested-form-wrapper row" data-new-record="<%= f.object.new_record? %>">
+
+    <%= render "client_companies/form_data", f: f, parent: 'company' %>
+    <div class="col-md-2">
+        <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa-regular fa-trash-can"></i></button>
+        <%= f.hidden_field :_destroy %>
+    </div>
+</div>

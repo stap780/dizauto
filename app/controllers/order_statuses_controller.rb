@@ -29,7 +29,7 @@ class OrderStatusesController < ApplicationController
     respond_to do |format|
       if @order_status.save
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to order_statuses_url, notice: "Order status was successfully created." }
+        format.html { redirect_to order_statuses_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @order_status }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class OrderStatusesController < ApplicationController
     respond_to do |format|
       if @order_status.update(order_status_params)
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to order_statuses_url, notice: "Order status was successfully updated." }
+        format.html { redirect_to order_statuses_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @order_status }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,7 +57,7 @@ class OrderStatusesController < ApplicationController
     @order_status.destroy
 
     respond_to do |format|
-      format.html { redirect_to order_statuses_url, notice: "Order status was successfully destroyed." }
+      format.html { redirect_to order_statuses_url, notice: t('.success') }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:success] = t('.success') }
     end

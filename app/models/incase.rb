@@ -12,19 +12,10 @@ class Incase < ApplicationRecord
 
 	validates :date, presence: true
 	validates :unumber, presence: true
-    # validates :unumber, uniqueness: true
+    validates :incase_items, presence: true
 
 
     REGION = ['МСК', 'СПБ'].freeze
-    # STATUS = [  'Да', 'Да (кроме отсутствовавших)', 'Да (кроме стекла)',
-    #                     'Да (кроме отсутствовавших и стекла)','Нет',
-    #                     'Нет (ДРМ)','Нет (Срез)',
-    #                     'Нет (Стекло)','Нет з/ч',
-    #                     'Нет (область)','Долг',
-    #                     'Частично','Не ездили',
-    #                     'Да (кроме не запрашивать)','Не запрашиваем'
-    #                 ].freeze
-    # TIP = ['Просрочен','Перепроверить','Тотал','Не согласовано'].freeze
     
     def self.ransackable_associations(auth_object = nil)
         ["associated_audits", "audits", "company", "incase_items", "strah", "incase_status", "incase_tip"]
@@ -36,41 +27,44 @@ class Incase < ApplicationRecord
 
     def self.import_attributes
         our_fields = []
+        incases = []
+        incase_items = []
         Incase.attribute_names.each do |fi| 
             # fi = 'company' if fi == 'company_id' # fi = 'strah' if fi == 'strah_id'
-            our_fields.push(fi) if fi != 'id' && fi != 'created_at' && fi != 'updated_at' && fi != 'status' && fi != 'tip'
+            incases.push(fi) if fi != 'id' && fi != 'created_at' && fi != 'updated_at' && fi != 'incase_status_id' && fi != 'incase_tip_id'
         end
+        incase_hash = Hash.new
+        incase_hash['incase'] = incases.reject(&:blank?)
+        our_fields.push(incase_hash)
         IncaseItem.attribute_names.each do |fi|
-            our_fields.push(fi) if fi != 'incase_id' && fi != 'id' && fi != 'created_at' && fi != 'updated_at'
+            incase_items.push(fi) if fi != 'incase_id' && fi != 'id' && fi != 'created_at' && fi != 'updated_at' && fi != 'incase_item_status_id'
         end
-        our_fields.reject(&:blank?)
+        incase_item_hash = Hash.new
+        incase_item_hash['incase_item'] = incase_items.reject(&:blank?)
+        our_fields.push(incase_item_hash)
+        #puts our_fields.to_s
+        our_fields
     end
     
     def send_excel
         email_data = {
             email_setup: EmailSetup.all.first,
             incase: self,
-            strah: self.strah,
-            subject: 'Test subject', 
-            content: 'Test content', 
-            receiver: 'info@k-comment.ru'
+            subject: 'Test subject',
+            content: 'Test content',
+            receiver: self.strah.main_email
           }
         check_email = IncaseMailer.with(email_data).send_info_email.deliver_now #.deliver_later(wait: '1'.to_i.minutes)
-        check_email.present? ? true : false      
+        check_email.present? ? true : false
     end
 
     def automation_on_create
-        automation = Automation.new(self) 
-        automation.create if automation.create_triggers.present?
+        Automation.new(self).create
     end
 
     def automation_on_update
-        puts 'start automation'
-        automation = Automation.new(self) 
-        automation.update if automation.update_triggers.present?
-        puts 'finish automation'
+        Automation.new(self).update
     end
-
 
     private
 

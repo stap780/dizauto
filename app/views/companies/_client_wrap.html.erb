@@ -1,0 +1,16 @@
+
+    <div class="col-md-12 mb-2">
+        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Выбрать клиента</button>
+        <%= link_to 'Create client'.html_safe, new_turbo_clients_path, class: 'btn btn-light' %>
+    </div>
+    <template data-nested-form-target="template">
+        <%= comp.fields_for :client_companies, ClientCompany.new do |client_company| %>
+            <%= render "nested", f: client_company, parent: 'company' %>
+        <% end %>
+    </template>
+    <div class="client_companies">
+        <%= comp.fields_for :client_companies do |client_company| %>
+            <%= render "nested", f: client_company, parent: 'company' %>
+        <% end %>
+        <div data-nested-form-target="target"></div>
+    </div>

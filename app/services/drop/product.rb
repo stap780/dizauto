@@ -16,6 +16,10 @@ class Drop::Product < Liquid::Drop
         @product.barcode
     end
 
+    def barcode_as_img
+        @product.html_barcode
+    end
+
     def title
         @product.title
     end
@@ -53,8 +57,8 @@ class Drop::Product < Liquid::Drop
     end
 
     def properties
-        [{title: 'test title', value: 'test value'}]
-        # @product.properties
+        # [{title: 'test title', value: 'test value'}]
+        @product.properties.map{|pr| pr.attributes}
     end
     
 end

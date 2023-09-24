@@ -8,21 +8,11 @@ class ProductsController < ApplicationController
     @search.sorts = 'id desc' if @search.sorts.empty?
     @products = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     filename = 'products.xlsx'
-    # puts '@search.present? '+@search.present?.to_s
-    # puts '@search.result.present? '+@search.result.present?.to_s
-    # puts '@search.result.count '+@search.result.count.to_s
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
     respond_to do |format|
       format.html
       format.zip do
-        # compressed_filestream = Zip::OutputStream.write_buffer do |zos|
-        #   content = render_to_string formats: [:xlsx], template: "products/index"
-        #   zos.put_next_entry(filename)
-        #   zos.print content
-        # end
-        # compressed_filestream.rewind
-        # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
         service = CreateXlsx.new(collection, {filename: filename, template: "products/index"} )
         compressed_filestream = service.call
         send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
@@ -71,6 +61,32 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
     end
+  end
+
+  def print
+    templ = Templ.find(params[:templ_id])
+    success, pdf = CreatePdf.new(@product, {templ: templ}).call
+    if success
+      send_file pdf, type: 'application/pdf', disposition: 'attachment'
+    else
+      alert = 'Ошибка в файле печати: '+pdf.to_s
+      redirect_to products_url, notice: alert
+    end
+  end
+
+  def print_etiketki #post
+    if params[:product_ids]
+      ProductEtiketkiJob.perform_later(params[:product_ids])
+    else
+      alert = 'Выберите товары'
+      redirect_to products_url, notice: alert
+    end
+  end
+
+  def pending_etiketki #get
+  end
+
+  def success_etiketki #get
   end
 
   # PATCH/PUT /products/1 or /products/1.json

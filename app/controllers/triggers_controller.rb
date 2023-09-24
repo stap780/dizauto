@@ -28,7 +28,7 @@ class TriggersController < ApplicationController
 
     respond_to do |format|
       if @trigger.save
-        format.html { redirect_to triggers_url, notice: "Trigger was successfully created." }
+        format.html { redirect_to triggers_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @trigger }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class TriggersController < ApplicationController
   def update
     respond_to do |format|
       if @trigger.update(trigger_params)
-        format.html { redirect_to triggers_url, notice: "Trigger was successfully updated." }
+        format.html { redirect_to triggers_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @trigger }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,7 +55,7 @@ class TriggersController < ApplicationController
     @trigger.destroy
 
     respond_to do |format|
-      format.html { redirect_to triggers_url, notice: "Trigger was successfully destroyed." }
+      format.html { redirect_to triggers_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end

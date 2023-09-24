@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "modal" do %>
+    <%= form_with(model: @client, url: create_turbo_clients_path, method: :post) do |f| %>
+        <%= hidden_field_tag 'company_id', @company_id %>
+        <%= render 'shared/errors', object: f.object %>
+        <%= render 'clients/form_data', f: f %>
+        <%= f.submit class: "btn btn-primary" %>
+    <% end %>
+<% end%>

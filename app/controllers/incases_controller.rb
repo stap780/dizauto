@@ -1,6 +1,6 @@
 class IncasesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase, only: %i[ show edit update destroy ]
+  before_action :set_incase, only: %i[ show edit update destroy act print ]
 
   # GET /incases or /incases.json
   def index
@@ -17,7 +17,6 @@ class IncasesController < ApplicationController
         send_data compressed_filestream.read, filename: 'incases.zip', type: 'application/zip'
       end
     end
-    
   end
 
   # GET /incases/1 or /incases/1.json
@@ -37,38 +36,37 @@ class IncasesController < ApplicationController
   def create
     @incase = Incase.new(incase_params)
     respond_to do |format|
-      if params[:commit].include?('Создать из импорта')
-        @turbo_id = params[:commit].remove('Создать из импорта').to_s
-        if @incase.save
-          @incase.automation_on_create
-          flash.now[:success] = t('.success')
-          format.turbo_stream
-        else
-          format.turbo_stream { render :import_incase_error, status: :unprocessable_entity }
-        end
+      if @incase.save
+        @incase.automation_on_create
+        format.html { redirect_to incases_url, notice: t('.success') }
+        format.json { render :show, status: :created, location: @incase }
       else
-        if @incase.save
-          @incase.automation_on_create
-          format.html { redirect_to incases_url, notice: "Incase was successfully created." }
-          format.json { render :show, status: :created, location: @incase }
-        else
-          format.html { render :new, status: :unprocessable_entity }
-          format.json { render json: @incase.errors, status: :unprocessable_entity }
-        end
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @incase.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def create_from_import
-
+    @incase = Incase.new(incase_params)
+    respond_to do |format|
+      @turbo_id = params[:commit].remove('Создать из импорта').to_s
+      if @incase.save
+        @incase.automation_on_create
+        flash.now[:success] = t('.success')
+        format.turbo_stream { render 'incases/import/create_from_import' }
+      else
+        format.turbo_stream { render 'incases/import/import_incase_error', status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /incases/1 or /incases/1.json
   def update
     respond_to do |format|
       if @incase.update(incase_params)
-          @incase.automation_on_update
-        format.html { redirect_to incases_url, notice: "Incase was successfully updated." }
+        @incase.automation_on_update
+        format.html { redirect_to incases_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @incase }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -82,13 +80,14 @@ class IncasesController < ApplicationController
     @incase.destroy
 
     respond_to do |format|
-      format.html { redirect_to incases_url, notice: "Incase was successfully destroyed." }
+      format.html { redirect_to incases_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end
 
   def file_import #get
     #this work for modal as turbo_stream
+    render 'incases/import/file_import'
   end
 
   def import_setup #post
@@ -100,6 +99,7 @@ class IncasesController < ApplicationController
       @header = import_data[:header]
       @file_data = import_data[:file_data]
       @our_fields = Incase.import_attributes
+      render 'incases/import/import_setup'
     else
       flash[:alert] = 'Ошибка в файле импорта'
     end
@@ -108,9 +108,50 @@ class IncasesController < ApplicationController
   def convert_file_data
     puts "start convert_file_data"
     @data_group_by_unumber = IncaseService::Import.convert_file_data(params)
-    @incase = Incase.new
     @virtual_incases = IncaseService::Import.collect_virtual_incases(@data_group_by_unumber)
+    render 'incases/import/convert_file_data'
   end
+
+  def act
+    @company = @incase.company
+		@strahcompany = @incase.strah
+
+    respond_to do |format|
+      format.pdf do
+        render template: 'incases/act', pdf: "act_"+@incase.id.to_s   # Excluding ".pdf" extension.
+      end
+    end
+  end
+
+  def print
+    templ = Templ.find(params[:templ_id])
+    success, pdf = CreatePdf.new(@incase, {templ: templ}).call
+    if success
+      send_file pdf, type: 'application/pdf', disposition: 'attachment'
+    else
+      alert = 'Ошибка в файле печати: '+pdf.to_s
+      redirect_to incases_url, notice: alert
+    end
+  end
+
+  def bulk_print #post
+    if params[:incase_ids]
+      templ_id = params[:button].split('#').last
+      BulkPrintJob.perform_later('Incase', params[:incase_ids], templ_id)
+    else
+      alert = 'Выберите позиции'
+      redirect_to incases_url, notice: alert
+    end
+  end
+
+  def pending_bulk #get
+    render "shared/pending_bulk"
+  end
+
+  def success_bulk #get
+    render "shared/success_bulk"
+  end
+
 
   # def update_from_file #put
   #   Rails.env.development? ? IncaseService::Import.update(params) : IncaseImportJob.perform_later(params.to_unsafe_hash)

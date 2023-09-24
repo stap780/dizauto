@@ -69,4 +69,16 @@ export default class extends Controller {
             .catch(console.error);
     }
 
+    async getClientCompanyPartial () {
+        const response = await get("/client_companies/new_turbo");
+    
+        if (response.ok) {
+          const body = await response.html;
+          const tasksSection = document.querySelector("#client_companies");
+          const templateElement = document.createElement("template");
+          templateElement.innerHTML = body;
+    
+          tasksSection.appendChild(templateElement.content.firstElementChild);
+        }
+    }
 }

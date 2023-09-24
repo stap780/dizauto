@@ -1,0 +1,4 @@
+<%= turbo_frame_tag "modal" do %>
+    <p>Создали файл печати</p> 
+    <%= link_to 'Скачать', bulk_print.split('/public').last, target: '_blank' %>
+<% end %>

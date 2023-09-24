@@ -19,7 +19,7 @@ export default class extends Controller {
   // }
 
   start_search(event) {
-    console.log('start_search', event);
+    console.log('start_filter', event);
     document.getElementById('filter-informer').classList.remove('d-none');
   }
 

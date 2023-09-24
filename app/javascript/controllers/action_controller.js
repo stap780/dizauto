@@ -15,7 +15,7 @@ export default class extends Controller {
       this.selectTarget.id = Math.random().toString(36)
     }
     if (this.action_params_wrapTarget.id === "") {
-      this.action_params_wrapTarget.id = this.selectTarget.id+'_wrap'
+      this.action_params_wrapTarget.id = 'wrap_'+this.selectTarget.id
     }
   }
 
@@ -24,7 +24,7 @@ export default class extends Controller {
     let params = new URLSearchParams()
     params.append(this.paramValue, event.target.selectedOptions[0].value)
     //params.append("target", this.selectTarget.id)
-    params.append("wraptarget", this.selectTarget.id+'_wrap')
+    params.append("wraptarget", 'wrap_'+this.selectTarget.id)
     params.append("targetname", this.selectTarget.name)
     
     // console.log('params', params)

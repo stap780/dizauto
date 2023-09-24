@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { Checkbox } from 'stimulus-checkbox';
 
-// Connects to data-controller="checkbox"
+// Connects to data-controller="checkbox" - one of use in Filter
 export default class extends Controller {
   static targets = [ "btn", "box" ]
   connect() {

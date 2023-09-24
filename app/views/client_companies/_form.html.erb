@@ -1,27 +1,9 @@
-<%= form_with(model: client_company) do |form| %>
-  <% if client_company.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(client_company.errors.count, "error") %> prohibited this client_company from being saved:</h2>
+<%= form_with(model: client_company) do |f| %>
+    <%= render 'shared/errors', object: client_company %>
 
-      <ul>
-        <% client_company.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <%= render 'form_data', f: f, parent: nil %>
 
   <div>
-    <%= form.label :client_id, style: "display: block" %>
-    <%= form.number_field :client_id %>
-  </div>
-
-  <div>
-    <%= form.label :company_id, style: "display: block" %>
-    <%= form.number_field :company_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+    <%= f.submit %>
   </div>
 <% end %>

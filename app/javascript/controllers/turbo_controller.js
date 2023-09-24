@@ -9,6 +9,7 @@ export default class extends Controller {
 
   click(e) {
     e.preventDefault()
+    // console.log("this.element", this.element);
     this.url = this.element.getAttribute("href")
     console.log("this.url", this.url);
     fetch(this.url, {

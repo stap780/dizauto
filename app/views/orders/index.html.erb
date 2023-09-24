@@ -38,15 +38,15 @@
           <table id="datatables-products" class="table table-striped">
             <thead>
               <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.order.status')%></th>
-                <th><%= t('helpers.label.order.number')%></th>
-                <th><%= t('helpers.label.order.client_id')%></th>
-                <th><%= t('helpers.label.order.manager_id')%></th>
-                <th><%= t('helpers.label.order.payment_id')%></th>
-                <th><%= t('helpers.label.order.delivery_id')%></th>
-                <th><%= t('helpers.label.order.created_at')%></th>
-                <th></th>
+                <%=tag.th('#')%>
+                <%=tag.th( t('helpers.label.order.order_status_id') )%>
+                <%=tag.th( t('helpers.label.order.client_id') )%>
+                <%=tag.th( t('helpers.label.order.manager_id') )%>
+                <%=tag.th( t('helpers.label.order.payment_type_id') )%>
+                <%=tag.th( t('helpers.label.order.delivery_type_id') )%>
+                <%=tag.th( t('helpers.label.order.sum') )%>
+                <%=tag.th( t('helpers.label.order.created_at') )%>
+                <%=tag.th('')%>
               </tr>
             </thead>
             <tbody>

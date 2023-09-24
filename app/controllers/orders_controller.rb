@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to order_url(@order), notice: "Order was successfully created." }
+        format.html { redirect_to orders_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to order_url(@order), notice: "Order was successfully updated." }
+        format.html { redirect_to orders_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,8 +65,20 @@ class OrdersController < ApplicationController
     @order.destroy
 
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
+      format.html { redirect_to orders_url, notice: t('.success') }
       format.json { head :no_content }
+    end
+  end
+
+
+  def print
+    templ = Templ.find(params[:templ_id])
+    success, pdf = CreatePdf.new(@order, {templ: templ}).call
+    if success
+      send_file pdf, type: 'application/pdf', disposition: 'attachment'
+    else
+      alert = 'Ошибка в файле печати: '+pdf.to_s
+      redirect_to incases_url, notice: alert
     end
   end
 
@@ -79,6 +91,6 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
-      order_items_attributes: OrderItem.attribute_names+[:_destroy] )
+      order_items_attributes: OrderItem.attribute_names+[:order_id, :_destroy] )
     end
 end

@@ -1,24 +1,43 @@
-<%= form_with(model: @company, data: {controller: 'company'}) do |f| %>
-  <%= render 'shared/errors', object: @company %>
+<%= form_with(  model: company, 
+                data: { controller: 'company nested-form', 
+                        nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
+  <%= render 'shared/errors', object: company %>
 
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                <ul class="nav nav-pills" id="companyEditTab" role="tablist">
-              <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link active" id="companyEditMain-tab" data-bs-toggle="tab" data-bs-target="#companyEditMain">Основные</a>
-              </li>
-              <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link" id="companyEditHistory-tab" data-bs-toggle="tab" data-bs-target="#companyEditHistory">История</a>
-              </li>
-            </ul>
+                  <% if !f.object.new_record? %>
+                  <ul class="nav nav-pills" id="companyEditTab" role="tablist">
+                    <li class="nav-item border border-primary rounded" role="presentation">
+                      <a class="nav-link active" id="companyEditMain-tab" data-bs-toggle="tab" data-bs-target="#companyEditMain">Основные</a>
+                    </li>
+                    <li class="nav-item border border-primary rounded" role="presentation">
+                      <a class="nav-link" id="companyEditHistory-tab" data-bs-toggle="tab" data-bs-target="#companyEditHistory">История</a>
+                    </li>
+                  </ul>
+                  <% end %>
                 </div>
                 <div class="card-body">
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="companyEditMain" role="tabpanel" aria-labelledby="companyEditMain-tab">
-                        <%= render "form_main", f: f %>
+                        <div class="row">
+                          <%= render "form_data", f: f %>
+                          <div class="col-md-3">
+                            <div class="h4 mb-2">Контакт</div>
+                            <%= turbo_frame_tag 'client_wrap' do %>
+                              <%# render 'client_wrap', comp: f %>
+                              <%= render 'experiment_client_wrap'%>
+                            <% end %>
+                            <div class="h4 mt-3 mb-2">Комментарий</div>
+                            <div class="col-md-12 my-2">
+                            <%= f.fields_for :comments, @comment do |comment| %>
+                                <%= render 'comments/form_data', f: comment%>
+                            <% end %>
+                            </div>
+                          </div>
+                        </div>
                     </div>
                     <div class="tab-pane" id="companyEditHistory" role="tabpanel" aria-labelledby="companyEditHistory-tab">
                         <%= render "shared/history", f: f %>

@@ -5,16 +5,16 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-            <ul class="nav nav-pills" id="incaseEditTab" role="tablist">
-                <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link active" id="incaseEditMain-tab" data-bs-toggle="tab" data-bs-target="#incaseEditMain">Основные</a>
-                </li>
-                <% if !f.object.new_record? %>
-                <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link" id="incaseEditHistory-tab" data-bs-toggle="tab" data-bs-target="#incaseEditHistory">История</a>
-                </li>
-                <% end %>
-            </ul>
+                 <% if !f.object.new_record? %>
+                    <ul class="nav nav-pills" id="incaseEditTab" role="tablist">
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link active" id="incaseEditMain-tab" data-bs-toggle="tab" data-bs-target="#incaseEditMain">Основные</a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link" id="incaseEditHistory-tab" data-bs-toggle="tab" data-bs-target="#incaseEditHistory">История</a>
+                        </li>
+                    </ul>
+                    <% end %>
                 </div>
                 <div class="card-body">
                 <div class="tab-content">
@@ -23,8 +23,8 @@
                             <%= render 'form_data', f: f %>
                         </div>
                         <div class="row">
-                            <div class="col-md-2 mb-2">
-                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                            <div class="col-md-4 mb-2">
+                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Добавить позицию</button>
                             </div>
                             <template data-nested-form-target="template">
                                 <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |item| %>
@@ -32,15 +32,16 @@
                                 <% end %>
                             </template>
                             <div class="table-responsive">
-                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
+                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;" data-controller = "incase">
                                     <thead class="">
                                         <tr>
-                                            <%=tag.th(t('helpers.label.incase_item.title'), scope:'col', class: 'col-4')%>
-                                            <%=tag.th(t('helpers.label.incase_item.quantity'), scope:'col', class: 'col-1')%>
-                                            <%=tag.th(t('helpers.label.incase_item.katnumber'), scope:'col', class: 'col-2')%>
-                                            <%=tag.th(t('helpers.label.incase_item.price'), scope:'col', class: 'col-1')%>
-                                            <%=tag.th(t('helpers.label.incase_item.sum'), scope:'col', class: 'col-1')%>
-                                            <%=tag.th(t('helpers.label.incase_item.status'), scope:'col', class: 'col-2')%>
+                                            <%=tag.th(t('helpers.label.incase_item.title'), scope:'col', class: 'col-4 align-middle')%>
+                                            <%=tag.th(t('helpers.label.incase_item.quantity'), scope:'col', class: 'col-1 align-middle')%>
+                                            <%=tag.th(t('helpers.label.incase_item.katnumber'), scope:'col', class: 'col-2 align-middle')%>
+                                            <%=tag.th(t('helpers.label.incase_item.price'), scope:'col', class: 'col-1 align-middle')%>
+                                            <%=tag.th(t('helpers.label.incase_item.sum'), scope:'col', class: 'col-1 align-middle')%>
+                                            <%#tag.th(t('helpers.label.incase_item.status'), scope:'col', class: 'col-2')%>
+                                            <th class="px-0"><%= select_tag "incase_item_status_label", options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), prompt: "Статус", class: 'form-select', data: {action: "change->incase#changeBulkIncaseItemStatus", incase_target: "itemStatusSelected" }%></th>
                                             <%=tag.th('', scope:'col', class: 'col-1')%>
                                         </tr>
                                     </thead>

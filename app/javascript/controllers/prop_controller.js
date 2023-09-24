@@ -49,7 +49,7 @@ export default class extends Controller {
       responseKind: "turbo-stream"
     })
     request.then((response) => {
-      console.log('response',response)
+      console.log('response prop_controller',response)
       //console.log('this', this)
       //this.loadingTarget.classList.add("hidden")
     })

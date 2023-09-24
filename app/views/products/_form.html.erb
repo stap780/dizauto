@@ -24,11 +24,7 @@
                         <%= render "form_data", f: form %>
                     </div>
                     <div class="tab-pane" id="productEditProperty" role="tabpanel" aria-labelledby="productEditProperty-tab">
-                        
                         <%= render "props_nested", f: form %>
-                        <%# link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, 
-                                    new_prop_path(product_id: product.id), class: 'btn btn-primary', data: {turbo_frame: dom_id(Prop.new), action: "autosave#save"} %>
-                        <%# render "props/property_lines", f: form %>
                     </div>
                     <% if !form.object.new_record? %>
                     <div class="tab-pane" id="productEditHistory" role="tabpanel" aria-labelledby="productEditHistory-tab">
@@ -49,7 +45,7 @@
         <% if product.barcode.present? %>
             <div class="card">
                 <div class="card-body">
-                    <%= product.get_barcode %>
+                    <%= product.html_barcode %>
                 </div>
             </div>
         <% end %>

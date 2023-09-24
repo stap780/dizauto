@@ -1,6 +1,6 @@
     <div class="mb-3 col-md-1 px-1">
         <%= f.label :region, class: "form-label" %>
-        <%= f.select :region, Incase::REGION, {include_blank: true}, {class: "form-select"}%>
+        <%= f.select :region, Incase::REGION, {include_blank: false}, {class: "form-select"}%>
     </div>
     <div class="mb-3 col-md-2 px-1">
         <%= f.label :strah_id, class: "form-label" %>
@@ -36,9 +36,9 @@
     </div>
     <div class="mb-3 col-md-2 px-1">
         <%= f.label :incase_status_id, class: "form-label" %>
-        <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {include_blank: true}, {class: "form-select"}%>
+        <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
     </div>
     <div class="mb-3 col-md-2 px-1">
         <%= f.label :incase_tip_id, class: "form-label" %>
-        <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {include_blank: true}, {class: "form-select"} %>
+        <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {include_blank: false}, {class: "form-select"} %>
     </div>

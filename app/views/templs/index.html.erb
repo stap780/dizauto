@@ -1,0 +1,61 @@
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Templ.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
+      <span><i data-feather='sliders'></i></span>
+      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
+        <span class="visually-hidden"></span>
+      </span>
+    <% end %>
+    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, templs_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i data-feather='plus'></i> #{Templ.model_name.human}".html_safe, new_templ_path, class: "btn btn-primary float-end mt-n1" %>
+  </div>
+</div>
+
+<%= render 'filter', q: @search, title: "#{Templ.model_name.human} фильтр" %>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-templ_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12">
+          <table id="datatables-templ" class="table table-striped">
+            <thead>
+              <tr>
+                <%=tag.th('#')%>
+                <%=tag.th(t('helpers.label.templ.tip'))%>
+                <%=tag.th(t('helpers.label.templ.modelname'))%>
+                <%=tag.th(t('helpers.label.templ.title'))%>
+                <%=tag.th(t('helpers.label.templ.subject'))%>
+                <%=tag.th(t('helpers.label.templ.receiver'))%>               
+                <%=tag.th(t('helpers.label.templ.content'))%>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+                <%= render @templs %>
+              </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @templs %>
+      </div>
+    </div>
+  </div>
+</div>

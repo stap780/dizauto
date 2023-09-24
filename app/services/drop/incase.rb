@@ -8,12 +8,17 @@ class Drop::Incase < Liquid::Drop
         'do_work'
     end
 
+    def id
+        @incase.id
+    end
+
     def region
         @incase.region
     end
 
     def strah
-        @incase.strah.present? ? @incase.strah.short_title : ''
+        # @incase.strah.present? ? @incase.strah.short_title : ''
+        @incase.strah.present? ? @incase.strah.attributes : []
     end
 
     def stoanumber
@@ -24,10 +29,27 @@ class Drop::Incase < Liquid::Drop
         @incase.unumber
     end
 
-    def company
-        @incase.company.present? ? @incase.company.short_title : ''
+    def unumber_uniq?
+        Incase.where(unumber: @incase.unumber).size == 1 ? true : false
     end
 
+    def unumber_not_uniq?
+        Incase.where(unumber: @incase.unumber).size == 1 ? false : true
+    end
+
+    def company
+        # @incase.company.present? ? @incase.company.short_title : ''
+        @incase.company.present? ? @incase.company.attributes : []
+    end
+
+    def company_clients
+        @incase.company.present? ? @incase.company.clients.map{|cl| cl.attributes} : []
+    end
+
+    def company_comment
+        # @incase.company.present? ? @incase.company.short_title : ''
+        @incase.company.present? && @incase.company.comments.present?  ? @incase.company.comments.first.body : ''
+    end
     def carnumber
         @incase.carnumber
     end
@@ -49,7 +71,7 @@ class Drop::Incase < Liquid::Drop
     end
 
     def tip
-        @incase.tip.present? ? @incase.tip.title : ''
+        @incase.incase_tip_id.present? ? @incase.incase_tip.title : ''
     end
 
     def line_items

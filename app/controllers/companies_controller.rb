@@ -17,10 +17,13 @@ class CompaniesController < ApplicationController
   # GET /companies/new
   def new
     @company = Company.new
+    @comment = Comment.new
+    @company.client_companies.build
   end
-
+  
   # GET /companies/1/edit
   def edit
+    @comment = @company.comments.present? ? @company.comments.first : Comment.new
   end
 
   # POST /companies or /companies.json
@@ -29,7 +32,7 @@ class CompaniesController < ApplicationController
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to companies_url, notice: "Company was successfully created." }
+        format.html { redirect_to companies_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @company }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +45,7 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
-        format.html { redirect_to companies_url, notice: "Company was successfully updated." }
+        format.html { redirect_to companies_url, notice: t('.success')  }
         format.json { render :show, status: :ok, location: @company }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,7 +59,7 @@ class CompaniesController < ApplicationController
     @company.destroy
 
     respond_to do |format|
-      format.html { redirect_to companies_url, notice: "Company was successfully destroyed." }
+      format.html { redirect_to companies_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end
@@ -69,6 +72,8 @@ class CompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def company_params
-      params.require(:company).permit(:tip,:inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account)
+      params.require(:company).permit(:tip,:inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account, :info,
+      client_companies_attributes: [:id, :client_id, :company_id, :_destroy], comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])
+   
     end
 end

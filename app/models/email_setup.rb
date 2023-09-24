@@ -11,17 +11,17 @@ class EmailSetup < ApplicationRecord
     def smtp_settings
       smtp = EmailSetup.first
       if smtp
-      smtp_settings = {
-        tls: smtp.tls,
-        enable_starttls_auto: true,
-        openssl_verify_mode: "none",
-        address: smtp.address,
-        port: smtp.port,
-        domain: smtp.domain,
-        authentication: smtp.authentication,
-        user_name: smtp.user_name,
-        password: smtp.user_password.to_s
-        }
+        smtp_settings = {
+          tls: smtp.tls,
+          enable_starttls_auto: true,
+          openssl_verify_mode: "none",
+          address: smtp.address,
+          port: smtp.port,
+          domain: smtp.domain,
+          authentication: smtp.authentication,
+          user_name: smtp.user_name,
+          password: smtp.user_password.to_s
+          }
       end
     end
   

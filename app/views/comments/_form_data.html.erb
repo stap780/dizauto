@@ -1,0 +1,5 @@
+    <%= f.hidden_field :commentable_type, value: params["controller"].singularize.capitalize  %>
+    <%= f.hidden_field :commentable_id, value: params["id"] %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%# f.label :body, class: "form-label" %>
+    <%= f.text_area :body, class: "form-control" %>

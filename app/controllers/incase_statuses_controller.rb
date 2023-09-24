@@ -29,7 +29,7 @@ class IncaseStatusesController < ApplicationController
     respond_to do |format|
       if @incase_status.save
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully created." }
+        format.html { redirect_to incase_statuses_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @incase_status }
       else
         format.html { render :new, status: :unprocessable_entity }

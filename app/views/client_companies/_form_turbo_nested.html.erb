@@ -1,0 +1,9 @@
+<% uniq_id = client_company.persisted? ? client_company.id : Time.now.to_i %>
+
+<%= turbo_frame_tag "client_company_#{uniq_id }" do %>
+  <%= fields_for "company[client_companies_attributes][#{uniq_id }]", client_company do |f| %>
+    <fieldset class="mb-4">
+      <%= render 'client_companies/form_data', f: f %>
+    </fieldset>
+  <% end %>
+<% end %>

@@ -27,6 +27,11 @@ class ClientsController < ApplicationController
   def new
     @client = Client.new
   end
+  
+  def new_turbo
+    @client = Client.new
+    @company_id = params[:company_id]
+  end
 
   # GET /clients/1/edit
   def edit
@@ -38,10 +43,26 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to clients_url, notice: "Client was successfully created." }
+        format.turbo_stream
+        format.html { redirect_to clients_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @client }
       else
         format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @client.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_turbo
+    @client = Client.new(client_params)
+    @company = params[:company_id].present? ? Company.find(params[:company_id]) : Company.new
+    respond_to do |format|
+      if @client.save
+        format.turbo_stream {flash.now[:notice] = t('.success')}
+        format.html { redirect_to clients_url, notice: t('.success') }
+        format.json { render :show, status: :created, location: @client }
+      else
+        format.html { render :new_turbo, status: :unprocessable_entity }
         format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
@@ -51,7 +72,7 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to clients_url, notice: "Client was successfully updated." }
+        format.html { redirect_to clients_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @client }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +86,7 @@ class ClientsController < ApplicationController
     @client.destroy
 
     respond_to do |format|
-      format.html { redirect_to clients_url, notice: "Client was successfully destroyed." }
+      format.html { redirect_to clients_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end

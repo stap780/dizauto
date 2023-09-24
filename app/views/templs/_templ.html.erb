@@ -1,0 +1,12 @@
+<tr id="<%= dom_id templ %>">
+  <%= tag.td tag.b(templ.id) %>
+  <%= tag.td(templ.tip)%>
+  <%= tag.td(templ.modelname)%>
+  <%= tag.td(templ.title)%>
+  <%= tag.td(templ.subject)%>
+  <%= tag.td(templ.receiver)%>
+  <%= tag.td(templ.content ? '<i data-feather="check"></i>'.html_safe : '<i data-feather="circle">'.html.safe) %>
+  <td class="text-nowrap">
+      <%= render 'shared/edit_delete_link', object: templ %>
+  </td>
+</tr>

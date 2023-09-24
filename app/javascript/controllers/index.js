@@ -7,6 +7,9 @@ import { application } from "./application"
 import ActionController from "./action_controller"
 application.register("action", ActionController)
 
+import BadgeController from "./badge_controller"
+application.register("badge", BadgeController)
+
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 
@@ -49,11 +52,17 @@ application.register("product", ProductController)
 import PropController from "./prop_controller"
 application.register("prop", PropController)
 
+import SelectallController from "./selectall_controller"
+application.register("selectall", SelectallController)
+
 import SlimselectController from "./slimselect_controller"
 application.register("slimselect", SlimselectController)
 
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)
+
+import TemplateController from "./template_controller"
+application.register("template", TemplateController)
 
 import ToastController from "./toast_controller"
 application.register("toast", ToastController)

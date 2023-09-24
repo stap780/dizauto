@@ -9,7 +9,7 @@ class Trigger < ApplicationRecord
     validates :condition, presence: true
     before_save :normalize_data_white_space
 
-    scope :active, -> { where(active: true) }
+    scope :active, -> { where(active: true).order(:id) }
 
     Event = [['Создание убытка','create_incase','incase'],['Редактирование убытка','update_incase','incase']].freeze
 

@@ -1,7 +1,20 @@
-<%= link_to "<i data-feather='plus'></i> #{Trigger.model_name.human}".html_safe, new_trigger_path, class: "btn btn-primary float-end mt-n1" %>
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= Trigger.model_name.human(count: 2)%></h1>
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Trigger.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
+      <span><i data-feather='sliders'></i></span>
+      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
+        <span class="visually-hidden"></span>
+      </span>
+    <% end %>
+    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, triggers_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i data-feather='plus'></i> #{Trigger.model_name.human}".html_safe, new_trigger_path, class: "btn btn-primary float-end mt-n1" %>
+  </div>
 </div>
+
+<%= render 'filter', q: @search, title: "#{Trigger.model_name.human} фильтр" %>
 
 <div class="card">
   <div class="card-header pb-0">
@@ -16,6 +29,9 @@
       </div>
     </div>
     <h5 class="card-title mb-0"></h5>
+    <div class="card-info">
+      <%= EmailSetup.all.first.has_smtp_settings? ? '' : 'настройте почту для отправки сообщений'%>
+    </div>
   </div>
   <div class="card-body">
     <div id="datatables-trigger_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -28,10 +44,10 @@
                 <%=tag.th(t('helpers.label.trigger.active'))%>
                 <%=tag.th(t('helpers.label.trigger.title'))%>
                 <%=tag.th(t('helpers.label.trigger.event'))%>
-                <%=tag.th(t('helpers.label.trigger.condition'))%>               
+                <%=tag.th(t('helpers.label.trigger.condition'))%>
                 <%=tag.th(t('helpers.label.trigger.action'))%>
                 <%=tag.th(t('helpers.label.trigger.pause'))%>
-                <th></th>
+                <%=tag.th('')%>
               </tr>
             </thead>
             <tbody>

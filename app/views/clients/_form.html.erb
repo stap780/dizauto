@@ -1,42 +1,21 @@
-<%= form_with(model: client, html: { novalidate: false }) do |f| %>
-  <%= render 'shared/errors', object: client%>
+<%= turbo_frame_tag client do %>
+    <%= form_with(  model: client) do |f| %>
+        <%= render 'shared/errors', object: client%>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header"></div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-3">
-                            <%= f.label :surname, class: "form-label" %>
-                            <%= f.text_field :surname, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <%= f.label :name, class: "form-label" %>
-                            <%= f.text_field :name, class: "form-control" %>
-                            <%= inline_error_for(:name, client)%>
-                        </div>
-                        <div class="mb-3 col-md-9">
-                            <%= f.label :middlename, class: "form-label" %>
-                            <%= f.text_field :middlename, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-9">
-                            <%= f.label :phone, class: "form-label" %>
-                            <%= f.text_field :phone, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-9">
-                            <%= f.label :email, class: "form-label" %>
-                            <%= f.text_field :email, class: "form-control" %>
-                        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <%= render 'form_data', f: f %>
                     </div>
-                </div>
-                <div class="card-footer">
-                    <%= f.submit class: "btn btn-primary" %>
-                    <%= link_to t('back'), clients_path, class: "btn btn-outline-primary" %>
+                    <div class="card-footer">
+                        <%= f.submit class: "btn btn-primary" %>
+                        <%= link_to t('back'), clients_path, class: "btn btn-outline-primary" %>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-
+    <% end %>
 <% end %>
