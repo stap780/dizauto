@@ -1,6 +1,6 @@
 lock "~> 3.17.1"
 
-server '104.131.40.131', port: 22, roles: [:web, :app, :db], primary: true
+server '68.183.209.231', port: 22, roles: [:web, :app, :db], primary: true
 set :application, "dizauto"
 set :repo_url, "git@github.com:stap780/dizauto.git"
 
@@ -46,7 +46,7 @@ namespace :puma do
     desc "Make sure local git is in sync with remote."
     task :check_revision do
       on roles(:app) do
-        # Update this to your branch name: master, main, etc. Here it's main
+        # Update this to your branch name: master, main, etc. Here it's master
         unless `git rev-parse HEAD` == `git rev-parse origin/master`
           puts "WARNING: HEAD is not the same as origin/main"
           puts "Run `git push` to sync changes."

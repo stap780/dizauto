@@ -7,7 +7,7 @@ class ExportCreator < ApplicationService
     def initialize(export, options={})
         @export = export
         @options = options
-        @host = Rails.env.development? ? 'http://localhost:3000' : 'http://104.131.40.131'
+        @host = Rails.env.development? ? 'http://localhost:3000' : 'http://68.183.209.231'
     end
 
     def call
