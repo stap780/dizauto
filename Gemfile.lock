@@ -309,8 +309,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
-      tzinfo (>= 1.0.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -374,7 +372,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq
   sidekiq-scheduler
-  sprockets-rails (= 2.3.3)
+  sprockets-rails
   stimulus-rails
   turbo-rails
   tzinfo-data
@@ -385,7 +383,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 3.0.3p157
+   ruby 3.2.0p0
 
 BUNDLED WITH
    2.4.3
