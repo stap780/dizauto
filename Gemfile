@@ -7,7 +7,7 @@ ruby "3.2.0"
 gem "rails", "~> 7.0.5.1"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails" #, '2.3.3'
+gem "sprockets-rails"
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 
