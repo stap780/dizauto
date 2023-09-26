@@ -25,7 +25,12 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
-
+# Issue with propshaft as asset pipwlinw
+# See: https://github.com/capistrano/rails/issues/257
+# Workaround
+set :assets_manifests, lambda {
+  [release_path.join('public', fetch(:assets_prefix), '.manifest.json')]
+}
 
 append :linked_files, "config/master.key", "config/database.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
