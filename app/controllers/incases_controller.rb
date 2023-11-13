@@ -86,7 +86,7 @@ class IncasesController < ApplicationController
   end
 
   def file_import #get
-    #this work for modal as turbo_stream
+    #this use for modal as turbo_stream
     render 'incases/import/file_import'
   end
 

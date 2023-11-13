@@ -1,11 +1,11 @@
 lock "~> 3.17.1"
 
-server '68.183.209.231', port: 22, roles: [:web, :app, :db], primary: true
+server '188.225.57.233', port: 22, roles: [:web, :app, :db], primary: true
 set :application, "dizauto"
 set :repo_url, "git@github.com:stap780/dizauto.git"
 
 
-set :user, 'deploy'
+set :user, 'dizautodep'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 

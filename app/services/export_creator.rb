@@ -28,7 +28,7 @@ class ExportCreator < ApplicationService
                 col_names_property = Property.order(:id).pluck(:title)
                 writer << col_names_product_with_images+col_names_property
             else
-                writer << col_names_product
+                writer << col_names_product_with_images
             end
             @export.products.each do |product|
                 images = product.images.present? ? product.image_urls.map{|h| @host+h[:url]}.join(' ') : ' '
