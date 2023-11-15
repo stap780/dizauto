@@ -1,11 +1,17 @@
-@import 'bootstrap/scss/bootstrap';
-@import 'bootstrap-icons/font/bootstrap-icons';
+// @import 'bootstrap/scss/bootstrap'; # all bootstrap inside adminkit
+// @import 'bootstrap-icons/font/bootstrap-icons';
 
-// @import "adminkit/lights.css";
-// @import "adminkit/1-variables/app";
+@import "adminkit/light.scss";
+@import "adminkit/dark.scss";
 
-// @import 'our_style/actiontext.scss';
-// @import "our_style/dropzone.css";
-// @import "our_style/slimselect.css";
-// @import "our_style/filter.css";
-// @import "our_style/color_picker_nano.css";
+
+// @import "adminkit1/lights.css";
+// // @import "adminkit1/dark.css";
+
+// @import "adminkit1/1-variables/_app.scss";
+
+@import 'our_style/actiontext.scss';
+@import "our_style/dropzone.css";
+@import "our_style/slimselect.css";
+@import "our_style/filter.css";
+@import "our_style/color_picker_nano.css";

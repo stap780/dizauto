@@ -49,6 +49,7 @@ $min-contrast-ratio: 3 !default;
 $enable-validation-icons: false !default;
 $enable-rfs: false !default;
 $enable-negative-margins: true !default;
+$enable-dark-mode: false !default; // We're using our custom dark mode, defined in /scss/1-variables/_dark.scss
 
 // Transitions
 $transition-base: all .35s ease-in-out !default;
@@ -109,7 +110,8 @@ $social-colors: (
   "instagram": #e4405f,
   "pinterest": #bd081c,
   "flickr": #0063dc,
-  "bitbucket": #0052cc
+  "bitbucket": #0052cc,
+  "microsoft": #2f2f2f
 ) !default;
 
 // Not modified by dark theme
@@ -213,8 +215,11 @@ $footer-bg: (
 $alert-padding-y: .95rem !default;
 $alert-padding-x: .95rem !default;
 $alert-border-width: 0 !default;
+$alert-color: $dark !default;
+$alert-bg-scale: -80% !default;
 
 // List group
+$list-group-bg: $white !default;
 $list-group-item-padding-y: .75rem !default;
 $list-group-item-padding-x: 1.25rem !default;
 
@@ -243,12 +248,14 @@ $form-switch-checked-color: $static-white !default;
 $form-check-input-checked-color: $static-white !default;
 
 // Dropdowns
+$dropdown-bg: $white !default;
 $dropdown-link-color: $gray-700 !default;
 $dropdown-link-hover-bg: $gray-100 !default;
 $dropdown-item-padding-y: .35rem !default;
 $dropdown-item-padding-x: 1.5rem !default;
 
 // Cards
+$card-bg: $white !default;
 $card-border-radius: .25rem !default;
 $card-inner-border-radius: $card-border-radius !default;
 $card-border-width: 0 !default;
@@ -264,12 +271,16 @@ $card-cap-padding-y: 1rem !default;
 $card-cap-padding-x: $card-spacer-x !default;
 
 // Tables
+$table-bg: transparent !default;
 $table-cell-padding-y: .75rem !default;
 $table-cell-padding-x: .75rem !default;
 $table-cell-padding-y-sm: .3rem !default;
 $table-cell-padding-x-sm: .3rem !default;
 $table-striped-bg: $gray-100 !default;
 $table-hover-bg: rgba($black, .0375) !default;
+
+// Offcanvas
+$offcanvas-bg-color: $white !default;
 
 // Sidebar general
 $sidebar-width: 264px !default;
@@ -489,6 +500,7 @@ $transition-appearance-slow: background .6s ease-in-out, color .6s ease-in-out !
 $transition-appearance-fast: background .1s ease-in-out, color .1s ease-in-out !default;
 
 // Modals
+$modal-content-bg: $white !default;
 $modal-content-border-width: 0 !default;
 $modal-header-border-width: 1px !default;
 $modal-footer-border-width: 1px !default;
@@ -520,6 +532,7 @@ $pagination-padding-y-sm: .15rem !default;
 $pagination-padding-x-sm: .5rem !default;
 $pagination-padding-y-lg: .35rem !default;
 $pagination-padding-x-lg: 1rem !default;
+$pagination-bg: $white !default;
 $pagination-color: $gray-600 !default;
 $pagination-hover-color: $gray-800 !default;
 
@@ -578,4 +591,3 @@ $choices-z-index: 1;
 
 // Jsvectormap
 $jsvectormap-zoom-btn: $dark !default;
-
