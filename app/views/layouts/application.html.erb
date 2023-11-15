@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Dizauto</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,14 +11,10 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Dizauto</title>
 
   	
-    <style>
-		body { opacity: 1; }
-    <% unless user_signed_in? %>
-    .wrapper { background: none; }
-    <% end %>
-	</style>
+ 
 
   </head>
 <!--
