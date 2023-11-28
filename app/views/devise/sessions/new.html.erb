@@ -5,7 +5,7 @@
 					<div class="d-table-cell align-middle">
 
 						<div class="text-center mt-4">
-							<h1 class="h2">Войти</h1>
+							<h1 class="h2 text-white">Войти</h1>
 							<p class="lead"></p>
 						</div>
 
@@ -25,10 +25,16 @@
 											</small>
 										</div>
 										<div>
-											<label class="form-check">
-                        <%= f.label :remember_me, class: "form-check-label"  %>
-                        <%= f.check_box :remember_me, class: "form-check-input", checked: "checked" %>
-											</label>
+										<label class="form-check">
+											<%= f.label :remember_me, class: "form-check-label"  %>
+											<%= f.check_box :remember_me, class: "form-check-input", checked: "checked" %>
+										</label>
+										</div>
+										<div class="text-center mt-3">
+										<%# START add reCAPTCHA %>
+										<%= flash[:recaptcha_error] %>
+										<%= recaptcha_tags %>
+										<%# END add reCAPTCHA %>
 										</div>
 										<div class="text-center mt-3">
                       <%= f.submit "Поехали!", class: "btn btn-lg btn-primary"%>

@@ -32,7 +32,7 @@
       <%# </div>
     </main> %>
 
-<body data-theme="<% if user_signed_in? %>colored<% else %>default<% end %>" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+<body data-theme="<% if user_signed_in? %>default<% else %>default<% end %>" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
     <% if user_signed_in? %>
     <%= render partial: "/layouts/sidebar"%>

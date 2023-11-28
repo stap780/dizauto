@@ -34,17 +34,18 @@ document.addEventListener('turbo:load', () => {
   // });
 
 
-  // const alertList = document.querySelectorAll('.alert');
-  // if (alertList) {
-  //   const alerts = [...alertList].map(element => new bootstrap.Alert(element));
-  //   // console.log(alerts);
-  //   for (const alert of alerts) {
-  //     // console.log(alert);
-  //     setTimeout(() => {
-  //       alert.close();
-  //     }, 3000); // time in milliseconds  
-  //   };
-  // }
+  const alertList = document.querySelectorAll('.alert');
+  console.log('alertList', alertList);
+  if (alertList) {
+    const alerts = [...alertList].map(element => new bootstrap.Alert(element));
+    console.log('alerts', alerts);
+    for (const alert of alerts) {
+      console.log(alert);
+      setTimeout(() => {
+        alert.close();
+      }, 3000); // time in milliseconds  
+    };
+  }
 
 });
 

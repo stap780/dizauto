@@ -2,6 +2,7 @@
 
 class Users::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
+  prepend_before_action :check_captcha, only: [:create]
 
   # GET /resource/sign_in
   # def new
@@ -24,4 +25,18 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+  
+  private
+  
+  def check_captcha
+    return if verify_recaptcha # verify_recaptcha(action: 'login') for v3
+
+    self.resource = resource_class.new sign_in_params
+
+    respond_with_navigational(resource) do
+      flash.discard(:recaptcha_error) # We need to discard flash to avoid showing it on the next page reload
+      render :new
+    end
+  end
+
 end
