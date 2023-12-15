@@ -9,7 +9,7 @@ class CreateIncases < ActiveRecord::Migration[7.0]
       t.string :carnumber
       t.datetime :date
       t.string :modelauto
-      t.decimal :totalsum,        precision: 12, scale: 2
+      t.decimal :totalsum, precision: 12, scale: 2
       t.string :status
       t.string :tip
 

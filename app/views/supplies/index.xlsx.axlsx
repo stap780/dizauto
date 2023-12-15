@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+attributes = Supply.attribute_names
+wb.add_worksheet(name: "Supply") do |sheet|
+    sheet.add_row attributes
+  collection.each do |item|
+    sheet.add_row attributes.map{ |attr| item.send(attr) }
+  end
+end

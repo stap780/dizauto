@@ -7,17 +7,6 @@ class IncaseItem < ApplicationRecord
     validates :title, :presence => true
     before_save :normalize_data_white_space
 
-    # IncaseItem::STATUS = ['Да',
-    #                     'Долг',
-    #                     'В работе',
-    #                     'Нет (Отсутствовала)',
-    #                     'Нет (ДРМ)',
-    #                     'Нет (Срез)',
-    #                     'Нет (Стекло)',
-    #                     'Нет',
-    #                     'Нет (МО)',
-    #                     'Не запрашиваем'].freeze
-
     def self.ransackable_attributes(auth_object = nil)
         IncaseItem.attribute_names
     end

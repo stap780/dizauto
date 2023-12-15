@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_15_110656) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -175,11 +175,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
     t.boolean "use_property"
   end
 
+  create_table "incase_import_columns", force: :cascade do |t|
+    t.integer "incase_import_id"
+    t.string "column_file"
+    t.string "column_system"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "incase_imports", force: :cascade do |t|
+    t.boolean "active"
+    t.string "title"
+    t.string "report"
+    t.string "file"
+    t.string "uniq_field"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "check", default: false
+  end
+
   create_table "incase_item_statuses", force: :cascade do |t|
     t.string "title"
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 1, null: false
   end
 
   create_table "incase_items", force: :cascade do |t|
@@ -199,6 +219,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 1, null: false
   end
 
   create_table "incase_tips", force: :cascade do |t|
@@ -206,6 +227,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position", default: 1, null: false
   end
 
   create_table "incases", force: :cascade do |t|
@@ -313,7 +335,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_01_113734) do
 
   create_table "supplies", force: :cascade do |t|
     t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+    t.string "in_number"
+    t.datetime "in_date"
+    t.integer "supply_status_id"
+    t.integer "manager_id"
+  end
+
+  create_table "supply_items", force: :cascade do |t|
+    t.integer "supply_id"
+    t.integer "product_id"
     t.integer "warehouse_id"
+    t.integer "quantity", default: 0
+    t.decimal "price", precision: 12, scale: 2
+    t.decimal "sum", precision: 12, scale: 2
+    t.decimal "total", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "supply_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

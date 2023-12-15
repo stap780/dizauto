@@ -47,9 +47,7 @@
           <table id="datatables-products" class="table table-striped" data-controller="selectall">
             <thead>
               <tr>
-                <%= tag.th do %>
-                  <%= check_box_tag 'selectAll', 'selectAll', false, data: {selectall_target: 'checkboxAll', action: "change->selectall#toggleChildren" }%>
-                <% end %>
+                <%= th_check_box_tag_all %>
                 <%= tag.th('#')%>
                 <%= tag.th(t('helpers.label.product.sku'))%>
                 <%= tag.th(t('helpers.label.product.barcode'))%>
@@ -57,6 +55,7 @@
                 <%= tag.th(t('helpers.label.product.quantity'))%>
                 <%= tag.th(t('helpers.label.product.price'))%>
                 <%= tag.th(t('helpers.label.product.created_at'))%>
+                <%= tag.th('')%>
                 <%= tag.th('')%>
               </tr>
               </thead>

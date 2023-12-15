@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  incase_import_id: 1
+  column_file: MyString
+  column_system: MyString
+
+two:
+  incase_import_id: 1
+  column_file: MyString
+  column_system: MyString

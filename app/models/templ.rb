@@ -10,8 +10,11 @@ class Templ < ApplicationRecord
     scope :incase_print, -> { where(modelname: 'incase', tip: 'simple').order(:id)}
     scope :order_print, -> { where(modelname: 'order', tip: 'simple' ).order(:id)}
     scope :product_print, -> { where(modelname: 'product', tip: 'simple' ).order(:id)}
+    scope :incase_import_print, -> { where(modelname: 'incase_import_print', tip: 'simple' ).order(:id)}
+    scope :supply_print, -> { where(modelname: 'supply_print', tip: 'simple' ).order(:id)}
+
     
-    Templ::RECEIVER = [['Клиент','client'],['Менеджер','manager']].freeze
+    Templ::RECEIVER = [['Клиент','client'],['Пользователь','user']].freeze
     Templ::TIP = [['Простое','simple'],['Сообщения','message']].freeze
     Templ::MODELNAME = [['Убытки','incase'],['Заказы','order'],['Товары','product']].freeze
 

@@ -1,0 +1,25 @@
+
+  <div class="card-header">Проверяем файл импорта</div>
+
+  <div class="card-body">
+    <p>Информация из файла</p>
+    <div class='border border-success text-success p-3'>
+        <% @message[:success].uniq.each do |item| %>
+            <p><%= item %></p>
+        <% end %>
+    </div>
+    <div class='border border-danger text-danger mt-2 p-3'>
+        <% @message[:errors].uniq.each do |item| %>
+            <p><%= item %></p>
+        <% end %>
+    </div>
+    </div>
+    <div class="card-footer">
+        <div class="btn-group" role="group" aria-label="import button group">
+            <%= form_for [@incase_import], url: import_start_incase_imports_path, html: { multipart: true }, method: :get do |f| %>
+                <%= f.submit 'Start', class: 'btn btn-primary', id: "import_start_button" %>
+            <% end if @success%>
+            <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary" %>
+        </div>
+    </div>
+

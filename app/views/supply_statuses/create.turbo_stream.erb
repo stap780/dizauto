@@ -1,0 +1,3 @@
+<%= turbo_stream.update SupplyStatus.new, '' %>
+<%= turbo_stream.prepend "supply_statuses", render(@supply_status) %>
+<%= prepend_flash %>

@@ -5,41 +5,61 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header"></div>
+                <div class="card-header">
+                    <% if !f.object.new_record? %>
+                    <ul class="nav nav-pills" id="incase_tabs" role="tablist">
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link active" id="main_tab_header" data-bs-toggle="tab" data-bs-target="#main_tab">Основные</a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link" id="history_tab_header" data-bs-toggle="tab" data-bs-target="#history_tab">История</a>
+                        </li>
+                    </ul>
+                    <% end %>
+                </div>
                 <div class="card-body">
-                    <div class="row">
-                        <%= render 'form_data', f: f%>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2 mb-2">
-                            <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                <div class="tab-content">
+                     <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                        <div class="row">
+                            <%= render 'form_data', f: f%>
                         </div>
-                        <template data-nested-form-target="template">
-                            <%= f.fields_for :order_items, OrderItem.new, child_index: 'NEW_RECORD' do |item| %>
-                                <%= render "nested_items", f: item %>
-                            <% end %>
-                        </template>
-                        <div class="table-responsive">
-                            <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
-                                <thead class="">
-                                    <tr>
-                                        <th scope="col" class="col-6"><%= t('helpers.label.order_item.product_id')%></th>
-                                        <th scope="col" class="col-1"><%= t('helpers.label.order_item.quantity')%></th>
-                                        <th scope="col" class="col-1"><%= t('helpers.label.order_item.price')%></th>
-                                        <th scope="col" class="col-2"><%= t('helpers.label.order_item.discount')%></th>
-                                        <th scope="col" class="col-1"><%= t('helpers.label.order_item.sum')%></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="">
-                                    <%= f.fields_for :order_items do |item| %>
-                                        <%= render "nested_items", f: item %>
-                                    <% end %>
-                                    <tr data-nested-form-target="target"></tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                            </div>
+                            <template data-nested-form-target="template">
+                                <%= f.fields_for :order_items, OrderItem.new, child_index: 'NEW_RECORD' do |item| %>
+                                    <%= render "nested_items", f: item %>
+                                <% end %>
+                            </template>
+                            <div class="table-responsive">
+                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
+                                    <thead class="">
+                                        <tr>
+                                            <th scope="col" class="col-6"><%= t('helpers.label.order_item.product_id')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.order_item.quantity')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.order_item.price')%></th>
+                                            <th scope="col" class="col-2"><%= t('helpers.label.order_item.discount')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.order_item.sum')%></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <%= f.fields_for :order_items do |item| %>
+                                            <%= render "nested_items", f: item %>
+                                        <% end %>
+                                        <tr data-nested-form-target="target"></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <% if !f.object.new_record? %>
+                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
+                        <%= render "shared/history", f: f %>
+                    </div>
+                    <% end %>
+                </div>
                 </div>
                 <div class="card-footer">
                     <%= f.submit class: "btn btn-primary" %>

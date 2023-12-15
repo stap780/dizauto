@@ -6,7 +6,5 @@
   <%= tag.td(templ.subject)%>
   <%= tag.td(templ.receiver)%>
   <%= tag.td(templ.content ? '<i data-feather="check"></i>'.html_safe : '<i data-feather="circle">'.html.safe) %>
-  <td class="text-nowrap">
-      <%= render 'shared/edit_delete_link', object: templ %>
-  </td>
+  <%= td_index_edit_delete_link(templ)%>
 </tr>

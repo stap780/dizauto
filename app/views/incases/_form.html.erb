@@ -5,20 +5,20 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                 <% if !f.object.new_record? %>
-                    <ul class="nav nav-pills" id="incaseEditTab" role="tablist">
+                    <% if !f.object.new_record? %>
+                    <ul class="nav nav-pills" id="incase_tabs" role="tablist">
                         <li class="nav-item border border-primary rounded" role="presentation">
-                        <a class="nav-link active" id="incaseEditMain-tab" data-bs-toggle="tab" data-bs-target="#incaseEditMain">Основные</a>
+                        <a class="nav-link active" id="main_tab_header" data-bs-toggle="tab" data-bs-target="#main_tab">Основные</a>
                         </li>
                         <li class="nav-item border border-primary rounded" role="presentation">
-                        <a class="nav-link" id="incaseEditHistory-tab" data-bs-toggle="tab" data-bs-target="#incaseEditHistory">История</a>
+                        <a class="nav-link" id="history_tab_header" data-bs-toggle="tab" data-bs-target="#history_tab">История</a>
                         </li>
                     </ul>
                     <% end %>
                 </div>
                 <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="incaseEditMain" role="tabpanel" aria-labelledby="incaseEditMain-tab">
+                    <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
                         <div class="row">
                             <%= render 'form_data', f: f %>
                         </div>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                     <% if !f.object.new_record? %>
-                    <div class="tab-pane" id="incaseEditHistory" role="tabpanel" aria-labelledby="incaseEditHistory-tab">
+                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
                         <%= render "shared/history", f: f %>
                     </div>
                     <% end %>

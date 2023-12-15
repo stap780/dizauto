@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-header">Incase import</div>
+
+  <%= form_with(model: incase_import, data: { turbo: false }) do |f| %>
+
+  <div class="card-body">
+    <div class="row mb-4">
+      <%= render 'shared/errors', object: incase_import%>
+      <div class="col-2 form-group checkbox">
+        <div class="form-check form-switch">
+          <%= f.check_box :active, {class: "form-check-input", role: "switch"} %>
+          <%= f.label :active, class: "form-check-label"%>
+        </div>
+      </div>
+      <div class="col-6 form-group checkbox">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="col-4">
+        <%= f.label :uniq_field, class: "form-label" %>
+        <%= f.select :uniq_field,  [['incase unumber','incase#unumber'],['incase carnumber','incase#carnumber']], {}, { class: "form-select" }%>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 mb-2"><b>Columns from file</b></div>
+      <div class="col-8 mb-2"><b>System fields</b></div>
+
+      <%= f.fields_for :incase_import_columns do |ff| %>
+        <div class="col-4 mb-1">
+          <%= ff.hidden_field :column_file %>
+          <%= label_tag "#{ff.object.column_file}", ff.object.column_file %>
+        </div>
+        <div class="col-8 mb-1">
+          <%= ff.select :column_system, grouped_options_for_select(IncaseImport.import_attributes, selected_value_from_group(ff.object.column_file) ), {include_blank: true}, { class: "form-select" }%>
+        </div>
+      <%end%>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="form-actions">
+      <%= f.submit class: "btn btn-primary", data: {disable_with: false} %>
+      <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary" %>
+    </div>
+  </div>
+
+
+  <% end %>
+
+</div>

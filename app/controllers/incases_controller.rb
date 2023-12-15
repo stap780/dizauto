@@ -26,6 +26,7 @@ class IncasesController < ApplicationController
   # GET /incases/new
   def new
     @incase = Incase.new
+    @incase.incase_items.build
   end
 
   # GET /incases/1/edit
@@ -167,6 +168,6 @@ class IncasesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def incase_params
       params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :incase_status_id, :incase_tip_id,
-        incase_items_attributes: [:id, :incase_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])
+        incase_items_attributes: [:id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])
     end
 end

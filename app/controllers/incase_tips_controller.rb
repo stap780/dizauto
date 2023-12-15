@@ -1,11 +1,11 @@
 class IncaseTipsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_tip, only: %i[ show edit update destroy ]
+  before_action :set_incase_tip, only: %i[ show edit update sort destroy ]
 
   # GET /incase_tips or /incase_tips.json
   def index
     @search = IncaseTip.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = 'position asc' if @search.sorts.empty?
     @incase_tips = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -63,6 +63,11 @@ class IncaseTipsController < ApplicationController
     end
   end
 
+  def sort
+    @incase_tip.insert_at params[:new_position]
+    head :ok
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_incase_tip
@@ -71,6 +76,6 @@ class IncaseTipsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def incase_tip_params
-      params.require(:incase_tip).permit(:title, :color)
+      params.require(:incase_tip).permit(:title, :color, :position)
     end
 end

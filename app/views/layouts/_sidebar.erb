@@ -64,7 +64,8 @@
 				</a>
 				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Убытки', incases_path, class: "sidebar-link" %>
-					<%= li_menu_link_to 'Поступления', incases_path, class: "sidebar-link" %>
+					<%= li_menu_link_to 'Импорт Убытки', incase_imports_path, class: "sidebar-link" %>
+					<%= li_menu_link_to 'Поступления', supplies_path, class: "sidebar-link" %>
 				</ul>
 			</li>
 			<li class="sidebar-item">
@@ -94,6 +95,12 @@
 							<%= li_menu_link_to 'Статусы заказов', order_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Способы оплаты', payment_types_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Способы доставки', delivery_types_path, class: "sidebar-link" %>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#multi-supply" data-bs-toggle="collapse" class="sidebar-link collapsed">Поступление</a>
+						<ul id="multi-supply" class="sidebar-dropdown list-unstyled collapse">
+							<%= li_menu_link_to 'Статусы', supply_statuses_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 					<li class="sidebar-item">

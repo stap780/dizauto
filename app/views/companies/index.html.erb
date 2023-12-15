@@ -1,7 +1,18 @@
-<%= link_to "<i data-feather='plus'></i> #{Company.model_name.human}".html_safe, new_company_path, class: "btn btn-primary float-end mt-n1" %>
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= Company.model_name.human(count: 2)%></h1>
+
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Company.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+
+    <%= render 'shared/index_filter' if lookup_context.find_all("companies/_filter").any? %>
+    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, companies_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i class='bi bi-plus'></i> #{Company.model_name.human}".html_safe, new_company_path, class: "btn btn-primary" %>
+  </div>
 </div>
+
+<%= render 'filter', q: @search, title: 'Company filter' if lookup_context.find_all("companies/_filter").any? %>
+
 
 <div class="card">
   <div class="card-header pb-0">
@@ -26,19 +37,14 @@
               <tr>
                 <th>#</th>
                 <th><%= t('helpers.label.company.tip')%></th>
-                <th>Компания</th>
-                <th>Адрес</th>
+                <th class="w-50">Компания</th>
                 <th>Банк</th>
                 <th>Комментарий</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <% @companies.each do |company| %>
-                  <tr id="<%= dom_id company %>">
-                  <%= render company %>
-                  </tr>
-              <% end %>
+              <%= render @companies %>
               </tbody>
           </table>
         </div>

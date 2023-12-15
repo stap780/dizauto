@@ -2,10 +2,40 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
-  resources :supplies
-  resources :incase_item_statuses
-  resources :incase_tips
-  resources :incase_statuses
+  resources :supply_statuses do
+    member do
+      patch :sort
+    end 
+  end
+  resources :incase_imports do
+    collection do
+      post :bulk_print
+      get :pending_bulk 
+      get :success_bulk
+      get '/:id/import_start', action: 'import_start', as: 'import_start'
+      get '/:id/check_import', action: 'check_import', as: 'check_import'
+    end
+  end
+  resources :supplies do
+    collection do
+      post :bulk_print
+    end
+  end
+  resources :incase_item_statuses do
+    member do
+      patch :sort
+    end 
+  end
+  resources :incase_tips do
+    member do
+      patch :sort
+    end 
+  end
+  resources :incase_statuses do
+    member do
+      patch :sort
+    end 
+  end
   resources :actions do
     collection do
       get :values

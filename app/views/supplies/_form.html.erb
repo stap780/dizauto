@@ -1,27 +1,73 @@
-<%= form_with(model: supply) do |form| %>
-  <% if supply.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(supply.errors.count, "error") %> prohibited this supply from being saved:</h2>
+<%= form_with(model: supply, data: { controller: 'nested-form slimselect', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
+                class: 'supply-form' ) do |f| %>
+   <%= render 'shared/errors', object: supply%>
 
-      <ul>
-        <% supply.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <% if !f.object.new_record? %>
+                    <ul class="nav nav-pills" id="supply_tabs" role="tablist">
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link active" id="main_tab_header" data-bs-toggle="tab" data-bs-target="#main_tab">Основные</a>
+                        </li>
+                        <li class="nav-item border border-primary rounded" role="presentation">
+                        <a class="nav-link" id="history_tab_header" data-bs-toggle="tab" data-bs-target="#history_tab">История</a>
+                        </li>
+                    </ul>
+                    <% end %>
+                </div>
+                <div class="card-body">
+                <div class="tab-content">
+                     <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                        <div class="row">
+                            <%= render 'form_data', f: f%>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 mb-2">
+                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
+                            </div>
+                            <template data-nested-form-target="template">
+                                <%= f.fields_for :supply_items, SupplyItem.new, child_index: 'NEW_RECORD' do |item| %>
+                                    <%= render "nested_items", f: item %>
+                                <% end %>
+                            </template>
+                            <div class="table-responsive">
+                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
+                                    <thead class="">
+                                        <tr>
+                                            <th scope="col" class="col-5"><%= t('helpers.label.supply_item.product_id')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.warehouse_id')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.quantity')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.price')%></th>
+                                            <th scope="col" class="col-2"><%= t('helpers.label.supply_item.sum')%></th>
+                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.total')%></th>
+                                            <th scope="col" class="col-1"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                        <%= f.fields_for :supply_items do |item| %>
+                                            <%= render "nested_items", f: item %>
+                                        <% end %>
+                                        <tr data-nested-form-target="target"></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <% if !f.object.new_record? %>
+                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
+                        <%= render "shared/history", f: f %>
+                    </div>
+                    <% end %>
+                </div>
+                </div>
+                <div class="card-footer">
+                    <%= f.submit class: "btn btn-primary" %>
+                    <%= link_to t('back'), supplies_path, class: "btn btn-outline-primary" %>
+                </div>
+            </div>
+        </div>
     </div>
-  <% end %>
 
-  <div>
-    <%= form.label :company_id, style: "display: block" %>
-    <%= form.number_field :company_id %>
-  </div>
-
-  <div>
-    <%= form.label :warehouse_id, style: "display: block" %>
-    <%= form.number_field :warehouse_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

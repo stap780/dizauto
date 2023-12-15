@@ -1,2 +1,2 @@
-<%= link_to '<i class="fa-solid fa-pen"></i>'.html_safe, edit_polymorphic_path(object), class: "px-2" %>
-<%= link_to '<i class="fa-regular fa-trash-can"></i>'.html_safe, object, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %>
+<%= link_to edit_icon, edit_polymorphic_path(object), class: "px-2" %>
+<%= link_to trash_icon, object, data: { "turbo-method": :delete, confirm: 'Are you sure?' }, class:"px-2" %>

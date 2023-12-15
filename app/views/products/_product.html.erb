@@ -8,9 +8,7 @@
     <%= tag.td( product.price ) %>
     <%= tag.td( product.created_at.strftime("%d/%m/%Y") ) %>
     <%= tag.td do %>
-        <span class="no-wrap d-flex align-items-center">
-            <%= render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
-            <%= render 'shared/edit_delete_link', object: product %>
-        </span>
+        <%= render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
     <% end %>
+    <%= td_index_edit_delete_link(product)%>
 </tr>

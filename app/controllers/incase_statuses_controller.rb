@@ -1,11 +1,11 @@
 class IncaseStatusesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_status, only: %i[ show edit update destroy ]
+  before_action :set_incase_status, only: %i[ show edit update sort destroy ]
 
   # GET /incase_statuses or /incase_statuses.json
   def index
     @search = IncaseStatus.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = 'position asc' if @search.sorts.empty?
     @incase_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -43,7 +43,7 @@ class IncaseStatusesController < ApplicationController
     respond_to do |format|
       if @incase_status.update(incase_status_params)
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully updated." }
+        format.html { redirect_to incase_statuses_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @incase_status }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,6 +63,12 @@ class IncaseStatusesController < ApplicationController
     end
   end
 
+  def sort
+    @incase_status.insert_at params[:new_position]
+    head :ok
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_incase_status
@@ -71,6 +77,6 @@ class IncaseStatusesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def incase_status_params
-      params.require(:incase_status).permit(:title, :color)
+      params.require(:incase_status).permit(:title, :color, :position)
     end
 end

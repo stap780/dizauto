@@ -1,11 +1,11 @@
 class IncaseItemStatusesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_item_status, only: %i[ show edit update destroy ]
+  before_action :set_incase_item_status, only: %i[ show edit update sort destroy ]
 
   # GET /incase_item_statuses or /incase_item_statuses.json
   def index
     @search = IncaseItemStatus.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = 'position asc' if @search.sorts.empty?
     @incase_item_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -63,6 +63,14 @@ class IncaseItemStatusesController < ApplicationController
     end
   end
 
+  def sort
+    # puts "sort params => "+params.to_s
+    # position = @incase_item_status.find_by( position: params[:old_position] )
+    @incase_item_status.insert_at params[:new_position]
+    head :ok
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_incase_item_status
@@ -71,6 +79,6 @@ class IncaseItemStatusesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def incase_item_status_params
-      params.require(:incase_item_status).permit(:title, :color)
+      params.require(:incase_item_status).permit(:title, :color, :position)
     end
 end

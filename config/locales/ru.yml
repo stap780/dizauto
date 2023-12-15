@@ -81,9 +81,9 @@ ru:
       incase_item:
         title: "Название позиции"
         quantity: "Кол-во"
-        katnumber: "Каталож.Номер"
+        katnumber: "Каталожный номер"
         price: "Цена"
-        sum: "Сумма"
+        sum: "Сумма запч"
         status: "Статус"
       incase_item_status:
         title: "Название"
@@ -372,9 +372,9 @@ ru:
       incase_item:
         title: "Название позиции"
         quantity: "Кол-во"
-        katnumber: "Каталож.Номер"
+        katnumber: "Каталожный номер"
         price: "Цена"
-        sum: "Сумма"
+        sum: "Сумма запч"
         status: "Статус"
       incase_item_status:
         title: "Название"

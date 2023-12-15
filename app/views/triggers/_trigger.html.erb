@@ -15,7 +15,5 @@
         <%= trigger.pause %>
         <%= trigger.pause_time %>
     <% end %>
-    <td class="text-nowrap">
-        <%= render 'shared/edit_delete_link', object: trigger %>
-    </td>
+    <%= td_index_edit_delete_link(trigger)%>
 </tr>

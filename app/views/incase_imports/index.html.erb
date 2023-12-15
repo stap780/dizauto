@@ -1,0 +1,71 @@
+
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= IncaseImport.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+  <% if Templ.incase_import_print.presence %>
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-print"></i></button>
+    <ul class="dropdown-menu">
+    <%= form_with url: bulk_print_incase_imports_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% Templ.incase_import_print.each do |templ|%>
+        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+          <%= templ.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
+
+    <%= render 'shared/index_filter' if lookup_context.find_all("incase_imports/_filter").any? %>
+    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, incases_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i data-feather='plus'></i> #{IncaseImport.model_name.human}".html_safe, new_incase_import_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<%= render 'filter', q: @search, title: 'Incase Import filter' if lookup_context.find_all("incase_imports/_filter").any?%>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <%= link_to '.xlsx', incase_imports_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-incases_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12 table-responsive">
+          <table id="datatables-incases" class="table table-striped" data-controller="selectall">
+            <thead>
+              <tr>
+                <%= th_check_box_tag_all %>
+                <%= tag.th('#')%>
+                <%= tag.th(t('helpers.label.incase_import.active'))%>
+                <%= tag.th(t('helpers.label.incase_import.title'))%>
+                <%= tag.th(t('helpers.label.incase_import.report'))%>
+                <%= tag.th(t('helpers.label.incase_import.file'))%>
+                <%= tag.th(t('helpers.label.incase_import.uniq_field'))%>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render @incase_imports %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%# render "shared/paginate", f: @incase_imports %>
+      </div>
+    </div>
+  </div>
+</div>

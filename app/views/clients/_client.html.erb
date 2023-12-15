@@ -5,4 +5,5 @@
 <td><%= client.phone%></td>
 <td><%= client.email%></td>
 <td><%= client.created_at.strftime("%d/%m/%Y")%></td>
-<td class="text-nowrap"><%= render 'shared/edit_delete_link', object: client %></td>
+<%= td_index_edit_delete_link(client)%>
+

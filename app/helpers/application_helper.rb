@@ -27,6 +27,14 @@ module ApplicationHelper
     #   end
   
     # end ## end of class LinkRenderer
+  def flash_class(level)
+    case level
+      when 'info' then "alert alert-info"
+      when 'notice','success' then "alert alert-success"
+      when 'error' then "alert alert-danger"
+      when 'alert' then "alert alert-warning"
+    end
+  end
   
   def bs_will_paginate(collection = nil, options = {})
     options, collection = collection, nil if collection.is_a? Hash
@@ -80,17 +88,31 @@ module ApplicationHelper
   end
 
   def edit_icon
-    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>'.html_safe
+    '<i class="bi bi-pencil"></i>'.html_safe
   end
 
   def trash_icon
-  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>'.html_safe
+    '<i class="bi bi-trash3"></i>'.html_safe
   end
   
   def history_value(key, value)
     # puts key
     val = key.split('_id').first.classify.safe_constantize.find(value) if value.present? && key.include?('_id')
     val.present? && val.title ? val.title : value
+  end
+
+  def th_check_box_tag_all
+    content_tag :th do
+      check_box_tag( 'selectAll', 'selectAll', false, data: {selectall_target: 'checkboxAll', action: 'change->selectall#toggleChildren'} )
+    end
+  end
+
+  def td_index_edit_delete_link(obj)
+    content_tag :th, class: 'align-middle' do
+      content_tag :span, class: "no-wrap d-flex align-items-center" do
+        render 'shared/edit_delete_link', object: obj 
+      end
+    end
   end
 
 end

@@ -13,18 +13,11 @@
                         style: 'background-color:'+incase.incase_tip.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: incase.incase_tip.color } ) if incase.incase_tip%>
     <% end %>
-    <%= tag.td(incase.region) %>
-    <%= tag.td(incase.strah.short_title) %>
-    <td><%= incase.stoanumber %></br><%= incase.company.short_title %></td>
+    <%= tag.td do %><%= incase.region %></br><%= incase.strah.short_title %><% end %>
+    <%= tag.td do %><%= incase.stoanumber %></br><%= incase.company.short_title %><% end %>
     <%= tag.td(incase.unumber) %>
-    <td><%= incase.carnumber %></br><%= incase.modelauto %></td>
+    <%= tag.td do %><%= incase.carnumber %></br><%= incase.modelauto %><% end %>
     <%= tag.td(incase.date.strftime("%d/%m/%Y")) %>
     <%= tag.td(incase.totalsum) %>
-    <%= tag.td do %>
-    <span class="no-wrap d-flex align-items-center">
-        <%# link_to '<i class="fa-solid fa-print"></i>'.html_safe, act_incase_path(incase, format: :pdf), class: "px-2" %>
-        <%# render 'shared/print', object: incase, templates: Templ.incase_print if Templ.incase_print.presence %>
-        <%= render 'shared/edit_delete_link', object: incase %>
-    </span>
-    <% end %>
+    <%= td_index_edit_delete_link(incase)%>
 </tr>

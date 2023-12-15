@@ -1,0 +1,24 @@
+<div class="mb-3 col-md-2">
+    <%= f.label :supply_status_id, class: "form-label" %>
+    <%= f.select :supply_status_id, SupplyStatus.order(:position).pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
+</div>
+<div class="mb-3 col-md-3">
+    <%= f.label :title, class: "form-label" %>
+    <%= f.text_field :title, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-3">
+    <%= f.label :company_id, class: "form-label" %>
+    <%= f.select :company_id, Company.pluck(:short_title, :id), {include_blank: false}, {data: {controller: 'slimselect'}} %>
+</div>
+<div class="mb-3 col-md-2">
+    <%= f.label :in_number, class: "form-label" %>
+    <%= f.text_field :in_number, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-2">
+    <%= f.label :in_date, class: "form-label" %>
+    <%= f.date_field :in_date, class: "form-control" %>
+</div>
+<div class="mb-3 col-md-3">
+    <%= f.label :manager_id, class: "form-label" %>
+    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
+</div>

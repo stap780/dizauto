@@ -6,29 +6,31 @@ import Sortable from "sortablejs"
 export default class extends Controller {
     static targets = [ 'position' ]
     connect() {
-    //console.log('this.element', this.element)
+    console.log('this.element', this.element)
     //const url = this.element.srcElement.dataset.sortUrl;
       this.sortable = new Sortable(this.element, {
         handle: '.js-sort-handle',
         onEnd: async (e) => {
-          //console.log('e', e)
+          console.log('e', e)
+          console.log('e.item.dataset', e.item.dataset)
           try {
             this.disable()
-            const url = e.srcElement.dataset.sortUrl;
+            //const url = e.srcElement.dataset.sortUrl;
+            const url = e.item.dataset.sortUrl;
             const resp = await patch(url, {
               body: JSON.stringify({
-                "blob_id": e.item.dataset.imageBlobId,
+                "sort_item_id": e.item.dataset.sortItemId,
                 "new_position": e.newIndex + 1,
                 "old_position": e.oldIndex + 1,
               })
             })
   
             if(!resp.ok) {
-              throw new Error(`Cannot reorder: ${resp.statusCode}`)
+              throw new Error(`Cannot sort: ${resp.statusCode}`)
             }
   
             this.updatePositions()
-            this.dispatch('move', { detail: { content: 'Image reorder!' } })
+            this.dispatch('move', { detail: { content: 'Item sort' } })
           } catch(e) {
             console.error(e)
           } finally {

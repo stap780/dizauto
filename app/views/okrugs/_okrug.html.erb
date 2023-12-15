@@ -1,5 +1,5 @@
 <tr id="<%= dom_id okrug %>">
     <%= tag.td tag.b(okrug.id) %>
     <%= tag.td(okrug.title) %>
-    <td class="text-nowrap"><%= render 'shared/edit_delete_link', object: okrug %></td>
+    <%= td_index_edit_delete_link(okrug)%>
 </tr>

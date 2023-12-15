@@ -7,7 +7,7 @@ class Incase < ApplicationRecord
     has_many   :incase_items, dependent: :destroy
 	accepts_nested_attributes_for :incase_items, allow_destroy: true, :reject_if => :all_blank #, reject_if: proc { |attributes| attributes['здесь пишем атрибут из incase_items'].blank? }
     has_associated_audits
-    
+
     before_save :normalize_data_white_space
 
 	validates :date, presence: true
@@ -16,7 +16,7 @@ class Incase < ApplicationRecord
 
 
     REGION = ['МСК', 'СПБ'].freeze
-    
+
     def self.ransackable_associations(auth_object = nil)
         ["associated_audits", "audits", "company", "incase_items", "strah", "incase_status", "incase_tip"]
     end
@@ -45,7 +45,7 @@ class Incase < ApplicationRecord
         #puts our_fields.to_s
         our_fields
     end
-    
+
     def send_excel
         email_data = {
             email_setup: EmailSetup.all.first,

@@ -1,14 +1,72 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Supplies</h1>
-
-<div id="supplies">
-  <% @supplies.each do |supply| %>
-    <%= render supply %>
-    <p>
-      <%= link_to "Show this supply", supply %>
-    </p>
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Supply.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+  <% if Templ.supply_print.presence %>
+    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-print"></i></button>
+    <ul class="dropdown-menu">
+    <%= form_with url: bulk_print_supplies_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% Templ.supply_print.each do |templ|%>
+        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+          <%= templ.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
   <% end %>
+
+
+    <%= render 'shared/index_filter' if lookup_context.find_all("supplies/_filter").any? %>
+    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, supplies_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i class='bi bi-plus'></i> #{Supply.model_name.human}".html_safe, new_supply_path, class: "btn btn-primary" %>
+  </div>
 </div>
 
-<%= link_to "New supply", new_supply_path %>
+<%= render 'filter', q: @search, title: 'Supply filter' if lookup_context.find_all("supplies/_filter").any?%>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <i class="align-middle" data-feather="more-horizontal"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <%= link_to '.xlsx', supplies_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-isupplies_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12 table-responsive">
+          <table id="datatables-supplies" class="table table-striped" data-controller="selectall">
+            <thead>
+              <tr>
+                <%= th_check_box_tag_all %>
+                <%= tag.th('#')%>
+                <%= tag.th(t('helpers.label.supply.created_at'))%>
+                <%= tag.th(t('helpers.label.supply.supply_status_id'))%>
+                <%= tag.th(t('helpers.label.supply.company_id'))%>
+                <%= tag.th(t('helpers.label.supply.title'))%>
+                <%= tag.th(t('helpers.label.supply.in_number'))%>
+                <%= tag.th(t('helpers.label.supply.in_date'))%>
+                <%= tag.th(t('helpers.label.supply.manager_id'))%>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render @supplies %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @supplies %>
+      </div>
+    </div>
+  </div>
+</div>

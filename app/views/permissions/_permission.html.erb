@@ -4,7 +4,5 @@
   <td><%= permission.pmodel%></td>
   <td><%= permission.pactions.map{|action| action}.join(' ').to_s  %></td>
   <td><%= permission.user_id%></td>
-  <td>
-    <%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_permission_path(permission), class: 'px-2' %>
-    <%= link_to '<i data-feather="trash-2"></i>'.html_safe, permission, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %></td>
+  <%= td_index_edit_delete_link(permission)%>
 </tr>

@@ -18,18 +18,13 @@
   <% end %>
 
 
-    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: { bs_toggle: 'offcanvas'} do %>
-      <span><i data-feather='sliders'></i></span>
-      <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle <% unless params[:q].present?%>d-none<% end %>">
-        <span class="visually-hidden"></span>
-      </span>
-    <% end %>
-    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, incases_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i data-feather='plus'></i> #{Incase.model_name.human}".html_safe, new_incase_path, class: "btn btn-primary" %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("incases/_filter").any? %>
+    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, incases_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to "<i class='bi bi-plus'></i> #{Incase.model_name.human}".html_safe, new_incase_path, class: "btn btn-primary" %>
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Incase filter'%>
+<%= render 'filter', q: @search, title: 'Incase filter' if lookup_context.find_all("incases/_filter").any?%>
 
 
 <div class="card">
@@ -40,7 +35,8 @@
           <i class="align-middle" data-feather="more-horizontal"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%= link_to 'Импорт'.html_safe, file_import_incases_path, class: 'dropdown-item', data: {turbo_frame: "modal"} %>
+          <%#OLD IMPORT link_to 'Импорт'.html_safe, file_import_incases_path, class: 'dropdown-item', data: {turbo_frame: "modal"} %>
+          <%= link_to 'Импорт'.html_safe, incase_imports_path, class: 'dropdown-item'%>
           <%= link_to '.xlsx', incases_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
         </div>
       </div>
@@ -54,13 +50,10 @@
           <table id="datatables-incases" class="table table-striped" data-controller="selectall">
             <thead>
               <tr>
-                <%= tag.th do %>
-                  <%= check_box_tag 'selectAll', 'selectAll', false, data: {selectall_target: 'checkboxAll', action: "change->selectall#toggleChildren" }%>
-                <% end %>
+                <%= th_check_box_tag_all %>
                 <%= tag.th('#')%>
                 <%= tag.th(t('helpers.label.incase.incase_status_id'))%>
                 <%= tag.th(t('helpers.label.incase.incase_tip_id'))%>
-                <%= tag.th(t('helpers.label.incase.region'))%>
                 <%= tag.th(t('helpers.label.incase.strah_id'))%>
                 <%= tag.th(t('helpers.label.incase.stoanumber'))%>
                 <%= tag.th(t('helpers.label.incase.unumber'))%>

@@ -24,17 +24,18 @@
 
         <div class="col-sm-12 list-group list-group-striped">
           <div class="row py-2 px-4">
+            <%= tag.div('', class: 'col-md-1 fw-semibold')%> 
             <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
-            <%= tag.div( t( 'helpers.label.incase_status.title'), class: 'col-md-5 fw-semibold' )%>
-            <%= tag.div( t( 'helpers.label.incase_status.color'), class: 'col-md-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_status.title'), class: 'col-md-4 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_status.color'), class: 'col-md-4 fw-semibold' )%>
             <%= tag.div('', class: 'col-md-1 fw-semibold')%>
           </div>
-          <%= turbo_frame_tag 'incase_statuses' do %>
+          <%= turbo_frame_tag 'incase_statuses', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
               <%= render @incase_statuses %>
           <% end %>
         </div>
 
-      <div class="row paginate-wrap">
+      <div class="row paginate-wrap mt-4">
         <%= render "shared/paginate", f: @incase_statuses %>
       </div>
     </div>

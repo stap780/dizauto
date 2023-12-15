@@ -5,7 +5,7 @@ import { Modal } from "bootstrap"
 export default class extends Controller {
 
   connect() {
-    console.log("modal work");
+    //console.log("modal work");
     this.modal = new Modal(this.element)
     // this.modal.show()
   }

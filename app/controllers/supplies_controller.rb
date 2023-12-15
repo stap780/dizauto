@@ -1,9 +1,22 @@
 class SuppliesController < ApplicationController
+  load_and_authorize_resource
   before_action :set_supply, only: %i[ show edit update destroy ]
 
   # GET /supplies or /supplies.json
   def index
-    @supplies = Supply.all
+    @search = Supply.includes(:company, :supply_items).ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @supplies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = 'supplies.xlsx'
+    collection = @search.present? ? @search.result(distinct: true) : @incases
+    respond_to do |format|
+      format.html
+      format.zip do
+        service = CreateXlsx.new(collection, {filename: filename, template: "supplies/index"} )
+        compressed_filestream = service.call
+        send_data compressed_filestream.read, filename: 'supplies.zip', type: 'application/zip'
+      end
+    end
   end
 
   # GET /supplies/1 or /supplies/1.json
@@ -13,6 +26,7 @@ class SuppliesController < ApplicationController
   # GET /supplies/new
   def new
     @supply = Supply.new
+    @supply.supply_items.build
   end
 
   # GET /supplies/1/edit
@@ -65,6 +79,7 @@ class SuppliesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def supply_params
-      params.require(:supply).permit(:company_id, :warehouse_id)
+      params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, 
+      supply_items_attributes: [:id, :warehouse_id, :product_id, :quantity, :price, :sum, :total, :_destroy])
     end
 end

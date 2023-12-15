@@ -12,8 +12,6 @@
 <%= tag.td( order.order_items.sum(:sum)) %>
 <%= tag.td( order.created_at.strftime("%d/%m/%Y") ) %>
 <%= tag.td do %>
-    <span class="no-wrap d-flex align-items-center">
-        <%= render 'shared/print', object: order, templates: Templ.order_print if Templ.order_print.presence %>
-        <%= render 'shared/edit_delete_link', object: order %>
-    </span>
+    <%= render 'shared/print', object: order, templates: Templ.order_print if Templ.order_print.presence %>
 <% end %>
+ <%= td_index_edit_delete_link(order)%>

@@ -1,5 +1,5 @@
 <tr id="<%= dom_id warehouse %>">
     <td><b><%= warehouse.id%></b></td>
     <td><%= warehouse.title %></td>
-    <td class="text-nowrap"><%= render 'shared/edit_delete_link', object: warehouse %></td>
+    <%= td_index_edit_delete_link(warehouse)%>
 </tr>

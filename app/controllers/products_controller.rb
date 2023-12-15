@@ -76,10 +76,10 @@ class ProductsController < ApplicationController
 
   def print_etiketki #post
     if params[:product_ids]
-      ProductEtiketkiJob.perform_later(params[:product_ids])
+      ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
     else
-      alert = 'Выберите товары'
-      redirect_to products_url, notice: alert
+      notice = 'Выберите товары'
+      redirect_to products_url, alert: notice
     end
   end
 
@@ -138,7 +138,7 @@ class ProductsController < ApplicationController
     puts "reorder_image params => "+params.to_s
     puts "reorder_image params[:id] => "+params[:id].to_s
     # @product = Product.find(params[:id])
-    @image = @product.images.find_by blob_id: params[:blob_id]
+    @image = @product.images.find_by blob_id: params[:sort_item_id]
     @image.insert_at params[:new_position]
     head :ok
   end

@@ -28,6 +28,9 @@ application.register("export", ExportController)
 import FilterController from "./filter_controller"
 application.register("filter", FilterController)
 
+import FlashController from "./flash_controller"
+application.register("flash", FlashController)
+
 import FlatpickrController from "./flatpickr_controller"
 application.register("flatpickr", FlatpickrController)
 
@@ -66,6 +69,9 @@ application.register("template", TemplateController)
 
 import ToastController from "./toast_controller"
 application.register("toast", ToastController)
+
+import TooltipController from "./tooltip_controller"
+application.register("tooltip", TooltipController)
 
 import TurboController from "./turbo_controller"
 application.register("turbo", TurboController)

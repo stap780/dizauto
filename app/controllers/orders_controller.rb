@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @order.order_items.build
   end
 
   # GET /orders/1/edit
@@ -91,6 +92,6 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
-      order_items_attributes: OrderItem.attribute_names+[:order_id, :_destroy] )
+      order_items_attributes: [:id,:product_id, :price, :discount, :sum, :quantity, :_destroy] )
     end
 end

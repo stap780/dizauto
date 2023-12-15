@@ -1,0 +1,26 @@
+<tr id="<%= dom_id f.object %>" class="p-1 nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+
+    <td class="p-0 ps-1 product_id">
+        <%= f.select :product_id, Product.all.map{|p| [p.full_title, p.id]}, {include_blank: true}, { class: "p-1", data: {controller: 'slimselect'}} %>
+    </td>
+    <td class="p-0 ps-1 warehouse_id">
+        <%= f.select :warehouse_id, Warehouse.all.map{|p| [p.title, p.id]}, {include_blank: true}, { class: "p-1", data: {controller: 'slimselect'}} %>
+    </td>
+    <td class="p-0 quantity">
+        <%= f.number_field :quantity, class: "form-control form-control-md p-1" %>
+    </td>
+    <td class="p-0 price">
+        <%= f.text_field :price, class: "form-control form-control-md p-1" %>
+    </td>
+    <td class="p-0 sum">
+        <%= f.text_field :sum, class: "form-control form-control-md p-1" %>
+    </td>
+    <td class="p-0 total">
+        <%= f.number_field :total, class: "form-control form-control-md p-1" %>
+    </td>
+    <td>
+    <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa fa-trash"></i></button>
+        <%= f.hidden_field :_destroy %>
+    </td>
+
+</tr>

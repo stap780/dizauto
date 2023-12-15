@@ -13,7 +13,8 @@ export default class extends Controller {
         this.attributesTarget.classList.add(this.dnoneClass);
       }
     if (this.tipTarget.value == 'message') {
-        this.attributesTarget.classList.remove(this.dnoneClass);
+        //this.attributesTargets.classList.remove(this.dnoneClass);
+        this.attributesTargets.forEach( (elem) => { elem.classList.remove(this.dnoneClass) } )
     }
   }
 } 

@@ -1,18 +1,15 @@
-
+<tr id="<%= dom_id company %>">
     <td><b><%= company.id%></b></td>
     <td><%= company.tip%></td>
-    <td>Название: <%= company.title %><br>
+    <td>Название: <span data-controller="tooltip" data-bs-placement="right" data-bs-title="<%= company.title %>"><%= company.short_title %></span><br>
     ИНН: <%= company.inn %><br>
     КПП: <%= company.kpp %><br>
-    ОГРН: <%= company.ogrn %><br>
-    ОКПО: <%= company.okpo %>
-    </td>
-    <td>Юрид: <%= company.ur_address %><br>
+    Юрид: <%= company.ur_address %><br>
     Факт: <%= company.fact_address %></td>
     <td>БИК: <%= company.bik %><br>
     Название: <%= company.bank_title %><br>
     Расч Счет: <%= company.bank_account %>
     </td>
     <%=tag.td(company.comments.pluck(:body).join)%>
-    <td class="text-nowrap"><%= render 'shared/edit_delete_link', object: company %></td>
-
+   <%= td_index_edit_delete_link(company)%>
+</tr>

@@ -1,12 +1,19 @@
-<div id="<%= dom_id supply %>">
-  <p>
-    <strong>Company:</strong>
-    <%= supply.company_id %>
-  </p>
+<tr id="<%= dom_id supply %>">
+    <td><%= check_box_tag "supply_ids[]", supply.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
+    <%= tag.td tag.b(supply.id) %>
+    <%= tag.td(supply.created_at.strftime("%d/%m/%Y")) %>
+    <%= tag.td do %>
+        <%= tag.span(   supply.supply_status.title,
+                        class: 'w-100', 
+                        style: 'background-color:'+supply.supply_status.color,
+                        data: {controller: 'badge', badge_target: 'value', bg_color: supply.supply_status.color }) if supply.supply_status %>
+    <% end %>
+    <%= tag.td(supply.company.short_title) %>
+    <%= tag.td(supply.title) %>
+    <%= tag.td(supply.in_number) %>
+    <%= tag.td(supply.in_date ? supply.in_date.strftime("%d/%m/%Y") : '') %>
+    <%= tag.td(supply.manager ? supply.manager.name : '') %>
+    <%= td_index_edit_delete_link(supply)%>
 
-  <p>
-    <strong>Warehouse:</strong>
-    <%= supply.warehouse_id %>
-  </p>
+</tr>
 
-</div>
