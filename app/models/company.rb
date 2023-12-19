@@ -4,13 +4,15 @@ class Company < ApplicationRecord
     has_many :client_companies
     has_many :clients, through: :client_companies
 	accepts_nested_attributes_for :client_companies, allow_destroy: true
-    has_many :comments, as: :commentable
-    accepts_nested_attributes_for :comments, allow_destroy: true
+    has_many :company_plan_dates
+	accepts_nested_attributes_for :company_plan_dates, allow_destroy: true
+    belongs_to :okrug
 
-    validates :title, presence: true
+    # validates :title, presence: true
     validates :short_title, presence: true
-    validates :inn, presence: true
-    validates :inn, uniqueness: true
+    validates :short_title, uniqueness: true
+    # validates :inn, presence: true
+    # validates :inn, uniqueness: true
     validates :client_companies, presence: true
 
     before_save :normalize_data_white_space
@@ -35,6 +37,11 @@ class Company < ApplicationRecord
     def main_email
         # need create
         self.clients.first.email
+    end
+
+    def company_plan_dates_data
+        self.company_plan_dates.present? ? 
+            self.company_plan_dates.last.date.strftime("%d/%m/%Y")+' '+self.company_plan_dates.last.comments.first.body : ''
     end
 
     private

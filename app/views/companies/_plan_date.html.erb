@@ -1,0 +1,15 @@
+<div class="nested-form-wrapper row mb-3" data-new-record="<%= f.object.new_record? %>">
+    <div class="col-md-3">
+        <%# f.label :date, class: "form-label" %>
+        <%= f.date_field :date, class: "form-control" %>
+    </div>
+    <div class="col-md-7">
+        <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
+            <%= render 'comments/form_data', f: comment%>
+        <% end %>
+    </div>
+    <div class="col-md-2 d-flex justify-content-start">
+        <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa-regular fa-trash-can"></i></button>
+        <%= f.hidden_field :_destroy %>
+    </div>
+</div>

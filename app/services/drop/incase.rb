@@ -74,24 +74,25 @@ class Drop::Incase < Liquid::Drop
         @incase.incase_tip_id.present? ? @incase.incase_tip.title : ''
     end
 
-    def line_items
+    def items
         # @export.products.map(&:attributes)
         # products = @export.products.map(&:attributes)
         #.map{|line| {"id" => line.id, "sku" => line.sku, "price" => line.price, "quantity" => line.quantity, "title"=> line.title}}
-        l_products = []
-        @incase.incase_items.each do |li|
-            b = li.attributes
-            # b = pr.attributes
-            # b['properties'] = pr.props.map{|l| [l.property.title,l.characteristic.title]}
-            # host = Rails.env.development? ? 'http://localhost:3000' : 'http://95.163.236.170'
-            # b['images'] = product.image_urls.map{|h| host+h[:url]}
-            l_products.push(b)
-        end
+        # l_products = []
+        # @incase.incase_items.each do |li|
+        #     b = li.attributes
+            ## b = pr.attributes
+            ## b['properties'] = pr.props.map{|l| [l.property.title,l.characteristic.title]}
+            ## host = Rails.env.development? ? 'http://localhost:3000' : 'http://95.163.236.170'
+            ## b['images'] = product.image_urls.map{|h| host+h[:url]}
+        #     l_products.push(b)
+        # end
         # puts "l_products => "+l_products.to_s
-        l_products
+        # l_products
+        @incase.incase_items.present? ? @incase.incase_items.map{|li| li.attributes} : []
     end
 
-    def line_items_statuses
+    def items_statuses
         @incase.incase_items.map{|i_i| i_i.incase_item_status.title}
     end
 

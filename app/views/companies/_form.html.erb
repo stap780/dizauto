@@ -1,45 +1,62 @@
-<%= form_with(  model: company, 
-                data: { controller: 'company nested-form', 
-                        nested_form_wrapper_selector_value: '.nested-form-wrapper' }) do |f| %>
+<%= form_with(  model: company, data: { controller: 'company'}) do |f| %>
   <%= render 'shared/errors', object: company %>
 
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                  <% if !f.object.new_record? %>
-                  <ul class="nav nav-pills" id="companyEditTab" role="tablist">
-                    <li class="nav-item border border-primary rounded" role="presentation">
-                      <a class="nav-link active" id="companyEditMain-tab" data-bs-toggle="tab" data-bs-target="#companyEditMain">Основные</a>
-                    </li>
-                    <li class="nav-item border border-primary rounded" role="presentation">
-                      <a class="nav-link" id="companyEditHistory-tab" data-bs-toggle="tab" data-bs-target="#companyEditHistory">История</a>
-                    </li>
-                  </ul>
-                  <% end %>
+                  <%= tabs_head('company', [ ['main', t(:main)],['rekviziti', t(:rekviziti)],['history', t(:history)] ]) %>
                 </div>
                 <div class="card-body">
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="companyEditMain" role="tabpanel" aria-labelledby="companyEditMain-tab">
+                    <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
                         <div class="row">
-                          <%= render "form_data", f: f %>
-                          <div class="col-md-3">
-                            <div class="h4 mb-2">Контакт</div>
-                            <%= turbo_frame_tag 'client_wrap' do %>
-                              <%# render 'client_wrap', comp: f %>
-                              <%= render 'experiment_client_wrap'%>
-                            <% end %>
-                            <div class="h4 mt-3 mb-2">Комментарий</div>
-                            <div class="col-md-12 my-2">
-                            <%= f.fields_for :comments, @comment do |comment| %>
-                                <%= render 'comments/form_data', f: comment%>
-                            <% end %>
+                          <div class="col-md-8 row">
+                            <div class="mb-3 col-md-4">
+                              <%= f.label :tip, class: "form-label" %>
+                              <%= f.select :tip, Company::TIP, {}, { class: "form-select" }%>
+                            </div>
+                            <div class="mb-3 col-md-4">
+                              <%= f.label :okrug_id, class: "form-label" %>
+                              <%= f.select :okrug_id, Okrug.order(:position).pluck(:title, :id), {}, { class: "form-select" }%>
+                            </div>
+                            <div class="mb-3 col-md-8">
+                              <%= f.label :short_title, class: "form-label" %>
+                              <%= f.text_field :short_title, class: "form-control" %>
+                            </div>
+                            <div class="col-md-12" data-controller='nested-form', data-nested-form-wrapper-selector-value='.nested-form-wrapper'>
+                            <button type="button" class="btn btn-primary my-3" data-action="nested-form#add"><i class="fa-solid fa-plus"></i>Добавить планируемую дату</button>
+                              <template data-nested-form-target="template">
+                                <%= f.fields_for :company_plan_dates, CompanyPlanDate.new, child_index: 'NEW_RECORD' do |company_plan_date| %>
+                                  <%= render "companies/plan_date", f: company_plan_date %>
+                                <% end %>
+                              </template>
+                              <div class="row mb-3">
+                                <div class="col-md-3">Date</div>
+                                <div class="col-md-7">Comment</div>
+                                <div class="col-md-2"></div>
+                              </div>
+                              <%= f.fields_for :company_plan_dates do |company_plan_date| %>
+                                <%= render 'companies/plan_date', f: company_plan_date%>
+                              <% end %>
+                              <div data-nested-form-target="target"></div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="col-md-12" data-controller='nested-form', data-nested-form-wrapper-selector-value='.nested-form-wrapper'>
+                              <div class="h4 mb-2">Контакт</div>
+                              <%= turbo_frame_tag 'client_wrap' do %>
+                                <%= render 'client_wrap', comp: f %>
+                              <% end %>
                             </div>
                           </div>
                         </div>
                     </div>
-                    <div class="tab-pane" id="companyEditHistory" role="tabpanel" aria-labelledby="companyEditHistory-tab">
+                    <div class="tab-pane" id="rekviziti_tab" role="tabpanel" aria-labelledby="rekviziti_tab">
+                        <%= render "form_data", f: f %>
+                    </div>
+                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
                         <%= render "shared/history", f: f %>
                     </div>
                 </div>

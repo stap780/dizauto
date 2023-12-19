@@ -1,5 +1,14 @@
-<tr id="<%= dom_id okrug %>">
-    <%= tag.td tag.b(okrug.id) %>
-    <%= tag.td(okrug.title) %>
-    <%= td_index_edit_delete_link(okrug)%>
-</tr>
+<%= turbo_frame_tag okrug, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
+    sort_url: sort_okrug_path(okrug.id), sort_item_id: okrug.id }  do %>
+    <%= tag.div('', class: "col-md-1") do %>
+        <i class="bi bi-arrows-move js-sort-handle fs-3"></i>
+        <span class="badge bg-info float-end mt-1" data-sortable-target="position"><%= okrug.position%></span>
+    <% end %>
+
+        <%= tag.div tag.b(okrug.id), class: "col-md-1" %>
+        <%= tag.div(okrug.title, class: "col-md-5")%>
+        <div class= "col-md-1">
+            <%= link_to edit_icon, edit_okrug_path(okrug), class: 'px-2' %>
+            <%= link_to trash_icon, okrug, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+        </div>
+<% end %>

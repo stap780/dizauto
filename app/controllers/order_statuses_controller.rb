@@ -55,7 +55,6 @@ class OrderStatusesController < ApplicationController
   # DELETE /order_statuses/1 or /order_statuses/1.json
   def destroy
     @order_status.destroy
-
     respond_to do |format|
       format.html { redirect_to order_statuses_url, notice: t('.success') }
       format.json { head :no_content }

@@ -86,9 +86,15 @@ Rails.application.routes.draw do
   end
   resources :places
   resources :warehouses
-  resources :okrugs
+  resources :okrugs do
+    member do
+      patch :sort
+    end   
+  end
+  resources :company_plan_dates do
+    resources :comments, module: :company_plan_dates
+  end
   resources :companies do
-    resources :comments, module: :companies
   end
   resources :detals
   resources :exports

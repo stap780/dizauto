@@ -1,5 +1,7 @@
 class Okrug < ApplicationRecord
+    acts_as_list
 
+    has_many :companies
     before_save :normalize_data_white_space
     validates :title, presence: true
     validates :title, uniqueness: true

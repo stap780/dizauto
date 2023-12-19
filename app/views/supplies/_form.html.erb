@@ -6,16 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <% if !f.object.new_record? %>
-                    <ul class="nav nav-pills" id="supply_tabs" role="tablist">
-                        <li class="nav-item border border-primary rounded" role="presentation">
-                        <a class="nav-link active" id="main_tab_header" data-bs-toggle="tab" data-bs-target="#main_tab">Основные</a>
-                        </li>
-                        <li class="nav-item border border-primary rounded" role="presentation">
-                        <a class="nav-link" id="history_tab_header" data-bs-toggle="tab" data-bs-target="#history_tab">История</a>
-                        </li>
-                    </ul>
-                    <% end %>
+                    <%= tabs_head('supply', [ ['main', t(:main)],['history', t(:history)] ]) if !f.object.new_record? %>
                 </div>
                 <div class="card-body">
                 <div class="tab-content">

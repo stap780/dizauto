@@ -1,4 +1,5 @@
-<%= link_to "<i data-feather='plus'></i> #{Okrug.model_name.human}".html_safe, new_okrug_path, class: "btn btn-primary float-end mt-n1" %>
+<%= link_to "<i data-feather='plus'></i> #{Okrug.model_name.human}".html_safe, 
+    new_okrug_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(Okrug.new) } %>
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= Okrug.model_name.human(count: 2)%></h1>
 </div>
@@ -19,23 +20,17 @@
   </div>
   <div class="card-body">
     <div id="datatables-okrug_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-okrug" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.okrug.title')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @okrugs.each do |okrug| %>
-                  <%= render okrug %>
-              <% end %>
-              </tbody>
-          </table>
+      <%= turbo_frame_tag Okrug.new %>
+      <div class="col-sm-12 list-group list-group-striped">
+        <div class="row py-2 px-4">
+          <%= tag.div('', class: 'col-md-1 fw-semibold')%> 
+          <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+          <%= tag.div( t( 'helpers.label.okrug.title'), class: 'col-md-5 fw-semibold' )%>
+          <%= tag.div('', class: 'col-md-1 fw-semibold')%>
         </div>
+        <%= turbo_frame_tag 'okrugs', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+          <%= render @okrugs %>
+        <% end %>
       </div>
       <div class="row paginate-wrap">
         <%= render "shared/paginate", f: @okrugs %>

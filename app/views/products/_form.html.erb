@@ -1,40 +1,28 @@
 <div class="row">
-    <%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'col-md-8') do |form| %>
+    <%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'col-md-8') do |f| %>
         <%= render "shared/errors", object: product%>
 
         <div class="card">
-            <div class="card-header py-3 px-3 border-bottom">
-            <ul class="nav nav-pills" id="productEditTab" role="tablist">
-                <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link active" id="productEditMain-tab" data-bs-toggle="tab" data-bs-target="#productEditMain">Основные</a>
-                </li>
-                <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link" id="productEditProperty-tab" data-bs-toggle="tab" data-bs-target="#productEditProperty" data-action= "click->product#tab_click">Параметры</a>
-                </li>
-                <% if !form.object.new_record? %>
-                <li class="nav-item border border-primary rounded" role="presentation">
-                <a class="nav-link" id="productEditHistory-tab" data-bs-toggle="tab" data-bs-target="#productEditHistory">История</a>
-                </li>
-                <% end %>
-            </ul>
+            <div class="card-header">
+                <%= tabs_head('incase', [ ['main', t(:main)],['property', t(:property)],['history', t(:history)] ]) if !f.object.new_record? %>
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="productEditMain" role="tabpanel" aria-labelledby="productEditMain-tab">
-                        <%= render "form_data", f: form %>
+                    <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                        <%= render "form_data", f: f %>
                     </div>
-                    <div class="tab-pane" id="productEditProperty" role="tabpanel" aria-labelledby="productEditProperty-tab">
-                        <%= render "props_nested", f: form %>
+                    <div class="tab-pane" id="property_tab" role="tabpanel" aria-labelledby="property_tab">
+                        <%= render "props_nested", f: f %>
                     </div>
-                    <% if !form.object.new_record? %>
-                    <div class="tab-pane" id="productEditHistory" role="tabpanel" aria-labelledby="productEditHistory-tab">
-                        <%= render "shared/history", f: form %>
+                    <% if !f.object.new_record? %>
+                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
+                        <%= render "shared/history", f: f %>
                     </div>
                     <% end %>
                 </div>
             </div>
             <div class="card-footer">
-                <%= form.submit class: "btn btn-primary" %>
+                <%= f.submit class: "btn btn-primary" %>
                 <%= link_to t('back'), products_path, class: "btn btn-outline-primary" %>
             </div>
         </div>

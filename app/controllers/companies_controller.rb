@@ -17,13 +17,14 @@ class CompaniesController < ApplicationController
   # GET /companies/new
   def new
     @company = Company.new
-    @comment = Comment.new
+    # @comment = Comment.new
     @company.client_companies.build
+    @company.company_plan_dates.build
   end
   
   # GET /companies/1/edit
   def edit
-    @comment = @company.comments.present? ? @company.comments.first : Comment.new
+    # @comment = @company.comments.present? ? @company.comments.first : Comment.new
   end
 
   # POST /companies or /companies.json
@@ -72,8 +73,11 @@ class CompaniesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def company_params
-      params.require(:company).permit(:tip,:inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account, :info,
-      client_companies_attributes: [:id, :client_id, :company_id, :_destroy], comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])
+      params.require(:company).permit(:okrug_id, :tip,:inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account, :info,
+      client_companies_attributes: [:id, :client_id, :company_id, :_destroy], company_plan_dates_attributes: [:id, :date, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])
    
     end
 end
+
+
+#, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]

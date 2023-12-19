@@ -1,16 +1,18 @@
-
-    <div class="col-md-12 mb-2">
-        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Выбрать клиента</button>
-        <%= link_to 'Create client'.html_safe, new_turbo_clients_path, class: 'btn btn-light' %>
-    </div>
-    <template data-nested-form-target="template">
-        <%= comp.fields_for :client_companies, ClientCompany.new do |client_company| %>
-            <%= render "nested", f: client_company, parent: 'company' %>
+<% company = @company.present? ? @company : company_turbo %>
+<div class="col-md-12 mb-2">
+    <button type="button" class="btn btn-primary" data-action="nested-form#add"><i class="fa-solid fa-plus"></i>Добавить клиента</button>
+    <%= link_to '<i class="fa-regular fa-square-plus"></i>'.html_safe, new_turbo_clients_path(company_id: company.id), title: 'создать клиента',class: 'btn btn-light', data: {turbo_frame: "modal"} %>
+</div>
+<template data-nested-form-target="template">
+    <%= fields_for "company[client_companies_attributes][#{Time.now.to_i }]", ClientCompany.new do |f| %>
+        <%= render "companies/nested", f: f, parent: 'company' %>
+    <% end %>
+</template>
+<div class="client_companies">
+    <% company.client_companies.each do |client_company|%>
+        <%= fields_for "company[client_companies_attributes][#{client_company.id }]", client_company do |f| %>
+            <%= render "companies/nested", f: f, parent: 'company' %>
         <% end %>
-    </template>
-    <div class="client_companies">
-        <%= comp.fields_for :client_companies do |client_company| %>
-            <%= render "nested", f: client_company, parent: 'company' %>
-        <% end %>
-        <div data-nested-form-target="target"></div>
-    </div>
+    <% end %>
+    <div data-nested-form-target="target"></div>
+</div>

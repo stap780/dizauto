@@ -5,7 +5,7 @@ class OkrugsController < ApplicationController
   # GET /okrugs or /okrugs.json
   def index
     @search = Okrug.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = 'position asc' if @search.sorts.empty?
     @okrugs = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -28,6 +28,7 @@ class OkrugsController < ApplicationController
 
     respond_to do |format|
       if @okrug.save
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to okrugs_url, notice: "Okrug was successfully created." }
         format.json { render :show, status: :created, location: @okrug }
       else
@@ -41,6 +42,7 @@ class OkrugsController < ApplicationController
   def update
     respond_to do |format|
       if @okrug.update(okrug_params)
+        format.turbo_stream { flash.now[:success] = t('.success') }
         format.html { redirect_to okrugs_url, notice: "Okrug was successfully updated." }
         format.json { render :show, status: :ok, location: @okrug }
       else
@@ -53,11 +55,16 @@ class OkrugsController < ApplicationController
   # DELETE /okrugs/1 or /okrugs/1.json
   def destroy
     @okrug.destroy
-
     respond_to do |format|
+      format.turbo_stream { flash.now[:success] = t('.success') }
       format.html { redirect_to okrugs_url, notice: "Okrug was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def sort
+    @okrug.insert_at params[:new_position]
+    head :ok
   end
 
   private
@@ -68,6 +75,7 @@ class OkrugsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def okrug_params
-      params.require(:okrug).permit(:title)
+      params.require(:okrug).permit(:title, :position)
     end
+
 end

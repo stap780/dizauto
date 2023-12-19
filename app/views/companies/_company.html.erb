@@ -10,6 +10,6 @@
     Название: <%= company.bank_title %><br>
     Расч Счет: <%= company.bank_account %>
     </td>
-    <%=tag.td(company.comments.pluck(:body).join)%>
+    <%=tag.td(company.company_plan_dates_data)%>
    <%= td_index_edit_delete_link(company)%>
 </tr>

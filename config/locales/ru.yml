@@ -36,6 +36,8 @@ ru:
   okrug_one: "округ"
   warehouse_one: "склад"
   back: "Назад"
+  main: 'Основные'
+  history: "История"
   activerecord:
     attributes:
       client:
@@ -83,7 +85,7 @@ ru:
         quantity: "Кол-во"
         katnumber: "Каталожный номер"
         price: "Цена"
-        sum: "Сумма запч"
+        sum: "Сумма"
         status: "Статус"
       incase_item_status:
         title: "Название"
@@ -128,6 +130,21 @@ ru:
         order_id: "id заказа"
       okrug:
         title: "Название"
+      supply:
+        title: "Название"
+        company_id: "Компания"
+        in_number: "Вх номер"
+        in_date: "Вх дата"
+        manager_id: "Менеджер"
+        created_at: "Дата"
+        supply_status_id: "Статус"
+      supply_item:
+        product_id: "Товар"
+        warehouse_id: "Склад"
+        quantity: "Кол-во"
+        price: "Цена"
+        sum: "Сумма"
+        total: "Итого"
       templ:
         title: "Название"
         subject: "Тема письма"
@@ -191,6 +208,9 @@ ru:
       okrug: 
         one: "округ"
         other: "Округа"
+      supply: 
+        one: "поступление"
+        other: "Поступления"
       templ: 
         one: "шаблон"
         other: "Шаблоны"
@@ -374,7 +394,7 @@ ru:
         quantity: "Кол-во"
         katnumber: "Каталожный номер"
         price: "Цена"
-        sum: "Сумма запч"
+        sum: "Сумма"
         status: "Статус"
       incase_item_status:
         title: "Название"
@@ -416,6 +436,21 @@ ru:
         price: "Цена продажи"
         video: "Видео"
         created_at: "Создан"
+      supply:
+        title: "Название"
+        company_id: "Компания"
+        in_number: "Вх номер"
+        in_date: "Вх дата"
+        manager_id: "Менеджер"
+        created_at: "Дата"
+        supply_status_id: "Статус"
+      supply_item:
+        product_id: "Товар"
+        warehouse_id: "Склад"
+        quantity: "Кол-во"
+        price: "Цена"
+        sum: "Сумма"
+        total: "Итого"
       templ:
         title: "Название"
         subject: "Тема письма"

@@ -115,4 +115,25 @@ module ApplicationHelper
     end
   end
 
+  def tabs_head(collection, tabs)
+    items = tabs.map.with_index { |tab, index| tab_a_tag(tab, index.zero?) }
+    content_tag(:ul, safe_join(items), class: 'nav nav-pills', id: collection+'_tabs', role: 'tablist')
+  end
+
+  def tab_a_tag(tab, is_active)
+
+    content_tag :li, class: 'nav-item border border-primary rounded', role: 'presentation' do
+      options = {
+        class: (is_active ? 'nav-link active' : 'nav-link'),
+        id: tab[0]+'_tab_header',
+        'data-bs-toggle': 'tab',
+        'data-bs-target': '#'+tab[0]+'_tab',
+        role: "presentation"
+      }  
+      content_tag :a, options do
+        tab[1]
+      end
+    end
+  end
+
 end

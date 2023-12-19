@@ -20,19 +20,18 @@
   </div>
   <div class="card-body">
     <div id="datatables-order_status_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-        <%= turbo_frame_tag OrderStatus.new %>
-        <div class="col-sm-12 list-group list-group-striped">
-          <div class="row py-2 px-4">
-            <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
-            <%= tag.div( t( 'helpers.label.order_status.title'), class: 'col-md-5 fw-semibold' )%>
-            <%= tag.div( t( 'helpers.label.order_status.color'), class: 'col-md-5 fw-semibold' )%>
-            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
-          </div>
-          <%= turbo_frame_tag 'order_statuses' do %>
-              <%= render @order_statuses %>
-          <% end %>
+      <%= turbo_frame_tag OrderStatus.new %>
+      <div class="col-sm-12 list-group list-group-striped">
+        <div class="row py-2 px-4">
+          <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+          <%= tag.div( t( 'helpers.label.order_status.title'), class: 'col-md-5 fw-semibold' )%>
+          <%= tag.div( t( 'helpers.label.order_status.color'), class: 'col-md-5 fw-semibold' )%>
+          <%= tag.div('', class: 'col-md-1 fw-semibold')%>
         </div>
-
+        <%= turbo_frame_tag 'order_statuses' do %>
+          <%= render @order_statuses %>
+        <% end %>
+      </div>
       <div class="row paginate-wrap">
         <%= render "shared/paginate", f: @order_statuses %>
       </div>
