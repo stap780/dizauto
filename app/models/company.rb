@@ -3,7 +3,7 @@ class Company < ApplicationRecord
     has_many :incases
     has_many :client_companies
     has_many :clients, through: :client_companies
-	accepts_nested_attributes_for :client_companies, allow_destroy: true
+	accepts_nested_attributes_for :client_companies, allow_destroy: true, reject_if: :all_blank #, reject_if: proc { |attributes| attributes['name'].blank? }
     has_many :company_plan_dates
 	accepts_nested_attributes_for :company_plan_dates, allow_destroy: true
     belongs_to :okrug
@@ -13,7 +13,7 @@ class Company < ApplicationRecord
     validates :short_title, uniqueness: true
     # validates :inn, presence: true
     # validates :inn, uniqueness: true
-    validates :client_companies, presence: true
+    # validates :client_companies, presence: true
 
     before_save :normalize_data_white_space
 

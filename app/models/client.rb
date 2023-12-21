@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
     has_many :client_companies
-    has_many :companies, through: :client_companies
+    has_many :companies, through: :client_companies, reject_if: :all_blank
 
     validates :name, presence: true
     validates :email, presence: true
@@ -9,7 +9,7 @@ class Client < ApplicationRecord
     before_save :normalize_data_white_space
 
     def full_name
-        self.name+' '+self.surname
+        [name, surname, email].join(' ')
     end
 
     def self.ransackable_attributes(auth_object = nil)
