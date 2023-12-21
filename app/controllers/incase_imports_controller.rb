@@ -35,7 +35,7 @@ class IncaseImportsController < ApplicationController
   def edit
     if @incase_import.incase_import_columns.size < 1
       service = Incase::Import.new(@incase_import)
-      header_data = service.collect_file_header
+      header_data = service.header
       if header_data
         data = header_data.map{|d|{column_file: d, column_system: nil}}
         @incase_import.incase_import_columns.create!(data)

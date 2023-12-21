@@ -19,6 +19,7 @@ class Incase::Import
         @import_data
         @check_message = {success: [], errors: []}
         @check_import = false
+        collect_data
     end
 
     def check_import
