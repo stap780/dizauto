@@ -1,6 +1,6 @@
 class Client < ApplicationRecord
     has_many :client_companies
-    has_many :companies, through: :client_companies, reject_if: :all_blank
+    has_many :companies, through: :client_companies
 
     validates :name, presence: true
     validates :email, presence: true
