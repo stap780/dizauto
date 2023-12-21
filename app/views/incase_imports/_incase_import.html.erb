@@ -7,7 +7,7 @@
   <%= tag.td do %>
   <%= link_to 'file', rails_blob_path(incase_import.import_file, disposition: 'attachment') %>
   <% end %>
-  <%= tag.td( t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") ) %>
+  <%= incase_import.uniq_field ? tag.td( t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") ) : ''%>
   <%= tag.td do %>
       <%= link_to '<i class="bi bi-eye"></i>'.html_safe, incase_import, class: "px-2" %>
   <% end %>
