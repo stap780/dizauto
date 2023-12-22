@@ -222,12 +222,8 @@ class DirectUploadController {
   uploadToActiveStorage(attributes) {
     // console.log('uploadToActiveStorage attributes => ', attributes);
     const form = document.getElementsByClassName("upload-form")[0];
-    console.log('upload-form => ', form);
+    // console.log('upload-form => ', form);
     const form_action_url = form.action;
-    const form_model = form.getAttribute("data-upload-model");
-    const active_storage_object = form.getAttribute("data-active-storage-object");
-    //console.log(form_action_url);
-    //console.log('uploadToActiveStorage attributes.signed_id => ', attributes.signed_id);
     fetch(form_action_url, {
       method: "POST",
       headers: {
