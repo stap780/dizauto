@@ -44,7 +44,9 @@
               </tr>
             </thead>
             <tbody>
+              <%= turbo_frame_tag 'companies' do %>
               <%= render @companies %>
+              <% end %>
               </tbody>
           </table>
         </div>

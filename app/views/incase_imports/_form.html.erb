@@ -18,7 +18,7 @@
       </div>
       <div class="col-4">
         <%= f.label :uniq_field, class: "form-label" %>
-        <%= f.select :uniq_field,  [['incase unumber','incase#unumber'],['incase carnumber','incase#carnumber']], {}, { class: "form-select" }%>
+        <%= f.select :uniq_field,  [['Номер убытка','incase#unumber'],['Номер машины','incase#carnumber']], {}, { class: "form-select" }%>
       </div>
     </div>
     <div class="row">
@@ -37,10 +37,8 @@
     </div>
   </div>
   <div class="card-footer">
-    <div class="form-actions">
       <%= f.submit class: "btn btn-primary", data: {disable_with: false} %>
       <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary" %>
-    </div>
   </div>
 
 

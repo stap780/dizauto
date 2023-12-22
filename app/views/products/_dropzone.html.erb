@@ -1,6 +1,6 @@
 <%= render '/shared/image_form', :f => @product %>
-<%= dropzone_controller_div do %>
-    <%= form_with model: @product, url: update_image_product_path, method: :post, class: "image-form" do |f| %>
+<%= dropzone_controller_div_image do %>
+    <%= form_with model: @product, url: update_image_product_path, method: :post, class: "upload-form" do |f| %>
         <%= f.label :images, class: "label d-none" %>
         <%= f.file_field :images, 'data-dropzone-target': 'input', direct_upload: true, multiple: true  %>
         

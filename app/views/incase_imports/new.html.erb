@@ -1,31 +1,28 @@
 <div class="card">
-  <div class="card-header">
-  Incase import
-  </div>
-  <div class="card-body">
-  <%= form_for @incase_import, html: { multipart: true } , data: { turbo: false } do |f| %>
+  <div class="card-header">Incase import</div>
+  <%= form_for @incase_import, html: { multipart: true} , data: { turbo: false } do |f| %>
     <%= render 'shared/errors', object: @incase_import%>
-    <div class="row col-6">
-        <div class="col-5 form-group checkbox visually-hidden">
-          <%= label_tag :active do %>
-            <%= f.check_box :active %>
-            <%= t('helpers.label.incase_import.active') %>
-          <% end %>
+    <div class="card-body">
+      <div class="row col-6">
+          <div class="col-5 form-group checkbox visually-hidden">
+            <%= label_tag :active do %>
+              <%= f.check_box :active %>
+              <%= t('helpers.label.incase_import.active') %>
+            <% end %>
+          </div>
+          <div class="col-12 visually-hidden">
+              <%= f.text_field :title, value: "test import"+ Time.now.to_s, class: "form-control" %>
+          </div>
+        <div class="col-8 mt-2 mb-2">
+            <p class="mt-5"><b>Attention</b> only use  (Excel 2000/97 .xls, .xlsx) or csv (column separate "comma",  "utf-8")</p>
+            <%= f.file_field :import_file, accept: '.csv,.xls,.xlsx', class: 'import_file'%>
+            <%# f.file_field :import_file, 'data-dropzone-target': 'input', direct_upload: true, multiple: true  %>
         </div>
-        <div class="col-12 visually-hidden">
-            <%= f.text_field :title, value: "test import"+ Time.now.to_s, class: "form-control" %>
-        </div>
-      <div class="col-8 mt-2 mb-2">
-          <p class="mt-5"><b>Attention</b> only use  (Excel 2000/97 .xls) or csv (column separate "comma",  "utf-8")</p>
-          <%= f.file_field :import_file, accept: '.csv,.xls,.xlsx', class: 'import_file'%>
       </div>
     </div>
-  </div>
     <div class="card-footer">
-      <div class="form-actions">
-        <%= f.submit class: "btn btn-primary", data: {disable_with: false} %>
-        <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary" %>
-      </div>
+      <%= f.submit class: "btn btn-primary", data: {disable_with: false} %>
+      <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary" %>
     </div>
   <% end %>
 </div>

@@ -30,7 +30,7 @@
     </div>
     <h5 class="card-title mb-0"></h5>
     <div class="card-info">
-      <%= EmailSetup.all.first.has_smtp_settings? ? '' : 'настройте почту для отправки сообщений'%>
+      <%= EmailSetup.all.present? && EmailSetup.all.first.has_smtp_settings? ? '' : 'настройте почту для отправки сообщений'%>
     </div>
   </div>
   <div class="card-body">

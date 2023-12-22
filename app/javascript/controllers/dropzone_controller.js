@@ -51,7 +51,6 @@ export default class extends Controller {
   get url() {
     return this.inputTarget.getAttribute("data-direct-upload-url");
   }
-
   get maxFiles() {
     return this.data.get("maxFiles") || 1;
   }
@@ -127,6 +126,7 @@ export default class extends Controller {
 
 class DirectUploadController {
   constructor(source, file) {
+    console.log('file',file)
     this.directUpload = this.createDirectUpload(file, source.url, this);
     this.source = source;
     this.file = file;
@@ -220,11 +220,15 @@ class DirectUploadController {
   }
 
   uploadToActiveStorage(attributes) {
-    //console.log('uploadToActiveStorage attributes => ', attributes);
-    const image_form_action_url = document.getElementsByClassName("image-form")[0].action;
-    //console.log(image_form_action_url);
+    // console.log('uploadToActiveStorage attributes => ', attributes);
+    const form = document.getElementsByClassName("upload-form")[0];
+    console.log('upload-form => ', form);
+    const form_action_url = form.action;
+    const form_model = form.getAttribute("data-upload-model");
+    const active_storage_object = form.getAttribute("data-active-storage-object");
+    //console.log(form_action_url);
     //console.log('uploadToActiveStorage attributes.signed_id => ', attributes.signed_id);
-    fetch(image_form_action_url, {
+    fetch(form_action_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

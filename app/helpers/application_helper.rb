@@ -55,20 +55,35 @@ module ApplicationHelper
       cp.present? ? cp : 'page-home'
   end
 
-  def dropzone_controller_div
+  def dropzone_controller_div_image
       data = {
-        controller: "dropzone",
-        'dropzone-max-file-size'=>"8",
-        'dropzone-max-files' => "20",
-        'dropzone-accepted-files' => 'image/jpeg,image/jpg,image/png,image/gif',
-        'dropzone-dict-file-too-big' => "Váš obrázok ma veľkosť {{filesize}} ale povolené sú len obrázky do veľkosti {{maxFilesize}} MB",
-        'dropzone-dict-invalid-file-type' => "Nesprávny formát súboru. Iba obrazky .jpg, .png alebo .gif su povolene",
-      }
+              controller: "dropzone",
+              'dropzone-max-file-size'=>"8",
+              'dropzone-max-files' => "20",
+              'dropzone-accepted-files' => 'image/jpeg,image/jpg,image/png,image/gif',
+              'dropzone-dict-file-too-big' => "You file {{filesize}}. Max size {{maxFilesize}} MB",
+              'dropzone-dict-invalid-file-type' => "Wrong format. We accept .jpg, .png, .gif ",
+            }
   
       content_tag :div, class: 'dropzone dropzone-default dz-clickable mt-4', data: data do
         yield
       end
   end
+
+  def dropzone_controller_div_file
+    data = {
+            controller: "dropzone",
+            'dropzone-max-file-size'=>"20",
+            'dropzone-max-files' => "1",
+            'dropzone-accepted-files' => 'text/csv,text/xls,text/xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'dropzone-dict-file-too-big' => "You file {{filesize}}. Max size {{maxFilesize}} MB",
+            'dropzone-dict-invalid-file-type' => "Wrong format. We accept .csv,.xls,.xlsx ",
+          }
+
+    content_tag :div, class: 'dropzone dropzone-default dz-clickable mt-4', data: data do
+      yield
+    end
+end
 
   def li_menu_link_to(name = nil, options = nil, html_options = nil, &block)
     status = current_page?(options) ?  'active' : ''

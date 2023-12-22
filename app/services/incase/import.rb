@@ -131,15 +131,15 @@ class Incase::Import
     end
 
     def check_nested_incase_item_statuses
-        @check_message.push("you don't have incase status in system") if IncaseItemStatus.all.count == 0
+        @check_message[:errors].push("=== you don't have incase item status in system ===") if IncaseItemStatus.all.count == 0
     end
 
     def open_spreadsheet(file)
         if file.is_a? String
             if  @content_type == "text/csv"
             #   Roo::CSV.new(file, csv_options: {col_sep: ";", quote_char: "\x00"})
-              Roo::CSV.new(file,csv_options: {encoding: Encoding::UTF_8})
-            else
+              Roo::CSV.new(file,csv_options: {encoding: Encoding::UTF_8}) 
+            else 
               Roo::Excelx.new(file, file_warning: :ignore)
             end
         else

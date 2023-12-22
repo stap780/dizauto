@@ -17,9 +17,8 @@ class CompaniesController < ApplicationController
   # GET /companies/new
   def new
     @company = Company.new
-    # @comment = Comment.new
-    @company.client_companies.build
-    @company.company_plan_dates.build
+    # @company.client_companies.build
+    # @company.company_plan_dates.build
   end
   
   # GET /companies/1/edit
@@ -62,6 +61,7 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to companies_url, notice: t('.success') }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 

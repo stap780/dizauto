@@ -3,7 +3,7 @@ class Company < ApplicationRecord
     has_many :incases
     has_many :client_companies
     has_many :clients, through: :client_companies
-	accepts_nested_attributes_for :client_companies, allow_destroy: true, reject_if: :all_blank #, reject_if: proc { |attributes| attributes['name'].blank? }
+	accepts_nested_attributes_for :client_companies, allow_destroy: true #, reject_if: proc { |attributes|  attributes['company_id'].blank? } # reject_if: :all_blank #,
     has_many :company_plan_dates
 	accepts_nested_attributes_for :company_plan_dates, allow_destroy: true
     belongs_to :okrug
@@ -40,8 +40,8 @@ class Company < ApplicationRecord
     end
 
     def company_plan_dates_data
-        self.company_plan_dates.present? ? 
-            self.company_plan_dates.last.date.strftime("%d/%m/%Y")+' '+self.company_plan_dates.last.comments.first.body : ''
+        self.company_plan_dates.present? && self.company_plan_dates.last.date.present? ? 
+                        self.company_plan_dates.last.date.strftime("%d/%m/%Y")+' '+self.company_plan_dates.last.comments.first.body : ''
     end
 
     private
