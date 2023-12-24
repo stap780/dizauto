@@ -2,6 +2,11 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :dashboards do
+    collection do
+      post :fullsearch
+    end
+  end
   resources :supply_statuses do
     member do
       patch :sort
@@ -126,8 +131,10 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
-  root to: 'home#dashboard'
-  get '/dashboard', to: 'home#dashboard', as: 'dashboard'
+
+  root to: 'dashboards#index'
+  # root to: 'home#dashboard'
+  # get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
   devise_for :users, controllers: {
     registrations:  'users/registrations',

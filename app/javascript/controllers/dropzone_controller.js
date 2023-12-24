@@ -189,6 +189,7 @@ class DirectUploadController {
     this.file.status = Dropzone.SUCCESS;
     this.source.dropZone.emit("success", this.file);
     this.source.dropZone.emit("complete", this.file);
+    // this.uploadToActiveStorage(attributes);  not use in production - this need to check
   }
 
   createDirectUpload(file, url, controller) {
@@ -197,7 +198,31 @@ class DirectUploadController {
 
   uploadEnd(attributes){
     // console.log('uploadEnd', attributes)
-    console.log('this.directUpload', this.directUpload)
+    //console.log('this.directUpload', this.directUpload)
   }
+
+  // this save image to product but not use it. this is example. Not use because 15-20 images by one time give save errors. 
+  // uploadToActiveStorage(attributes) {
+  //   // console.log('uploadToActiveStorage attributes => ', attributes);
+  //   const form = document.getElementsByClassName("upload-form")[0];
+  //   // console.log('upload-form => ', form);
+  //   const form_action_url = form.action;
+  //   fetch(form_action_url, {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
+  //         .content,
+  //     },
+  //     body: JSON.stringify({
+  //       product: {
+  //         images: [ attributes.signed_id ],
+  //       },
+  //     }),
+  //   }).then (response => response.text())
+  //   // .then(html => Turbo.renderStreamMessage(html));
+  // }
+
+
 
 }

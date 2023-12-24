@@ -13,8 +13,8 @@
                         style: 'background-color:'+incase.incase_tip.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: incase.incase_tip.color } ) if incase.incase_tip%>
     <% end %>
-    <%= tag.td do %><%= incase.region %></br><%= incase.strah.short_title %><% end %>
-    <%= tag.td do %><%= incase.stoanumber %></br><%= incase.company.short_title %><% end %>
+    <%= tag.td do %><%= incase.region %></br><%= incase.strah.short_title if incase.strah%><% end %>
+    <%= tag.td do %><%= incase.stoanumber %></br><%= incase.company.short_title if incase.company%><% end %>
     <%= tag.td(incase.unumber) %>
     <%= tag.td do %><%= incase.carnumber %></br><%= incase.modelauto %><% end %>
     <%= tag.td(incase.date.strftime("%d/%m/%Y")) %>

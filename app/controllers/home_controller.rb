@@ -1,5 +1,6 @@
+# This controller we use for static pages from gem pages
 class HomeController < ApplicationController
-  
+
   skip_before_action :authenticate_user!, only: [:index]
 
   # GET /homes

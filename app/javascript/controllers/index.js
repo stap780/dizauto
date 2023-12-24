@@ -19,6 +19,9 @@ application.register("color-picker", ColorPickerController)
 import CompanyController from "./company_controller"
 application.register("company", CompanyController)
 
+import DebounceController from "./debounce_controller"
+application.register("debounce", DebounceController)
+
 import DropzoneController from "./dropzone_controller"
 application.register("dropzone", DropzoneController)
 
