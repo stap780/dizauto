@@ -59,7 +59,7 @@ module ApplicationHelper
       data = {
               controller: "dropzone",
               'dropzone-max-file-size'=>"8",
-              'dropzone-max-files' => "20",
+              'dropzone-max-files' => "30",
               'dropzone-accepted-files' => 'image/jpeg,image/jpg,image/png,image/gif',
               'dropzone-dict-file-too-big' => "You file {{filesize}}. Max size {{maxFilesize}} MB",
               'dropzone-dict-invalid-file-type' => "Wrong format. We accept .jpg, .png, .gif ",

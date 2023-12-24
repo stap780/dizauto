@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   resources :products do
     member do
       patch 'reorder_image'
-      post 'update_image'
+      post 'image_import'
       get :print
     end
     collection do

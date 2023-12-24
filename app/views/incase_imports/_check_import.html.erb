@@ -8,11 +8,11 @@
             <p><%= item %></p>
         <% end %>
     </div>
-    <div class='border border-danger text-danger mt-2 p-3'>
+    <%= tag :div, class: 'border border-danger text-danger mt-2 p-3' do %>
         <% @message[:errors].uniq.each do |item| %>
             <p><%= item %></p>
         <% end %>
-    </div>
+    <% end if @message[:errors].size > 0%>
     </div>
     <div class="card-footer">
         <div class="btn-group" role="group" aria-label="import button group">

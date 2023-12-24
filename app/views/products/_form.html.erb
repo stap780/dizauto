@@ -1,6 +1,8 @@
-<div class="row">
-    <%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'col-md-8') do |f| %>
-        <%= render "shared/errors", object: product%>
+<%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'row') do |f| %>
+    <div class="col-md-8">
+        <%= turbo_frame_tag "errors" do %>
+            <%= render "shared/errors", object: product%>
+        <% end %>
 
         <div class="card">
             <div class="card-header">
@@ -27,28 +29,10 @@
             </div>
         </div>
 
-    <% end %>
-
-    <div class="col-md-4">
-        <% if product.barcode.present? %>
-            <div class="card">
-                <div class="card-body">
-                    <%= product.html_barcode %>
-                </div>
-            </div>
-        <% end %>
-
-        <div class="card">
-            <div class="card-body">
-                <% if product.new_record?%>
-                    <p>Сохраните товар</p>
-                <% else %>
-                    <%= turbo_frame_tag "images_product_#{@product.id}" do %>
-                        <%= render 'dropzone' %>
-                    <% end %>
-                <% end %>
-            </div>
-        </div>
     </div>
 
-</div>
+    <div class="col-md-4">
+        <%= render "barcode_image", f: f %>
+    </div>
+<% end %>
+

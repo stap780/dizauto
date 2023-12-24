@@ -3,7 +3,6 @@ import { Controller } from "@hotwired/stimulus"
 import { DirectUpload } from "@rails/activestorage";
 import { Dropzone } from "dropzone";
 
-
 export default class extends Controller {
   static targets = ["input"];
 
@@ -24,7 +23,7 @@ export default class extends Controller {
     this.dropZone.on("addedfile", file => {
       setTimeout(() => {
         file.accepted && this.createDirectUploadController(this, file).start();
-      }, 500);
+      }, 600);
     });
 
     this.dropZone.on("removedfile", file => {
@@ -33,6 +32,14 @@ export default class extends Controller {
 
     this.dropZone.on("canceled", file => {
       file.controller && file.controller.xhr.abort();
+    });
+
+    this.dropZone.on("processing", (file) => {
+      this.submitButton.disabled = true
+    });
+
+    this.dropZone.on("queuecomplete", (file) => {
+      this.submitButton.disabled = false
     });
   }
 
@@ -43,7 +50,6 @@ export default class extends Controller {
   get url() {
     return this.inputTarget.getAttribute("data-direct-upload-url");
   }
-
   get maxFiles() {
     return this.data.get("maxFiles") || 1;
   }
@@ -56,16 +62,22 @@ export default class extends Controller {
     return this.data.get("dictFileTooBig") || "File sile is {{filesize}} but only files up to {{maxFilesize}} are allowed";
   }
 
-  get dictInvalidFileType() {
-    return this.data.get("dictInvalidFileType") || "Invalid file type";
+  get dictInvalidFileType() { return this.data.get("dictInvalidFileType") || "Invalid file type";}
+
+  get acceptedFiles() { return this.data.get("acceptedFiles");}
+
+  get addRemoveLinks() { return this.data.get("addRemoveLinks") || true;}
+
+  get form() { 
+    let s_f = this.inputTarget.closest("form");
+    // console.log(s_f);
+    return s_f;
   }
 
-  get acceptedFiles() {
-    return this.data.get("acceptedFiles");
-  }
-
-  get addRemoveLinks() {
-    return this.data.get("addRemoveLinks") || true;
+  get submitButton() { 
+    let s_b = this.findElement(this.form, "input[type=submit], button[type=submit]");
+    //console.log(s_b);
+    return s_b;
   }
 
   getMetaValue(name) {
@@ -94,7 +106,8 @@ export default class extends Controller {
   }
 
   createDropZone(controller) {
-    return new Dropzone(controller.element, {
+    //console.log('createDropZone => ',controller);
+    let dropzone = new Dropzone(controller.element, {
       url: controller.url,
       headers: controller.headers,
       maxFiles: controller.maxFiles,
@@ -105,11 +118,14 @@ export default class extends Controller {
       addRemoveLinks: controller.addRemoveLinks,
       autoQueue: false
     });
+    //console.log('dropzone => ',dropzone);
+    return dropzone;
   }
 }
 
 class DirectUploadController {
   constructor(source, file) {
+    console.log('file',file)
     this.directUpload = this.createDirectUpload(file, source.url, this);
     this.source = source;
     this.file = file;
@@ -124,8 +140,7 @@ class DirectUploadController {
         this.emitDropzoneError(error);
       } else {
         this.hiddenInput.value = attributes.signed_id;
-        this.emitDropzoneSuccess();
-        this.uploadEnd(attributes);
+        this.emitDropzoneSuccess(attributes);
       }
     });
   }
@@ -163,7 +178,10 @@ class DirectUploadController {
   uploadRequestDidProgress(event) {
     const element = this.source.element;
     const progress = (event.loaded / event.total) * 100;
-    this.findElement(this.file.previewTemplate,".dz-upload").style.width = `${progress}%`;
+    this.findElement(
+      this.file.previewTemplate,
+      ".dz-upload"
+    ).style.width = `${progress}%`;
   }
 
   findElement(root, selector) {
@@ -185,19 +203,39 @@ class DirectUploadController {
     this.source.dropZone.emit("complete", this.file);
   }
 
-  emitDropzoneSuccess() {
+  emitDropzoneSuccess(attributes) {
     this.file.status = Dropzone.SUCCESS;
     this.source.dropZone.emit("success", this.file);
     this.source.dropZone.emit("complete", this.file);
+    //console.log('emitDropzoneSuccess => ', this);
+    // this.uploadToActiveStorage(attributes);
+    setTimeout(() => {
+      this.uploadToActiveStorage(attributes);
+    }, 500);
   }
 
   createDirectUpload(file, url, controller) {
     return new DirectUpload(file, url, controller);
   }
 
-  uploadEnd(attributes){
-    // console.log('uploadEnd', attributes)
-    console.log('this.directUpload', this.directUpload)
+  uploadToActiveStorage(attributes) {
+    // console.log('uploadToActiveStorage attributes => ', attributes);
+    const form = document.getElementsByClassName("upload-form")[0];
+    // console.log('upload-form => ', form);
+    const form_action_url = form.action;
+    fetch(form_action_url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]')
+          .content,
+      },
+      body: JSON.stringify({
+        product: {
+          images: [ attributes.signed_id ],
+        },
+      }),
+    }).then (response => response.text())
+    // .then(html => Turbo.renderStreamMessage(html));
   }
-
 }

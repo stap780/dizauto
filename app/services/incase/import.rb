@@ -26,7 +26,7 @@ class Incase::Import
         @check_import = true
         import
         check_nested_incase_item_statuses
-        if @check_message[:errors]
+        if @check_message[:errors].size > 0
             @incase_import.update!(check: false)
             return false, @check_message
         else

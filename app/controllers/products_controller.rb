@@ -41,7 +41,6 @@ class ProductsController < ApplicationController
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-
     respond_to do |format|
       if @product.save
         format.html { redirect_to products_path, notice: "Product was successfully created." }
@@ -49,6 +48,9 @@ class ProductsController < ApplicationController
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('errors', partial: 'shared/errors', locals: { object: @product})
+        end
       end
     end
   end
@@ -98,6 +100,9 @@ class ProductsController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('errors', partial: 'shared/errors', locals: { object: @product})
+        end  
       end
     end
   end
@@ -105,32 +110,19 @@ class ProductsController < ApplicationController
   # DELETE /products/1 or /products/1.json
   def destroy
     @product.destroy
-
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
-  def update_image
+  def image_import
     @product.update(product_params)
     flash.now[:success] = "update image"
-    # respond_to do |format|
-    #   format.turbo_stream { 
-    #     render turbo_stream: turbo_stream.replace("images_product_#{@product.id}",
-    #       render_to_string(partial: 'dropzone'))
-    #   }
-
-    #   format.html { redirect_back(fallback_location: products_path,  notice: "Создали картинки" ) }
-    # end
   end
   
   def delete_image
     ActiveStorage::Attachment.where(id: params[:image_id])[0].purge
-    # respond_to do |format|
-    #   format.html { redirect_back(fallback_location: products_path,  notice: "Удалили картинки" ) }
-    #   format.json { render json: { :status => "ok", :message => "destroyed" } }
-    # end
     flash.now[:success] = "delete image"
   end
 
