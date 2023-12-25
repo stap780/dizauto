@@ -4,7 +4,6 @@ class IncaseTip < ApplicationRecord
 
     before_save :normalize_data_white_space
 	validates :title, presence: true
-    validates :position, uniqueness: true
 
 
     def self.ransackable_attributes(auth_object = nil)
