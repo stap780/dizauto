@@ -17,8 +17,10 @@ class Incase::Import
         @header
         @file_data = Array.new
         @import_data
+        @work_data = Array.new
         @check_message = {success: [], errors: []}
         @check_import = false
+        @virtual_incase = {incase: {}, incase_items_attributes: {}}
         collect_data
     end
 
@@ -83,16 +85,20 @@ class Incase::Import
             puts "##########"
 
             if !@check_import
-                incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] )
-                create_update_incase_and_items( incase.take, incase_data, incase_item_data )
+                #incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] )
+                #create_update_incase_and_items( incase.take, incase_data, incase_item_data )
+                #create_from_convert_data(incase_data, incase_item_data)
+                
+                incase_data["incase_item_data"] = incase_item_data
+                @work_data.push(incase_data)
             end
             if @check_import
-                incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] )
-                # line_validate_incase_and_items( incase.take, incase_data, incase_item_data )
                 line_validate_incase( index+2, incase_data )
                 line_validate_incase_items( index+2, incase_item_data )
             end
         end
+        # puts @work_data.to_s
+        create_incases
     end
     
     private
@@ -112,18 +118,75 @@ class Incase::Import
         @import_data = @header.present? && @file_data.present? ? {header: @header, file_data: @file_data} : false
     end
 
-    def create_update_incase_and_items( incase, incase_data, incase_item_data )
-        if incase
-            incase.update(incase_data)
-            create_update_incase_items(incase, incase_item_data)
-            incase.automation_on_update
-        else
-            new_incase = Incase.new(incase_data)
-            new_incase.save
-            create_update_incase_items(new_incase, incase_item_data)
-            new_incase.automation_on_create
+    def create_incases
+        uniq_field = "#{@incase_import.uniq_field.remove('incase#')}"
+        datas_by_uniq = @work_data.group_by { |a| a[uniq_field]}
+        datas_by_uniq.each do |key,value|
+            incase_data = @work_data.select{|n| n[uniq_field] == key }[0]
+            incase_data["incase_items_attributes"] = {}
+            value.each_with_index do |val, index|
+                # puts "val"
+                # puts val["incase_item_data"]
+                incase_item_data_hash = Hash.new
+                incase_item_data_hash["#{index.to_s}"] = val["incase_item_data"]
+                # puts "incase_item_data_hash"
+                # p incase_item_data_hash
+                incase_data["incase_items_attributes"].merge!(incase_item_data_hash)
+            end
+            incase_data.delete("incase_item_data")
+            puts incase_data
+            incase = Incase.create!(incase_data)
+            incase.automation_on_create
         end
     end
+    # def create_from_convert_data(incase_data, incase_item_data)
+    #     # puts @virtual_incase[:incase].empty?
+    #     # p @virtual_incase[:incase_items_attributes]
+    #     if !@virtual_incase[:incase].empty? && !@virtual_incase[:incase].eql?(incase_data)
+    #         data = @virtual_incase[:incase]
+    #         data["incase_items_attributes"] = @virtual_incase[:incase_items_attributes]
+    #         puts "create_from_convert_data"
+    #         p data
+    #         incase = Incase.create!(data)
+    #         # incase.automation_on_create
+    #         @virtual_incase.clear
+    #         @virtual_incase = {incase: {}, incase_items_attributes: {}}
+    #     end
+    #     convert_data(incase_data, incase_item_data)
+    # end
+
+    # def convert_data(incase_data, incase_item_data)
+    #     if @virtual_incase[:incase].empty? && !@virtual_incase[:incase].eql?(incase_data) # here we have (false) - that mean new incase data
+    #         puts "start new incase data"
+    #         @virtual_incase[:incase] = incase_data
+    #         incase_item_data_hash = Hash.new
+    #         count = @virtual_incase[:incase_items_attributes].count
+    #         incase_item_data_hash["#{count.to_s}"] = incase_item_data
+    #         @virtual_incase[:incase_items_attributes] = incase_item_data_hash
+    #         puts "finish new incase data"
+    #     end
+    #     if !@virtual_incase[:incase].empty? && @virtual_incase[:incase].eql?(incase_data) # here we have (true) - that mean incase present and we add item
+    #         puts "start incase present and we add item"
+    #         incase_item_data_hash = Hash.new
+    #         count = @virtual_incase[:incase_items_attributes].count
+    #         incase_item_data_hash["#{count.to_s}"] = incase_item_data
+    #         @virtual_incase[:incase_items_attributes].merge!(incase_item_data_hash)
+    #         puts "finish incase present and we add item"
+    #     end
+    # end
+
+    # def create_update_incase_and_items( incase, incase_data, incase_item_data )
+    #     if incase
+    #         incase.update(incase_data)
+    #         create_update_incase_items(incase, incase_item_data)
+    #         # incase.automation_on_update
+    #     else
+    #         new_incase = Incase.new(incase_data)
+    #         new_incase.save
+    #         create_update_incase_items(new_incase, incase_item_data)
+    #         # new_incase.automation_on_create
+    #     end
+    # end
 
     def line_validate_incase(index, incase_data)
         incase = Incase.new(incase_data)
@@ -157,8 +220,6 @@ class Incase::Import
     def create_update_incase_items(incase, incase_item_data)
         search_incase_item = incase.incase_items.where(incase_item_data)
         if !search_incase_item.present?
-            # incase_item_status_id = IncaseItemStatus.order(:position).first.id
-            # IncaseItem.create(incase_item_data.merge!(incase_item_status_id: incase_item_status_id).merge!(incase_id: incase.id))
             incase.incase_items.create!(incase_item_data)
         else
             incase.incase_items.update!(incase_item_data)

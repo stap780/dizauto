@@ -12,7 +12,7 @@
             <% @message[:errors].uniq.each do |item| %>
                 <p><%= item %></p>
             <% end %>
-        <% end if @message[:errors]%>
+        <% end if @message[:errors].size > 0 %>
     </div>
     <div class="card-footer">
         <div class="btn-group" role="group" aria-label="import button group">

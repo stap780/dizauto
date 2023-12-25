@@ -18,7 +18,7 @@ class Automation < ApplicationService
         if @create_triggers.present?
             @create_triggers.each do |trigger|
                 if trigger.condition.include?('do_work')
-                    puts 'we here - trigger.condition.include?( do_work ) => '+trigger.condition.include?('do_work').to_s
+                    puts 'we here create - trigger.condition.include?(do_work)'
                     
                     # add to template our method that we use as check condition == true
                     template = Liquid::Template.parse(trigger.condition.gsub("do_work","#{@drop_object}.do_work"))
@@ -53,7 +53,7 @@ class Automation < ApplicationService
         puts 'start automation update'
             @update_triggers.each do |trigger|
                 if trigger.condition.include?('do_work')
-                    puts 'we here - trigger.condition.include?( do_work )'
+                    puts 'we here update - trigger.condition.include?(do_work)'
                     
                     # add to template our method that we use as check condition == true
                     template = Liquid::Template.parse(trigger.condition.gsub("do_work","#{@drop_object}.do_work"))
