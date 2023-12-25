@@ -64,7 +64,9 @@
               </tr>
             </thead>
             <tbody>
-              <%= render @incases %>
+              <%= turbo_frame_tag 'incases' do %>
+                <%= render @incases %>
+              <% end %>
             </tbody>
           </table>
         </div>

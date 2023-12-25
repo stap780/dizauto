@@ -1,7 +1,7 @@
 class Incase < ApplicationRecord
     audited
-    belongs_to :incase_status
-    belongs_to :incase_tip
+    belongs_to :incase_status, optional: true
+    belongs_to :incase_tip, optional: true
     belongs_to :company
     belongs_to :strah, class_name: "Company", foreign_key: "strah_id"
     has_many   :incase_items, dependent: :destroy
@@ -12,7 +12,7 @@ class Incase < ApplicationRecord
 
 	validates :date, presence: true
 	validates :unumber, presence: true
-    validates :incase_items, presence: true
+    # validates :incase_items, presence: true
 
 
     REGION = ['МСК', 'СПБ'].freeze

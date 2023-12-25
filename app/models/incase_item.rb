@@ -1,7 +1,7 @@
 class IncaseItem < ApplicationRecord
 
     belongs_to :incase
-    belongs_to :incase_item_status
+    belongs_to :incase_item_status, optional: true
     audited associated_with: :incase
 
     validates :title, :presence => true

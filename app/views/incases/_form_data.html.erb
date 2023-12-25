@@ -16,7 +16,7 @@
     </div>
     <div class="mb-3 col-md-3 ">
         <%= f.label :company_id, class: "form-label" %>
-        <%= f.select :company_id, Company.standart.pluck(:short_title, :id), {include_blank: true}, { class: "form-select" }%>
+        <%= f.select :company_id, Company.standart.pluck(:short_title, :id), {include_blank: true}, { class: "", data: {controller: "slimselect", action: "change->prop#change" } }%>
     </div>
     <div class="mb-3 col-md-2 ">
         <%= f.label :carnumber, class: "form-label" %>
@@ -36,9 +36,9 @@
     </div>
     <div class="mb-3 col-md-2 ">
         <%= f.label :incase_status_id, class: "form-label" %>
-        <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
+        <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {include_blank: true}, {class: "form-select"}%>
     </div>
     <div class="mb-3 col-md-2 ">
         <%= f.label :incase_tip_id, class: "form-label" %>
-        <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {include_blank: false}, {class: "form-select"} %>
+        <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {include_blank: true}, {class: "form-select"} %>
     </div>

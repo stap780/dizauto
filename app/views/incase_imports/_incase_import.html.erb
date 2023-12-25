@@ -1,4 +1,4 @@
-<div id="<%= dom_id incase_import %>">
+<tr id="<%= dom_id incase_import %>">
   <td><%= check_box_tag "incase_import_ids[]", incase_import.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
   <%= tag.td tag.b(incase_import.id) %>
   <%= tag.td(incase_import.active) %>
@@ -12,4 +12,4 @@
       <%= link_to '<i class="bi bi-eye"></i>'.html_safe, incase_import, class: "px-2" %>
   <% end %>
   <%= td_index_edit_delete_link(incase_import)%>
-</div>
+</tr>

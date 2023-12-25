@@ -15,7 +15,7 @@ class Incase::Import
         # @file = File.new(file)
         @file = ActiveStorage::Blob.service.send(:path_for, incase_import.import_file.key)
         @header
-        @file_data = []
+        @file_data = Array.new
         @import_data
         @check_message = {success: [], errors: []}
         @check_import = false
@@ -46,7 +46,7 @@ class Incase::Import
 
         @check_message[:errors].push("you don't have details in file") if @check_import && !incase_item_columns.present?
 
-        @import_data[:file_data].each do |line|
+        @import_data[:file_data].each_with_index do |line, index|
             # images_data = []
             # variant_images_data = []
             incase_data = Hash.new
@@ -82,8 +82,16 @@ class Incase::Import
             puts "incase_item_data => "+incase_item_data.to_s
             puts "##########"
 
-            incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] ) if !@check_import
-            create_update_incase_and_items( incase.take, incase_data, incase_item_data ) if !@check_import
+            if !@check_import
+                incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] )
+                create_update_incase_and_items( incase.take, incase_data, incase_item_data )
+            end
+            if @check_import
+                incase = Incase.where("#{@incase_import.uniq_field.remove('incase#')}" => line[file_uniq_column] )
+                # line_validate_incase_and_items( incase.take, incase_data, incase_item_data )
+                line_validate_incase( index+2, incase_data )
+                line_validate_incase_items( index+2, incase_item_data )
+            end
         end
     end
     
@@ -91,6 +99,7 @@ class Incase::Import
     
     def collect_data
         puts 'collect_data import file '+Time.now.to_s
+        @file_data.clear
         spreadsheet = open_spreadsheet(@file)
         header = spreadsheet.row(1)
         @header = header
@@ -116,6 +125,26 @@ class Incase::Import
         end
     end
 
+    def line_validate_incase(index, incase_data)
+        incase = Incase.new(incase_data)
+        if incase.validate == false
+            puts "incase.errors"
+            puts incase.errors.full_messages
+            @check_message[:errors].push( "Строка #{index} в файле => "+incase.errors.full_messages.join(' ')) if incase.errors && incase.errors.full_messages.present?
+        end
+    end
+
+    def line_validate_incase_items(index, incase_item_data)
+        incase_item = IncaseItem.new(incase_item_data)
+        if incase_item.validate == false
+            puts incase_item.errors.full_messages
+            incase_item.errors.delete(:incase)
+            puts "incase_item.errors"
+            puts incase_item.errors.full_messages
+            @check_message[:errors].push("Строка #{index} в файле => "+incase_item.errors.full_messages.join(' ')) if incase_item.errors && incase_item.errors.full_messages.present?
+        end
+    end
+
     def search_id_of_relation_column(key, value)
         check_key = key.include?('strah') ? 'company_id' : key
         model = check_key.split('_id').first.camelize.constantize
@@ -127,7 +156,13 @@ class Incase::Import
 
     def create_update_incase_items(incase, incase_item_data)
         search_incase_item = incase.incase_items.where(incase_item_data)
-        incase.incase_items.create!(incase_item_data.merge!(incase_item_status_id: IncaseItemStatus.order(:position).first.id)) if !search_incase_item.present?
+        if !search_incase_item.present?
+            # incase_item_status_id = IncaseItemStatus.order(:position).first.id
+            # IncaseItem.create(incase_item_data.merge!(incase_item_status_id: incase_item_status_id).merge!(incase_id: incase.id))
+            incase.incase_items.create!(incase_item_data)
+        else
+            incase.incase_items.update!(incase_item_data)
+        end
     end
 
     def check_nested_incase_item_statuses

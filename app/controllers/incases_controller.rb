@@ -83,35 +83,36 @@ class IncasesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incases_url, notice: t('.success') }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 
-  def file_import #get
-    #this use for modal as turbo_stream
-    render 'incases/import/file_import'
-  end
+  # def file_import #get
+  #   #this use for modal as turbo_stream
+  #   render 'incases/import/file_import'
+  # end
 
-  def import_setup #post
-    service = IncaseService::Import.new(params[:file])
+  # def import_setup #post
+  #   service = IncaseService::Import.new(params[:file])
 
-    import_data = service.collect_data
-    #puts 'incase_import_data => '+incase_import_data.to_s
-    if import_data
-      @header = import_data[:header]
-      @file_data = import_data[:file_data]
-      @our_fields = Incase.import_attributes
-      render 'incases/import/import_setup'
-    else
-      flash[:alert] = 'Ошибка в файле импорта'
-    end
-  end
+  #   import_data = service.collect_data
+  #   #puts 'incase_import_data => '+incase_import_data.to_s
+  #   if import_data
+  #     @header = import_data[:header]
+  #     @file_data = import_data[:file_data]
+  #     @our_fields = Incase.import_attributes
+  #     render 'incases/import/import_setup'
+  #   else
+  #     flash[:alert] = 'Ошибка в файле импорта'
+  #   end
+  # end
 
-  def convert_file_data
-    puts "start convert_file_data"
-    @data_group_by_unumber = IncaseService::Import.convert_file_data(params)
-    @virtual_incases = IncaseService::Import.collect_virtual_incases(@data_group_by_unumber)
-    render 'incases/import/convert_file_data'
-  end
+  # def convert_file_data
+  #   puts "start convert_file_data"
+  #   @data_group_by_unumber = IncaseService::Import.convert_file_data(params)
+  #   @virtual_incases = IncaseService::Import.collect_virtual_incases(@data_group_by_unumber)
+  #   render 'incases/import/convert_file_data'
+  # end
 
   def act
     @company = @incase.company

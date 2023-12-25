@@ -94,7 +94,7 @@ class IncaseImportsController < ApplicationController
     import = Incase::Import.new(@incase_import).import
     if import
       respond_to do |format|
-        format.html { redirect_to admin_product_import_path, notice: "We start import process" }
+        format.html { redirect_to incase_imports_url, notice: "We start import process" }
       end
     end
   end

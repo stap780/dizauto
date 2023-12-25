@@ -1,39 +1,19 @@
 <%# f.hidden_field :incase_id %>
 <td class="p-0 title">
-    <% if import_line.present? %>
-        <%= f.text_field :title , class: 'w-100 ms-2 form-control form-control-lg p-1', value: import_line['title']%>
-    <% else %>
-        <%= f.text_field :title , class: 'w-100 ms-2 form-control form-control-lg p-1'%>
-    <% end %>
+    <%= f.text_field :title , class: 'w-100 ms-2 form-control form-control-lg p-1'%>
 </td>
 <td class="p-0 quantity">
-    <% if import_line.present? %>
-        <%= f.number_field :quantity, class: "form-control form-control-lg p-1", value: import_line['quantity'] %>
-    <% else %>
-        <%= f.number_field :quantity, class: "form-control form-control-lg p-1" %>
-    <% end %>
+    <%= f.number_field :quantity, class: "form-control form-control-lg p-1" %>
 </td>
 <td class="p-0 katnumber">
-    <% if import_line.present? %>
-        <%= f.text_field :katnumber, class: "form-control form-control-lg p-1", value: import_line['katnumber'] %>
-    <% else %>
-        <%= f.text_field :katnumber, class: "form-control form-control-lg p-1" %>
-    <% end %>
+    <%= f.text_field :katnumber, class: "form-control form-control-lg p-1" %>
 </td>
 <td class="p-0 price">
-    <% if import_line.present? %>
-        <%= f.text_field :price, class: "form-control form-control-lg p-1", value: import_line['price'] %>
-    <% else %>
-        <%= f.text_field :price, class: "form-control form-control-lg p-1" %>
-    <% end %>
+    <%= f.text_field :price, class: "form-control form-control-lg p-1" %>
 </td>
 <td class="p-0 sum">
-    <% if import_line.present? %>
-        <%= f.text_field :sum, class: "form-control form-control-lg p-1", value: import_line['sum'] %>
-    <% else %>
-        <%= f.text_field :sum, class: "form-control form-control-lg p-1" %>
-    <% end %>
+    <%= f.text_field :sum, class: "form-control form-control-lg p-1" %>
 </td>
 <td class="p-0 status">
-    <%= f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), {}, { class: "form-select form-select-lg", data: {incase_target: 'itemStatusResults'} }%>
+    <%= f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), {include_blank: true}, { class: "form-select form-select-lg", data: {incase_target: 'itemStatusResults'} }%>
 </td>
