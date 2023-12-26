@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @rent_case_status %>
+
+<div>
+  <%= link_to "Edit this rent case status", edit_rent_case_status_path(@rent_case_status) %> |
+  <%= link_to "Back to rent case statuses", rent_case_statuses_path %>
+
+  <%= button_to "Destroy this rent case status", @rent_case_status, method: :delete %>
+</div>

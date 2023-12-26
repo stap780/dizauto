@@ -1,0 +1,3 @@
+<%= turbo_stream.update RentCaseStatus.new, '' %>
+<%= turbo_stream.prepend "rent_case_statuses", render(@rent_case_status) %>
+<%= prepend_flash %>

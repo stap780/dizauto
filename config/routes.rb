@@ -2,6 +2,11 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :rent_case_statuses do
+    member do
+      patch :sort
+    end 
+  end
   resources :dashboards do
     collection do
       post :fullsearch

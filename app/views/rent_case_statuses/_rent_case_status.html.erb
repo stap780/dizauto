@@ -1,0 +1,15 @@
+<%= turbo_frame_tag rent_case_status, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
+    sort_url: sort_rent_case_status_path(rent_case_status.id), sort_item_id: rent_case_status.id }  do %>
+    <%= tag.div('', class: "col-md-1") do %>
+        <i class="bi bi-arrows-move js-sort-handle fs-3"></i>
+        <span class="badge bg-info float-end mt-1" data-sortable-target="position"><%= rent_case_status.position%></span>
+    <% end %>
+    <%= tag.div tag.b(rent_case_status.id), class: "col-md-1" %>
+    <%= tag.div(rent_case_status.title, class: "col-md-4")%>
+    <%= tag.div('', class: "col-md-4") do %>
+        <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{rent_case_status.color};")%>
+    <% end %>
+    <div class= "col-md-1">
+        <%= render 'shared/edit_delete_link', object: rent_case_status %>
+    </div>
+<% end %>
