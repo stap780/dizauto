@@ -102,8 +102,8 @@ class Automation < ApplicationService
 
         if action_template.receiver == 'user'
             receiver = User.admin_emails if @drop_object == 'incase'
-            receiver = @object.manager.email if @drop_object == 'order'
-            receiver = @object.manager.email if @drop_object == 'supply'
+            receiver = User.admin_emails if @drop_object == 'order' #@object.manager.email
+            receiver = User.admin_emails if @drop_object == 'supply' #@object.manager.email
         end
 
         subject = subject_template.render( @drop_object => @drop )
