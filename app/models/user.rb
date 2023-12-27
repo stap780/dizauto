@@ -4,11 +4,14 @@ class User < ApplicationRecord
 
   has_many :permissions, -> { order(pmodel: :asc) }
   accepts_nested_attributes_for :permissions, allow_destroy: true
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   validates :name, presence: true
+  validates :email, presence: true
+
   
   Role = ['admin', 'user', 'driver']
 
@@ -22,6 +25,10 @@ class User < ApplicationRecord
 
   def set_default_role
     self.role ||= 'user'
+  end
+
+  def self.admin_emails
+    User.where(role: 'admin').pluck(:email).join(',')
   end
 
 end

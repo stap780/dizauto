@@ -94,11 +94,17 @@ class Automation < ApplicationService
         subject_template = Liquid::Template.parse(action_template.subject)
         content_template = Liquid::Template.parse(action_template.content)
 
-        receiver = @object.client.email if action_template.receiver == 'client' && @drop_object == 'order'
-        receiver = @object.company.main_email if action_template.receiver == 'client' && @drop_object == 'incase'
-        receiver = user.email if action_template.receiver == 'user'
-        receiver = @object.manager.email if action_template.receiver == 'user' && @drop_object == 'order'
-        receiver = @object.manager.email if action_template.receiver == 'user' && @drop_object == 'supply'
+        if action_template.receiver == 'client'
+            receiver = @object.client.email if @drop_object == 'order'
+            receiver = @object.company.main_email if @drop_object == 'incase'
+            receiver = @object.company.main_email if @drop_object == 'supply'
+        end
+
+        if action_template.receiver == 'user'
+            receiver = User.admin_emails if @drop_object == 'incase'
+            receiver = @object.manager.email if @drop_object == 'order'
+            receiver = @object.manager.email if @drop_object == 'supply'
+        end
 
         subject = subject_template.render( @drop_object => @drop )
         content = content_template.render( @drop_object => @drop )

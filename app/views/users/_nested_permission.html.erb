@@ -2,7 +2,7 @@
 <div class="h3 my-3">Доступ</div>
     <%= f.fields_for :permissions do |ff| %>
     <div class="mb-3 col-md-6">
-    <div class="h4"><%= ff.object.pmodel %></div>
+    <div class="h4"><%= ff.object.pmodel.singularize.classify.constantize.model_name.human(count: 2).capitalize %></div>
         <%= ff.hidden_field :pmodel, value: ff.object.pmodel %>
 
         <% Permission::Actions.each do |action| %>

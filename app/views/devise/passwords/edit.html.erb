@@ -1,28 +1,32 @@
-<div class="row flex-center min-vh-100 py-6">
-  <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
-    <div class="card">
-      <div class="card-body p-4 p-sm-5">
-        <div class="row flex-between-center mb-2">
-          <div class="col-auto">
-            <h5>Change your password</h5>
+	<main class="d-flex w-100 h-100">
+		<div class="container d-flex flex-column">
+			<div class="row vh-100">
+        <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+          <div class="card">
+            <div class="card-body p-4 p-sm-5">
+              <div class="row flex-between-center mb-2">
+                <div class="col-auto">
+                  <h5>Change your password</h5>
+                </div>
+                <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">Есть регистрация?</span> <span><%= link_to "войти", new_user_session_path%></span></div>
+              </div>
+              <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
+              <%= render "devise/shared/error_messages", resource: resource %>
+              <%= f.hidden_field :reset_password_token %>
+                <div class="mb-3">
+                    <% password_hint = @minimum_password_length ? "#{@minimum_password_length} characters minimum" : ""%>
+                    <%= f.password_field :password, class: "form-control", placeholder: "New password", "data-bs-toggle": "popover", "data-bs-content": password_hint %>
+                </div>
+                <div class="mb-3">
+                  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm new password" %>
+                </div>
+                <div class="mb-3">
+                  <%= f.submit "Изменить пароль", class: "btn btn-primary d-block w-100 mt-3" %>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <div class="col-auto fs--1 text-600"><span class="mb-0 undefined">Есть регистрация?</span> <span><%= link_to "войти", new_user_session_path%></span></div>
         </div>
-        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
-        <%= render "devise/shared/error_messages", resource: resource %>
-        <%= f.hidden_field :reset_password_token %>
-          <div class="mb-3">
-              <% password_hint = @minimum_password_length ? "#{@minimum_password_length} characters minimum" : ""%>
-              <%= f.password_field :password, class: "form-control", placeholder: "New password", "data-bs-toggle": "popover", "data-bs-content": password_hint %>
-          </div>
-          <div class="mb-3">
-            <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm new password" %>
-          </div>
-          <div class="mb-3">
-            <%= f.submit "Изменить пароль", class: "btn btn-primary d-block w-100 mt-3" %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+			</div>
+		</div>
+	</main>
