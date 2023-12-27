@@ -90,7 +90,7 @@ class Automation < ApplicationService
     end
 
     def send_email(attr, value, wait)
-        action_template = Template.find(value)
+        action_template = Templ.find(value)
         subject_template = Liquid::Template.parse(action_template.subject)
         content_template = Liquid::Template.parse(action_template.content)
 
