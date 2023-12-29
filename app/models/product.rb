@@ -29,6 +29,7 @@ class Product < ApplicationRecord
     validates :price, presence: true
     validates :barcode, length: {minimum: 5, maximum: 13}, allow_blank: true
 
+
     def self.ransackable_attributes(auth_object = nil)
         Product.attribute_names
     end
@@ -96,9 +97,11 @@ class Product < ApplicationRecord
     end
 
     def html_barcode
+        if self.barcode.size == 13
         barcode = Barby::EAN13.new(self.barcode[0...-1])
         barcode_for_html = Barby::HtmlOutputter.new(barcode)
         barcode_for_html.to_html.html_safe
+        end
     end
     
     def add_check_digit(code_value) 

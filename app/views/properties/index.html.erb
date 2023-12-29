@@ -31,8 +31,8 @@
             </tr>
           </thead>
           <tbody>
-          <% @properties.each do |property| %>
-              <%= render property %>
+          <%= turbo_frame_tag 'properties' do %>
+              <%= render @properties %>
           <% end %>
           </tbody>
         </table>

@@ -1,9 +1,10 @@
 <tr id="<%= dom_id property %>">
     <td><b><%= property.id%></b></td>
-    <td><%= property.title %><%= link_to '<i data-feather="edit-2"></i>'.html_safe, edit_property_path(property), class: 'px-2' %></td>
+    <td><%= property.title %></td>
     <td>
-        <%= property.characteristics.pluck(:title).join(',') if  property.characteristics %>
+        <%= link_to '<i class="bi bi-eye"></i>'.html_safe, property_path(property), class: 'px-2' %>
         <%= link_to '<i data-feather="plus-circle"></i>'.html_safe, new_property_characteristic_path(property) %>
+        <%= property.characteristics.pluck(:title).join(',') if  property.characteristics %>
     </td>
     <%= td_index_edit_delete_link(property)%>
 </tr>

@@ -2,6 +2,7 @@
 namespace :transfer do
     desc "work transfer"
     require 'open-uri'
+    require "addressable/uri"
     require 'rake'
     require 'roo'
 
@@ -47,7 +48,91 @@ namespace :transfer do
       puts "finish transfer company"
     end
 
+    task product: :environment do
+      puts "start product"
+      file_data = Array.new
+      url = "http://138.197.52.153/insales.csv"
+      file = url.split('/').last
+      # download = URI.open(url)
+      download_path = Rails.env.development? ? "#{Rails.public_path}/#{file}" : "/var/www/dizauto/shared/public/#{file}"
+      # #File.delete(download_path) if File.file?(download_path)
+      # IO.copy_stream(download, download_path)
+      spreadsheet = Roo::CSV.new(download_path, csv_options: {encoding: Encoding::UTF_8})
+      header = spreadsheet.row(1)
 
+      properties = header.map{|h| h.remove('Параметр:').squish if h.include?("Параметр:")}.reject(&:blank?)
+      properties.each do |property|
+        Property.find_or_create_by!(title: property)
+      end
+
+      last_row = Rails.env.development? ? 5 : 200 #spreadsheet.last_row
+
+      (2..last_row).each do |i|
+        row = Hash[[header, spreadsheet.row(i)].transpose]
+        file_data.push(row)
+      end
+
+      file_data.each do |data|
+        pr_data = {
+                    barcode: data["Артикул"],
+                    sku: data["Параметр: Артикул производителя"],
+                    title: data["Название товара"],
+                    description: data["Краткое описание"],
+                    quantity: data["Остаток"],
+                    costprice: data["costprice"],
+                    price: data["Цена продажи"],
+                    video: data["video"]
+                  }
+        puts pr_data
+        s_product = Product.find_by_barcode(pr_data[:barcode])
+        if s_product
+          s_product.update(pr_data)
+          product = s_product
+        else
+          product = Product.create!(pr_data)
+        end
+
+        puts "product id => "+product.id.to_s
+        images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
+        saved_images_name = product.images.map{|image| image.filename.to_s}
+        # puts "saved_images_name => "+saved_images_name.to_s
+        images.each do |url|
+          # clear_url = url.squish if url.respond_to?("squish") 
+          clear_url = Addressable::URI.parse(url).normalize
+          # puts "clear_url => "+clear_url.to_s
+          # filename = File.basename(clear_url)
+          filename = File.basename(url)
+          # puts "filename => "+filename.to_s
+          file = URI.open(clear_url)
+          product.images.attach(io: file, filename: filename) if !saved_images_name.include?(filename)
+        end
+        props_for_create = []
+        properties = data.select{|k,v| k.include?('Параметр:')}
+
+        properties.each do |pro|
+          # puts "pro => "+pro.to_s
+          p_hash = Hash.new
+          # puts "p => "+p.to_s
+          if pro[0].present? && pro[1].present?
+            s_p = Property.find_or_create_by!( title: pro[0].remove('Параметр:').squish )
+            s_char = s_p.characteristics.find_or_create_by!( title: pro[1])
+            # puts "s_char => "+s_char.inspect.to_s
+            p_hash['property_id'] = s_p.id
+            p_hash['characteristic_id'] = s_char.id
+          end
+          # puts "p_hash => "+p_hash.to_s
+          props_for_create.push(p_hash) if p_hash.present?
+        end
+        
+        # puts "props_for_create => "+props_for_create.to_s
+        props_for_create.each_with_index do |prop_hash, index|
+          product.props.find_or_create_by!(prop_hash) #if index < 2
+        end
+
+      end
+      
+      puts "finish product"
+    end
 
     task :open_spreadsheet, [:file] => :environment do |t, args|
       puts args[:file].is_a? String
@@ -66,6 +151,5 @@ namespace :transfer do
             end
         end      
     end
-
 
 end

@@ -1,123 +1,46 @@
 <items>
 
 <item>
-<id>5</id>
-<title>test product 161</title>
-<sku>test_product_30</sku>
-<barcode>0000000000055</barcode>
-<quantity>3</quantity>
-
-<proper name="Авито категории">Запчасти и аксессуары</proper>
-
-<proper name="Авито тип товара">Кузов / Двери</proper>
+<id>109</id>
+<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
+<sku>STVWP6015B1</sku>
+<barcode>Н1532</barcode>
+<quantity>2</quantity>
 
 </item>
 
 <item>
-<id>6</id>
-<title>project product</title>
-<sku>project</sku>
-<barcode>0000000000062</barcode>
-<quantity>0</quantity>
+<id>110</id>
+<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
+<sku>STVWP6015B1</sku>
+<barcode>Н1532</barcode>
+<quantity>2</quantity>
 
 </item>
 
 <item>
-<id>14</id>
-<title>ter</title>
-<sku></sku>
-<barcode>0000000000002</barcode>
-<quantity>0</quantity>
+<id>111</id>
+<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
+<sku>STVWP6015B1</sku>
+<barcode>Н1532</barcode>
+<quantity>2</quantity>
 
-<proper name="Марка">audi</proper>
+<proper name="S">T</proper>
 
-</item>
-
-<item>
-<id>15</id>
-<title>зщш</title>
-<sku></sku>
-<barcode>0000000000001</barcode>
-<quantity>0</quantity>
-
-<proper name="Марка">bmw</proper>
-
-<proper name="Модель">A1</proper>
-
-<proper name="Авито категории">Запчасти и аксессуары</proper>
+<proper name="V">A</proper>
 
 </item>
 
 <item>
-<id>16</id>
-<title>New 6 product</title>
-<sku>one_6_pr</sku>
-<barcode>0000000000161</barcode>
-<quantity>0</quantity>
+<id>112</id>
+<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
+<sku>STVWP6015B1</sku>
+<barcode>Н1532</barcode>
+<quantity>2</quantity>
 
-</item>
+<proper name="Артикул производителя">STVWP6015B1</proper>
 
-<item>
-<id>17</id>
-<title>New product Power 1</title>
-<sku>power</sku>
-<barcode>0000000000178</barcode>
-<quantity>0</quantity>
-
-</item>
-
-<item>
-<id>18</id>
-<title>New product NRT1</title>
-<sku>nrt_1</sku>
-<barcode>0000000000185</barcode>
-<quantity>0</quantity>
-
-</item>
-
-<item>
-<id>19</id>
-<title>New product NRT2</title>
-<sku>nrt2</sku>
-<barcode>0000000000192</barcode>
-<quantity>0</quantity>
-
-<proper name="Показывать Ebay">да</proper>
-
-</item>
-
-<item>
-<id>20</id>
-<title>New prodict NRT3</title>
-<sku>nrt3</sku>
-<barcode>0000000000208</barcode>
-<quantity>0</quantity>
-
-<proper name="Марка">bmw</proper>
-
-<proper name="Модель">A1</proper>
-
-</item>
-
-<item>
-<id>21</id>
-<title>New product NRT4</title>
-<sku>nrt4</sku>
-<barcode>0000000000215</barcode>
-<quantity>0</quantity>
-
-<proper name="Авито тип товара">Автосвет</proper>
-
-</item>
-
-<item>
-<id>22</id>
-<title>New product NRT5</title>
-<sku>nrt5</sku>
-<barcode>0000000000222</barcode>
-<quantity>1</quantity>
-
-<proper name="Марка">audi</proper>
+<proper name="Марка">VAG</proper>
 
 </item>
 

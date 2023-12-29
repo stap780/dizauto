@@ -57,10 +57,10 @@ class PropertiesController < ApplicationController
   # DELETE /properties/1 or /properties/1.json
   def destroy
     @property.destroy
-
     respond_to do |format|
       format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 
