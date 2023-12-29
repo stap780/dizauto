@@ -53,10 +53,10 @@ namespace :transfer do
       file_data = Array.new
       url = "http://138.197.52.153/insales.csv"
       file = url.split('/').last
-      # download = URI.open(url)
+      download = URI.open(url)
       download_path = Rails.env.development? ? "#{Rails.public_path}/#{file}" : "/var/www/dizauto/shared/public/#{file}"
-      # #File.delete(download_path) if File.file?(download_path)
-      # IO.copy_stream(download, download_path)
+      File.delete(download_path) if File.file?(download_path)
+      IO.copy_stream(download, download_path)
       spreadsheet = Roo::CSV.new(download_path, csv_options: {encoding: Encoding::UTF_8})
       header = spreadsheet.row(1)
 
