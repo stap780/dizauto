@@ -67,7 +67,7 @@ namespace :transfer do
 
     last_row = Rails.env.development? ? 5 : 200 #spreadsheet.last_row
 
-    (2..last_row).each do |i|
+    (52..last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       file_data.push(row)
     end
