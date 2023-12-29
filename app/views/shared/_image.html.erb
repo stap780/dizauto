@@ -8,7 +8,7 @@
           <span class="badge bg-info float-end mt-1" data-sortable-target="position"><%= image.position%></span>
         </div>
         <div class="col">
-          <%= image_tag image.variant(:thumb) %>
+          <%= image_tag image.representation(resize_to_limit: [100, 100]) %>
         </div>
         <div class="col text-center">
           <%= image.filename.to_s %>

@@ -15,9 +15,12 @@ class Product < ApplicationRecord
     
     has_rich_text :description
     has_many_attached :images, dependent: :destroy do |attachable|
-        attachable.variant :thumb, resize_and_pad: [120, 120]
+        attachable.variant :thumb, resize_and_pad: [110, 110]
         attachable.variant :standart, resize_and_pad: [800, 800]
     end
+
+    #<%= image_tag image.representation(resize_to_limit: [100, 100]) %>
+
     accepts_nested_attributes_for :images_attachments, allow_destroy: true
     has_associated_audits
     after_initialize :set_default_new
@@ -73,8 +76,7 @@ class Product < ApplicationRecord
     def images=(attachables)
         attachables = Array(attachables).compact_blank
         if attachables.any?
-            attachment_changes["images"] =
-            ActiveStorage::Attached::Changes::CreateMany.new("images", self, images.blobs + attachables)
+            attachment_changes["images"] = ActiveStorage::Attached::Changes::CreateMany.new("images", self, images.blobs + attachables)
         end
     end
 

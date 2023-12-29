@@ -55,8 +55,8 @@ namespace :transfer do
       file = url.split('/').last
       download = URI.open(url)
       download_path = Rails.env.development? ? "#{Rails.public_path}/#{file}" : "/var/www/dizauto/shared/public/#{file}"
-      File.delete(download_path) if File.file?(download_path)
-      IO.copy_stream(download, download_path)
+      # File.delete(download_path) if File.file?(download_path)
+      # IO.copy_stream(download, download_path)
       spreadsheet = Roo::CSV.new(download_path, csv_options: {encoding: Encoding::UTF_8})
       header = spreadsheet.row(1)
 
@@ -65,7 +65,7 @@ namespace :transfer do
         Property.find_or_create_by!(title: property)
       end
 
-      last_row = Rails.env.development? ? 5 : 200 #spreadsheet.last_row
+      last_row = Rails.env.development? ? 200 : 3 #spreadsheet.last_row
 
       (2..last_row).each do |i|
         row = Hash[[header, spreadsheet.row(i)].transpose]
@@ -95,6 +95,7 @@ namespace :transfer do
         puts "product id => "+product.id.to_s
         images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
         saved_images_name = product.images.map{|image| image.filename.to_s}
+        image_files = []
         # puts "saved_images_name => "+saved_images_name.to_s
         images.each do |url|
           # clear_url = url.squish if url.respond_to?("squish") 
@@ -105,7 +106,10 @@ namespace :transfer do
           # puts "filename => "+filename.to_s
           file = URI.open(clear_url)
           product.images.attach(io: file, filename: filename) if !saved_images_name.include?(filename)
+          # image_files << { io: file, filename: filename } if !saved_images_name.include?(filename)
         end
+        # product.images.attach( image_files )
+
         props_for_create = []
         properties = data.select{|k,v| k.include?('Параметр:')}
 
