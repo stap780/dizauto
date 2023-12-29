@@ -46,9 +46,9 @@ namespace :puma do
     end
   
     before 'deploy:starting', 'puma:make_dirs'
-  end
+end
   
-  namespace :deploy do
+namespace :deploy do
     desc "Make sure local git is in sync with remote."
     task :check_revision do
       on roles(:app) do
@@ -87,5 +87,5 @@ namespace :puma do
     after  :finishing,    :compile_assets
     after  :finishing,    :cleanup
   #   after  :finishing,    :restart_sidekiq
-  end
+end
   

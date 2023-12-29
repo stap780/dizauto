@@ -1,6 +1,13 @@
 <tr id="<%= dom_id product %>">
-    <td><%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %></td>
-    <%= tag.td tag.b( product.id ) %>
+    <%= tag.td do %>
+    <div class="form-check">
+        <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
+        <label class="form-check-label"><%= tag.b( product.id ) %></label>
+    </div>
+    <% end %>
+    <%= tag.td do %>
+        <%= image_tag product.images.first.representation(resize_to_limit: [60, 60]) if product.images.attached? %>
+    <% end %>
     <%= tag.td( product.sku ) %>
     <%= tag.td( product.barcode ) %>
     <%= tag.td( product.title ) %>
