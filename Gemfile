@@ -59,6 +59,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'combine_pdf'
 gem "recaptcha"
+gem "addressable"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

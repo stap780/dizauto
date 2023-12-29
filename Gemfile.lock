@@ -347,6 +347,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_list
+  addressable
   audited
   barby
   bootsnap
