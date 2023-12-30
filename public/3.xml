@@ -1,38 +1,7 @@
 <items>
 
 <item>
-<id>109</id>
-<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
-<sku>STVWP6015B1</sku>
-<barcode>Н1532</barcode>
-<quantity>2</quantity>
-
-</item>
-
-<item>
-<id>110</id>
-<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
-<sku>STVWP6015B1</sku>
-<barcode>Н1532</barcode>
-<quantity>2</quantity>
-
-</item>
-
-<item>
-<id>111</id>
-<title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
-<sku>STVWP6015B1</sku>
-<barcode>Н1532</barcode>
-<quantity>2</quantity>
-
-<proper name="S">T</proper>
-
-<proper name="V">A</proper>
-
-</item>
-
-<item>
-<id>112</id>
+<id>122</id>
 <title>Петля капота правая VW Polo Sedan 10-н.в. (неоригинал)</title>
 <sku>STVWP6015B1</sku>
 <barcode>Н1532</barcode>
@@ -41,6 +10,3370 @@
 <proper name="Артикул производителя">STVWP6015B1</proper>
 
 <proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (10-15)</proper>
+
+<proper name="Год">10-15</proper>
+
+<proper name="Деталь">Петля</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-11 15:47:30</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-819</proper>
+
+</item>
+
+<item>
+<id>123</id>
+<title>уплотнитель двери задний правый Golf Plus</title>
+<sku>5m0839702b</sku>
+<barcode>Н1773</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">5m0839702b</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Golf Plus (2009-2014)</proper>
+
+<proper name="Год">2009-2014</proper>
+
+<proper name="Деталь">Уплотнитель</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">V10-6304, 5M0 839 702 B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-11 15:59:44</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>124</id>
+<title>Замок капота Volkswagen Polo Sedan</title>
+<sku>6R1823509а</sku>
+<barcode>Н1101</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6R1823509а</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Замок</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">6R1823509B, 6R1823509F, 6R1823509D, 6R1823509A, SSVA5679, 6R1823509G</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-11 16:38:29</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-810</proper>
+
+</item>
+
+<item>
+<id>125</id>
+<title>Бампер передний Passat B6 (неоригинал)</title>
+<sku>9555072</sku>
+<barcode>Н1507</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">9555072</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Passat B6 (2005-2010)</proper>
+
+<proper name="Год">2005-2010</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-11 21:09:11</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>126</id>
+<title>Корпус воздушного фильтра Jetta 6 (новый)</title>
+<sku>1K0129607AL</sku>
+<barcode>Н2005</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">1K0129607AL</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Jetta 6 (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Корпус воздушного фильтра </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">AT10641, AT1K0129607AL, AT97143, B12829, B12845, BSP25190, AW1K001290607AL, AW1K001290607ALS, 11290782502, 17825, VHP1554AL, VHP1554FAL, I04129011, 8508-004, VWL1004029, SSVA1480, 1KD 129 607 E, V10-4738, 1K0 129 607 AL, VWL1004028</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-11 21:11:29</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-828</proper>
+
+</item>
+
+<item>
+<id>127</id>
+<title>ПТФ правая Solaris 10-14 Fast Tyger (неоригинал)</title>
+<sku>FTSOL11922021R000</sku>
+<barcode>Н1542</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">FTSOL11922021R000</proper>
+
+<proper name="Марка">Hyundai-KIA</proper>
+
+<proper name="Модель">Solaris 1 (2010-2014)</proper>
+
+<proper name="Год">2010-2014</proper>
+
+<proper name="Деталь">Накладка ПТФ правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-12 06:34:39</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>128</id>
+<title>Стекло двери заднее правое Volkswagen Jetta 6 11-н.в. (новый)</title>
+<sku>5CU845026</sku>
+<barcode>Н1763</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">5CU845026</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Jetta 6 (2014-2018)</proper>
+
+<proper name="Год">2014-2018</proper>
+
+<proper name="Деталь">Стекло заднее левое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">5CU845026</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 10:02:51</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-626</proper>
+
+</item>
+
+<item>
+<id>129</id>
+<title>ПТФ левая Golf 5 Jetta 5 Amarok Hella (неоригинал)</title>
+<sku>1N0271295031</sku>
+<barcode>Н1536</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">1N0271295031</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Golf 5 (2003-2009)</proper>
+
+<proper name="Год">2003-2009</proper>
+
+<proper name="Деталь">Накладка ПТФ левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 10:15:27</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>130</id>
+<title>ПТФ правая Caddy Touran 2004-2008 OSCCA (неоригинал)</title>
+<sku>04929</sku>
+<barcode>Н1541</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">04929</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Накладка ПТФ правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 11:05:45</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>131</id>
+<title>Колодки тормозные задние барабанные VW Polo Sedan 10-12 (неоригинал)</title>
+<sku>1163900310</sku>
+<barcode>Н1518</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">1163900310</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Колодки тормозные </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 11:44:49</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-628</proper>
+
+</item>
+
+<item>
+<id>132</id>
+<title>Вентилятор Golf6/Jetta5 Jp Group (неоригинал)</title>
+<sku>1K0959455CN</sku>
+<barcode>Н1063</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">1K0959455CN</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Golf 6 (2008-2012)</proper>
+
+<proper name="Год">2008-2012</proper>
+
+<proper name="Деталь">Вентилятор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">404260JG, 404260Mi, 414279M, 302.106, 048132N, AT98936, AT98995, 160067510, 3095904551K0CN, 221880, BSP22436, I05121246, I05959128, 1199101600, 959320001, 8014-101, 47881, 85763, 14018, SSVA2833, 29-99302-SX, D8W034TT, V15-01-1886, 10910624A, 90139, 995900139, 99590013901, 112 321, 112321755, 1K0 959 455CN</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 12:40:47</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-630</proper>
+
+</item>
+
+<item>
+<id>133</id>
+<title>Стекло переднее правое Passat B6 (новый)</title>
+<sku>3C4845202B</sku>
+<barcode>Н1299</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">3C4845202B</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Passat B6 (2005-2010)</proper>
+
+<proper name="Год">2005-2010</proper>
+
+<proper name="Деталь">Стекло переднее правое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">3C4845202B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 12:49:01</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-626</proper>
+
+</item>
+
+<item>
+<id>134</id>
+<title>Кронштейн переднего бампера центр. Passat B7 (новый)</title>
+<sku>3AA807571</sku>
+<barcode>Н1244</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">3AA807571</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Passat B7 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Кронштейн радиатора верхний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">I04807131, 95D105-5, JH20NMT007A, SF10NMT07A, AT97272, SVP11019, VHP3113, VWPAS11-9A0-C, 88071685502, 5740562, 2248042, VWL0409018, 3AA807571</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 12:54:02</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>135</id>
+<title>Привод правый АКПП Polo Sedan 15- 6RF407764L (новый)</title>
+<sku>6RF407764L 6RF407764J</sku>
+<barcode>Н1262</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6RF407764L 6RF407764J</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Привод задний левый</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 12:57:05</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-629</proper>
+
+</item>
+
+<item>
+<id>136</id>
+<title>ПТФ правая Polo Sedan Depo (неоригинал)</title>
+<sku>4412039RUE</sku>
+<barcode>Н1540</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">4412039RUE</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Накладка ПТФ правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:13:24</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>137</id>
+<title>Стекло двери переднее правое Volkswagen Jetta 6 11-н.в. (новый)</title>
+<sku>5CU845202</sku>
+<barcode>Н1296</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">5CU845202</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Jetta 6 (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Стекло заднее левое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">5CU845202</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:17:17</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-626</proper>
+
+</item>
+
+<item>
+<id>138</id>
+<title>Диффузор вентилятора Polo Sedan (новый)</title>
+<sku>6R0121207</sku>
+<barcode>Н1803</barcode>
+<quantity>6</quantity>
+
+<proper name="Артикул производителя">6R0121207</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Диффузор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">8370033, 837-0036, 837-0033-1, 4040012D, 4060012D, 4919768, AW6R001210207, 6R0121207  9B9, SSVA1872, 29-99532-SX, VWPLO10-890, NSP086R0121207, 302.112, GA221009, DCL1296, LFK1853, 6R0121207</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:47:28</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-521</proper>
+
+</item>
+
+<item>
+<id>139</id>
+<title>Заглушка ПТФ левая VW Polo Sedan 10-15 (неоригинал)</title>
+<sku>STVWP6000C2</sku>
+<barcode>Н1594</barcode>
+<quantity>5</quantity>
+
+<proper name="Артикул производителя">STVWP6000C2</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь"> Заглушка птф </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:47:50</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-809</proper>
+
+</item>
+
+<item>
+<id>140</id>
+<title>Заглушка ПТФ правая VW Polo Sedan 10-15 (неоригинал)</title>
+<sku>STVWP6000C1</sku>
+<barcode>Н1595</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">STVWP6000C1</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь"> Заглушка птф </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:47:54</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-809</proper>
+
+</item>
+
+<item>
+<id>141</id>
+<title>Вентилятор отопителя Dominant Polo Sedan (неоригинал)</title>
+<sku>AW6Q108200015H</sku>
+<barcode>Н1979</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">AW6Q108200015H</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Вентилятор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:48:00</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-630</proper>
+
+</item>
+
+<item>
+<id>142</id>
+<title>Кронштейн крыла правый VW Polo Sedan 10-н.в. (новый)</title>
+<sku>6R0821142B</sku>
+<barcode>Н1817</barcode>
+<quantity>3</quantity>
+
+<proper name="Артикул производителя">6R0821142B</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Кронштейн крыла переднего правый</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">9533023X, SSVA5646, SSVA7042, 25-18319-SX, 6R0821142A, 6R0821142B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:48:17</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>143</id>
+<title>Кронштейн крыла левый Volkswagen Polo Sedan 10-20 (новый)</title>
+<sku>6R0821141B</sku>
+<barcode>Н1816</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6R0821141B</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Кронштейн крыла переднего правый</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">9533013X, 6R0821141A, SSVA5647, 6R0821141B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:48:22</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>144</id>
+<title>Кронштейн заднего бампера правый VW Polo Sedan 10-н.в. (новый)</title>
+<sku>6RU807394B</sku>
+<barcode>Н1852</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6RU807394B</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Кронштейн радиатора верхний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">NSP086RU807394B, 6RU807394B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:48:39</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>145</id>
+<title>Трос замка капота VW Polo Sedan 10-20 (новый)</title>
+<sku>6R1823531C</sku>
+<barcode>Н1824</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">6R1823531C</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Трос замка капота</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">6R1823531B, SSVA3666, 88231789401, 882317894, 6R1823531C, 6R1823531A</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:49:53</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>146</id>
+<title>Кронштейн фары VW Polo Sedan 10-н.в. (новый)</title>
+<sku>6R0941511</sku>
+<barcode>Н1617</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">6R0941511</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Кронштейн фары</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">VHP6244, 9110-030, NSP086R0941511, SSVA4117, 6R0941511</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:50:19</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>147</id>
+<title>Кронштейн панели передний левый VW Polo Sedan 10-н.в. (новый)</title>
+<sku>6R0805931A</sku>
+<barcode>Н1811</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6R0805931A</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Кронштейн радиатора верхний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">NSP086R0805931A, SSVA3645, 5829671, VHP4226L, 88051628802, 2206163, 6RU805931, 6R0805931A</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:50:30</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>148</id>
+<title>Птф правая Polo Sedan 10-15 (неоригинал)</title>
+<sku>ST4412039R</sku>
+<barcode>Н1600</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">ST4412039R</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Накладка ПТФ правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:50:37</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>149</id>
+<title>Фара правая VW Polo Sedan (10-15) Новая оригинальная</title>
+<sku>6RU941016</sku>
+<barcode>Н1891</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">6RU941016</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Фара правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">VWPLO10-001-R, 441-11D8R-LDEM2, GM-HL-18602, 6R1 941 016 C, 2766110, 676512102, ST-441-11G9R, 901024, KHL8014STD, 8900-508, ZVG111629R, JH20POL11001R, 066RU901R, 44111G9RMLDEM2, VWPLO10-007-R, VWPLO10-004-R, 99411385302, 441-11G9RMLDEM2, VWL055010100R, 6RU941016, VW0234813, 2206080, 2206980, 99411235202, 95070124A1, 95070142, 8900-699, 9533103E, 953310-E, 953310-V, VG0234803, VG0234813, VW0234803, 50466122, 50466134, ZVW11D8R, 20-12033-00-21, 20-12033-05-2, 20120331021, 20-12033-15-2, 20-C033-05-2B, 20C033A52B, 6R1 941 016 E, 5829964, 5829964V, 044082</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 13:51:03</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>150</id>
+<title>Фильтр салона VW Polo Sedan (10-н.в) (новый)</title>
+<sku>6R0820367</sku>
+<barcode>Н1815</barcode>
+<quantity>11</quantity>
+
+<proper name="Артикул производителя">6R0820367</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Фильтр салона</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">1128100909, CUK 26 010, E961LI, 80001783, ELR7076, CAF2012.01, LCV000/26010, FP 26 010, KC0087, KC0087S, GB-9973, CU 2545, 350203064060, TC1021, CF9323, 102-114, MAC8031, 30 93 7314, 113491755, 715737, AH191, LA 809, TSP0325339, E394, 37314, MS-6438, S 3190 C, NC2047, NC2386, 112 319 0023, QF20Q00107, 714, NFE-2006, V10302529, 53.190.00, R16, 1714, FAH5012, 113 491, PC8077, HB151, 19118, 02B001970N, CAC31940, LA 120, FA 4026, 26010-IFB-PCS-MS, 26010-IF-PCS-MS, FC375NY, FC001z, B140P0011, B140R0022, CA31940, AG 367 CF, AFC1294, C30486, K30486, 320442, 320542, 321442, BSP24117, EKF332, K 1313, 1310.5311, E3919LI, B4W021PR, 1128100900, 50014580, LAC-1917, 154070572794, K9069, K9069C, FC486, FK486, SA1291, G325, P325, XC54, XCK54, 82D0325111A, 82D0325111CA, WP2086, Z424, Z646, ZF424, ZF646, A04N007229, DX4-0084, 1 987 435 002, AS917, ASIN.FC2741, 2545/1-IF-PCS-MS, 2545-IFB-PCS-MS, AG 368 CFC, EGC646C, 1010-007, RSD111, CN1035, GY3224, 1110050071, AFK773106, AFK773502, AFK771586, RSTC001VO, FCR21F059, AMD.FC741, AMD.FC741C, NF6375, NNRV-1100, 1521-2339, ELR7299, 23820001, FS-121, 3082003676R0, 3C820002, 34820001, BFC1134, TCA-554, TCA-554AA, ADV182512, VPMLA809, E02224, EKO-04.35, IPCA-E335, AC0198C, AC0198, FS-115, FSU-115, IB772053, BRC-1320, CU 26 010, PF2260, 71-10221-SX, 71-10436-SX, 715727, FCA1727, NF-6429, CAV31940, KUK0198, 9.7.880, FCR21F061, RF001VO, DCF809, IF0102, 4638, 4638K, CCF0465, 0 986 628 539, 20-01-049, AS917C, SAC-0367, 58201008, 02B001070N, 03AC0123, FA 4036, FA-P 4026, FA-P 4036, 10 FCA 00012 000, 77340-ST, EC001VO, afw1294, BFS14072, 2545-IF-PCS-MS, 180050810, 26-0165, M110872, F416001, T420049, IF-3020K, 1532001, 17542K, 1310.5381, LFCP224, 71913, 17542, CKA26010, CK26010, 1730055, V10-30-2529-1, CAF2273.01, DCF576P, WG1019302, WG1215518, WG1234215, WG1429066, WG1747353, WG1747354, WG1793823, 900, BL900, 07.59.071, LVCF576, FC1194, IF-3020, DCI0213, QFC0413, 1730058, MBX400, CF-203, AC0198B, 26-0863, 26-0800, 400, 132934, 18200911801, C1980SKY, NSP086R0820367, AC 0198, AC 0198C, 19372706, GIR03004, LA 1098, 6R0 820 367</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 14:31:21</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-828</proper>
+
+</item>
+
+<item>
+<id>151</id>
+<title>Стекло переднее левое Tiguan (неоригинал)</title>
+<sku>8595LGSR5FD</sku>
+<barcode>Н1563</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">8595LGSR5FD</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Tiguan 1 (2007-2011)</proper>
+
+<proper name="Год">2007-2011</proper>
+
+<proper name="Деталь">Стекло переднее левое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 14:35:30</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-626</proper>
+
+</item>
+
+<item>
+<id>152</id>
+<title>Молдинг заднего бампера правый Polo Sedan 15-н.в. (новый)</title>
+<sku>6RF853842A</sku>
+<barcode>Н1103</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6RF853842A</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2015-2020)</proper>
+
+<proper name="Год">2015-2020</proper>
+
+<proper name="Деталь">Молдинг </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">VHP1718R, NSP086RF853842A, 6RF853842A</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 14:40:32</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>153</id>
+<title>Крыло переднее левое Polo 4 TYC 05-09 (неоригинал)</title>
+<sku>VW39101601L00</sku>
+<barcode>Н1526</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">VW39101601L00</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo 4 (2005-2009)</proper>
+
+<proper name="Год">2005-2009</proper>
+
+<proper name="Деталь">Крыло переднее левое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 15:15:26</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-816</proper>
+
+</item>
+
+<item>
+<id>154</id>
+<title>Бачок омывателя Golf 5 (новый)</title>
+<sku>1K6955453H</sku>
+<barcode>Н1211</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">1K6955453H</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Golf 6 (2008-2012)</proper>
+
+<proper name="Год">2008-2012</proper>
+
+<proper name="Деталь">Бачок омывателя</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">AT97094, L042012700, SVJ05048, 1K6955453E, VW04201270H, 1K6955453H, 1K6955453B</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 19:21:41</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-819</proper>
+
+</item>
+
+<item>
+<id>155</id>
+<title>Вентилятор Polo Sedan (новый)</title>
+<sku>6R0959455C</sku>
+<barcode>Н1967</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6R0959455C</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Вентилятор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">831-1003, A2C59511336, 8EW 351 040-381, 1199103500, 95072601, 10910627A, 90154, 47374, 47377, 0510.2021, 85798, V15-01-1884, 8370033, 8370034, 8370035, 837-0036, 6Q0 959 455 AD, GA200482, GA221009, 8220503, D8W028TT, D8W029TT, 4040012D, LFc 1853, 4140012D, 4010012D, 414243M, 8014-003, 46565, VW7532, 30 94 6565, AW6R009590455E, 8EW 351 032-081, 8EW 351 042-551, 29-99527-SX, KM0123, 99590015401, VN7532, WG1501282, 048-014-0001, 221884, 414900, EVM020N, 352040, 302.082, 302.112, 302.123, 85797, 12524, WG1795459, V15-01-1884-1, 8220510, DCL1213, AMD.FCU131, LFK1853, 6R0 959 455 E, 6R0 959 455 C, BSP20811, 048098N, 696203, 0720004585, 048096N, 959706003, SKO-70209, EVW060, GA200424, LE 585, 05102026, 05102028, 404243M, 952523U6, 952523W1, 952523W1-Q, 35959022, 112319755, 112 319, 5827744, 29-99532-SX, GA221309, WG1720338, 352063, 048112N, ASIN.FCU2131, AFK772511, PFN126, 35959025, SSVA1931, SSVA3618, SSVA3662, 30 92 6860, 26860, WG1795277, B11503, 2230 1013 01</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 19:21:45</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-630</proper>
+
+</item>
+
+<item>
+<id>156</id>
+<title>Тяга рулевая VW Polo Hatchback TRW (неоригинал)</title>
+<sku>JAR1033</sku>
+<barcode>Н1566</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">JAR1033</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo 5 Hatchback (2009-2014)</proper>
+
+<proper name="Год">2009-2014</proper>
+
+<proper name="Деталь">Тяга рулевая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 19:40:37</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-624</proper>
+
+</item>
+
+<item>
+<id>157</id>
+<title>Фара правая Hyundai Solaris 11-14 Norden (неоригинал)</title>
+<sku>HY35011ER</sku>
+<barcode>Н1915</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">HY35011ER</proper>
+
+<proper name="Марка">Hyundai-KIA</proper>
+
+<proper name="Модель">Solaris 1 (2010-2014)</proper>
+
+<proper name="Год">2010-2014</proper>
+
+<proper name="Деталь">Фара правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 19:45:49</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>158</id>
+<title>Стекло заднее правое Passat B7 (новый)</title>
+<sku>3AE845026</sku>
+<barcode>Н1295</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">3AE845026</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Passat B7 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Стекло заднее правое</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">3AE845026D, 3AE845026</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-16 19:53:01</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-626</proper>
+
+</item>
+
+<item>
+<id>159</id>
+<title>Кронштейн заднего бампера левый Hyundai ix35</title>
+<sku>866132S000</sku>
+<barcode>Н3006</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">866132S000</proper>
+
+<proper name="Марка">Hyundai-KIA</proper>
+
+<proper name="Модель">Ix35 (2010-2013)</proper>
+
+<proper name="Год">2010-2013</proper>
+
+<proper name="Деталь">Кронштейн радиатора верхний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">1010-86613-2S000, 86613-2S000</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 14:30:06</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>160</id>
+<title>Петля капота левая Ceed 2 (новый)</title>
+<sku>79110A2000</sku>
+<barcode>Н3020</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">79110A2000</proper>
+
+<proper name="Марка">Hyundai-KIA</proper>
+
+<proper name="Модель">Ceed 2 Jd (2012-2015)</proper>
+
+<proper name="Год">2012-2015</proper>
+
+<proper name="Деталь">Петля </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">K1A08BI, 79110A2000</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 15:33:08</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>161</id>
+<title>Бампер передний BMW 3er F30 (15-н.в.)</title>
+<sku>51117386283</sku>
+<barcode>П3230</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">51117386283</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">3er F30 (2015-2018)</proper>
+
+<proper name="Год">2015-2018</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2017-07-20 15:52:54</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>162</id>
+<title>Рулевая тяга Polo Hatchback Teknorot (неоригинал)</title>
+<sku>A853 6R0423810</sku>
+<barcode>Н1064</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A853 6R0423810</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo 5 Hatchback (2009-2014)</proper>
+
+<proper name="Год">2009-2014</proper>
+
+<proper name="Деталь">Тяга рулевая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 16:00:59</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-624</proper>
+
+</item>
+
+<item>
+<id>163</id>
+<title>Фара правая Skoda Octavia a7 (неоригинал)</title>
+<sku>6651126RMLDEM2</sku>
+<barcode>Н1696</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6651126RMLDEM2</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Octavia A7 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Фара правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 16:18:16</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>164</id>
+<title>Фонарь внутренний левый Jetta 6 Depo 11-14 (неоригинал)</title>
+<sku>4411332LLDUE</sku>
+<barcode>Н1579</barcode>
+<quantity>2</quantity>
+
+<proper name="Артикул производителя">4411332LLDUE</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Jetta 6 (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Фонарь левый</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 16:26:54</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>165</id>
+<title>Фара правая Kia Rio 3 рестайлинг 15-17 (не оригинал)</title>
+<sku>ST22311R2R</sku>
+<barcode>Н1577</barcode>
+<quantity>3</quantity>
+
+<proper name="Артикул производителя">ST22311R2R</proper>
+
+<proper name="Марка">Hyundai-KIA</proper>
+
+<proper name="Модель">Rio 3 Qb (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Фара правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 16:34:24</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>166</id>
+<title>Зеркальный элемент левый Golf 6 Hillport 09-12 (неоригинал)</title>
+<sku>VHP0810L</sku>
+<barcode>Н1514</barcode>
+<quantity>3</quantity>
+
+<proper name="Артикул производителя">VHP0810L</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Golf 6 (2008-2012)</proper>
+
+<proper name="Год">2008-2012</proper>
+
+<proper name="Деталь">Зеркальный элемент левый </proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 16:56:27</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-812</proper>
+
+</item>
+
+<item>
+<id>167</id>
+<title>Фара правая хром Renault Duster 11-15 (новый)</title>
+<sku>260100067R</sku>
+<barcode>Н1913</barcode>
+<quantity>4</quantity>
+
+<proper name="Артикул производителя">260100067R</proper>
+
+<proper name="Марка">RENAULT</proper>
+
+<proper name="Модель">Duster (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Фара правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-07-20 17:07:11</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>168</id>
+<title>Кронштейн заднего бампера правый Polo 5HB</title>
+<sku>6R6807394A</sku>
+<barcode>Н3089</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">6R6807394A</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo 5 Hatchback (2009-2014)</proper>
+
+<proper name="Год">2009-2014</proper>
+
+<proper name="Деталь">Кронштейн радиатора верхний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">VHP4224R, 5829538, 6R6807394A</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-08-29 16:33:43</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-815</proper>
+
+</item>
+
+<item>
+<id>169</id>
+<title>Дверь задняя левая BMW X6 F16 F86 (2014-2020)</title>
+<sku>41517386743</sku>
+<barcode>П5032</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41517386743</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">X6 F16 (2014-2019)</proper>
+
+<proper name="Год">2014-2019</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2017-09-12 07:23:26</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>170</id>
+<title>Генератор для Volkswagen Passat B7 (11-15)</title>
+<sku>06b903019ex</sku>
+<barcode>Н3096</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">06b903019ex</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Passat B7 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Генератор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">443145, AMD.EL574, AFK774836, L 46 180, AVA255, A3131, A3131PR, A3131S, A3131(VALEO), A3305PR, BBA2048, 0 124 525 088, 0 986 046 180, F 042 301 219, CAL15255, CAL15255AS, CAL15255GS, CRE15150, 211.324.1402, DRB 6180, XAL1024, 946180, 28-4733, 12046180, 210525, 6 3182 9, 8EL 012 429-231, 8EL 738 194-001, 301811RI, 301811RIB, 301811RIV, alb1811, ALB1811AN, ALB1811GB, ALB1811MQ, ALB1811UX, ALB1811YX, ALV1811, ALV1811DD, ALV1811GB, ALV1811RN, ALV1811UX, ALV1811ZD, ALV9811DD, 13733, ALB1811RB, ALV1811RB, 06302, 2015255, SRE15150, LRA02255, F042A01219, 06B903016AB*, 06B903019EV, V10-13-46180, 437360, 439393, 588032, 99030786201, 11070N, 23255R, 24-91274, WG1792940, LG 1811, 06B 903 019 EX, CGB-84733, 10443145, 11443145, 0380577, A0457PR, ATSCA1811, AEC1811, 0124 525 009, 0986048130, CCP90134, 4643, 010604, 57287, 11SKV021, 12048130, ER-446180, 112355, 455038, 90 46 180, 66721, 32 046 180, CA1811, CA1811IR, 4555038, 535004110, 11.1811, 063731811010, 944390461800, 59212363, 45038, 4846180, 89212363, 9212363, IR6694, 9046180, 55721, AU8053, SCP90134, SSVA1272, 20-211-324-1402, 06B 903 016 AF, 06D 903 016 A, 06J 903 023C, 06J 903 023 CX, 97862, 1-3217-25W, 23254R, SA104, AL2500, 06B 903 019 E, 06D903016AV, 06D 903 016 AX, 06J903023CV</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-10-25 16:20:41</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-829</proper>
+
+</item>
+
+<item>
+<id>171</id>
+<title>Бачок омывателя стекла Polo Sedan 10-15 (новый)</title>
+<sku>6RU955453A</sku>
+<barcode>Н3098</barcode>
+<quantity>5</quantity>
+
+<proper name="Артикул производителя">6RU955453A</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Polo Sedan (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Бачок омывателя</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">AMD.WT34, AW6RU09550453, 913855, 995513855, 99551385502, VHP1655, 8376-005, 8376-023, NSP086RU955453A, VGL60955453, SSVA3694, 6RU955453A</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2017-11-11 08:25:47</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-819</proper>
+
+</item>
+
+<item>
+<id>172</id>
+<title>Дверь задняя правая BMW X1 F48 15-н.в.</title>
+<sku>41007461352</sku>
+<barcode>0000000040952</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41007461352</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">X1 F48 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 00 7 461 352, 7461352</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-07-13 16:03:48</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>173</id>
+<title>Бампер передний Toyota Land Cruiser Prado 150 13-17</title>
+<sku>5211960G50</sku>
+<barcode>0000000049771</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">5211960G50</proper>
+
+<proper name="Марка">TOYOTA</proper>
+
+<proper name="Модель">Land Cruiser Prado 150 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-07-16 08:04:46</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>174</id>
+<title>Дверь задняя левая Suzuki SX4 2 S-Cross 2013-н.в</title>
+<sku>68004-61M01</sku>
+<barcode>0000000056908</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">68004-61M01</proper>
+
+<proper name="Марка">SUZUKI</proper>
+
+<proper name="Модель">Sx4 2 S-Cross (2013-2016)</proper>
+
+<proper name="Год">2013-2016</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">68004-61M01-000, 6800461M01</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-07-20 16:02:18</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>175</id>
+<title>Накладка крышки багажника Ford Kuga 2 13-16</title>
+<sku>GV4BSS423A40</sku>
+<barcode>0000000059572</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">GV4BSS423A40</proper>
+
+<proper name="Марка">GM DAT</proper>
+
+<proper name="Модель">Kuga 2 Cbs (2012-2016)</proper>
+
+<proper name="Год">2012-2016</proper>
+
+<proper name="Деталь">Накладка крышки багажника</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-07-24 08:00:26</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>176</id>
+<title>Дверь задняя правая Chevrolet Lacetti Хэтчбэк (04-13)</title>
+<sku>96547908</sku>
+<barcode>0000000069151</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">96547908</proper>
+
+<proper name="Марка">GM DAT</proper>
+
+<proper name="Модель">Lacetti (2004-2013)</proper>
+
+<proper name="Год">2004-2013</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">96547908, GM-DR-0761R, DW9C-08-1175U, 96547906, 6828T, SH000388, L04633, DW4103553</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-07-30 08:06:21</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>177</id>
+<title>Крышка багажника Jaguar XF (08-15)</title>
+<sku>C2Z14453</sku>
+<barcode>0000000077644</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">C2Z14453</proper>
+
+<proper name="Марка">JAGUAR</proper>
+
+<proper name="Модель">Xf 1 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Крышка багажника</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">C2Z14453</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-01 16:16:33</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-818</proper>
+
+</item>
+
+<item>
+<id>178</id>
+<title>Дверь передняя правая Jaguar XF 1 (07-15)</title>
+<sku>C2Z2060</sku>
+<barcode>0000000077682</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">C2Z2060</proper>
+
+<proper name="Марка">JAGUAR</proper>
+
+<proper name="Модель">Xf 1 (2007-2011)</proper>
+
+<proper name="Год">2007-2011</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">C2Z2060</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-01 16:16:41</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>179</id>
+<title>Дверь передняя правая MINI Hatch F56 (14-н.в.)</title>
+<sku>41517294266</sku>
+<barcode>0000000078535</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41517294266</proper>
+
+<proper name="Марка">Mini</proper>
+
+<proper name="Модель">Hatch F56 (2013-2018)</proper>
+
+<proper name="Год">2013-2018</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 51 7 294 266, 7294266</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-01 16:19:30</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>180</id>
+<title>Дверь задняя правая Skoda Superb 3 15-н.в.</title>
+<sku>3V9833052A</sku>
+<barcode>0000000100960</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">3V9833052A</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Superb 3 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">3V9833052, 3V9833052B, 3V9833056A, 3V9833052A, 3V9833056</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-07 13:09:57</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>181</id>
+<title>Дверь передняя левая Opel Zafira В Family (2005-2012)</title>
+<sku>0124239</sku>
+<barcode>0000000107297</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">0124239</proper>
+
+<proper name="Марка">OPEL</proper>
+
+<proper name="Модель">Zafira B (2005-2008)</proper>
+
+<proper name="Год">2005-2008</proper>
+
+<proper name="Деталь">Дверь передняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">01-1101240239-A, 1101240239, 13203013, 0124239</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-09 13:16:01</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>182</id>
+<title>Бампер задний Porsche Panamera 1 09-13</title>
+<sku>97050541100</sku>
+<barcode>0000000112307</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">97050541100</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Panamera 1 970 (2009-2013)</proper>
+
+<proper name="Год">2009-2013</proper>
+
+<proper name="Деталь">Бампер задний в сборе</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-10 13:23:35</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>183</id>
+<title>Дверь передняя левая Bentley Flying Spur (2013-н.в.)</title>
+<sku>4W0831055B</sku>
+<barcode>0000000114868</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">4W0831055B</proper>
+
+<proper name="Марка">BENTLEY</proper>
+
+<proper name="Модель">Flying Spur 1 (2013-2019)</proper>
+
+<proper name="Год">2013-2019</proper>
+
+<proper name="Деталь">Дверь передняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">4W0831055, 4W0831055A, 4W0831055B</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-13 13:00:57</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>184</id>
+<title>Защита порога правая VW Amarok 1 13-18</title>
+<sku>2H7854881</sku>
+<barcode>0000000114288</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">2H7854881</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Amarok 1 (2013-2016)</proper>
+
+<proper name="Год">2013-2016</proper>
+
+<proper name="Деталь">Защита ДВС</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">2H7854881A, 2H7854881</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-13 13:11:16</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-811</proper>
+
+</item>
+
+<item>
+<id>185</id>
+<title>Дверь передняя правая Mercedes GLA-klasse X156 2013-нв</title>
+<sku>A1567200205</sku>
+<barcode>0000000123136</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A1567200205</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Gla X156 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Дверь передняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A 156 720 02 05, 1567200205</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-15 13:13:36</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>186</id>
+<title>Дверь задняя правая Ford Focus 3 (11-18) хэтч / седан</title>
+<sku>2117477</sku>
+<barcode>0000000125000</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">2117477</proper>
+
+<proper name="Марка">GM DAT</proper>
+
+<proper name="Модель">Focus 3 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">2117477</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-16 13:09:00</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>187</id>
+<title>Дверь задняя левая Mercedes-Benz ML GLE W166 11-н.в</title>
+<sku>A1667300105</sku>
+<barcode>0000000136907</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A1667300105</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Gle W166 (2015-2018)</proper>
+
+<proper name="Год">2015-2018</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A 166 730 01 05, 1667300105</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-22 13:26:58</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>188</id>
+<title>Дверь передняя правая Audi Q5 08-17</title>
+<sku>8R0831052E</sku>
+<barcode>0000000138314</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">8R0831052E</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Q5 1 8r (2008-2012)</proper>
+
+<proper name="Год">2008-2012</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">8R0831052D, 8R0831052E, 8R0831052C</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-23 13:17:11</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>189</id>
+<title>Бампер задний Audi Q3 2014-н.в</title>
+<sku>8U0807385C</sku>
+<barcode>0000000143295</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">8U0807385C</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Q3 1 8u (2014-2018)</proper>
+
+<proper name="Год">2014-2018</proper>
+
+<proper name="Деталь">Бампер задний в сборе</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-27 13:22:10</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>190</id>
+<title>Юбка заднего бампера Audi Q7 4M 2015-н.в</title>
+<sku>4M0807521B</sku>
+<barcode>0000000144209</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">4M0807521B</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Q7 2 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Юбка бампера заднего</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-28 13:07:59</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>191</id>
+<title>Рейлинг правый Ford Explorer 5 2010-2015</title>
+<sku>BB537855128</sku>
+<barcode>0000000148962</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">BB537855128</proper>
+
+<proper name="Марка">GM DAT</proper>
+
+<proper name="Модель">Explorer 5 U502 (2010-2015)</proper>
+
+<proper name="Год">2010-2015</proper>
+
+<proper name="Деталь">Рейлинг правый</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-08-29 13:16:34</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-822</proper>
+
+</item>
+
+<item>
+<id>192</id>
+<title>Бампер задний BMW 6er F06 11-15</title>
+<sku>51127261575</sku>
+<barcode>93543</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">51127261575</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">6er F12 F13 F06 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Бампер задний в сборе</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">51 12 7 261 575, 7261575</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-01 13:01:52</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>193</id>
+<title>Бампер передний Lexus LX 3 (15-н.в.)</title>
+<sku>KH-A-LX-16-F</sku>
+<barcode>93553</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">KH-A-LX-16-F</proper>
+
+<proper name="Марка">TOYOTA</proper>
+
+<proper name="Модель">Lx 570 Urj200 (2015-Н.В.)</proper>
+
+<proper name="Год">2015-Н.В.</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-01 13:06:31</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>194</id>
+<title>Бампер передний Mercedes-benz W222 AMG 2013-2017</title>
+<sku>A2228851125</sku>
+<barcode>93440</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A2228851125</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">S W222 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-01 13:26:51</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>195</id>
+<title>Фонарь левый внутренний Porsche Macan 95b (2014-нв)</title>
+<sku>95B945093F</sku>
+<barcode>0000000171120</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">95B945093F</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Macan 95b (2014-2018)</proper>
+
+<proper name="Год">2014-2018</proper>
+
+<proper name="Деталь">Фонарь левый внутренний</proper>
+
+<proper name="Склад">Отрадное</proper>
+
+<proper name="Аналог">95B945093F</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-05 13:10:35</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-618</proper>
+
+</item>
+
+<item>
+<id>196</id>
+<title>Дверь передняя правая BMW X6 F16 2014 н.в</title>
+<sku>41517386742</sku>
+<barcode>0000000179645</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41517386742</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">X6 F16 (2014-2019)</proper>
+
+<proper name="Год">2014-2019</proper>
+
+<proper name="Деталь">Дверь передняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 51 7 386 742, 7386742</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-07 13:21:43</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>197</id>
+<title>Бампер передний Mercedes C292 GLE (15-н.в.) Новый</title>
+<sku>A2928850625</sku>
+<barcode>93676</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A2928850625</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Gle Coupe C292 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">Новый</proper>
+
+<proper name="Дата создания">2018-09-08 13:23:49</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>198</id>
+<title>Дверь задняя левая Nissan X-Trail 3 Т32 (2014-нв)</title>
+<sku>H210A4CMMA</sku>
+<barcode>0000000189330</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">H210A4CMMA</proper>
+
+<proper name="Марка">NISSAN</proper>
+
+<proper name="Модель">X-Trail 3 T32 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">H210A4CMMA</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-13 13:08:52</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>199</id>
+<title>Бампер передний Nissan Murano Z52 (2015-нв)</title>
+<sku>620225BF0H</sku>
+<barcode>0000000191135</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">620225BF0H</proper>
+
+<proper name="Марка">NISSAN</proper>
+
+<proper name="Модель">Murano Z52 (2014-Н.В.)</proper>
+
+<proper name="Год">2014-Н.В.</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">620225BF0H</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-14 13:31:10</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>200</id>
+<title>Дверь правая Mercedes-Benz S C217 (13-17)</title>
+<sku>a2177200105</sku>
+<barcode>94193</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">a2177200105</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">S C217 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Дверь правая купэ</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A 217 720 01 05, 2177200105</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-22 10:28:49</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>201</id>
+<title>Рулевая рейка Nissan Juke YF15 10-н.в.</title>
+<sku>480011KA0B</sku>
+<barcode>94041</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">480011KA0B</proper>
+
+<proper name="Марка">NISSAN</proper>
+
+<proper name="Модель">Juke Yf15 (2010-2014)</proper>
+
+<proper name="Год">2010-2014</proper>
+
+<proper name="Деталь">Рулевая рейка</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">0222-F15, 240751, 103-01-126, 481.PS08, NS480011KA0B, AX0138, 714521357, DSR2119L, 14-1357, SP40112, TRKB-ACU25, 1GS4808, 1GS4808OE, STR-11210A, HT 800 139, 103126, RD-126, C2458LR, MRE8126, NI 112, NI 112R, 54519, 36-16 031 0017, M50751NW, M50751RB, M50752NW, M50752RB, 48001-1KA0D, N4841054, N410N234, 0608071, PS2368, QF13E00081, R1025, R1025B, ST-45535-48020, 41414, N-853, TS1463L, 8510 14307, N3157, N-800, GB074, SR071, LVTR1687, 48001-1KA0B*</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-22 10:31:54</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-624</proper>
+
+</item>
+
+<item>
+<id>202</id>
+<title>Дверь задняя правая Porsche Macan (13-н.в.)</title>
+<sku>95B833022BGRV</sku>
+<barcode>0000000206211</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">95B833022BGRV</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Macan 95b (2014-2018)</proper>
+
+<proper name="Год">2014-2018</proper>
+
+<proper name="Деталь">Дверь задняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">95B833022BGRV</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-25 10:19:10</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>203</id>
+<title>Бампер задний Mercedes-Benz GLC-klasse X253 (2015-нв)</title>
+<sku>А25388061019999</sku>
+<barcode>0000000201827</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">А25388061019999</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Glc X253 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Бампер задний в сборе</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A25388061019999, 25388061019999</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-26 10:24:17</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>204</id>
+<title>Дверь передняя правая MINI Countryman F60 (16-н.в.)</title>
+<sku>41007438596</sku>
+<barcode>0000000222181</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41007438596</proper>
+
+<proper name="Марка">Mini</proper>
+
+<proper name="Модель">Countryman F60 (2016-Н.В.)</proper>
+
+<proper name="Год">2016-Н.В.</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 00 7 438 596, 7438596</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-28 10:38:58</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>205</id>
+<title>Дверь задняя левая BMW 1er f20 f21 (11-17) голубая</title>
+<sku>41527284515</sku>
+<barcode>0000000220989</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41527284515</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">1er F20 F21 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Дверь задняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 52 7 284 515, 7284515</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-30 10:14:03</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>206</id>
+<title>Дверь передняя правая Land-Rover Discovery 5 (17-н.в.)</title>
+<sku>LR080195</sku>
+<barcode>0000000221061</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">LR080195</proper>
+
+<proper name="Марка">LAND ROVER</proper>
+
+<proper name="Модель">Discovery 5 L462 (2016-Н.В.)</proper>
+
+<proper name="Год">2016-Н.В.</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">LR080195</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-09-30 10:39:44</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>207</id>
+<title>Лонжерон правый Rolls-Royce Wraith</title>
+<sku>41107242826</sku>
+<barcode>94453</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41107242826</proper>
+
+<proper name="Марка">ROLLS-ROYCE</proper>
+
+<proper name="Модель">Wraith (2013-Н.В.)</proper>
+
+<proper name="Год">2013-Н.В.</proper>
+
+<proper name="Деталь">Лонжерон</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-03 10:00:40</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-819</proper>
+
+</item>
+
+<item>
+<id>208</id>
+<title>Крышка багажника BMW 7er F01 F02 (12-15)</title>
+<sku>41627172332</sku>
+<barcode>0000000228138</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">41627172332</proper>
+
+<proper name="Марка">BMW</proper>
+
+<proper name="Модель">7er F01 F02 (2012-2015)</proper>
+
+<proper name="Год">2012-2015</proper>
+
+<proper name="Деталь">Крышка багажника</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">41 62 7 172 332, 7172332</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-03 10:27:09</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-818</proper>
+
+</item>
+
+<item>
+<id>209</id>
+<title>Юбка заднего бампера Lexus LX 3 570 (15-н.в.) Modellista одна труба</title>
+<sku>D264149510XX</sku>
+<barcode>94360</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">D264149510XX</proper>
+
+<proper name="Марка">TOYOTA</proper>
+
+<proper name="Модель">Lx 570 Urj200 (2015-Н.В.)</proper>
+
+<proper name="Год">2015-Н.В.</proper>
+
+<proper name="Деталь">Юбка бампера заднего</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-03 10:39:53</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>210</id>
+<title>Дверь передняя правая Mercedes-Benz M-klasse W166 (2011-нв)</title>
+<sku>A1667200205</sku>
+<barcode>П15255</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A1667200205</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">M W166 (2011-2015)</proper>
+
+<proper name="Год">2011-2015</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A 166 720 02 05, 1667200205</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-07 10:37:43</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>211</id>
+<title>Дверь левая Citroen C4 coupe (08-10)</title>
+<sku>9002W1</sku>
+<barcode>94525</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">9002W1</proper>
+
+<proper name="Марка">Peugeot-Citroen</proper>
+
+<proper name="Модель">C4 1 (2008-2011)</proper>
+
+<proper name="Год">2008-2011</proper>
+
+<proper name="Деталь">Дверь левая купэ</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-09 10:45:18</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>212</id>
+<title>Бампер передний Mercedes-Benz CL AMG C216 (06-10)</title>
+<sku>A2168850325</sku>
+<barcode>0000000251976</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A2168850325</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Cl C216 (2006-2010)</proper>
+
+<proper name="Год">2006-2010</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-11 10:32:17</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>213</id>
+<title>Бампер передний Porsche Macan (2014-нв)</title>
+<sku>95B807061</sku>
+<barcode>0000000255691</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">95B807061</proper>
+
+<proper name="Марка">VAG</proper>
+
+<proper name="Модель">Macan 95b (2014-2018)</proper>
+
+<proper name="Год">2014-2018</proper>
+
+<proper name="Деталь">Бампер передний</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-12 10:39:19</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
+
+</item>
+
+<item>
+<id>214</id>
+<title>Амортизатор передний правый Maserati Levante (2016-н.в.)</title>
+<sku>M670100718</sku>
+<barcode>0000000257725</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">M670100718</proper>
+
+<proper name="Марка">MASERATI</proper>
+
+<proper name="Модель">Levante (2016-Н.В.)</proper>
+
+<proper name="Год">2016-Н.В.</proper>
+
+<proper name="Деталь">Амортизатор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-12 10:44:01</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-623</proper>
+
+</item>
+
+<item>
+<id>215</id>
+<title>Дверь передняя правая Maserati Levante (2016-н.в.)</title>
+<sku>M673008287</sku>
+<barcode>0000000257817</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">M673008287</proper>
+
+<proper name="Марка">MASERATI</proper>
+
+<proper name="Модель">Levante (2016-Н.В.)</proper>
+
+<proper name="Год">2016-Н.В.</proper>
+
+<proper name="Деталь">Дверь передняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-12 10:44:42</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>216</id>
+<title>Дверь задняя правая Maserati Levante (2016-н.в.)</title>
+<sku>M673008289</sku>
+<barcode>0000000257824</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">M673008289</proper>
+
+<proper name="Марка">MASERATI</proper>
+
+<proper name="Модель">Levante (2016-Н.В.)</proper>
+
+<proper name="Год">2016-Н.В.</proper>
+
+<proper name="Деталь">Дверь задняя правая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-12 10:44:43</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>217</id>
+<title>Вал карданный Lexus LX 3 (07-15)</title>
+<sku>LexusLX3</sku>
+<barcode>94539</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">LexusLX3</proper>
+
+<proper name="Марка">TOYOTA</proper>
+
+<proper name="Модель">Lx 570 Urj200 (2007-2012)</proper>
+
+<proper name="Год">2007-2012</proper>
+
+<proper name="Деталь">Вал карданный</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-14 10:18:29</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-629</proper>
+
+</item>
+
+<item>
+<id>218</id>
+<title>Дверь передняя правая Mercedes-Benz S-klasse W222, x222 (2013-нв)</title>
+<sku>A2227200205</sku>
+<barcode>94573</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A2227200205</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">S W222 (2013-2017)</proper>
+
+<proper name="Год">2013-2017</proper>
+
+<proper name="Деталь">Дверь передняя левая</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Аналог">A 222 720 02 05, 2227200205</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-15 10:49:21</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-808</proper>
+
+</item>
+
+<item>
+<id>219</id>
+<title>Редуктор Lexus LX 3 (15-н.в.)</title>
+<sku>LX570</sku>
+<barcode>94921</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">LX570</proper>
+
+<proper name="Марка">TOYOTA</proper>
+
+<proper name="Модель">Lx 570 Urj200 (2015-Н.В.)</proper>
+
+<proper name="Год">2015-Н.В.</proper>
+
+<proper name="Деталь">Редуктор</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-16 10:05:43</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">11-629</proper>
+
+</item>
+
+<item>
+<id>220</id>
+<title>Бампер задний Mercedes GLE Coupe C292 (15-н.в.) AMG</title>
+<sku>A2928851225</sku>
+<barcode>94729</barcode>
+<quantity>1</quantity>
+
+<proper name="Артикул производителя">A2928851225</proper>
+
+<proper name="Марка">MERCEDES-BENZ</proper>
+
+<proper name="Модель">Gle Coupe C292 (2015-2019)</proper>
+
+<proper name="Год">2015-2019</proper>
+
+<proper name="Деталь">Бампер задний в сборе</proper>
+
+<proper name="Склад">Волгоградский проспект</proper>
+
+<proper name="Состояние детали">БУ ЗЧ</proper>
+
+<proper name="Дата создания">2018-10-16 10:43:35</proper>
+
+<proper name="Категория Авито">Запчасти и аксессуары</proper>
+
+<proper name="goods type avito">Запчасти</proper>
+
+<proper name="product type avito">Для автомобилей</proper>
+
+<proper name="avito_type_id">16-806</proper>
 
 </item>
 

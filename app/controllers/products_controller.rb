@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @products = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: 100)
     filename = 'products.xlsx'
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
@@ -78,7 +78,18 @@ class ProductsController < ApplicationController
 
   def print_etiketki #post
     if params[:product_ids]
-      ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
+      @pr_size = params[:product_ids].size
+      if @pr_size >= 10
+        ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
+      else
+        products = Product.where(id: params[:product_ids])
+        success, @etiketka = CreateEtiketka.new(products).call
+        if success
+          respond_to do |format|
+            format.turbo_stream
+          end
+        end
+      end
     else
       notice = 'Выберите товары'
       redirect_to products_url, alert: notice
@@ -113,6 +124,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 

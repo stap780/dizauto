@@ -42,8 +42,6 @@
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
       <div class="row">
         <div class="col-sm-12">
-        <%# turbo_frame_tag "table", target: '_top' do Здесь продлема в том что не выводится урл с параметрами поиска хотя и стоит '_top' %>
-          <!--<span class="loading">Loading...</span>-->
           <table id="datatables-products" class="table table-striped" data-controller="selectall">
             <thead>
               <tr>
@@ -60,10 +58,11 @@
               </tr>
               </thead>
               <tbody>
-                <%= render @products %>
+                <%= turbo_frame_tag 'products' do %>
+                  <%= render @products %>
+                <% end %>
               </tbody>
           </table>
-          <%# end %>
         </div>
       </div>
       <div class="row paginate-wrap">

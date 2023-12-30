@@ -48,7 +48,7 @@ namespace :transfer do
     puts "finish transfer company"
   end
 
-  task product: :environment do
+  task :product, [:last_row] => :environment do |t, args|
     puts "start product"
     file_data = Array.new
     url = "http://138.197.52.153/insales.csv"
@@ -64,10 +64,10 @@ namespace :transfer do
     properties.each do |property|
       Property.find_or_create_by!(title: property)
     end
+    job_last_row = args[:last_row].present? ? args[:last_row] : spreadsheet.last_row
+    last_row = Rails.env.development? ? 5 : job_last_row
 
-    last_row = Rails.env.development? ? 5 : 200 #spreadsheet.last_row
-
-    (52..last_row).each do |i|
+    (2..last_row).each do |i|
       row = Hash[[header, spreadsheet.row(i)].transpose]
       file_data.push(row)
     end
@@ -105,12 +105,10 @@ namespace :transfer do
         filename = File.basename(url)
         # puts "filename => "+filename.to_s
         file = URI.open(clear_url)
-#           product.images.attach(io: file, filename: filename) if !saved_images_name.include?(filename)
         image_files << { io: file, filename: filename } if !saved_images_name.include?(filename)
       end
       check = product.images.attach( image_files ) 
       puts check.to_s
-#         puts "check "
 
       props_for_create = []
       properties = data.select{|k,v| k.include?('Параметр:')}

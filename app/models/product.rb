@@ -120,6 +120,12 @@ class Product < ApplicationRecord
         # self.price = 0 if new_record?
     end
 
+    def self.import_product_from_file(last_row)
+        ProductImportJob.perform_now(last_row)
+    end
+    
+    private
+    
     def normalize_data_white_space
         self.attributes.each do |key, value|
             self[key] = value.squish if value.respond_to?("squish")

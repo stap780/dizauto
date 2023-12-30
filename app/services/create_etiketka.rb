@@ -27,7 +27,8 @@ class CreateEtiketka < ApplicationService
     def create_etiketka(product)
         save_path = "#{@save_dir}/#{product.id}.pdf"
         pdf = WickedPdf.new.pdf_from_string(
-            ActionController::Base.new.render_to_string( partial:'products/etiketka',locals: {:@product => product}),
+            #ActionController::Base.new.render_to_string( partial:'products/etiketka',locals: {:@product => product}),
+            ActionController::Base.new.render_to_string( partial:'products/etiketka', locals: {:product => product}),
             page_height: 41, 
             page_width: 65,
             margin:  { top: 1, bottom:5,left:  1, right: 1 },

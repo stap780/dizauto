@@ -1,8 +1,9 @@
+<% object = @product.present? ? @product : product%>
 <!DOCTYPE html >
 <html>
 	<meta charset="utf-8" />
 		<head>
-		<title>Деталь - <%= @product.title.mb_chars.capitalize.to_s %></title>
+		<title>Деталь - <%= object.title.mb_chars.capitalize.to_s %></title>
 		<style>
 			body {
 				font-size: 12px;
@@ -18,17 +19,17 @@
 		</head>
   <body>
 	  <div class="content">
-		  <div style="font-size: 13px;"><%= @product.title.mb_chars.capitalize.to_s.at(0..26) if @product.title != nil%>
+		  <div style="font-size: 13px;"><%= object.title.mb_chars.capitalize.to_s.at(0..26) if object.title != nil%>
 		  </div>
   	<div>
-		  <%# @product.markatext %> <%# @item.modeltext %>
+		  <%# product.markatext %> <%# @item.modeltext %>
   	</div>  
 		<div style="margin: 1px 5px; ">
-			<%= @product.html_barcode  %>
-			<span style="font-weight: bold;font-size: 28px;"><%=@product.barcode.to_s%></span>
+			<%= object.html_barcode  %>
+			<span style="font-weight: bold;font-size: 28px;"><%=object.barcode.to_s%></span>
 		</div>
 		<div>
-			Ор.Н. <%= @product.sku%>
+			Ор.Н. <%= object.sku%>
 		</div>
 	  </div>
   </body>
