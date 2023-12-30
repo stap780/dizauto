@@ -30,7 +30,7 @@ require 'capistrano/rails'
 require "capistrano/rvm"
 
 require "capistrano/puma"
-install_plugin Capistrano::Puma  # Default puma tasks
+install_plugin Capistrano::Puma, load_hooks: false   # Default puma tasks
 install_plugin Capistrano::Puma::Systemd
 
 require 'capistrano/sidekiq'

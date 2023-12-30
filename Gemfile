@@ -80,7 +80,7 @@ group :development do
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-rails", "~> 1.6", require: false
   gem 'capistrano-rvm', require: false
-  gem 'capistrano3-puma', require: false
+  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
   # gem 'capistrano-rails-console', require: false
   gem 'capistrano-sidekiq', require: false
 
