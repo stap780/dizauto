@@ -4,7 +4,8 @@ class Dashboard < ApplicationRecord
         "Incase" => ["unumber","carnumber","stoanumber"],
         # "Order" => ["id"],
         "User" => ["name", "phone", "email"],
-        "Company" => ["short_title", "title"]
+        "Company" => ["short_title", "title"],
+        "Product" => ["barcode","sku","title"]
       }
 
     def self.search(params_query)

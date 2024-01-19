@@ -1,12 +1,15 @@
 class ProductsController < ApplicationController
+  # require "image_processing/mini_magick"
+  # include Rails.application.routes.url_helpers
   load_and_authorize_resource
-  before_action :set_product, only: %i[ show edit update destroy delete_image reorder_image update_image ]
+  before_action :set_product, only: %i[ show edit update destroy delete_image sort_image reorder_image update_image ]
 
   # GET /products or /products.json
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: 100)
+    # @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: Rails.env.development? ? 10 : 100)
+    @products = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     filename = 'products.xlsx'
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
@@ -40,6 +43,7 @@ class ProductsController < ApplicationController
 
   # POST /products or /products.json
   def create
+    check_positions(params[:product][:images_attributes])
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
@@ -104,6 +108,8 @@ class ProductsController < ApplicationController
 
   # PATCH/PUT /products/1 or /products/1.json
   def update
+    #@product.images.update_all(position: 0)
+    check_positions(params[:product][:images_attributes])
     respond_to do |format|
       if @product.update(product_params)
         format.html { redirect_to products_path, notice: "Product was successfully updated." }
@@ -127,25 +133,25 @@ class ProductsController < ApplicationController
       format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
-
-  def image_import
-    @product.update(product_params)
-    flash.now[:success] = "update image"
-  end
   
-  def delete_image
-    ActiveStorage::Attachment.where(id: params[:image_id])[0].purge
-    flash.now[:success] = "delete image"
-  end
 
   def reorder_image
-    puts "reorder_image params => "+params.to_s
-    puts "reorder_image params[:id] => "+params[:id].to_s
-    # @product = Product.find(params[:id])
-    @image = @product.images.find_by blob_id: params[:sort_item_id]
-    @image.insert_at params[:new_position]
+    # puts "reorder_image params => "+params.to_s
+    # puts "reorder_image params[:id] => "+params[:id].to_s
+    # # @product = Product.find(params[:id])
+    # @image = @product.images.find_by blob_id: params[:sort_item_id]
+    # @image.insert_at params[:new_position]
     head :ok
   end
+
+  # switch off because we use position input inside form and save position with form
+  def sort_image
+    # puts "sort_image params => "+params.to_s
+    # @image = @product.images.find_by_id(params[:sort_item_id])
+    # @image.insert_at params[:new_position]
+    head :ok
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -157,6 +163,19 @@ class ProductsController < ApplicationController
     def product_params
       params.require(:product).permit(:sku, :barcode, :title, :description, :quantity, :costprice, :price, :video, images: [], 
                                       images_attachments_attributes: [:id, :position, :_destroy],
-                                      props_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy])
+                                      props_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy],
+                                      images_attributes: [:id,:product_id,:position, :file, :_destroy],photo_signed_ids: [])
     end
+
+    def check_positions(images)
+      if images.present?  
+        images.values.each.with_index do |image, index|
+          if image["id"]
+            image = Image.find(image["id"])
+            image.set_list_position(100+index)
+          end
+        end
+      end
+    end
+
 end

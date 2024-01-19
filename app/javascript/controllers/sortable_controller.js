@@ -4,15 +4,15 @@ import Sortable from "sortablejs"
 
 
 export default class extends Controller {
-    static targets = [ 'position' ]
+    static targets = [ 'position', 'hposition' ]
     connect() {
-    console.log('this.element', this.element)
+    //console.log('this.element', this.element)
     //const url = this.element.srcElement.dataset.sortUrl;
       this.sortable = new Sortable(this.element, {
         handle: '.js-sort-handle',
         onEnd: async (e) => {
-          console.log('e', e)
-          console.log('e.item.dataset', e.item.dataset)
+          // console.log('e', e)
+          // console.log('e.item.dataset', e.item.dataset)
           try {
             this.disable()
             //const url = e.srcElement.dataset.sortUrl;
@@ -26,8 +26,13 @@ export default class extends Controller {
             })
   
             if(!resp.ok) {
-              throw new Error(`Cannot sort: ${resp.statusCode}`)
+              this.updatePositions();
+              throw new Error(`Cannot sort on server: ${resp.statusCode}`)
             }
+            // this is for images that not have product id
+            // if(!resp.ok) {
+            //   this.updatePositions()
+            // }
   
             this.updatePositions()
             this.dispatch('move', { detail: { content: 'Item sort' } })
@@ -52,7 +57,11 @@ export default class extends Controller {
   
     updatePositions() {
       this.positionTargets.forEach((position, index) => {
+        console.log('index',index)
         position.innerText = index + 1
+      })
+      this.hpositionTargets.forEach((position, index) => {
+        position.value = index + 1
       })
     }
   }

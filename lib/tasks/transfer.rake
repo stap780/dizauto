@@ -5,10 +5,11 @@ namespace :transfer do
   require "addressable/uri"
   require 'rake'
   require 'roo'
+  require "image_processing/mini_magick"
 
   task company: :environment do
     puts "start transfer company"
-    file = 'companies.csv'
+    file = 'companies.csv'[]
 
     # Rake::Task["transfer:open_spreadsheet"].invoke(file)
     # Rake::Task["transfer:open_spreadsheet"].reenable
@@ -53,7 +54,7 @@ namespace :transfer do
     file_data = Array.new
     url = "http://138.197.52.153/insales.csv"
     file = url.split('/').last
-    download = URI.open(url)
+    # download = URI.open(url)
     download_path = Rails.env.development? ? "#{Rails.public_path}/#{file}" : "/var/www/dizauto/shared/public/#{file}"
     # File.delete(download_path) if File.file?(download_path)
     # IO.copy_stream(download, download_path)
@@ -138,6 +139,41 @@ namespace :transfer do
     puts "finish product"
   end
 
+  task image_process: :environment do # тестировал и разюирался - много лишнего
+    puts "start image_process"
+    product = Product.first
+    im_ids = product.images.ids
+    puts product.images.ids.to_s
+    puts product.image_urls
+    image_files = []
+    product.images.each do |image|
+      puts "image"
+      puts image
+      puts "======="
+      filename = image.filename
+      e = MiniMagick::Image.open(image)
+      puts "e"
+      puts e
+      puts "======="
+      image_data = e.data
+      quality = e.data['quality']
+      magick = ImageProcessing::MiniMagick.saver(quality: 80).call(e)
+
+      # image.purge
+      #product.images.attach(io: magick, filename: filename)
+      image_files << { io: magick, filename: filename }
+    end
+    puts "image_files"
+    puts image_files
+    puts "======="
+    product.images.attach( image_files )
+
+    product.images.where(id: im_ids ).each do |image|
+      image.purge
+    end
+    puts "finish image_process"
+  end
+
   task :open_spreadsheet, [:file] => :environment do |t, args|
     puts args[:file].is_a? String
       if args[:file].is_a? String
@@ -154,6 +190,25 @@ namespace :transfer do
           else raise "Unknown file type: #{args[:file].original_filename}"
           end
       end      
+  end
+
+  task test_image: :environment do 
+    p = Product.last
+    t_i = 'http://138.197.52.153/images/itemimages/1362486/original/20221010_120031.jpg'
+    e = MiniMagick::Image.open(t_i) # открывает файл
+    e.write('new_file') # сохраняет в новый файл преобразования
+    filename = e.data['baseName']
+    content_type = e.data['mimeType']
+    magick = ImageProcessing::MiniMagick.saver(quality: 80).call(e) # преобразовывает и создаёт временный файл
+    # стандартный вариант создания картинки
+    image = p.images.create!
+    image.file.attach(io: magick, filename: filename)
+    # вариант с signed_id
+    blob = ActiveStorage::Blob.create_and_upload!( io: magick, filename: filename,content_type: content_type)
+    # blob = ActiveStorage::Blob.find_signed(signed_id)
+    # blob.signed_id
+    image = p.images.create!
+    image.file.attach(blob.signed_id)
   end
 
 end

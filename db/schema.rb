@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_094412) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_12_142239) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -185,6 +185,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_094412) do
     t.datetime "updated_at", null: false
     t.string "excel_attributes"
     t.boolean "use_property"
+  end
+
+  create_table "images", force: :cascade do |t|
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "position", default: 1, null: false
+
+    t.unique_constraint ["product_id", "position"], deferrable: :deferred, name: "unique_product_id_position"
   end
 
   create_table "incase_import_columns", force: :cascade do |t|

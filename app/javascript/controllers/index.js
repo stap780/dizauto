@@ -43,6 +43,9 @@ application.register("form", FormController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import ImageController from "./image_controller"
+application.register("image", ImageController)
+
 import IncaseController from "./incase_controller"
 application.register("incase", IncaseController)
 

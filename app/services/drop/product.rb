@@ -53,7 +53,8 @@ class Drop::Product < Liquid::Drop
     end
 
     def images
-        ['http://test.com/test.jpg','http://test.com/test1.jpg']
+        #['http://test.com/test.jpg','http://test.com/test1.jpg']
+        @product.image_urls.map{|img| 'https://erp.dizauto.ru'+img[:url]}
     end
 
     def properties

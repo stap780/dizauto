@@ -12,6 +12,12 @@ Rails.application.routes.draw do
       post :fullsearch
     end
   end
+  resources :images do
+    collection do
+      post :upload
+      post :delete
+    end
+  end
   resources :supply_statuses do
     member do
       patch :sort
@@ -119,14 +125,14 @@ Rails.application.routes.draw do
   resources :products do
     member do
       patch 'reorder_image'
-      post 'image_import'
       get :print
+      patch :sort_image
     end
     collection do
       match 'search' => 'products#search', via: [:get, :post], as: :search
       get :characteristics
       post :delete_selected
-      delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
+      #delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
       post :print_etiketki
       get :pending_etiketki 
       get :success_etiketki

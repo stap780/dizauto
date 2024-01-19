@@ -36,38 +36,40 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0">Всего: <%= Product.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-products" class="table table-striped" data-controller="selectall">
-            <thead>
-              <tr>
-                <%= th_check_box_tag_all %>
-                <%= tag.th('#')%>
-                <%= tag.th(t('helpers.label.product.sku'))%>
-                <%= tag.th(t('helpers.label.product.barcode'))%>
-                <%= tag.th(t('helpers.label.product.title'))%>
-                <%= tag.th(t('helpers.label.product.quantity'))%>
-                <%= tag.th(t('helpers.label.product.price'))%>
-                <%= tag.th(t('helpers.label.product.created_at'))%>
-                <%= tag.th('')%>
-                <%= tag.th('')%>
-              </tr>
-              </thead>
-              <tbody>
-                <%= turbo_frame_tag 'products' do %>
-                  <%= render @products %>
-                <% end %>
-              </tbody>
-          </table>
+      <%= turbo_frame_tag 'paginate' do %>
+        <div class="row">
+          <div class="col-sm-12">
+            <table id="datatables-products" class="table table-striped" data-controller="selectall">
+              <thead>
+                <tr>
+                  <%= th_check_box_tag_all %>
+                  <%= tag.th('#')%>
+                  <%= tag.th(t('helpers.label.product.sku'))%>
+                  <%= tag.th(t('helpers.label.product.barcode'))%>
+                  <%= tag.th(t('helpers.label.product.title'))%>
+                  <%= tag.th(t('helpers.label.product.quantity'))%>
+                  <%= tag.th(t('helpers.label.product.price'))%>
+                  <%= tag.th(t('helpers.label.product.created_at'))%>
+                  <%= tag.th('')%>
+                  <%= tag.th('')%>
+                </tr>
+                </thead>
+                <tbody>
+                  <%= turbo_frame_tag 'products' do %>
+                    <%= render @products %>
+                  <% end %>
+                </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @products %>
-      </div>
+        <div class="row paginate-wrap">
+          <%= render "shared/paginate", f: @products %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

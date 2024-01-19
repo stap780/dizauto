@@ -1,4 +1,7 @@
-<%= form_with(model: product, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}, class: 'row') do |f| %>
+<%= form_with(model: product, data: {
+                                    controller: 'product nested-form', 
+                                    nested_form_wrapper_selector_value: '.nested-form-wrapper',
+                                    'item-id': product.id.to_s }, class: 'row upload-form') do |f| %>
     <div class="col-md-8">
         <%= turbo_frame_tag "errors" do %>
             <%= render "shared/errors", object: product%>
@@ -31,8 +34,34 @@
 
     </div>
 
-    <div class="col-md-4">
-        <%= render "barcode_image", f: f %>
+    <div class="col-md-4" data-controller="image">
+        <%# render "barcode_image", f: f %>
+        <% if f.object.barcode.present? %>
+            <div class="card">
+                <div class="card-body">
+                    <%= f.object.html_barcode %>
+                </div>
+            </div>
+        <% end %>
+        <div class="card">
+            <div class="card-body">
+                <div class="row d-flex gap-3" id="images" data-controller="sortable toast">
+                    <% if product.images.present? %>
+                        <%= f.fields_for :images do |form| %>
+                            <%= render  partial: "images/image", 
+                                        locals: { blob: form.object.file, 
+                                        image_id: form.object.id, 
+                                        image_position: form.object.position, 
+                                        product_id: @product.id, f: form } %>
+                        <% end %>
+                    <% end %>
+                </div>
+                <div class="mt-5" >
+                    <input type="file" multiple="multiple" data-direct-upload-url="<%= rails_direct_uploads_url %>" 
+                    data-action="change->image#uploadFile" data-image-target="filesInput" accept='image/*' />
+                </div>
+            </div>
+        </div>
     </div>
 <% end %>
 

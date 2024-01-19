@@ -8,14 +8,19 @@
 
 <div class="card">
     <div class="card-body">
-        <%= render '/shared/image' %>
+        <%# render '/shared/image' %>
+        <%= render '/shared/image_new' %>
+        
         <%= dropzone_controller_div_image do %>
-            <%= f.file_field :images, 'data-dropzone-target': 'input', direct_upload: true, multiple: true  %>
-
+            <%# f.file_field :images, 'data-dropzone-target': 'input', direct_upload: true, multiple: true  %>
+            <%= f.fields_for :images, Image.new do |image| %>
+                <%= image.file_field :file, 'data-dropzone-target': 'input', direct_upload: true, multiple: false  %>
+            <% end %>
             <div class="dropzone-msg dz-message needsclick">
                 <h3 class="dropzone-msg-title">Перетащите сюда фото или нажмите для импорта</h3>
                 <span class="dropzone-msg-desc text-sm"></span>
             </div>
         <% end %>
+
     </div>
 </div>
