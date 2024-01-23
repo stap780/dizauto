@@ -39,6 +39,7 @@ class DirectUploadController {
     this.directUpload.create((error, blob) => {
       if (error) {
         // Handle the error
+        alert(error);
       } else {
         // console.log('blob',blob);
         this.uploadToActiveStorage(blob);

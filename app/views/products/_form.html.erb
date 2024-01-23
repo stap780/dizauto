@@ -52,7 +52,7 @@
                                         locals: { blob: form.object.file, 
                                         image_id: form.object.id, 
                                         image_position: form.object.position, 
-                                        product_id: @product.id, f: form } %>
+                                        product_id: @product.id, f: form } if form.object.file.attached? %>
                         <% end %>
                     <% end %>
                 </div>

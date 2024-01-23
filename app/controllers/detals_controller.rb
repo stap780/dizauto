@@ -81,6 +81,6 @@ class DetalsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def detal_params
-      params.require(:detal).permit(:sku, :title, :description, prop_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy])
+      params.require(:detal).permit(:sku, :title, :description, props_attributes: [:id,:product_id,:property_id,:characteristic_id, :detal_id, :_destroy])
     end
 end

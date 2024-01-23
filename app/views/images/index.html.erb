@@ -1,0 +1,26 @@
+<%= link_to "<i data-feather='plus'></i> #{Image.model_name.human}".html_safe, new_image_path, class: "btn btn-primary float-end mt-n1" %>
+
+<table>
+    <thead>
+<th>id</th>
+<th>Product id</th>
+<th>Position</th>
+<th>image</th>
+    </thead>
+<tbody>
+
+<% @images.each do |image| %>
+<tr>
+    <td><%= image.id%></td>
+    <td><%= image.product_id%></td>
+    <td><%= image.position%></td>
+    <td><%= image_tag image.file.variant(:thumb) if image.file.attached?%></td>
+        <%# render partial: "images/image", locals: { blob: image.file, 
+                                            image_id: image.id, 
+                                            image_position: image.position, 
+                                            product_id: image.product_id, f: nil } if image.file.attached?%>
+    <%= td_index_edit_delete_link(image)%>
+</tr>
+<% end %>
+</tbody>
+</table>

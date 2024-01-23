@@ -73,14 +73,15 @@ class Product < ApplicationRecord
         self.barcode.to_s+" - "+self.title.to_s+" - "+self.sku.to_s
     end
     
-    def properties_data
-        self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
+    def properties_data # this for export cvs/excel
+        #self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
+        self.props.map{|prop| { prop.property.title.to_s => prop.property.characteristic.title.to_s } }
     end
 
     def image_first
         return unless self.images.present?
         image = self.images.first
-        image.file.attached? ? image.file : ''
+        image.file.attached? ? image.file : nil
     end
 
     # def images=(attachables) # this need for save images that we already have when add one more image/images
@@ -102,17 +103,24 @@ class Product < ApplicationRecord
     #     end
     # end
 
+    # def image_urls #old for images attached (active storage)
+    #     return unless self.images.attached?
+    #     self.images.map do |pr_image|
+    #         pr_image.blob.attributes.slice('filename', 'byte_size', 'id').merge(url: pr_image_url(pr_image))
+    #     end
+    # end
+
+    # def pr_image_url(image)
+    #     rails_blob_path(image, only_path: true)
+    # end
+
     def image_urls
-        return unless self.images.attached?
-        self.images.map do |pr_image|
-            pr_image.blob.attributes.slice('filename', 'byte_size', 'id').merge(url: pr_image_url(pr_image))
+        host = Rails.env.development? ? 'http://localhost:3000' : 'https://erp.dizauto.ru'
+        self.images.map do |image|
+            host+rails_blob_path(image.file, only_path: true) if image.file.attached? 
         end
     end
-
-    def pr_image_url(image)
-        rails_blob_path(image, only_path: true)
-    end
-
+    
     def create_barcode
         if !self.barcode.present?
             code_value = self.id.to_s.rjust(12, "0")

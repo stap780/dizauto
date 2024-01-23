@@ -157,7 +157,7 @@ namespace :transfer do
       puts "======="
       image_data = e.data
       quality = e.data['quality']
-      magick = ImageProcessing::MiniMagick.saver(quality: 80).call(e)
+      magick = ImageProcessing::MiniMagick.saver(quality: 78).call(e)
 
       # image.purge
       #product.images.attach(io: magick, filename: filename)
@@ -199,7 +199,7 @@ namespace :transfer do
     e.write('new_file') # сохраняет в новый файл преобразования
     filename = e.data['baseName']
     content_type = e.data['mimeType']
-    magick = ImageProcessing::MiniMagick.saver(quality: 80).call(e) # преобразовывает и создаёт временный файл
+    magick = ImageProcessing::MiniMagick.saver(quality: 78).call(e) # преобразовывает и создаёт временный файл
     # стандартный вариант создания картинки
     image = p.images.create!
     image.file.attach(io: magick, filename: filename)

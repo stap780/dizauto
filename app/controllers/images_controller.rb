@@ -1,7 +1,42 @@
 class ImagesController < ApplicationController
     load_and_authorize_resource
+    before_action :set_image, only: %i[ edit update destroy]
+
     require "image_processing/mini_magick"
     include Rails.application.routes.url_helpers
+
+  def index
+    @search = Image.ransack(params[:q])
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    # @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: Rails.env.development? ? 10 : 100)
+    @images = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
+    respond_to do |format|
+      format.html
+    end
+  end
+  
+  def show
+  end
+
+  def new
+    @image = Image.new
+  end
+
+  def edit
+  end
+
+  def create
+    @image = Image.new(image_params)
+    respond_to do |format|
+      if @image.save
+        format.html { redirect_to images_path, notice: "Image was successfully created." }
+        format.json { render :show, status: :created, location: @product }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
     def upload
         params.require(:blob_signed_id)
@@ -12,7 +47,7 @@ class ImagesController < ApplicationController
 
         #Rails.application.routes.url_helpers.rails_blob_path(image.file, only_path: true)
         upload_image_path = ActiveStorage::Blob.service.send(:path_for, upload_blob.key)
-        magick_image_path = ImageProcessing::MiniMagick.source(upload_image_path).saver!(quality: 85)
+        magick_image_path = ImageProcessing::MiniMagick.source(upload_image_path).saver!(quality: 78)
         new_blob = ActiveStorage::Blob.create_and_upload!(  io: magick_image_path, 
                                                             filename: filename,
                                                             content_type: content_type )
@@ -46,5 +81,25 @@ class ImagesController < ApplicationController
         end
     end
 
+    def destroy
+        @image.destroy
+    
+        respond_to do |format|
+          format.html { redirect_to images_url, notice: t('.success') }
+          format.json { head :no_content }
+        end
+      end
+    
+    private
+
+    def set_image
+        @image = Image.find(params[:id])
+    end
+  
+    def image_params
+        params.require(:image).permit(:file, :position, :product_id)
+    end
+  
+  
     
 end

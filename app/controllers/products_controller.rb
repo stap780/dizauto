@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     # @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: Rails.env.development? ? 10 : 100)
-    @products = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
+    @products = @search.result(distinct: true).includes(:images).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     filename = 'products.xlsx'
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s

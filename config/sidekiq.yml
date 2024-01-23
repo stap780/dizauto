@@ -5,6 +5,7 @@
     - mailers
     - export
     - print
+    - attach_image
 :scheduler:
   :dynamic: true
 

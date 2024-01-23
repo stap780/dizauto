@@ -28,8 +28,8 @@
                       </div>
                       <div class="col-md-4 align-self-center">
                         <div class="form-check form-switch">
-                        <%= f.check_box :use_property, {class: "form-check-input", role: "switch"} %>
-                        <%= f.label 'Использовать параметры товаров в выгрузке', class: "form-check-label"%>
+                            <%= f.check_box :use_property, {class: "form-check-input", role: "switch"} %>
+                            <%= f.label 'Использовать параметры товаров в выгрузке', class: "form-check-label"%>
                         </div>
                       </div>
                         <div class="mb-3 col-md-12 <% if f.object.format == 'xml'%>d-none<%end%>" data-export-target= "attributes">
@@ -41,7 +41,7 @@
                         </div>
                         <% end %>
                       </div>
-                      <div class="mb-3 col-md-12 <% if f.object.format == 'xlsx' && f.object.format == 'csv' || f.object.new_record?%>d-none<%end%>" data-export-target= "xml">
+                      <div class="mb-3 col-md-12 <% if f.object.format == 'xlsx' || f.object.format == 'csv' || f.object.new_record?%>d-none<%end%>" data-export-target= "xml">
                           <%= f.label :template, class: "form-label" %>
                           <%= f.text_area :template, class: "form-control" , rows: 30 %>
                       </div>

@@ -31,7 +31,7 @@ class ExportCreator < ApplicationService
                 writer << col_names_product_with_images
             end
             @export.products.each do |product|
-                images = product.images.present? ? product.image_urls.map{|h| @host+h[:url]}.join(' ') : ' '
+                images = product.images.present? ? product.image_urls.join(' ') : ' '
                 attr_for_sheet = product.attributes
                 attr_for_sheet['images'] = images
                 if @export.use_property == true
@@ -67,7 +67,7 @@ class ExportCreator < ApplicationService
                 sheet.add_row col_names_product
             end
             @export.products.each do |product|
-                images = product.images.present? ? product.image_urls.map{|h| @host+h[:url]}.join(' ') : ' '
+                images = product.images.present? ? product.image_urls.join(' ') : ' '
                 puts "images => "+images
                 attr_for_sheet = product.attributes
                 attr_for_sheet['images'] = images

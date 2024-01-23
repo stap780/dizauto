@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @image %>
+
+<div>
+  <%= link_to "Edit this email setup", edit_email_setup_path(@image) %> |
+  <%= link_to "Back to email setups", image_path %>
+
+  <%= button_to "Destroy this email setup", @image, method: :delete %>
+</div>

@@ -3,6 +3,7 @@ class Image < ApplicationRecord
   
     belongs_to :product
     has_one_attached :file, dependent: :destroy  do |attachable|
+        attachable.variant :sm, resize_to_limit: [60, 60]
         attachable.variant :thumb, resize_to_limit: [100, 100]
     end
     validates :position, uniqueness: { scope: :product }
@@ -10,7 +11,10 @@ class Image < ApplicationRecord
     validate :validate_image
     before_validation :set_position_if_nil, on: :create
 
-    
+    def self.ransackable_attributes(auth_object = nil)
+      Image.attribute_names
+    end
+
 
     private
 
@@ -28,7 +32,7 @@ class Image < ApplicationRecord
     end
 
     def set_position_if_nil
-      return unless self.position.present?
+      return if self.position.present?
       self.position = self.product.images.present? ? self.product.images.last.position + 1 : 1
     end
 
