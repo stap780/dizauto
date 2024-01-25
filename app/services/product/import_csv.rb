@@ -18,7 +18,7 @@ class Product::ImportCsv
         collect_data
         create_properties
         create_update_products
-        # delete_unattached_blobs
+        delete_unattached_blobs
     end
 
     private
@@ -87,9 +87,10 @@ class Product::ImportCsv
           end
     
           puts "product id => "+product.id.to_s
+          puts product.errors.full_messages.to_s
           
           images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
-          ProductImageJob.perform_later(product, images)
+          ProductImageJob.perform_later(product.id, images)
 
 
           # clear_tmp_image_folder

@@ -33,7 +33,8 @@ class Image < ApplicationRecord
 
     def set_position_if_nil
       return if self.position.present?
-      self.position = self.product.images.present? ? self.product.images.last.position + 1 : 1
+      last = Image.where(product_id: self.product.id).last
+      self.position = last.present? ? last.position + 1 : 1
     end
 
 end

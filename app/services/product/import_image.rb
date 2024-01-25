@@ -8,18 +8,18 @@ class Product::ImportImage
     #  FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
     #  FileUtils.rm_rf(Dir["#{Rails.public_path}/import_img/*"])
 
-    def initialize(product, images)
-        @product = product
+    def initialize(product_id, images)
+        @product = Product.find(product_id)
         @images = images
         @images_attributes = Array.new
         @tmp_folder_path = Rails.env.development? ? "#{Rails.public_path}/import_img/#{@product.id.to_s}/" : "/var/www/dizauto/shared/public/import_img/#{@product.id.to_s}/"
     end
 
     def call
-        create_tmp_folder
+        # create_tmp_folder
         io_image
         add_images_to_product
-        clear_tmp_folder
+        # clear_tmp_folder
     end
 
     private
@@ -29,34 +29,41 @@ class Product::ImportImage
     end
 
     def io_image
+        product_images_filenames = @product.images.map{|im| im.file.filename}
+        puts "======"
+        puts product_images_filenames.to_s
         @images.each_with_index do |link, index|
-            hash = Hash.new
             filename = File.basename(link)
-            temp_file_name = @product.id.to_s+"_"+(index+1).to_s+File.extname(link)
-            new_link = normalize_link_download_image_file(link, temp_file_name)
+            
+            if !product_images_filenames.include?(filename)
+                hash = Hash.new
+                # temp_file_name = @product.id.to_s+"_"+(index+1).to_s+File.extname(link)
+                new_link = normalize_link_download_image_file(link)#, temp_file_name)
 
-            hash[:position] = index+1
-                file_data_hash = Hash.new
-                file_data_hash[:io] = File.open(new_link)
-                file_data_hash[:filename] = filename
-            hash[:file] = file_data_hash
+                # hash[:position] = index+1
+                hash[:position] = nil # because we have validate_image_position callback
+                    file_data_hash = Hash.new
+                    file_data_hash[:io] = File.open(new_link)
+                    file_data_hash[:filename] = filename
+                hash[:file] = file_data_hash
 
-            @images_attributes.push(hash)
+                @images_attributes.push(hash)
+            end
         end
     end
 
     def add_images_to_product
-        @product.update!(images_attributes: @images_attributes)
+        @product.update!(images_attributes: @images_attributes) if  @images_attributes.present?
     end
 
     def clear_tmp_folder
         FileUtils.rm_rf(Dir[@tmp_folder_path+"*"])
     end
 
-    def normalize_link_download_image_file(url, temp_file_name)
+    def normalize_link_download_image_file(url)#, temp_file_name)
         clear_url = Addressable::URI.parse(url).normalize
 
-        image_path = @tmp_folder_path+temp_file_name
+        #image_path = @tmp_folder_path+temp_file_name
 
         # if File.file?(image_path).present?
         #   image_path
@@ -72,10 +79,11 @@ class Product::ImportImage
               puts clear_url
               file = nil
             else
-              tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 78)
-              IO.copy_stream(tempfile, image_path)
-              files_for_testing_volume(file.path, temp_file_name) if Rails.env.development?
-              image_path
+            #   tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 78)
+            #   IO.copy_stream(tempfile, image_path)
+            #   files_for_testing_volume(file.path, temp_file_name) if Rails.env.development?
+            #   image_path
+            tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 75)
           end
         # end
     end
