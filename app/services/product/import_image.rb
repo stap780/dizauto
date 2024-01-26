@@ -35,14 +35,23 @@ class Product::ImportImage
         @images.each_with_index do |link, index|
             filename = File.basename(link)
             check_name = File.basename(link).split('.').first
+            have_new_filename = !product_images_filenames.include?(check_name)
             
-            if !product_images_filenames.include?(check_name)
+            if have_new_filename
                 hash = Hash.new
                 # temp_file_name = @product.id.to_s+"_"+(index+1).to_s+File.extname(link)
                 new_link = normalize_link_download_image_file(link)#, temp_file_name)
+                
+                images_have_position_like_index = @product.images.pluck(:position).include?(index+1)
+                
+                if images_have_position_like_index
+                    position = nil  # because we have validate_image_position callback
+                else
+                    position = index + 1
+                end
 
                 # hash[:position] = index+1
-                hash[:position] = nil # because we have validate_image_position callback
+                hash[:position] = position
                     file_data_hash = Hash.new
                     file_data_hash[:io] = File.open(new_link)
                     file_data_hash[:filename] = filename
