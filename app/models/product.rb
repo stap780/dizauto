@@ -146,7 +146,7 @@ class Product < ApplicationRecord
     # end
 
     def self.import_product_from_file #(last_row)
-        ProductImportJob.perform_now #(last_row)
+        ProductImportJob.perform_later #(last_row)
     end
 
 

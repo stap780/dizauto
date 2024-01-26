@@ -14,7 +14,7 @@ class Product::ImportCsv
     end
 
     def call
-        # load_main_file
+        load_main_file
         collect_data
         create_properties
         create_update_products
