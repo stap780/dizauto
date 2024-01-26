@@ -87,7 +87,7 @@ class Product::ImportCsv
           puts product.errors.full_messages.to_s if product.errors
           
           images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
-          ProductImageJob.perform(product.id, images)
+          ProductImageJob.perform_later(product.id, images)
 
           # clear_tmp_image_folder
 
