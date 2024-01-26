@@ -14,7 +14,7 @@ class Product::ImportCsv
     end
 
     def call
-        load_main_file
+        # load_main_file
         collect_data
         create_properties
         create_update_products
@@ -33,7 +33,7 @@ class Product::ImportCsv
         @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.include?('Параметр:')}.reject(&:blank?)
 
         if Rails.env.development?
-          @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
+          @file_data = CSV.foreach(@download_path, headers: true).take(100).map(&:to_h)
         else
           @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
         end
@@ -52,9 +52,11 @@ class Product::ImportCsv
           props_data = Array.new
           properties.each do |pro|
             if pro[0].present? && pro[1].present?
+              #s_p = Property.find_or_create_by!( title: pro[0].remove('Параметр:').squish )
+              s_p = Property.where( title: pro[0].remove('Параметр:').squish ).first_or_create!
+              #s_char = s_p.characteristics.find_or_create_by!( title: pro[1])
+              s_char = Characteristic.where(property_id: s_p.id,title: pro[1]).first_or_create!
               p_hash = Hash.new
-              s_p = Property.find_or_create_by!( title: pro[0].remove('Параметр:').squish )
-              s_char = s_p.characteristics.find_or_create_by!( title: pro[1])
               p_hash['property_id'] = s_p.id
               p_hash['characteristic_id'] = s_char.id
               #props_for_create.push(p_hash)
@@ -77,9 +79,12 @@ class Product::ImportCsv
           puts pr_data
           s_product = Product.find_by_barcode(pr_data[:barcode])
           if s_product
-            s_product.update(pr_data)
+            puts 'find product'
+            s_product.update!(pr_data.except!(:props_attributes)) if s_product.props.present? #for future we need prop update
+            s_product.update!(pr_data) if !s_product.props.present?
             product = s_product
           else
+            puts 'create product'
             product = Product.create!(pr_data)
           end
     

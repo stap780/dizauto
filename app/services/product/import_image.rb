@@ -3,7 +3,7 @@ class Product::ImportImage
 
     require 'open-uri'
     require "addressable/uri"
-    require "image_processing/mini_magick"
+    require "image_processing/vips"
 
     #  FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
     #  FileUtils.rm_rf(Dir["#{Rails.public_path}/import_img/*"])
@@ -50,15 +50,15 @@ class Product::ImportImage
                     position = index + 1
                 end
 
-                # hash[:position] = position
-                #     file_data_hash = Hash.new
-                #     file_data_hash[:io] = File.open(new_link)
-                #     file_data_hash[:filename] = filename
-                # hash[:file] = file_data_hash
-
-                blob = ActiveStorage::Blob.create_and_upload!( io: File.open(new_link), filename: filename )
-                hash[:file] = blob.signed_id
                 hash[:position] = position
+                    file_data_hash = Hash.new
+                    file_data_hash[:io] = File.open(new_link)
+                    file_data_hash[:filename] = filename
+                hash[:file] = file_data_hash
+
+                # blob = ActiveStorage::Blob.create_and_upload!( io: File.open(new_link), filename: filename )
+                # hash[:file] = blob.signed_id
+                # hash[:position] = position
 
                 @images_attributes.push(hash)
             end

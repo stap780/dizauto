@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  # require "image_processing/mini_magick"
+  # require "image_processing/vips"
   # include Rails.application.routes.url_helpers
   load_and_authorize_resource
   before_action :set_product, only: %i[ show edit update destroy delete_image sort_image reorder_image update_image ]
@@ -8,8 +8,7 @@ class ProductsController < ApplicationController
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    # @products = @search.result(distinct: true).includes(images_attachments: :blob).paginate(page: params[:page], per_page: Rails.env.development? ? 10 : 100)
-    @products = @search.result(distinct: true).includes(:images).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
+    @products = @search.result(distinct: true).includes(images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 50 : 100)
     filename = 'products.xlsx'
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
@@ -38,6 +37,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1/edit
   def edit
+    @product.images.includes([:file_attachment, :file_blob])
     @props = @product.props
   end
 

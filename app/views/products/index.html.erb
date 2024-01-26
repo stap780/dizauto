@@ -40,7 +40,7 @@
   </div>
   <div class="card-body">
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <%= turbo_frame_tag 'paginate' do %>
+      <%# turbo_frame_tag 'paginate', target: '_top' do %>
         <div class="row">
           <div class="col-sm-12">
             <table id="datatables-products" class="table table-striped" data-controller="selectall">
@@ -57,19 +57,19 @@
                   <%= tag.th('')%>
                   <%= tag.th('')%>
                 </tr>
-                </thead>
-                <tbody>
-                  <%= turbo_frame_tag 'products' do %>
-                    <%= render @products %>
-                  <% end %>
-                </tbody>
+              </thead>
+              <tbody>
+                <%= turbo_frame_tag 'products' do %>
+                  <%= render @products %>
+                <% end %>
+              </tbody>
             </table>
           </div>
         </div>
         <div class="row paginate-wrap">
           <%= render "shared/paginate", f: @products %>
         </div>
-      <% end %>
+      <%# end %>
     </div>
   </div>
 </div>

@@ -2,7 +2,7 @@ class ImagesController < ApplicationController
     load_and_authorize_resource
     before_action :set_image, only: %i[ edit update destroy]
 
-    require "image_processing/mini_magick"
+    require "image_processing/vips"
     include Rails.application.routes.url_helpers
 
   def index

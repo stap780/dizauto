@@ -5,7 +5,7 @@ namespace :transfer do
   require "addressable/uri"
   require 'rake'
   require 'roo'
-  require "image_processing/mini_magick"
+  require "image_processing/vips"
 
   task company: :environment do
     puts "start transfer company"

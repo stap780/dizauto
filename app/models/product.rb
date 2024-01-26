@@ -42,7 +42,7 @@ class Product < ApplicationRecord
     end
     
     def self.ransackable_associations(auth_object = nil)
-        ["associated_audits", "audits", "images_attachments", "images_blobs", "places", "properties", "props", "rich_text_description", "warehouses"]
+        ["associated_audits", "audits", "images", "places", "properties", "props", "rich_text_description", "warehouses"]
     end
 
 	def self.ransackable_scopes(auth_object = nil)
@@ -146,7 +146,7 @@ class Product < ApplicationRecord
     # end
 
     def self.import_product_from_file #(last_row)
-        ProductImportJob.perform_later #(last_row)
+        ProductImportJob.perform_now #(last_row)
     end
 
 

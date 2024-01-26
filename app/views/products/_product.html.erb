@@ -1,9 +1,9 @@
 <tr id="<%= dom_id product %>">
     <%= tag.td do %>
-    <div class="form-check">
-        <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
-        <label class="form-check-label"><%= tag.b( product.id ) %></label>
-    </div>
+        <%=tag.div class: 'form-check' do %>
+            <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
+            <%=tag.label class: 'form-check-label' do %><%= tag.b( product.id ) %><% end %>
+        <% end %>
     <% end %>
     <%= tag.td do %>
         <%= image_tag product.image_first.variant(:sm) if product.image_first %>

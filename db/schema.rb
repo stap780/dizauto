@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_12_142239) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_26_161237) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,6 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_142239) do
     t.integer "property_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_characteristics_on_title"
   end
 
   create_table "client_companies", force: :cascade do |t|
@@ -344,6 +345,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_142239) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_properties_on_title"
   end
 
   create_table "props", force: :cascade do |t|
@@ -353,6 +355,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_12_142239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "detal_id"
+    t.index ["characteristic_id"], name: "index_props_on_characteristic_id"
+    t.index ["property_id"], name: "index_props_on_property_id"
   end
 
   create_table "rent_case_statuses", force: :cascade do |t|
