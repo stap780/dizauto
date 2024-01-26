@@ -29,13 +29,14 @@ class Product::ImportImage
     end
 
     def io_image
-        product_images_filenames = @product.images.map{|im| im.file.filename}
+        product_images_filenames = @product.images.map{|im| im.file.filename.base}
         puts "======"
         puts product_images_filenames.to_s
         @images.each_with_index do |link, index|
             filename = File.basename(link)
+            check_name = File.basename(link).split('.').first
             
-            if !product_images_filenames.include?(filename)
+            if !product_images_filenames.include?(check_name)
                 hash = Hash.new
                 # temp_file_name = @product.id.to_s+"_"+(index+1).to_s+File.extname(link)
                 new_link = normalize_link_download_image_file(link)#, temp_file_name)

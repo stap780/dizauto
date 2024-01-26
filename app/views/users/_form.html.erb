@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body row">
                     <%= render 'form_data', f: f %>
-                    <%= render 'nested_permission', f: f %>
+                    <%= render 'nested_permission', f: f if !f.object.new_record?%>
                 </div>
                 
                 <div class="card-footer">
