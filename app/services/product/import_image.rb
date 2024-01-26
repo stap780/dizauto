@@ -50,12 +50,15 @@ class Product::ImportImage
                     position = index + 1
                 end
 
-                # hash[:position] = index+1
+                # hash[:position] = position
+                #     file_data_hash = Hash.new
+                #     file_data_hash[:io] = File.open(new_link)
+                #     file_data_hash[:filename] = filename
+                # hash[:file] = file_data_hash
+
+                blob = ActiveStorage::Blob.create_and_upload!( io: File.open(new_link), filename: filename )
+                hash[:file] = blob.signed_id
                 hash[:position] = position
-                    file_data_hash = Hash.new
-                    file_data_hash[:io] = File.open(new_link)
-                    file_data_hash[:filename] = filename
-                hash[:file] = file_data_hash
 
                 @images_attributes.push(hash)
             end
@@ -105,6 +108,9 @@ class Product::ImportImage
     end
 
 end
+
+          # product.update!(images_attributes: [{file: blob.signed_id}, {file: blob1.signed_id}])
+          # product.update!(images_attributes: images_data)
 
         # images_data.each do |data|
         #     Image.create!(product_id: data[:product_id], position: data[:position], file: { io: File.open(data[:file]), filename: data[:filename] })

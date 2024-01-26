@@ -48,9 +48,6 @@ class Product::ImportCsv
     def create_update_products
         @file_data.each do |data|
 
-          # product.update!(images_attributes: [{file: blob.signed_id}, {file: blob1.signed_id}])
-          # product.update!(images_attributes: images_data)
-
           properties = data.select{|k,v| k.include?('Параметр:')}
           props_data = Array.new
           properties.each do |pro|
@@ -87,10 +84,10 @@ class Product::ImportCsv
           end
     
           puts "product id => "+product.id.to_s
-          puts product.errors.full_messages.to_s
+          puts product.errors.full_messages.to_s if product.errors
           
           images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
-          ProductImageJob.perform_later(product.id, images)
+          ProductImageJob.perform(product.id, images)
 
           # clear_tmp_image_folder
 
