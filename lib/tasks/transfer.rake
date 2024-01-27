@@ -210,5 +210,45 @@ namespace :transfer do
     image = p.images.create!
     image.file.attach(blob.signed_id)
   end
+  
+  # not work or i don't understand
+  task split_file: :environment do
+    filename = 'insales.csv'
+    download_path = Rails.env.development? ? "#{Rails.public_path}/csv/#{filename}" : "/var/www/dizauto/shared/public/csv/#{filename}"
+    # download = URI.open("http://138.197.52.153/insales.csv")
+    # File.delete(@download_path) if File.file?(download_path)
+    # IO.copy_stream(download, download_path)
+    original = download_path
+    file_count = 2
+    header_lines = 1
+    lines = Integer(`cat #{original} | wc -l`) - header_lines
+    lines_per_file = (lines / file_count.to_f).ceil + header_lines
+    # header = `head -n #{header_lines} #{original}`
+    header = CSV.foreach(download_path, headers: false).take(1).flatten
+  
+    start = header_lines
+
+    file_count.times.map do |i|
+      finish = start + lines_per_file
+    
+      file = "#{original}-#{i}.csv"
+  
+      # File.write(file, header)
+
+      CSV.open(file, "wb", headers: false) do |csv|
+        csv << header
+        CSV.foreach(download_path, headers: true).with_index do |row, index|
+          csv << row if index >= start && index <= finish
+        end
+      end
+
+      # sh "tail -n #{lines - start} #{original} | head -n #{lines_per_file} >> #{file}"
+  
+      start = finish
+      puts 'we finish'
+      file
+    end
+    puts 'task finish'
+  end
 
 end

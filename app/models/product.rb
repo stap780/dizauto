@@ -145,8 +145,11 @@ class Product < ApplicationRecord
     #     return (code_value.to_s.split(//)<<check_digit).join("")
     # end
 
-    def self.import_product_from_file #(last_row)
-        ProductImportJob.perform_later #(last_row)
+    def self.import_product_from_file
+        files = Product::SplitCsvFile.new.call
+        files.each do |file|
+            ProductImportJob.perform_later(file)
+        end
     end
 
 

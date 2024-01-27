@@ -4,17 +4,17 @@ class Product::ImportCsv
 
     # FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
 
-    def initialize
-        @url = "http://138.197.52.153/insales.csv"
+    def initialize(link_to_file)
+        @url = link_to_file#"http://138.197.52.153/insales.csv"
         @filename = @url.split('/').last
-        @download_path = Rails.env.development? ? "#{Rails.public_path}/#{@filename}" : "/var/www/dizauto/shared/public/#{@filename}"
+        @download_path = Rails.env.development? ? "#{Rails.public_path}/csv/#{@filename}" : "/var/www/dizauto/shared/public/csv/#{@filename}"
         @properties = Array.new
         @file_data = Array.new
         @last_row = nil
     end
 
     def call
-        load_main_file
+        # load_main_file
         collect_data
         create_properties
         create_update_products
@@ -23,17 +23,17 @@ class Product::ImportCsv
 
     private
 
-    def load_main_file
-        download = URI.open(@url)
-        File.delete(@download_path) if File.file?(@download_path)
-        IO.copy_stream(download, @download_path)
-    end
+    # def load_main_file
+    #     download = URI.open(@url)
+    #     File.delete(@download_path) if File.file?(@download_path)
+    #     IO.copy_stream(download, @download_path)
+    # end
 
     def collect_data
         @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.include?('Параметр:')}.reject(&:blank?)
 
         if Rails.env.development?
-          @file_data = CSV.foreach(@download_path, headers: true).take(100).map(&:to_h)
+          @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
         else
           @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
         end

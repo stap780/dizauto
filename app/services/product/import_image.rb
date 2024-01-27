@@ -12,7 +12,7 @@ class Product::ImportImage
         @product = Product.find(product_id)
         @images = images
         @images_attributes = Array.new
-        @tmp_folder_path = Rails.env.development? ? "#{Rails.public_path}/import_img/#{@product.id.to_s}/" : "/var/www/dizauto/shared/public/import_img/#{@product.id.to_s}/"
+        # @tmp_folder_path = Rails.env.development? ? "#{Rails.public_path}/import_img/#{@product.id.to_s}/" : "/var/www/dizauto/shared/public/import_img/#{@product.id.to_s}/"
     end
 
     def call
@@ -34,7 +34,7 @@ class Product::ImportImage
         puts product_images_filenames.to_s
         @images.each_with_index do |link, index|
             filename = File.basename(link)
-            check_name = File.basename(link).split('.').first
+            check_name = File.basename(link, File.extname(link))
             have_new_filename = !product_images_filenames.include?(check_name)
             
             if have_new_filename
@@ -106,6 +106,7 @@ class Product::ImportImage
         # save original image to check volume for first 100 product pcs
         IO.copy_stream(file_path, "#{Rails.public_path}/test_img/#{filename}")
     end
+    
 
 end
 

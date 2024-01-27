@@ -3,8 +3,8 @@ class Image < ApplicationRecord
   
     belongs_to :product
     has_one_attached :file, dependent: :destroy  do |attachable|
-        attachable.variant :sm, resize_to_limit: [60, 60]
-        attachable.variant :thumb, resize_to_limit: [100, 100]
+        attachable.variant :sm, resize_to_limit: [60, 60], preprocessed: true
+        attachable.variant :thumb, resize_to_limit: [100, 100], preprocessed: true
     end
     validates :position, uniqueness: { scope: :product }
 

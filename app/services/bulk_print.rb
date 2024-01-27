@@ -20,7 +20,7 @@ class BulkPrint < ApplicationService
             return true, @result_file
         else
             return false, @error_message
-        end        
+        end
     end
 
     private
