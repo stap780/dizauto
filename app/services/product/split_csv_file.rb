@@ -15,7 +15,7 @@ class Product::SplitCsvFile
     end
 
     def call
-        load_main_file
+        # load_main_file
         split
         @split_files if @split_files.present?
     end
@@ -47,7 +47,7 @@ class Product::SplitCsvFile
           # File.write(file, header)
           CSV.open(file, "wb", headers: false) do |csv|
             csv << header
-            CSV.foreach(@main_file, headers: true).with_index do |row, index|
+            CSV.foreach(@main_file, headers: true, encoding:'iso-8859-1:utf-8').with_index do |row, index|
               csv << row if index >= start && index <= finish
             end
           end
