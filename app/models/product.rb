@@ -34,7 +34,7 @@ class Product < ApplicationRecord
     validates :title, presence: true
     validates :quantity, presence: true
     validates :price, presence: true
-    validates :barcode, length: {minimum: 5, maximum: 13}, allow_blank: true
+    validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
 
     def self.ransackable_attributes(auth_object = nil)

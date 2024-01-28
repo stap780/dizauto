@@ -32,11 +32,13 @@ class Product::ImportCsv
     def collect_data
         @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.include?('Параметр:')}.reject(&:blank?)
 
-        if Rails.env.development?
-          @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
-        else
-          @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
-        end
+        # if Rails.env.development?
+        #   @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
+        # else
+        #   @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
+        # end
+        @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
+
     end
 
     def create_properties
@@ -48,22 +50,7 @@ class Product::ImportCsv
     def create_update_products
         @file_data.each do |data|
 
-          properties = data.select{|k,v| k.include?('Параметр:')}
-          props_data = Array.new
-          properties.each do |pro|
-            if pro[0].present? && pro[1].present?
-              #s_p = Property.find_or_create_by!( title: pro[0].remove('Параметр:').squish )
-              s_p = Property.where( title: pro[0].remove('Параметр:').squish ).first_or_create!
-              #s_char = s_p.characteristics.find_or_create_by!( title: pro[1])
-              s_char = Characteristic.where(property_id: s_p.id,title: pro[1]).first_or_create!
-              p_hash = Hash.new
-              p_hash['property_id'] = s_p.id
-              p_hash['characteristic_id'] = s_char.id
-              #props_for_create.push(p_hash)
-              props_data.push(p_hash)
-            end
-          end
-
+          props_data = get_properties(data)
 
           pr_data = {
                       barcode: data["Артикул"],
@@ -91,12 +78,31 @@ class Product::ImportCsv
           puts "product id => "+product.id.to_s
           puts product.errors.full_messages.to_s if product.errors
           
-          images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
-          ProductImageJob.perform_later(product.id, images)
+          # images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
+          # ProductImageJob.perform_later(product.id, images)
 
           # clear_tmp_image_folder
 
         end
+    end
+
+    def get_properties(data)
+      properties = data.select{|k,v| k.include?('Параметр:')}
+      props_data = Array.new
+      properties.each do |pro|
+        if pro[0].present? && pro[1].present?
+          #s_p = Property.find_or_create_by!( title: pro[0].remove('Параметр:').squish )
+          s_p = Property.where( title: pro[0].remove('Параметр:').squish ).first_or_create!
+          #s_char = s_p.characteristics.find_or_create_by!( title: pro[1])
+          s_char = Characteristic.where(property_id: s_p.id,title: pro[1]).first_or_create!
+          p_hash = Hash.new
+          p_hash['property_id'] = s_p.id
+          p_hash['characteristic_id'] = s_char.id
+          #props_for_create.push(p_hash)
+          props_data.push(p_hash)
+        end
+      end
+      props_data
     end
 
     def delete_unattached_blobs
