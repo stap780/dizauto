@@ -30,7 +30,7 @@ class Product::ImportCsv
     # end
 
     def collect_data
-        @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.include?('Параметр:')}.reject(&:blank?)
+        @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.present? && v.include?('Параметр:')}.reject(&:blank?)
 
         # if Rails.env.development?
         #   @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
@@ -87,7 +87,7 @@ class Product::ImportCsv
     end
 
     def get_properties(data)
-      properties = data.select{|k,v| k.include?('Параметр:')}
+      properties = data.select{|k,v| k.present? && k.include?('Параметр:')}
       props_data = Array.new
       properties.each do |pro|
         if pro[0].present? && pro[1].present?
@@ -101,7 +101,7 @@ class Product::ImportCsv
           #props_for_create.push(p_hash)
           props_data.push(p_hash)
         end
-      end
+      end if properties.present?
       props_data
     end
 
