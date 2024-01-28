@@ -18,7 +18,7 @@ class Product::ImportCsv
         collect_data
         create_properties
         create_update_products
-        delete_unattached_blobs
+        # delete_unattached_blobs
     end
 
     private
@@ -32,12 +32,12 @@ class Product::ImportCsv
     def collect_data
         @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map{|v| v.remove('Параметр:').squish if v.present? && v.include?('Параметр:')}.reject(&:blank?)
 
-        # if Rails.env.development?
-        #   @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
-        # else
-        #   @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
-        # end
-        @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
+        if Rails.env.development?
+          @file_data = CSV.foreach(@download_path, headers: true).take(50).map(&:to_h)
+        else
+          @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
+        end
+        # @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
 
     end
 
@@ -51,6 +51,7 @@ class Product::ImportCsv
         @file_data.each do |data|
 
           props_data = get_properties(data)
+          images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
 
           pr_data = {
                       barcode: data["Артикул"],
@@ -61,24 +62,26 @@ class Product::ImportCsv
                       costprice: data["costprice"],
                       price: data["Цена продажи"],
                       video: data["video"],
-                      props_attributes: props_data
+                      props_attributes: props_data,
+                      images: images
                     }
-          puts pr_data
-          s_product = Product.find_by_barcode(pr_data[:barcode])
-          if s_product
-            puts 'find product'
-            s_product.update!(pr_data.except!(:props_attributes)) if s_product.props.present? #for future we need prop update
-            s_product.update!(pr_data) if !s_product.props.present?
-            product = s_product
-          else
-            puts 'create product'
-            product = Product.create!(pr_data)
-          end
+          # puts pr_data
+
+          ProductContentSaveJob.perform_later(pr_data)
+          # s_product = Product.find_by_barcode(pr_data[:barcode])
+          # if s_product
+          #   puts 'find product'
+          #   s_product.update!(pr_data.except!(:props_attributes)) if s_product.props.present? #for future we need prop update
+          #   s_product.update!(pr_data) if !s_product.props.present?
+          #   product = s_product
+          # else
+          #   puts 'create product'
+          #   product = Product.create!(pr_data)
+          # end
     
-          puts "product id => "+product.id.to_s
-          puts product.errors.full_messages.to_s if product.errors
+          # puts "product id => "+product.id.to_s
+          # puts product.errors.full_messages.to_s if product.errors
           
-          # images = data["Изображения"].to_s.present? ? data["Изображения"].split(' ') : nil
           # ProductImageJob.perform_later(product.id, images)
 
           # clear_tmp_image_folder
