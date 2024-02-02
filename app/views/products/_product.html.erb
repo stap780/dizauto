@@ -14,8 +14,14 @@
     <%= tag.td( product.quantity ) %>
     <%= tag.td( product.price ) %>
     <%= tag.td( product.created_at.strftime("%d/%m/%Y") ) %>
+    <%# tag.td do %>
+        <%# render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
+    <%# end %>
     <%= tag.td do %>
-        <%= render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
+        <%= link_to '<i class="bi bi-upc"></i>'.html_safe, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: "Print barcode?"}, title: 'Print barcode' %>
+    <% end %>
+    <%= tag.td do %>
+        <%= link_to '<i class="bi bi-copy"></i>'.html_safe, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: 'Copy product' %>
     <% end %>
     <%= td_index_edit_delete_link(product)%>
 </tr>

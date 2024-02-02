@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   # require "image_processing/vips"
   # include Rails.application.routes.url_helpers
   load_and_authorize_resource
-  before_action :set_product, only: %i[ show edit update destroy delete_image sort_image reorder_image update_image ]
+  before_action :set_product, only: %i[ show edit copy update destroy delete_image sort_image reorder_image update_image ]
 
   # GET /products or /products.json
   def index
@@ -124,6 +124,26 @@ class ProductsController < ApplicationController
     end
   end
 
+  def copy
+    @new_product = @product.dup
+    @new_product.props = @product.props.dup
+    @new_product.title = "(COPY) "+@new_product.title + " - "+Time.now.to_s
+    @new_product.barcode = nil
+    respond_to do |format|
+      if @new_product.save
+        format.turbo_stream { flash.now[:success] = t('.success') }
+        format.html { redirect_to products_path, notice: "Product was successfully created." }
+        format.json { render :show, status: :created, location: @new_product }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @new_product.errors, status: :unprocessable_entity }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('errors', partial: 'shared/errors', locals: { object: @new_product})
+        end
+      end
+    end
+  end
+
   # DELETE /products/1 or /products/1.json
   def destroy
     @product.destroy
@@ -135,16 +155,7 @@ class ProductsController < ApplicationController
   end
   
 
-  def reorder_image
-    # puts "reorder_image params => "+params.to_s
-    # puts "reorder_image params[:id] => "+params[:id].to_s
-    # # @product = Product.find(params[:id])
-    # @image = @product.images.find_by blob_id: params[:sort_item_id]
-    # @image.insert_at params[:new_position]
-    head :ok
-  end
-
-  # switch off because we use position input inside form and save position with form
+  # switch off because we use position input inside form and save position with form save
   def sort_image
     # puts "sort_image params => "+params.to_s
     # @image = @product.images.find_by_id(params[:sort_item_id])

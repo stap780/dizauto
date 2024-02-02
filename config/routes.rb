@@ -124,9 +124,9 @@ Rails.application.routes.draw do
   end
   resources :products do
     member do
-      patch 'reorder_image'
       get :print
       patch :sort_image
+      post :copy
     end
     collection do
       match 'search' => 'products#search', via: [:get, :post], as: :search
