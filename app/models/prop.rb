@@ -7,7 +7,7 @@ class Prop < ApplicationRecord
     default_scope -> { order(id: :asc) }
 
     validates :characteristic_id, uniqueness: {scope: [:property,:product,:detal] } # we use 3 model (property,detal,product) because prop is a between table
-    validates :characteristic_id, uniqueness: {scope: [:property,:detal,:product] } # we use 3 model (property,detal,product) because prop is a between table
+    # validates :characteristic_id, uniqueness: {scope: [:property,:detal,:product] } # we use 3 model (property,detal,product) because prop is a between table
 
     
 end

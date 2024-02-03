@@ -59,15 +59,15 @@ class ProductsController < ApplicationController
     end
   end
 
-  def characteristics
-    @target = params[:target]
-    puts @target
-    @property = Property.find(params[:property_id])
-    @characteristics = @property.characteristics.pluck(:title, :id)
-    respond_to do |format|
-      format.turbo_stream
-    end
-  end
+  # def characteristics
+  #   @target = params[:target]
+  #   puts @target
+  #   @property = Property.find(params[:property_id])
+  #   @characteristics = @property.characteristics.pluck(:title, :id)
+  #   respond_to do |format|
+  #     format.turbo_stream
+  #   end
+  # end
 
   def print
     templ = Templ.find(params[:templ_id])

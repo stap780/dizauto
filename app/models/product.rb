@@ -32,8 +32,8 @@ class Product < ApplicationRecord
 
 
     validates :title, presence: true
-    validates :quantity, presence: true
-    validates :price, presence: true
+    validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
+    validates :price, presence: true, presence: true, numericality: { greater_than: 0 }
     validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
 
@@ -75,7 +75,7 @@ class Product < ApplicationRecord
     
     def properties_data # this for export cvs/excel
         #self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
-        self.props.map{|prop| { prop.property.title.to_s => prop.property.characteristic.title.to_s } }
+        self.props.map{|prop| { prop.property.title.to_s => prop.characteristic.title.to_s } }
     end
 
     def image_first

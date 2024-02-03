@@ -34,8 +34,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <% @characteristics.each do |characteristic| %>
-                      <%= render characteristic %>
+                  <%= turbo_frame_tag 'characteristics' do %>
+                    <%= render @characteristics %>
                   <% end %>
                   </tbody>
                 </table>

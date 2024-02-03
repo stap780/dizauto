@@ -51,7 +51,7 @@ class PropsController < ApplicationController
       @targetname = params[:targetname]
       # puts '@target =>'+@target.to_s
       # puts 'params[:property_id] =>'+params[:property_id].to_s
-      @property = Property.find(params[:property_id])
+      @property = Property.includes(:characteristics).find(params[:property_id])
       @characteristics = @property.characteristics.pluck(:title, :id)
       respond_to do |format|
         format.turbo_stream

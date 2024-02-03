@@ -90,7 +90,7 @@ class Product::ImportCsv
     end
 
     def get_properties(data)
-      properties = data.select{|k,v| k.present? && k.include?('Параметр:')}
+      properties = data.select{|k,v| k.present? && k.include?('Параметр:') && !k.include?('Параметр: Артикул производителя')}
       props_data = Array.new
       properties.each do |pro|
         if pro[0].present? && pro[1].present?

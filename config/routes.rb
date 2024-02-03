@@ -130,7 +130,7 @@ Rails.application.routes.draw do
     end
     collection do
       match 'search' => 'products#search', via: [:get, :post], as: :search
-      get :characteristics
+      # get :characteristics
       post :delete_selected
       #delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
       post :print_etiketki

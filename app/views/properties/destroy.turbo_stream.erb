@@ -1,2 +1,2 @@
-<%= turbo_stream.remove @property %>
+<%= turbo_stream.remove @property if @check_destroy == true %>
 <%= prepend_flash %>

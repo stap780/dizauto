@@ -54,19 +54,24 @@ class CharacteristicsController < ApplicationController
 
   # DELETE /characteristics/1 or /characteristics/1.json
   def destroy
-    @characteristic.destroy
-
+    @check_destroy = @characteristic.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t('.success')
+              else
+                flash.now[:notice] = @characteristic.errors.full_messages.join(' ')
+              end
     respond_to do |format|
-      format.html { redirect_to property_url(@property), notice: "Characteristic was successfully destroyed." }
+      format.html { redirect_to property_url(@property), notice: "Characteristic was successfully destroyed."}
       format.json { head :no_content }
+      format.turbo_stream { message }
     end
   end
  
   private
 
-  def get_property
-    @property = Property.find(params[:property_id]) if params[:property_id].present?
-  end
+    def get_property
+      @property = Property.find(params[:property_id]) if params[:property_id].present?
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_characteristic
