@@ -38,7 +38,6 @@ class Product::ImportCsv
           @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
         end
         # @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
-
     end
 
     def create_properties
