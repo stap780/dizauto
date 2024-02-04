@@ -5,7 +5,7 @@
                     style: 'background-color:'+order.order_status.color,
                     data: {controller: 'badge', badge_target: 'value', bg_color: order.order_status.color }) if order.order_status %>
 <% end %>
-<%= tag.td( order.client.name ) %>
+<%= tag.td( order.client ? order.client.name : '' ) %>
 <%= tag.td( order.manager.name ) %>
 <%= tag.td( order.payment_type.title ) %>
 <%= tag.td( order.delivery_type.title ) %>

@@ -23,7 +23,14 @@ class ProductsController < ApplicationController
   end
 
   def search
-    index
+    if params[:title].present?
+      @search_results = Product.all.where('title ILIKE ?', "%#{params[:title]}%").map{|p| {title: p.full_title, id: p.id}}.reject(&:blank?)
+      # puts '==='
+      # puts @search_results.to_json.to_s
+      render json: @search_results, status: :ok 
+    else
+      render json: @search_results, status: :unprocessable_entity 
+    end
   end
   
   # GET /products/1 or /products/1.json

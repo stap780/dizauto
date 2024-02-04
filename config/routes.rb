@@ -76,6 +76,7 @@ Rails.application.routes.draw do
   end
   resources :clients do
     collection do
+      post :search
       post :create_turbo
       get :new_turbo
     end
@@ -133,7 +134,8 @@ Rails.application.routes.draw do
       post :copy
     end
     collection do
-      match 'search' => 'products#search', via: [:get, :post], as: :search
+      post :search
+      # match 'search' => 'products#search', via: [:get, :post], as: :search
       # get :characteristics
       post :delete_selected
       #delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'

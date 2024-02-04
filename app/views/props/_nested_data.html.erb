@@ -9,7 +9,7 @@
         <%= f.select :characteristic_id, char_collection, { include_blank: true, prompt: t('characteristic_one') }, 
                                         {   data: { controller: "slimselect", 
                                                     prop_target: "select",
-                                                    search_prop_char_url:  "/properties/#{f.object.property_id}/characteristics/search" } 
+                                                    search_url:  "/properties/#{f.object.property_id}/characteristics/search" } 
                                                     }  %>
     </div>
     <div class="col-md-2">

@@ -112,8 +112,10 @@ end
   
   def history_value(key, value)
     # puts key
-    val = key.split('_id').first.classify.safe_constantize.find(value) if value.present? && key.include?('_id')
-    val.present? && val.title ? val.title : value
+    if value.present? && key.include?('_id')
+      val = key.split('_id').first.classify.safe_constantize.where(id: value).present? ? key.split('_id').first.classify.safe_constantize.find(value) : nil 
+      val.present? && val.respond_to?('title') ? val.title : value
+    end
   end
 
   def th_check_box_tag_all

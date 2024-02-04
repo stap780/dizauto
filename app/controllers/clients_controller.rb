@@ -27,7 +27,18 @@ class ClientsController < ApplicationController
   def new
     @client = Client.new
   end
-  
+
+  def search
+    if params[:title].present?
+      @search_results = Client.all.where('name ILIKE ?', "%#{params[:title]}%").map{|p| {title: p.full_name, id: p.id}}.reject(&:blank?)
+      # puts '==='
+      # puts @search_results.to_json.to_s
+      render json: @search_results, status: :ok 
+    else
+      render json: @search_results, status: :unprocessable_entity 
+    end
+  end
+
   def new_turbo
     @client = Client.new
     @company_id = params[:company_id]
@@ -83,11 +94,16 @@ class ClientsController < ApplicationController
 
   # DELETE /clients/1 or /clients/1.json
   def destroy
-    @client.destroy
-
+    @check_destroy = @client.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t('.success')
+              else
+                flash.now[:notice] = @client.errors.full_messages.join(' ')
+              end
     respond_to do |format|
       format.html { redirect_to clients_url, notice: t('.success') }
       format.json { head :no_content }
+      format.turbo_stream { message }
     end
   end
 

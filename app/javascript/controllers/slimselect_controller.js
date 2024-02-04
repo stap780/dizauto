@@ -10,7 +10,7 @@ export default class extends Controller {
     // console.log( 'connect slimselect' );
     // console.log( 'this from slimselect', this )
     // console.log( 'this.element', this.element )
-    const searchUrl = this.element.dataset.searchPropCharUrl ;
+    const searchUrl = this.element.dataset.searchUrl ;
     // console.log( 'searchUrl', searchUrl );
 
     if (searchUrl != undefined ){

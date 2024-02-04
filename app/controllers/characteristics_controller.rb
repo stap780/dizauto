@@ -78,7 +78,6 @@ class CharacteristicsController < ApplicationController
     else
       render json: @search_results, status: :unprocessable_entity 
     end
-
   end
  
   private
