@@ -120,7 +120,11 @@ Rails.application.routes.draw do
     end
   end
   resources :properties do
-    resources :characteristics
+    resources :characteristics do
+      collection do
+        post :search
+      end
+    end
   end
   resources :products do
     member do

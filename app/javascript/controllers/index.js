@@ -64,8 +64,8 @@ application.register("prop", PropController)
 import SelectallController from "./selectall_controller"
 application.register("selectall", SelectallController)
 
-// import SlimselectController from "./slimselect_controller"
-// application.register("slimselect", SlimselectController)
+import SlimselectController from "./slimselect_controller"
+application.register("slimselect", SlimselectController)
 
 import SortableController from "./sortable_controller"
 application.register("sortable", SortableController)

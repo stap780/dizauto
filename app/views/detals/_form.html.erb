@@ -20,10 +20,6 @@
                             <%= f.rich_text_area :description, class: "form-control" %>
                         </div>
                         <div class="mb-3 col-md-6">
-                            <%# disabled_class = f.object.new_record? ? 'disabled' : '' %>
-                            <%# link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_prop_path(detal_id: @detal.id), 
-                                                            class: "btn btn-primary #{disabled_class}", data: {turbo_frame: dom_id(Prop.new) } %>
-                            <%# render "props/property_lines", f: f %>
                         </div>
                     </div>
                     <%= render "props_nested", f: f %>

@@ -1,7 +1,7 @@
 class CharacteristicsController < ApplicationController
   load_and_authorize_resource
   before_action :get_property
-  before_action :set_characteristic, only: %i[ show edit update destroy ]
+  before_action :set_characteristic, only: %i[ show edit update destroy]
 
   # GET /characteristics or /characteristics.json
   def index
@@ -65,6 +65,20 @@ class CharacteristicsController < ApplicationController
       format.json { head :no_content }
       format.turbo_stream { message }
     end
+  end
+
+  def search
+    # params.require(:characteristic)
+    # puts params[:title]
+    if params[:title].present?
+      @search_results = @property.characteristics.where('title ILIKE ?', "%#{params[:title]}%").select(:title, :id)
+      # puts '==='
+      # puts @search_results.to_json.to_s
+      render json: @search_results, status: :ok 
+    else
+      render json: @search_results, status: :unprocessable_entity 
+    end
+
   end
  
   private
