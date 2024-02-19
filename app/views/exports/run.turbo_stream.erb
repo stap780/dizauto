@@ -1,0 +1,10 @@
+<%= turbo_stream.update "link-#{@export.id}" do %>
+    <span>...wait...</span>
+<% end %>
+<%= turbo_stream.update "buttons-#{@export.id}" do %>
+    <button class="btn btn-primary" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+        <span role="status">Running...</span>
+    </button>
+<% end %>
+<%= prepend_flash %>

@@ -68,12 +68,8 @@ class CharacteristicsController < ApplicationController
   end
 
   def search
-    # params.require(:characteristic)
-    # puts params[:title]
     if params[:title].present?
       @search_results = @property.characteristics.where('title ILIKE ?', "%#{params[:title]}%").select(:title, :id)
-      # puts '==='
-      # puts @search_results.to_json.to_s
       render json: @search_results, status: :ok 
     else
       render json: @search_results, status: :unprocessable_entity 

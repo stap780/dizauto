@@ -8,7 +8,7 @@
                         style: 'background-color:'+supply.supply_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: supply.supply_status.color }) if supply.supply_status %>
     <% end %>
-    <%= tag.td(supply.company.short_title) %>
+    <%= tag.td(supply.company.present? ? supply.company.short_title : '') %>
     <%= tag.td(supply.title) %>
     <%= tag.td(supply.in_number) %>
     <%= tag.td(supply.in_date ? supply.in_date.strftime("%d/%m/%Y") : '') %>

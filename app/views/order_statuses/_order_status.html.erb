@@ -6,8 +6,7 @@
             <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{order_status.color};")%>
         <% end %>
         <div class= "col-md-1">
-            <%= link_to edit_icon, edit_order_status_path(order_status), class: 'px-2' %>
-            <%= link_to trash_icon, order_status, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+             <%= render 'shared/edit_delete_link_turbo', object: order_status %>
         </div>
     </div>
 <% end %>

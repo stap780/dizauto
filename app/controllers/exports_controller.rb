@@ -1,6 +1,6 @@
 class ExportsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_export, only: %i[ show edit update destroy ]
+  before_action :set_export, only: %i[ show edit update destroy run ]
 
   # GET /exports or /exports.json
   def index
@@ -29,8 +29,6 @@ class ExportsController < ApplicationController
 
     respond_to do |format|
       if @export.save
-        Rails.env.development? ? ExportCreator.call(@export) : ExportJob.perform_later(@export)
-
         format.html { redirect_to exports_url, notice: "Экспорт создан" }
         format.json { render :show, status: :created, location: @export }
       else
@@ -44,8 +42,6 @@ class ExportsController < ApplicationController
   def update
     respond_to do |format|
       if @export.update(export_params)
-        Rails.env.development? ? ExportCreator.call(@export) : ExportJob.perform_later(@export)
-
         format.html { redirect_to exports_url, notice: "Экспорт обновлён." }
         format.json { render :show, status: :ok, location: @export }
       else
@@ -55,6 +51,14 @@ class ExportsController < ApplicationController
     end
   end
 
+  def run
+    ExportJob.perform_later(@export, current_user.id)
+    respond_to do |format|
+      format.turbo_stream
+    end
+    # Rails.env.development? ? ExportCreator.call(@export) : ExportJob.perform_later(@export)
+  end
+
   # DELETE /exports/1 or /exports/1.json
   def destroy
     @export.destroy
@@ -62,6 +66,7 @@ class ExportsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to exports_url, notice: "Export was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 
@@ -73,6 +78,6 @@ class ExportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def export_params
-      params.require(:export).permit(:title, :link, :template, :time, :format,:use_property, excel_attributes: [])
+      params.require(:export).permit(:title, :link, :template, :time, :format,:use_property, :test, excel_attributes: [])
     end
 end

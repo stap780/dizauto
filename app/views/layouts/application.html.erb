@@ -10,7 +10,6 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <title>Dizauto</title>
     <%= favicon_link_tag asset_path("favicon.png") %>
@@ -48,6 +47,7 @@
         <div id="our_flash" class="position-fixed w-50 top-0 end-0 p-3">
           <%= render "shared/flash"%>
         </div>
+        <%= turbo_stream_from current_user, "exports" if user_signed_in? %>
         <%= turbo_stream_from current_user, "products" if user_signed_in? %>
         <%= turbo_stream_from "bulk_actions" %>
         <!--<div id="our_notif">

@@ -102,6 +102,10 @@ end
     html.join.html_safe
   end
 
+  def play_icon
+    '<i class="bi bi-play"></i>'.html_safe
+  end
+
   def edit_icon
     '<i class="bi bi-pencil"></i>'.html_safe
   end

@@ -114,7 +114,11 @@ Rails.application.routes.draw do
   resources :companies do
   end
   resources :detals
-  resources :exports
+  resources :exports do
+    member do
+      post :run
+    end
+  end
   resources :props do
     collection do
       get :characteristics

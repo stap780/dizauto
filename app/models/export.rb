@@ -8,7 +8,7 @@ class Export < ApplicationRecord
     end
 
     def products #используется для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
-      Product.all.order(:id)
+      self.test == true ? Product.all.order(:id).limit(100) : Product.all.order(:id)
     end
 
 

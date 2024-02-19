@@ -21,24 +21,23 @@
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
       <div class="row">
         <div class="col-sm-12">
-          <table id="datatables-exports" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('title')%></th>
-                <th><%= t('link')%></th>
-                <th><%= t('format')%></th>
-                <th><%= t('work_time')%></th>
-                <th><%= t('created_at')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @exports.each do |export| %>
-                <%= render export %>
-              <% end %>
-            </tbody>
-          </table>
+
+          <div id="datatables-exports" class="col-sm-12 list-group list-group-striped">
+            <div class="row py-2 px-4">
+              <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+              <%= tag.div( t( 'helpers.label.export.test'), class: 'col-md-1 fw-semibold')%>
+              <%= tag.div( t( 'helpers.label.export.title'), class: 'col-md-2 fw-semibold' )%>
+              <%= tag.div( t( 'helpers.label.export.link'), class: 'col-md-3 fw-semibold' )%> 
+              <%= tag.div( t( 'helpers.label.export.format'), class: 'col-md-1 fw-semibold' )%>
+              <%= tag.div( t( 'helpers.label.export.work_time'), class: 'col-md-1 fw-semibold' )%>
+              <%= tag.div( t( 'helpers.label.export.created_at'), class: 'col-md-2 fw-semibold' )%>
+              <%= tag.div('', class: 'col-md-1 fw-semibold')%>
+            </div>
+            <%= turbo_frame_tag 'exports' do %>
+                <%= render @exports %>
+            <% end %>
+          </div>
+
         </div>
       </div>
       <div class="row paginate-wrap">

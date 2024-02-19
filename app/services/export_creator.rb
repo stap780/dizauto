@@ -8,15 +8,23 @@ class ExportCreator < ApplicationService
         @export = export
         @options = options
         @host = Rails.env.development? ? 'http://localhost:3000' : 'https://erp.dizauto.ru'
+        @error_message = nil
     end
 
     def call
         puts 'ExportCreator call'
-        create_csv if @export.format == 'csv'
-        create_xlsx if @export.format == 'xlsx'
-        create_xml if @export.format == 'xml'
+        result = create_csv if @export.format == 'csv'
+        result = create_xlsx if @export.format == 'xlsx'
+        result = create_xml if @export.format == 'xml'
+        if result
+            return true,  @export
+        else
+            return false, @error_message
+        end
     end
     
+    private
+
     def create_csv
         puts "create_csv => "+@export.inspect.to_s
         file_name = "#{@export.id.to_s}.csv"

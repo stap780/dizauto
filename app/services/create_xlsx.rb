@@ -1,6 +1,6 @@
 require 'caxlsx'
 
-class CreateXlsx < ApplicationService
+class ZipXlsx < ApplicationService
 
     def initialize(collection, options={})
         @collection = collection

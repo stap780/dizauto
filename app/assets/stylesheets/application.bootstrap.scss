@@ -1,4 +1,4 @@
-// @import 'bootstrap/scss/bootstrap'; # all bootstrap inside adminkit
+// @import 'bootstrap/scss/bootstrap'; // all bootstrap inside adminkit
 // @import 'bootstrap-icons/font/bootstrap-icons';
 
 @import "adminkit/light.scss";
@@ -9,6 +9,7 @@
 @import "our_style/slimselect.scss";
 @import "our_style/filter.scss";
 @import "our_style/color_picker_nano.scss";
+@import '@fancyapps/ui/dist/fancybox/fancybox';
 
 
 .simplebar-placeholder {

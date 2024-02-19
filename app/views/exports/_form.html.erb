@@ -7,18 +7,24 @@
               <div class="card-header"></div>
               <div class="card-body">
                   <div class="row">
-                      <div class="mb-3 col-md-12">
+                      <div class="mb-3 col-md-2 d-flex align-items-center">
+                        <div class="form-check form-switch">
+                            <%= f.check_box :test, {class: "form-check-input", role: "switch"} %>
+                            <%= f.label :test, class: "form-check-label"%>
+                        </div>
+                      </div>    
+                      <div class="mb-3 col-md-4">
                           <%= f.label :title, class: "form-label" %>
                           <%= f.text_field :title, class: "form-control" %>
                       </div>
-                      <div class="mb-3 col-md-12">
+                      <div class="mb-3 col-md-6">
                           <%= f.label :link, class: "form-label" %>
                           <%= f.text_field :link, disabled: true, placeholder: "Ссылка на файл появится после сохранения экспорта",
                                                                     value: f.object.link.present? ? f.object.link : nil , class: "form-control" %>
                       </div>
                       <div class="mb-3 col-md-4">
-                          <%= f.label :time, class: "form-label" %>
-                          <%= f.select :time, Array.new(24){|e| e}, {}, { class: "form-select" }%>
+                          <%= f.label 'Время запуска', class: "form-label" %>
+                          <%= f.select :time , Array.new(24){|e| e}, {}, { class: "form-select" }%>
                       </div>
                       <div class="mb-3 col-md-4">
                           <%= f.label :format, class: "form-label" %>

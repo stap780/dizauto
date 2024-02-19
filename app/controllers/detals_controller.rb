@@ -13,7 +13,7 @@ class DetalsController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = CreateXlsx.new(collection, {filename: filename, template: "detals/index"} )
+        service = ZipXlsx.new(collection, {filename: filename, template: "detals/index"} )
         compressed_filestream = service.call
         send_data compressed_filestream.read, filename: 'detals.zip', type: 'application/zip'
       end

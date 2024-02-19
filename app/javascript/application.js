@@ -8,6 +8,7 @@ import "./modules/sidebar"
 
 import "./modules/theme"
 import "./modules/feather"
+import "./modules/fancybox"
 // Charts
 //import "./modules/chartjs"
  

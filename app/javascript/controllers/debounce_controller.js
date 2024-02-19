@@ -12,4 +12,10 @@ export default class extends Controller {
       this.formTarget.requestSubmit()
     }, 500)
   }
+
+  clear() {
+    console.log('this.formTarget', this.formTarget)
+    this.formTarget.reset();
+    this.formTarget.requestSubmit();
+  }
 }

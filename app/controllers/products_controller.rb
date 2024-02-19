@@ -8,14 +8,14 @@ class ProductsController < ApplicationController
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @products = @search.result(distinct: true).includes(images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 50 : 100)
+    @products = @search.result(distinct: true).includes(images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 50)
     filename = 'products.xlsx'
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
     respond_to do |format|
       format.html
       format.zip do
-        service = CreateXlsx.new(collection, {filename: filename, template: "products/index"} )
+        service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
         compressed_filestream = service.call
         send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
       end

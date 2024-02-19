@@ -12,7 +12,7 @@ class IncasesController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = CreateXlsx.new(collection, {filename: filename, template: "incases/index"} )
+        service = ZipXlsx.new(collection, {filename: filename, template: "incases/index"} )
         compressed_filestream = service.call
         send_data compressed_filestream.read, filename: 'incases.zip', type: 'application/zip'
       end

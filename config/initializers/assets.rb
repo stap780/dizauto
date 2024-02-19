@@ -5,7 +5,7 @@
 
 # # Add additional assets to the asset load path.
 # # Rails.application.config.assets.paths << Emoji.images_path
-# Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap-icons/font")
+Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap-icons/font")
 Rails.application.config.assets.paths.concat [
     Rails.root.join('node_modules', '@fontawesome', 'fontawesome-free')
 ]

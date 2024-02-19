@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = CreateXlsx.new(collection, {filename: filename, template: "clients/index"} )
+        service = ZipXlsx.new(collection, {filename: filename, template: "clients/index"} )
         compressed_filestream = service.call
         send_data compressed_filestream.read, filename: 'orders.zip', type: 'application/zip'
       end
