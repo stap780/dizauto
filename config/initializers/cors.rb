@@ -3,16 +3,19 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
-Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: ENV.fetch('RACK_CORS_DEBUG', false), logger: (-> { Rails.logger }) do
+Rails.application.config.middleware.insert_before 0, Rack::Cors, debug: true, logger: (-> { Rails.logger }) do
     allow do
-    ##   origins ENV.fetch('ALLOWED_ORIGIN_HOSTS', '*').split(',')
       origins '*'
   
+      resource '/cors',
+        :headers => :any,
+        :methods => [:post],
+        :max_age => 0
+  
       resource '*',
-        headers: :any,
-        methods: %i[get post delete put patch options head],
-        max_age: 0
+        :headers => :any,
+        :methods => [:get, :post, :delete, :put, :patch, :options, :head],
+        :max_age => 0
     end
   end
-  
   
