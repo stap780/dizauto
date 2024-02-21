@@ -30,7 +30,7 @@ class Product::ImportImage
 
     def io_image
         product_images_filenames = @product.images.map{|im| im.file.filename.base}
-        puts "======"
+        puts "Product::ImportImage ====== Product::ImportImage"
         puts product_images_filenames.to_s
         @images.each_with_index do |link, index|
             filename = File.basename(link)
@@ -40,7 +40,7 @@ class Product::ImportImage
             if have_new_filename
                 hash = Hash.new
                 # temp_file_name = @product.id.to_s+"_"+(index+1).to_s+File.extname(link)
-                new_link = normalize_link_download_image_file(link)#, temp_file_name)
+                tempfile = normalize_link_download_image_file(link)#, temp_file_name)
                 
                 images_have_position_like_index = @product.images.pluck(:position).include?(index+1)
                 
@@ -52,7 +52,7 @@ class Product::ImportImage
 
                 hash[:position] = position
                     file_data_hash = Hash.new
-                    file_data_hash[:io] = File.open(new_link)
+                    file_data_hash[:io] = tempfile #File.open(new_link)
                     file_data_hash[:filename] = filename
                 hash[:file] = file_data_hash
 
@@ -66,7 +66,9 @@ class Product::ImportImage
     end
 
     def add_images_to_product
-        @product.update!(images_attributes: @images_attributes) if  @images_attributes.present?
+        puts "@images_attributes"
+        puts @images_attributes.to_s
+        @product.update!(images_attributes: @images_attributes) if @images_attributes.present?
     end
 
     def clear_tmp_folder
@@ -76,29 +78,19 @@ class Product::ImportImage
     def normalize_link_download_image_file(url)#, temp_file_name)
         clear_url = Addressable::URI.parse(url).normalize
 
-        #image_path = @tmp_folder_path+temp_file_name
-
-        # if File.file?(image_path).present?
-        #   image_path
-        # else
-          begin
-              file = URI.open(clear_url.to_s)
-            rescue OpenURI::HTTPError
-              puts  'normalize_download_image_file OpenURI::HTTPError'
-              puts clear_url
-              file = nil
-            rescue Net::OpenTimeout
-              puts 'normalize_download_image_file Net::OpenTimeout'
-              puts clear_url
-              file = nil
-            else
-            #   tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 78)
-            #   IO.copy_stream(tempfile, image_path)
-            #   files_for_testing_volume(file.path, temp_file_name) if Rails.env.development?
-            #   image_path
-            tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 75)
-          end
-        # end
+        begin
+            file = URI.open(clear_url.to_s)
+        rescue OpenURI::HTTPError
+            puts  'normalize_download_image_file OpenURI::HTTPError'
+            puts clear_url
+            file = nil
+        rescue Net::OpenTimeout
+            puts 'normalize_download_image_file Net::OpenTimeout'
+            puts clear_url
+            file = nil
+        else
+        tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 80)
+        end
     end
 
 

@@ -45,15 +45,25 @@ class ImagesController < ApplicationController
         filename = upload_blob.filename
         content_type = upload_blob.content_type
 
-        #Rails.application.routes.url_helpers.rails_blob_path(image.file, only_path: true)
-        upload_image_path = ActiveStorage::Blob.service.send(:path_for, upload_blob.key)
-        magick_image_path = ImageProcessing::MiniMagick.source(upload_image_path).saver!(quality: 78)
-        new_blob = ActiveStorage::Blob.create_and_upload!(  io: magick_image_path, 
-                                                            filename: filename,
-                                                            content_type: content_type )
+        # This is use when we save image to Disk storage
+        # upload_image_path = ActiveStorage::Blob.service.send(:path_for, upload_blob.key)
+        # magick_image_path = ImageProcessing::MiniMagick.source(upload_image_path).saver!(quality: 78)
+        # new_blob = ActiveStorage::Blob.create_and_upload!(  io: magick_image_path, 
+        #                                                     filename: filename,
+        #                                                     content_type: content_type )
 
-        # @blob = ActiveStorage::Blob.find_signed(params[:blob_signed_id])
+        # This use when we save to S3
+        file = upload_blob.open do |tempfile|
+          puts 'upload_blob ======= upload_blob'
+          puts 'tempfile.path'
+          puts tempfile.path.to_s
+          ImageProcessing::MiniMagick.source(tempfile.path).saver!(quality: 80)
+        end
+
+        new_blob = ActiveStorage::Blob.create_and_upload!( io: file, filename: filename )
+
         @blob = new_blob
+
         respond_to do |format|
             format.turbo_stream{flash.now[:notice] = t('.success')}
         end
@@ -61,27 +71,31 @@ class ImagesController < ApplicationController
 
     # use only for flash message because delete images from product happend while update form
     def delete
-        # Fetch the blob using the signed id
-        @blob_signed_id = params[:blob_signed_id]
-        image = params[:image_id].present? ? Image.find(params[:image_id]) : nil
-        blob = ActiveStorage::Blob.find_signed(@blob_signed_id)
-        if blob
-            if blob.attachments.any?
-            # the blob is attached to post record
-                blob.attachments.each { |attachment| attachment.purge }
-            else
-                blob.purge
-            end
-            
-            image.delete if image.present?
+      # Fetch the blob using the signed id
+      @blob_signed_id = params[:blob_signed_id]
+      image = params[:image_id].present? ? Image.find(params[:image_id]) : nil
+      blob = ActiveStorage::Blob.find_signed(@blob_signed_id)
+      # if blob
+      # blob.attachments.any? ? blob.attachments.each { |attachment| attachment.purge } : blob.purge
+      # end
 
-            respond_to do |format|
-                format.turbo_stream{flash.now[:notice] = t('.success')}
-            end
-        end
-    end
+          if image.present?
+            image.destroy
+          else
+            blob.purge
+          end
+
+          respond_to do |format|
+              format.turbo_stream{flash.now[:notice] = t('.success')}
+          end
+      # end
+  end
 
     def destroy
+        # if @image.file.attached?
+        #   blob = ActiveStorage::Blob.find_signed(@image.file.blob)
+        #   blob.purge
+        # end
         @image.destroy
     
         respond_to do |format|

@@ -32,8 +32,8 @@ class Product < ApplicationRecord
 
 
     validates :title, presence: true
-    validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0 }
-    validates :price, presence: true, presence: true, numericality: { greater_than: 0 }
+    validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :price, presence: true, presence: true, numericality: { greater_than_or_equal_to: 0 }
     validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
 
@@ -157,8 +157,8 @@ class Product < ApplicationRecord
 
     
     def set_default_new
-        # self.quantity = 0 if new_record?
-        # self.price = 0 if new_record?
+        self.quantity = 0 if self.quantity.nil?
+        self.price = 0 if self.price.nil?
     end
     
     def normalize_data_white_space

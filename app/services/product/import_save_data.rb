@@ -19,7 +19,7 @@ class Product::ImportSaveData
 
     def create_update_product
         s_product = Product.find_by_barcode(@pr_data[:barcode])
-        if s_product
+        if s_product.present?
           puts 'find product'
           s_product.update!(@pr_data.except!(:props_attributes)) if s_product.props.present? #for future we need prop update
           s_product.update!(@pr_data) if !s_product.props.present?

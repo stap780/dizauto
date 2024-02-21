@@ -15,7 +15,7 @@ class Product::SplitCsvFile
     end
 
     def call
-        # load_main_file
+        load_main_file
         split
         @split_files if @split_files.present?
     end

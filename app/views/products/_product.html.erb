@@ -6,7 +6,7 @@
         <% end %>
     <% end %>
     <%= tag.td do %>
-        <%= image_tag product.image_first.variant(:sm) if product.image_first %>
+        <%= image_tag product.image_first.variant(:sm), class: "w-100" if product.image_first %>
     <% end %>
     <%= tag.td( product.sku ) %>
     <%= tag.td( product.barcode ) %>
