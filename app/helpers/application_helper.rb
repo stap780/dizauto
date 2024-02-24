@@ -122,6 +122,12 @@ end
     end
   end
 
+  def div_check_box_tag_all
+    content_tag :div, class: "col-1" do
+      check_box_tag( 'selectAll', 'selectAll', false, data: {selectall_target: 'checkboxAll', action: 'change->selectall#toggleChildren'} )
+    end
+  end
+
   def th_check_box_tag_all
     content_tag :th do
       check_box_tag( 'selectAll', 'selectAll', false, data: {selectall_target: 'checkboxAll', action: 'change->selectall#toggleChildren'} )

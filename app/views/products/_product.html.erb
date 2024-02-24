@@ -1,27 +1,26 @@
-<tr id="<%= dom_id product %>">
-    <%= tag.td do %>
+<%= turbo_frame_tag product, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center" do %>
+    <%= tag.div class: "col-md-1" do %>
         <%=tag.div class: 'form-check' do %>
             <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( product.id ) %><% end %>
         <% end %>
     <% end %>
-    <%= tag.td do %>
+    <%= tag.div class: "col-md-1" do %>
         <%= image_tag product.image_first.variant(:sm), class: "w-100" if product.image_first %>
     <% end %>
-    <%= tag.td( product.sku ) %>
-    <%= tag.td( product.barcode ) %>
-    <%= tag.td( product.title ) %>
-    <%= tag.td( product.quantity ) %>
-    <%= tag.td( product.price ) %>
-    <%= tag.td( product.created_at.strftime("%d/%m/%Y") ) %>
-    <%# tag.td do %>
+    <%= tag.div class: "col row" do %>
+        <div class="col-12 text-break"><%= product.title %></div>
+        <div class="col-6 fst-italic">Sku: <%= product.sku %></div>
+        <div class="col-6 fst-italic">barcode: <%= product.barcode %></div>
+    <% end %>
+    <%= tag.div( product.quantity, class: "col-md-1" ) %>
+    <%= tag.div( product.price, class: "col-md-1" ) %>
+    <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1" ) %>
+
+    <div class= "col-2 d-flex justify-content-between align-items-center" id="buttons-<%=product.id%>">
         <%# render 'shared/print', object: product, templates: Templ.product_print if Templ.product_print.presence %>
-    <%# end %>
-    <%= tag.td do %>
         <%= link_to '<i class="bi bi-upc"></i>'.html_safe, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: "Print barcode?"}, title: 'Print barcode' %>
-    <% end %>
-    <%= tag.td do %>
         <%= link_to '<i class="bi bi-copy"></i>'.html_safe, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: 'Copy product' %>
-    <% end %>
-    <%= td_index_edit_delete_link(product)%>
-</tr>
+        <%= render 'shared/edit_delete_link', object: product %>
+    </div>
+<% end %>

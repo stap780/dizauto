@@ -42,27 +42,20 @@
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
         <div class="row">
           <div class="col-sm-12">
-            <table id="datatables-products" class="table table-striped" data-controller="selectall">
-              <thead>
-                <tr>
-                  <%= th_check_box_tag_all %>
-                  <%= tag.th('#')%>
-                  <%= tag.th(t('helpers.label.product.sku'))%>
-                  <%= tag.th(t('helpers.label.product.barcode'))%>
-                  <%= tag.th(t('helpers.label.product.title'))%>
-                  <%= tag.th(t('helpers.label.product.quantity'))%>
-                  <%= tag.th(t('helpers.label.product.price'))%>
-                  <%= tag.th(t('helpers.label.product.created_at'))%>
-                  <%# tag.th('')%>
-                  <%= tag.th('')%>
-                  <%= tag.th('')%>
-                  <%= tag.th('')%>
-                </tr>
-              </thead>
-              <tbody id="products">
-                <%= render @products %>
-              </tbody>
-            </table>
+            <div id="datatables-products" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+              <div class="row py-2 px-4">
+                <%= div_check_box_tag_all %>
+                <%= tag.div('', class: 'col-1')%>
+                <%= tag.div( t( 'helpers.label.product.data'), class: 'col fw-semibold')%>
+                <%= tag.div( t( 'helpers.label.product.quantity'), class: 'col-md-1 fw-semibold' )%>
+                <%= tag.div( t( 'helpers.label.product.price'), class: 'col-md-1 fw-semibold' )%> 
+                <%= tag.div( t( 'helpers.label.product.created_at'), class: 'col-md-1 fw-semibold' )%>
+                <%= tag.div('', class: 'col-2 fw-semibold')%>
+              </div>
+              <%= turbo_frame_tag 'products' do %>
+                  <%= render @products %>
+              <% end %>
+            </div>
           </div>
         </div>
         <div class="row paginate-wrap">

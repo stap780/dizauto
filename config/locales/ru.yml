@@ -107,7 +107,7 @@ ru:
         description: "Описание"
         quantity: "Кол-во"
         costprice: "Цена закупки"
-        price: "Цена продажи"
+        price: "Ц. П. ₽"
         video: "Видео"
         created_at: "Создан"
       order:
@@ -433,7 +433,7 @@ ru:
         description: "Описание"
         quantity: "Кол-во"
         costprice: "Цена закупки"
-        price: "Цена продажи"
+        price: "Ц. П. ₽"
         video: "Видео"
         created_at: "Создан"
       supply:
