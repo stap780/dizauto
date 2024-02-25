@@ -43,10 +43,10 @@
         <div class="row">
           <div class="col-sm-12">
             <div id="datatables-products" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-              <div class="row py-2 px-4">
+              <div class="row py-2 px-0">
                 <%= div_check_box_tag_all %>
                 <%= tag.div('', class: 'col-1')%>
-                <%= tag.div( t( 'helpers.label.product.data'), class: 'col fw-semibold')%>
+                <%= tag.div( '', class: 'col fw-semibold')%>
                 <%= tag.div( t( 'helpers.label.product.quantity'), class: 'col-md-1 fw-semibold' )%>
                 <%= tag.div( t( 'helpers.label.product.price'), class: 'col-md-1 fw-semibold' )%> 
                 <%= tag.div( t( 'helpers.label.product.created_at'), class: 'col-md-1 fw-semibold' )%>

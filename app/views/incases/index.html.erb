@@ -46,29 +46,23 @@
   <div class="card-body">
     <div id="datatables-incases_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
       <div class="row">
-        <div class="col-sm-12 table-responsive">
-          <table id="datatables-incases" class="table table-striped" data-controller="selectall">
-            <thead>
-              <tr>
-                <%= th_check_box_tag_all %>
-                <%= tag.th('#')%>
-                <%= tag.th(t('helpers.label.incase.incase_status_id'))%>
-                <%= tag.th(t('helpers.label.incase.incase_tip_id'))%>
-                <%= tag.th(t('helpers.label.incase.strah_id'))%>
-                <%= tag.th(t('helpers.label.incase.stoanumber'))%>
-                <%= tag.th(t('helpers.label.incase.unumber'))%>
-                <%= tag.th(t('helpers.label.incase.carnumber'))%>
-                <%= tag.th(t('helpers.label.incase.date'))%>
-                <%= tag.th(t('helpers.label.incase.totalsum'))%>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
+        <div class="col-sm-12">
+          <div class="col-sm-12">
+            <div id="datatables-incases" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+              <div class="row py-2 px-0">
+                <%= div_check_box_tag_all %>
+                <%= tag.div( t( 'helpers.label.incase.incase_status_id'), class: 'col-md-1 fw-semibold' )%>
+                <%= tag.div( t( 'helpers.label.incase.incase_tip_id'), class: 'col-md-1 fw-semibold' )%> 
+                <%= tag.div( '', class: 'col fw-semibold')%>
+                <%= tag.div( t( 'helpers.label.incase.date'), class: 'col-md-1 fw-semibold' )%>
+                <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
+                <%= tag.div('', class: 'col-2 fw-semibold')%>
+              </div>
               <%= turbo_frame_tag 'incases' do %>
-                <%= render @incases %>
+                  <%= render @incases %>
               <% end %>
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row paginate-wrap">

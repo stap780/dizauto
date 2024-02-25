@@ -13,9 +13,12 @@ class DetalsController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = ZipXlsx.new(collection, {filename: filename, template: "detals/index"} )
-        compressed_filestream = service.call
-        send_data compressed_filestream.read, filename: 'detals.zip', type: 'application/zip'
+        CreateZipXlsxJob.perform_later( collection.ids, { model: 'Detal',
+                                                          current_user_id: current_user.id,
+                                                          filename: filename, 
+                                                          template: "detals/index"} )
+        flash[:success] = t '.success'
+        redirect_to detals_path
       end
     end
   end

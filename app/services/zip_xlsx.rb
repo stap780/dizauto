@@ -6,13 +6,20 @@ class ZipXlsx < ApplicationService
         @collection = collection
         @filename = options[:filename]
         @template = options[:template]
+        @error_message = "We have error while zip create"
         # @host = Rails.env.development? ? 'http://localhost:3000' : 'http://68.183.209.231'
     end
 
     def call
         compressed_filestream = output_stream
         compressed_filestream.rewind
-        compressed_filestream
+        #compressed_filestream
+        blob = ActiveStorage::Blob.create_and_upload!( io: compressed_filestream, filename: "#{@template.gsub('/','_')}.zip")
+        if blob
+            return true,  blob
+        else
+            return false, @error_message
+        end            
     end
 
     private

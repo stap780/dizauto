@@ -12,9 +12,12 @@ class SuppliesController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = ZipXlsx.new(collection, {filename: filename, template: "supplies/index"} )
-        compressed_filestream = service.call
-        send_data compressed_filestream.read, filename: 'supplies.zip', type: 'application/zip'
+        CreateZipXlsxJob.perform_later( collection.ids, { model: 'Supply',
+                                                          current_user_id: current_user.id,
+                                                          filename: filename, 
+                                                          template: "supplies/index"} )
+        flash[:success] = t '.success'
+        redirect_to supplies_path
       end
     end
   end

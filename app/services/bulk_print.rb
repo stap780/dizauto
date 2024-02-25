@@ -5,8 +5,9 @@ class BulkPrint < ApplicationService
         @items = items
         @templ = Templ.find(options[:templ_id])
         @save_dir = "#{Rails.public_path}/bulk_prints"
-        @result_file = "#{@save_dir}/barcodes.pdf"
-        @error_message = nil
+        @filename = "#{options[:templ_id].to_s}.pdf"
+        @result_file_path = "#{@save_dir}/barcodes.pdf"
+        @error_message = "We have error while print create"
         @multi_pdf = CombinePDF.new
     end
 
@@ -15,12 +16,18 @@ class BulkPrint < ApplicationService
         @items.each do |item|
             @multi_pdf << CombinePDF.load(create(item))
         end
-        @multi_pdf.save @result_file
-        if @multi_pdf
-            return true, @result_file
+        @multi_pdf.save @result_file_path
+        # if @multi_pdf
+        #     return true, @result_file_path
+        # else
+        #     return false, @error_message
+        # end
+        blob = ActiveStorage::Blob.create_and_upload!( io: File.open(@result_file_path), filename: @filename)
+        if blob
+            return true,  blob
         else
             return false, @error_message
-        end
+        end            
     end
 
     private

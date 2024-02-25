@@ -9,15 +9,18 @@ class IncaseImportsController < ApplicationController
     @incase_imports = IncaseImport.all
     @search = IncaseImport.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
-    @incases = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    @incase_imports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     filename = 'incase_imports.xlsx'
-    collection = @search.present? ? @search.result(distinct: true) : @incases
+    collection = @search.present? ? @search.result(distinct: true) : @incase_imports
     respond_to do |format|
       format.html
       format.zip do
-        service = ZipXlsx.new(collection, {filename: filename, template: "incase_imports/index"} )
-        compressed_filestream = service.call
-        send_data compressed_filestream.read, filename: 'incases.zip', type: 'application/zip'
+        CreateZipXlsxJob.perform_later( collection.ids, { model: 'IncaseImport',
+                                                          current_user_id: current_user.id,
+                                                          filename: filename, 
+                                                          template: "incase_imports/index"} )
+        flash[:success] = t '.success'
+        redirect_to incase_imports_path
       end
     end
   end

@@ -12,9 +12,12 @@ class IncasesController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = ZipXlsx.new(collection, {filename: filename, template: "incases/index"} )
-        compressed_filestream = service.call
-        send_data compressed_filestream.read, filename: 'incases.zip', type: 'application/zip'
+        CreateZipXlsxJob.perform_later( collection.ids, { model: 'Incase',
+                                                          current_user_id: current_user.id,
+                                                          filename: filename, 
+                                                          template: "incases/index"} )
+        flash[:success] = t '.success'
+        redirect_to incases_path
       end
     end
   end
@@ -139,7 +142,9 @@ class IncasesController < ApplicationController
   def bulk_print #post
     if params[:incase_ids]
       templ_id = params[:button].split('#').last
-      BulkPrintJob.perform_later('Incase', params[:incase_ids], templ_id)
+      BulkPrintJob.perform_later('Incase', params[:incase_ids], templ_id, current_user.id)
+      flash[:success] = t '.success'
+      redirect_to incases_url
     else
       alert = 'Выберите позиции'
       redirect_to incases_url, notice: alert

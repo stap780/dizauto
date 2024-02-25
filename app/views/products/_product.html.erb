@@ -1,15 +1,15 @@
-<%= turbo_frame_tag product, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center" do %>
+<%= turbo_frame_tag product, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center px-0" do %>
     <%= tag.div class: "col-md-1" do %>
         <%=tag.div class: 'form-check' do %>
             <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( product.id ) %><% end %>
         <% end %>
     <% end %>
-    <%= tag.div class: "col-md-1" do %>
+    <%= tag.div class: "col-md-1 p-0" do %>
         <%= image_tag product.image_first.variant(:sm), class: "w-100" if product.image_first %>
     <% end %>
     <%= tag.div class: "col row" do %>
-        <div class="col-12 text-break"><%= product.title %></div>
+        <div class="col-12 text-break fw-semibold"><%= product.title %></div>
         <div class="col-6 fst-italic">Sku: <%= product.sku %></div>
         <div class="col-6 fst-italic">barcode: <%= product.barcode %></div>
     <% end %>

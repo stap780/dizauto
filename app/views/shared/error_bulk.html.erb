@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "modal" do %>
+    <p>Ошибка </p> 
+    <p>message: <%= error_message%></p>
+    <p>process: <%= error_process%></p>
+<% end %>
+<%= turbo_stream_action_tag :open_modal, targets: '.modal' %>

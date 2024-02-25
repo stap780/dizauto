@@ -15,9 +15,16 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
-        compressed_filestream = service.call
-        send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
+        CreateZipXlsxJob.perform_later( collection.ids, { model: 'Product',
+                                                          current_user_id: current_user.id,
+                                                          filename: filename, 
+                                                          template: "products/index"} )
+        flash[:success] = t '.success'
+        redirect_to products_path
+        # This is first example . not delete
+        # service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
+        # compressed_filestream = service.call
+        # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
       end
     end
   end
@@ -107,11 +114,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def pending_etiketki #get
-  end
-
-  def success_etiketki #get
-  end
 
   # PATCH/PUT /products/1 or /products/1.json
   def update

@@ -12,9 +12,20 @@ class ProductEtiketkiJob < ApplicationJob
                 User.find(current_user_id),
                 "products",
                 target: "modal",
-                template: "products/success_etiketki",
+                # template: "products/success_etiketki",
+                template: "shared/success_bulk",
                 layout: false,
-                locals: {etiketka: etiketka}
+                # locals: {etiketka: etiketka}
+                locals: {bulk_print: etiketka}
+            )
+        else
+            Turbo::StreamsChannel.broadcast_replace_to(
+                User.find(current_user_id),
+                "products",
+                target: "modal",
+                template: "shared/error_bulk",
+                layout: false,
+                locals: {error_message: etiketka, error_process: 'ProductEtiketkiJob'}
             )
         end
     end

@@ -4,8 +4,8 @@ class CreateEtiketka < ApplicationService
     def initialize(products, options={})
         @products = products
         @save_dir = "#{Rails.public_path}/barcodepdfs"
-        @result_file = "#{@save_dir}/barcodes.pdf"
-        @error_message = nil
+        @result_file_path = "#{@save_dir}/barcodes.pdf"
+        @error_message = "We have error while etiketka create"
         @multi_pdf = CombinePDF.new
     end
 
@@ -14,12 +14,18 @@ class CreateEtiketka < ApplicationService
         @products.each do |product|
             @multi_pdf << CombinePDF.load(create_etiketka(product))
         end
-        @multi_pdf.save @result_file
-        if @multi_pdf
-            return true,  @result_file
+        @multi_pdf.save @result_file_path
+        # if @multi_pdf
+        #     return true,  @result_file_path
+        # else
+        #     return false, @error_message
+        # end
+        blob = ActiveStorage::Blob.create_and_upload!( io: File.open(@result_file_path), filename: 'barcodes.pdf')
+        if blob
+            return true,  blob
         else
             return false, @error_message
-        end        
+        end            
     end
 
     private
