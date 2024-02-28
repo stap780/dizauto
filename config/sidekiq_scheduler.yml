@@ -2,3 +2,7 @@ export:
   cron: "0 * * * *" #every hour
   class: "ExportScheduler"
   queue: "export"
+log_files:
+  cron: "00 23 * * *" #at 23-00
+  class: "CreateLogFilesScheduler"
+  queue: "default"
