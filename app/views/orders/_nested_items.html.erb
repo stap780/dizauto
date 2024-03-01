@@ -1,8 +1,7 @@
 <tr id="<%= dom_id f.object %>" class="p-1 nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
 
     <td class="p-0 ps-1 product_id">
-        <% collection = Product.where(id: f.object.product_id).map{|p| [p.full_title, p.id]}+Product.all.limit(5).map{|p| [p.full_title, p.id]} %>
-        <%= f.select :product_id, collection, { include_blank: true }, 
+        <%= f.select :product_id, Product.collection_for_select(f.object.product_id), { include_blank: true }, 
                                     { class: "p-1", data: {controller: 'slimselect', search_url:  "/products/search"} } %>
     </td>
     <td class="p-0 quantity">

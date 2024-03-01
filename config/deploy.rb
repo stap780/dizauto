@@ -33,7 +33,7 @@ set :puma_init_active_record, true  # Change to false when not using ActiveRecor
 #   [release_path.join('public', fetch(:assets_prefix), '.manifest.json')]
 # }
 
-append :linked_files, "config/master.key", "config/database.yml"
+append :linked_files, "config/master.key", "config/database.yml", "config/sidekiq.yml", "config/sidekiq_scheduler.yml"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "public", 'tmp/sockets', 'vendor/bundle', 'lib/tasks', 'lib/drop', 'storage'
 
 namespace :puma do

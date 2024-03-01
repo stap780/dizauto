@@ -9,6 +9,10 @@ class Client < ApplicationRecord
     before_save :normalize_data_white_space
     before_destroy :check_presence_in_orders!, prepend: true
 
+    scope :first_five, -> {all.limit(5).map{|p| [p.full_name, p.id]}}
+    scope :collection_for_select, -> (id)  { where(id: id).map{|p| [p.full_name, p.id]} + first_five }
+
+
     def full_name
         [name, surname, email].join(' ')
     end

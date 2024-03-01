@@ -37,6 +37,7 @@ ru:
   warehouse_one: "склад"
   back: "Назад"
   main: 'Основные'
+  property: 'Параметры'
   history: "История"
   activerecord:
     attributes:

@@ -36,6 +36,8 @@ class Product < ApplicationRecord
     validates :price, presence: true, presence: true, numericality: { greater_than_or_equal_to: 0 }
     validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
+    scope :first_five, -> {all.limit(5).map{|p| [p.full_title, p.id]}}
+    scope :collection_for_select, -> (id)  { where(id: id).map{|p| [p.full_title, p.id]}+ first_five }
 
     def self.ransackable_attributes(auth_object = nil)
         Product.attribute_names

@@ -3,9 +3,8 @@
     <%= f.select :order_status_id, OrderStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
 </div>
 <div class="mb-3 col-md-5">
-    <% collection = Client.where(id: f.object.client_id).map{|p| [p.full_name, p.id]}+Client.all.limit(5).map{|p| [p.full_name, p.id]} %>
     <%= f.label :client_id, class: "form-label" %>
-    <%= f.select :client_id, collection, {include_blank: false}, 
+    <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
                             { data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
 </div>
 <div class="mb-3 col-md-5">

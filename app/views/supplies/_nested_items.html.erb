@@ -1,7 +1,8 @@
 <tr id="<%= dom_id f.object %>" class="p-1 nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
 
     <td class="p-0 ps-1 product_id">
-        <%= f.select :product_id, Product.all.map{|p| [p.full_title, p.id]}, {include_blank: true}, { class: "p-1", data: {controller: 'slimselect'}} %>
+        <%= f.select :product_id, Product.collection_for_select(f.object.product_id), {include_blank: true}, 
+                                { class: "p-1", data: {controller: 'slimselect', search_url:  "/products/search"} } %>
     </td>
     <td class="p-0 ps-1 warehouse_id">
         <%= f.select :warehouse_id, Warehouse.all.map{|p| [p.title, p.id]}, {include_blank: true}, { class: "p-1", data: {controller: 'slimselect'}} %>
