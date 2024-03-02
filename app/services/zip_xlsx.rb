@@ -7,7 +7,6 @@ class ZipXlsx < ApplicationService
         @filename = options[:filename]
         @template = options[:template]
         @error_message = "We have error while zip create"
-        # @host = Rails.env.development? ? 'http://localhost:3000' : 'http://68.183.209.231'
     end
 
     def call

@@ -18,31 +18,24 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
 
-          <div id="datatables-exports" class="col-sm-12 list-group list-group-striped">
-            <div class="row py-2 px-4">
-              <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
-              <%= tag.div( t( 'helpers.label.export.test'), class: 'col-md-1 fw-semibold')%>
-              <%= tag.div( t( 'helpers.label.export.title'), class: 'col-md-2 fw-semibold' )%>
-              <%= tag.div( t( 'helpers.label.export.link'), class: 'col-md-3 fw-semibold' )%> 
-              <%= tag.div( t( 'helpers.label.export.format'), class: 'col-md-1 fw-semibold' )%>
-              <%= tag.div( t( 'helpers.label.export.work_time'), class: 'col-md-1 fw-semibold' )%>
-              <%= tag.div( t( 'helpers.label.export.created_at'), class: 'col-md-2 fw-semibold' )%>
-              <%= tag.div('', class: 'col-md-1 fw-semibold')%>
-            </div>
-            <%= turbo_frame_tag 'exports' do %>
-                <%= render @exports %>
-            <% end %>
-          </div>
-
+      <div id="datatables-exports" class="col-sm-12 list-group list-group-striped">
+        <div class="row py-2 px-4">
+          <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+          <%= tag.div( t( 'helpers.label.export.title'), class: 'col-md-3 fw-semibold' )%>
+          <%= tag.div( t( 'helpers.label.export.link'), class: 'col-md-3 fw-semibold' )%> 
+          <%= tag.div( t( 'helpers.label.export.work_time'), class: 'col-md-1 fw-semibold' )%>
+          <%= tag.div( t( 'helpers.label.export.file_data'), class: 'col-md-2 fw-semibold' )%>
+          <%= tag.div('', class: 'col-md-2 fw-semibold')%>
         </div>
+        
+        <%= turbo_frame_tag 'exports' do %>
+            <%= render @exports %>
+        <% end %>
+
       </div>
       <div class="row paginate-wrap">
         <%= render "shared/paginate", f: @exports %>
       </div>
-    </div>
   </div>
 </div>

@@ -39,28 +39,22 @@
     <h5 class="card-title mb-0">Всего: <%= Product.all.count %></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-        <div class="row">
-          <div class="col-sm-12">
-            <div id="datatables-products" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-              <div class="row py-2 px-0">
-                <%= div_check_box_tag_all %>
-                <%= tag.div('', class: 'col-1')%>
-                <%= tag.div( '', class: 'col fw-semibold')%>
-                <%= tag.div( t( 'helpers.label.product.quantity'), class: 'col-md-1 fw-semibold' )%>
-                <%= tag.div( t( 'helpers.label.product.price'), class: 'col-md-1 fw-semibold' )%> 
-                <%= tag.div( t( 'helpers.label.product.created_at'), class: 'col-md-1 fw-semibold' )%>
-                <%= tag.div('', class: 'col-2 fw-semibold')%>
-              </div>
-              <%= turbo_frame_tag 'products' do %>
-                  <%= render @products %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="row paginate-wrap">
-          <%= render "shared/paginate", f: @products %>
-        </div>
+    <div id="datatables-products" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+      <div class="row py-2 px-0">
+        <%= div_check_box_tag_all %>
+        <%= tag.div('', class: 'col-1')%>
+        <%= tag.div( '', class: 'col fw-semibold')%>
+        <%= tag.div( t( 'helpers.label.product.quantity'), class: 'col-md-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.product.price'), class: 'col-md-1 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.product.created_at'), class: 'col-md-1 fw-semibold' )%>
+        <%= tag.div('', class: 'col-2 fw-semibold')%>
+      </div>
+      <%= turbo_frame_tag 'products' do %>
+          <%= render @products %>
+      <% end %>
+    </div>
+    <div class="row paginate-wrap">
+      <%= render "shared/paginate", f: @products %>
     </div>
   </div>
 </div>

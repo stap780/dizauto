@@ -116,6 +116,7 @@ Rails.application.routes.draw do
   resources :detals
   resources :exports do
     member do
+      get :download
       post :run
     end
   end

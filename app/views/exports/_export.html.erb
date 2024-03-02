@@ -1,14 +1,21 @@
 
-<%= turbo_frame_tag export, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row" do %>
+<%= turbo_frame_tag export, class: "d-flex list-group-item py-2 border-start-0 border-end-0 align-items-center row" do %>
     <%= tag.div tag.b(export.id), class: "col-md-1" %>
-    <%= tag.div(export.test, class: "col-md-1")%>
-    <%= tag.div(export.title, class: "col-md-2")%>
+    <%= tag.div(class: "col-md-3 d-flex justify-content-between align-items-center") do %>
+        <%= export.title %>
+        <% if export.test %>
+            <button class="btn btn-outline-info" disabled="disabled" type="button">Test<i class="bi bi-check-circle ms-1"></i></button>
+        <% end %>
+    <% end %>
     <%= tag.div(export.link, class: "col-md-3", id: "link-#{export.id}")%>
-    <%= tag.div(export.format, class: "col-md-1")%>
     <%= tag.div(export.time, class: "col-md-1")%>
-    <%= tag.div(export.created_at.strftime("%d/%m/%Y"), class: "col-md-2")%>
-    <div class= "col-md-1 d-flex justify-content-end align-items-center" id="buttons-<%=export.id%>">
-        <%= link_to play_icon, run_export_path(export), class: 'px-2', data: {turbo_method: :post, turbo_confirm: "Run export?"}, title: 'Run export' %>
+    <%= tag.div(export.file_data, class: "col-md-2") do %>
+        <%= t( 'helpers.label.export.format')%>: <%= export.format %><br>
+        <%= export.file_data %>
+    <% end %>
+    <div class= "col-2 d-flex justify-content-end align-items-center" id="buttons-<%=export.id%>">
+        <%= link_to download_icon, download_export_path(export), data: {turbo: :false}, title: 'Скачать' %>
+        <%= link_to play_icon, run_export_path(export), class: 'px-2', data: {turbo_method: :post, turbo_confirm: "Запустить экспорт?"}, title: 'Запустить экспорт' %>
         <%= render 'shared/edit_delete_link', object: export %>
     </div>
 <% end %>

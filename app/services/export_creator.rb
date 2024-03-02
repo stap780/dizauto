@@ -27,8 +27,8 @@ class ExportCreator < ApplicationService
 
     def create_csv
         puts "create_csv => "+@export.inspect.to_s
-        file_name = "#{@export.id.to_s}.csv"
-        file_path = "#{Rails.public_path}/#{file_name}"
+        filename = "#{@export.id.to_s}.csv"
+        file_path = "#{Rails.public_path}/#{filename}"
         File.delete(file_path) if File.file?(file_path).present?
         CSV.open( file_path, 'w') do |writer|
             col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes)+["images"] : Product.column_names+["images"]
@@ -54,7 +54,6 @@ class ExportCreator < ApplicationService
                 end    
             end
         end
-        
         @export.link = @host+"/"+file_name
         @export.save
     end

@@ -68,6 +68,7 @@ ru:
         format: "Формат"
         work_time: "Время работы"
         created_at: "Время создания"
+        file_data: "Данные по файлу"
       incase:
         incase_items: "Позиции убытка"
         incase_status_id: "Статус"
@@ -378,6 +379,7 @@ ru:
         format: "Формат"
         work_time: "Время работы"
         created_at: "Время создания"
+        file_data: "Данные по файлу"
       incase:
         incase_status_id: "Статус"
         incase_tip_id: "Тип"
