@@ -24,4 +24,12 @@ namespace :file do
         end
       puts "finish create_log_zip_every_day"
     end
+
+    task delete_unattached_blobs_every_day: :environment do
+      puts "start delete_blobs_every_day"
+        ActiveStorage::Blob.unattached.each(&:purge_later)
+        #ActiveStorage::Blob.unattached.each(&:purge)
+      puts "finish delete_blobs_every_day"
+    end
+
 end
