@@ -10,4 +10,3 @@ delete_unattached_blobs_every_day:
   cron: "15 23 * * *" #at 23-15
   class: "DeleteUnattachedBlobsScheduler"
   queue: "default"
-

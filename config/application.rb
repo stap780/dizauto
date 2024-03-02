@@ -19,9 +19,14 @@ module Dizauto
     #
     config.time_zone = 'Moscow'
     config.active_record.default_timezone = :local
-   # config.eager_load_paths << Rails.root.join("extras")
-    config.active_storage.variant_processor = :mini_magick
+    #config.eager_load_paths << Rails.root.join("extras")
+    
+    config.autoload_lib(ignore: %w[clouds])
+    #config.autoload_lib(ignore: %w[tasks assets]) #if need ignore
+
+    config.active_storage.variant_processor = :vips #:mini_magick
     I18n.available_locales = %i[en ru]
     config.i18n.default_locale = :ru
+
   end
 end
