@@ -86,6 +86,17 @@ class OrdersController < ApplicationController
     end
   end
 
+  def nested_item
+    puts "==========="
+    puts "nested_item"
+    selectId = params[:selectId]
+    @line_id_number = selectId.remove('order_order_items_attributes_').remove('_product_id')
+    @pr = Product.find(params[:product_id])
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order

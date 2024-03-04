@@ -11,13 +11,30 @@
 @import "our_style/color_picker_nano.scss";
 @import '@fancyapps/ui/dist/fancybox/fancybox';
 
+.table-white {
+  --bs-table-color: #000;
+  --bs-table-bg: #ffffff;
+  --bs-table-border-color: #ffffff;
+  --bs-table-striped-bg: #ffffff;
+  --bs-table-striped-color: #000;
+  --bs-table-active-bg: #ffffff;
+  --bs-table-active-color: #000;
+  --bs-table-hover-bg: #ffffff;
+  --bs-table-hover-color: #000;
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
 
+.card {
+  $card-spacer-y: 1rem !default;
+  $card-spacer-x: 1rem !default;
+}
 .simplebar-placeholder {
     height: auto!important;
 }
 @media (min-width: 992px) {
     .content {
-        padding: 1.5rem 1.5rem 0.75rem;
+        padding: 1.5rem 1rem 0.75rem;
     }
 }
 #our_flash {
@@ -83,4 +100,8 @@ td.barby-cell.on { background: #000; }
   .form-label.required:after {
     content:"*";
     color:red;
+  }
+  .form-control.disabled {
+    background-color: #e9ecef;
+    opacity: 1;
   }

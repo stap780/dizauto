@@ -68,6 +68,9 @@ Rails.application.routes.draw do
     member do
       get :print
     end
+    collection do
+      get :nested_item
+    end
   end
   resources :client_companies do
     collection do

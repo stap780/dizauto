@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { post } from "@rails/request.js"
+import { get, post } from "@rails/request.js"
 import SlimSelect from 'slim-select'
 
 // Connects to data-controller="slim-select"
@@ -52,6 +52,18 @@ export default class extends Controller {
                   resolve(options);
                 })
             })
+          },
+          afterChange: (newVal) => {
+            console.log('newVal',newVal)
+            var selectId = this.element.getAttribute('id') //closest('tr').getAttribute('id')
+            console.log('selectId', selectId)
+            let params = new URLSearchParams()
+            params.append("selectId", selectId)
+            params.append("product_id", newVal[0].value)
+            
+            get(`/orders/nested_item?${params}`, {
+              responseKind: "turbo-stream"
+            })
           }
         }
 
@@ -64,6 +76,13 @@ export default class extends Controller {
           //minSelected: 1,
           maxSelected: 1,
         },
+        events: {
+          events: {
+            afterChange: (newVal) => {
+              console.log(newVal)
+            }
+          }
+        }
       })
   
     }

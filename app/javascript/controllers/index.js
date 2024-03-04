@@ -10,6 +10,9 @@ application.register("action", ActionController)
 import BadgeController from "./badge_controller"
 application.register("badge", BadgeController)
 
+import CalculateController from "./calculate_controller"
+application.register("calculate", CalculateController)
+
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 

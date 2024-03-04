@@ -2,20 +2,20 @@
     <%= f.label :order_status_id, class: "form-label" %>
     <%= f.select :order_status_id, OrderStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
 </div>
-<div class="mb-3 col-md-5">
+<div class="mb-3 col-md-4">
     <%= f.label :client_id, class: "form-label" %>
     <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
                             { data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
 </div>
-<div class="mb-3 col-md-5">
-    <%= f.label :manager_id, class: "form-label" %>
-    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
-</div>
-<div class="mb-3 col-md-3">
+<div class="mb-3 col-md-2">
     <%= f.label :payment_type_id, class: "form-label" %>
     <%= f.select :payment_type_id, PaymentType.pluck(:title, :id), {include_blank: false}, {class: "form-select"} %>
 </div>
-<div class="mb-3 col-md-3">
+<div class="mb-3 col-md-2">
     <%= f.label :delivery_type_id, class: "form-label" %>
     <%= f.select :delivery_type_id, DeliveryType.all.map{|d| [d.title_price, d.id]}, {include_blank: false}, {class: "form-select"} %>
+</div>
+<div class="mb-3 col-md-2">
+    <%= f.label :manager_id, class: "form-label" %>
+    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
 </div>
