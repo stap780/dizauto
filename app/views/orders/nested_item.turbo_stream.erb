@@ -1,8 +1,0 @@
-<%= turbo_stream.replace "order_order_items_attributes_#{@line_id_number}_price" do %>
-    <input  class="form-control form-control-md p-1" 
-            data-action="change->calculate#recalculate" 
-            data-calculate-target="price" 
-            type="number" value="<%= @pr.price%>" 
-            name="order[order_items_attributes][<%= @line_id_number %>][price]" 
-            id="order_order_items_attributes_<%= @line_id_number %>_price">
-<% end %>

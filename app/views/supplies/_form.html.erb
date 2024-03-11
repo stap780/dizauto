@@ -10,38 +10,10 @@
                 <div class="tab-content">
                      <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
                         <div class="row">
-                            <%= render 'form_data', f: f%>
+                            <%= render 'form_data', f: f %>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2 mb-2">
-                                <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add line</button>
-                            </div>
-                            <template data-nested-form-target="template">
-                                <%= f.fields_for :supply_items, SupplyItem.new, child_index: 'NEW_RECORD' do |item| %>
-                                    <%= render "nested_items", f: item %>
-                                <% end %>
-                            </template>
-                            <div class="table-responsive">
-                                <table class="table table-primary table-striped table-hover" style="table-layout: fixed;">
-                                    <thead class="">
-                                        <tr>
-                                            <th scope="col" class="col-5"><%= t('helpers.label.supply_item.product_id')%></th>
-                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.warehouse_id')%></th>
-                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.quantity')%></th>
-                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.price')%></th>
-                                            <th scope="col" class="col-2"><%= t('helpers.label.supply_item.sum')%></th>
-                                            <th scope="col" class="col-1"><%= t('helpers.label.supply_item.total')%></th>
-                                            <th scope="col" class="col-1"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="">
-                                        <%= f.fields_for :supply_items do |item| %>
-                                            <%= render "nested_items", f: item %>
-                                        <% end %>
-                                        <tr data-nested-form-target="target"></tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="row" data-controller="calculate">
+                            <%= render 'nested', f: f %>
                         </div>
                     </div>
                     <% if !f.object.new_record? %>

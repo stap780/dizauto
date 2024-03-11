@@ -1,0 +1,38 @@
+<div class="col-md-2 mb-2">
+    <%= link_to add_icon, new_nested_orders_path, class: "btn btn-primary", data: {turbo_stream: true} %>
+</div>
+
+<div id="datatables-supply_item_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+    <div class="col-sm-12 list-group">
+        <div class="row py-2 px-0 ">
+            <%= tag.div( t('helpers.label.order_item.product_id'), class: 'col-6 fw-semibold')%> 
+            <%= tag.div( t('helpers.label.order_item.quantity'), class: 'col-1 fw-semibold' )%>
+            <%= tag.div( t('helpers.label.order_item.price'), class: 'col-1 fw-semibold' )%>
+            <%= tag.div( t('helpers.label.order_item.nds'), class: 'col-1 fw-semibold' )%>
+            <%= tag.div( t('helpers.label.order_item.discount'), class: 'col-1 fw-semibold')%>
+            <%= tag.div( t('helpers.label.order_item.sum'), class: 'col-1 fw-semibold' )%>
+            <%= tag.div('', class: 'col fw-semibold')%>
+        </div>
+        <%= turbo_frame_tag 'order_items' do %>
+            <%= f.fields_for :order_items do |item| %>
+                <% render "order_items/form_data", f: item, product: nil%>
+            <% end %>
+        <% end %>
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-1">Subtotal:</div>
+            <div class="col" data-calculate-target="subtotal"><%= @order.order_items.sum(:sum)%></div>
+        </div>
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-1">NDS:</div>
+            <div class="col" data-calculate-target="vattotal"></div>
+        </div>
+        <div class="row">
+            <div class="col-9"></div>
+            <div class="col-1">Total:</div>
+            <div class="col" data-calculate-target="total"><%= @order.order_items.sum(:sum)%></div>
+        </div>
+
+    </div>
+</div>

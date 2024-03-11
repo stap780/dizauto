@@ -4,14 +4,17 @@ import SlimSelect from 'slim-select'
 
 // Connects to data-controller="slim-select"
 export default class extends Controller {
+  static targets = ["removeelement"]
 
   //[ 'property','characteristic','client' ]
   connect() {
-    // console.log( 'connect slimselect' );
+    console.log( 'connect slimselect' );
     // console.log( 'this from slimselect', this )
     // console.log( 'this.element', this.element )
     const searchUrl = this.element.dataset.searchUrl ;
-    // console.log( 'searchUrl', searchUrl );
+    const nestedUrl = this.element.dataset.nestedUrl ;
+
+    console.log( 'nestedUrl', nestedUrl );
 
     if (searchUrl != undefined ){
       this.slimselect = new SlimSelect({
@@ -53,15 +56,22 @@ export default class extends Controller {
                 })
             })
           },
-          afterChange: (newVal) => {
-            console.log('newVal',newVal)
-            var selectId = this.element.getAttribute('id') //closest('tr').getAttribute('id')
-            console.log('selectId', selectId)
+          beforeChange: (newVal, oldVal) => {
+            // console.log(newVal)
+            //return false // this will stop the change from happening
+          },
+          afterChange: ( newVal ) => {
+            var turboId = this.element.closest('turbo-frame').getAttribute('id');
+            // var selectId = this.element.getAttribute('id')
+            // console.log('selectId', selectId)
+            // console.log('nestedUrl', nestedUrl)
+            
             let params = new URLSearchParams()
-            params.append("selectId", selectId)
+            params.append("turboId", turboId)
+            // params.append("selectId", selectId)
             params.append("product_id", newVal[0].value)
             
-            get(`/orders/nested_item?${params}`, {
+            get(`${nestedUrl}?${params}`, {  
               responseKind: "turbo-stream"
             })
           }

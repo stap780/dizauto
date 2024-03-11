@@ -106,6 +106,10 @@ end
     '<i class="bi bi-cloud-arrow-down"></i>'.html_safe
   end
 
+  def add_icon
+    "<i class='bi bi-plus'></i> #{t('add')}".html_safe
+  end
+
   def play_icon
     '<i class="bi bi-play"></i>'.html_safe
   end
@@ -164,6 +168,18 @@ end
       content_tag :a, options do
         tab[1]
       end
+    end
+  end
+
+  def td_remove_nested(obj)
+    content_tag :td do
+      render 'shared/nested_delete', object: obj 
+    end
+  end
+
+  def div_remove_nested(obj)
+    content_tag :div, class: "col-md-2 d-flex justify-content-start" do
+      render 'shared/nested_delete', object: obj 
     end
   end
 

@@ -26,6 +26,6 @@
     <div class="col text-center"><%# display_name %></div>
     <div class="col mt-2 d-flex justify-content-between">
       <a href="<%= img_def_url %>" data-fancybox="gallery"><i class="bi bi-eye"></i></a>
-      <%= link_to '<i class="bi bi-trash3"></i>'.html_safe, delete_images_path(blob_signed_id: signed_id, image_id: image_id), data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+      <%= link_to trash_icon, delete_images_path(blob_signed_id: signed_id, image_id: image_id), data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
     </div>
 </div>

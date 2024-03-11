@@ -1,0 +1,4 @@
+  <%= form_with(model: @supply_item ) do |f| %>
+    <%= render "shared/errors", object: @supply_item %>
+    <%= render 'form_data', f: f %>
+  <% end %>

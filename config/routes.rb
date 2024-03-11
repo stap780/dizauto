@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post :delete
     end
   end
+  resources :supply_items
   resources :supply_statuses do
     member do
       patch :sort
@@ -35,6 +36,9 @@ Rails.application.routes.draw do
   resources :supplies do
     collection do
       post :bulk_print
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
     end
   end
   resources :incase_item_statuses do
@@ -69,7 +73,9 @@ Rails.application.routes.draw do
       get :print
     end
     collection do
-      get :nested_item
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
     end
   end
   resources :client_companies do

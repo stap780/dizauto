@@ -86,14 +86,53 @@ class OrdersController < ApplicationController
     end
   end
 
-  def nested_item
-    puts "==========="
-    puts "nested_item"
-    selectId = params[:selectId]
-    @line_id_number = selectId.remove('order_order_items_attributes_').remove('_product_id')
-    @pr = Product.find(params[:product_id])
+  def slimselect_nested_item #GET
+    target = params[:turboId]
+    order_item = OrderItem.find_by(id: target.remove('order_item_'))
+    product = Product.find(params[:product_id])
+    child_index = target.remove('order_item_')
+
+    if order_item.present?
+      helpers.fields model: Order.new do |f|
+        f.fields_for :order_items, order_item do |ff|
+          render turbo_stream: turbo_stream.replace(
+            target,
+            partial: "order_items/form_data",
+            locals: { f: ff, product: product, child_index: child_index }
+          )
+        end
+      end
+    else
+      helpers.fields model: Order.new do |f|
+        f.fields_for :order_items, OrderItem.new, child_index: child_index do |ff|
+          render turbo_stream: turbo_stream.replace(
+            target,
+            partial: "order_items/form_data",
+            locals: { f: ff, product: product, child_index: child_index }
+          )
+        end
+      end
+    end
+  end
+
+  def new_nested #GET
+    child_index = Time.now.to_i
+    helpers.fields model: Order.new do |f|
+      f.fields_for :order_items, OrderItem.new, child_index: child_index do |ff|
+        render turbo_stream: turbo_stream.append(
+          "order_items",
+          partial: "order_items/form_data",
+          locals: { f: ff, product: nil, child_index: child_index}
+        )
+      end
+    end
+  end
+
+  def remove_nested #POST
+    OrderItem.find_by(id: params[:order_item_id]).delete if params[:order_item_id].present?
+    @remove_element = params[:remove_element]
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream{flash.now[:notice] = t('.success')}
     end
   end
 

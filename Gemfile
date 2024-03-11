@@ -63,6 +63,7 @@ gem "addressable"
 gem 'rest-client'
 gem 'aws-sdk-s3'
 gem 'rack-cors'
+gem "noticed", "~> 2.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -95,3 +96,4 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+

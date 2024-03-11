@@ -1,0 +1,46 @@
+<%= turbo_frame_tag "order_item_#{ f.object.persisted? ? f.object.id : child_index}", 
+                    class: "d-flex justify-content-between align-items-center list-group-item py-2 border-start-0 border-end-0 px-0 row #{product}" do %>
+    <%= f.hidden_field :id %>
+
+    <%= tag.div('', class: "col-6 p-0") do %>
+        <% start_product_id = f.object.product_id if f.object.present? %>
+        <% product_id = product.present? ? product.id : start_product_id %>
+        <% collection = product_id.present? ? Product.collection_for_select(product_id) : Product.first_five %>
+        <% selected = Product.collection_for_select(product_id).first if product_id %>
+        <%= f.select :product_id, options_for_select(collection, selected: selected ),
+                                {include_blank: true}, 
+                                { class: "p-1", data: { controller: 'slimselect', 
+                                                        search_url:  "/products/search",
+                                                        nested_url:  "/orders/slimselect_nested_item",
+                                                        action: "change->calculate#recalculate" } } %>
+    <% end %>
+    <%= tag.div('', class: "col-1 p-0") do %>
+        <% start_quantity = f.object.quantity.present? ? f.object.quantity : 0 %>
+        <% quantity = product.present? ? 0 : start_quantity %>
+        <%= f.number_field :quantity,   class: "form-control form-control-md p-1", min: "0", value: quantity,
+                                        data: { action: "change->calculate#recalculate", calculate_target: "qty" } %>
+    <% end %>
+    <%= tag.div('', class: "col-1 p-0") do %>
+        <% start_price = f.object.price.present? ? f.object.price : 0 %>
+        <% price = product.present? ? product.price : start_price %>
+        <%= f.number_field :price,  class: "form-control form-control-md p-1", value: price,
+                                    data: { action: "change->calculate#recalculate", calculate_target: "price" } %>
+    <% end %>
+    <%= tag.div('', class: "col-1 p-0") do %>
+        <%= f.number_field :discount, class: "form-control form-control-md p-1 disabled", disabled: true, data: { calculate_target: "discount" } %>
+    <% end %>
+    <%= tag.div('', class: "col-1 p-0") do %>
+        <%= f.number_field :vat, class: "form-control form-control-md p-1 disabled", disabled: true, data: { calculate_target: "vat" } %>
+    <% end %>
+    <%= tag.div('', class: "col-1 p-0") do %>
+        <% start_sum = f.object.sum.present? ? f.object.sum : 0 %>
+        <% sum = product.present? ? 0 : start_sum %>
+        <%= f.number_field :sum, min: "0", class: "form-control form-control-md p-1 disabled", readonly: true, 
+                                            data: { calculate_target: "sum" }, value: sum %>
+    <% end %>
+    <div class="col p-0 d-flex justify-content-center">
+        <%= link_to trash_icon, remove_nested_orders_path(order_item_id: f.object.id, remove_element: "order_item_#{ f.object.persisted? ? f.object.id : child_index }"),class: "px-2",
+                                data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+    </div>
+
+<% end %>

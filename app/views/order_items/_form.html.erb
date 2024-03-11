@@ -1,34 +1,6 @@
 <%= form_with(model: order_item) do |f| %>
   <%= render 'shared/errors', object: order_item%>
 
-  <div>
-    <%= f.label :product_id, style: "display: block" %>
-    <%= f.number_field :product_id %>
-  </div>
-  <div>
-    <%= f.label :quantity, style: "display: block" %>
-    <%= f.text_field :quantity %>
-  </div>
-  <div>
-    <%= f.label :price, style: "display: block" %>
-    <%= f.text_field :price %>
-  </div>
+  <%= render 'form_data', f: f %>
 
-  <div>
-    <%= f.label :discount, style: "display: block" %>
-    <%= f.number_field :discount %>
-  </div>
-
-  <div>
-    <%= f.label :sum, style: "display: block" %>
-    <%= f.text_field :sum %>
-  </div>
-  <div>
-    <%= f.label :order_id, style: "display: block" %>
-    <%= f.number_field :order_id %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
 <% end %>

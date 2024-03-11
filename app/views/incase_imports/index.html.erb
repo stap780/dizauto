@@ -38,6 +38,7 @@
       </div>
     </div>
     <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0">Всего: <%= IncaseImport.all.count %></br><%= "Выбрано: "+@incase_imports.total_entries.to_s if @incase_imports.size > 0 &&  @incase_imports.size != IncaseImport.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-incases_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -64,7 +65,7 @@
         </div>
       </div>
       <div class="row paginate-wrap">
-        <%# render "shared/paginate", f: @incase_imports %>
+        <%= render "shared/paginate", f: @incase_imports %>
       </div>
     </div>
   </div>

@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0">Всего: <%= Product.all.count %></h5>
+    <h5 class="card-title mb-0">Всего: <%= Product.all.count %></br><%= "Выбрано: "+@products.total_entries.to_s if @products.size > 0 &&  @products.size != Product.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-products" class="col-sm-12 list-group list-group-striped" data-controller="selectall">

@@ -11,7 +11,7 @@ import "./modules/feather"
 import "./modules/fancybox"
 // Charts
 //import "./modules/chartjs"
- 
+
 // Forms
 // import "./modules/flatpickr"
  
@@ -21,6 +21,7 @@ import "./modules/fancybox"
 import "trix"
 import "@rails/actiontext"
 import "@fortawesome/fontawesome-free/js/all";
+// import "./live_reload"
 
 window.bootstrap = bootstrap;
 

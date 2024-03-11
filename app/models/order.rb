@@ -8,7 +8,7 @@ class Order < ApplicationRecord
     has_many :order_items
     accepts_nested_attributes_for :order_items, allow_destroy: true #reject_if: ->(attributes){ attributes['price'].blank? },
 
-    validates :order_items, presence: true
+    # validates :order_items, presence: true
     validates :order_status_id, presence: true
     validates :client_id, presence: true
     before_save :normalize_data_white_space

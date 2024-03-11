@@ -8,8 +8,5 @@
             <%= render 'comments/form_data', f: comment%>
         <% end %>
     </div>
-    <div class="col-md-2 d-flex justify-content-start">
-        <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa-regular fa-trash-can"></i></button>
-        <%= f.hidden_field :_destroy %>
-    </div>
+    <%= div_remove_nested(f)%>
 </div>

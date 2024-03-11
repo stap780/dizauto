@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0">Всего: <%= User.all.count %></br><%= "Выбрано: "+@users.total_entries.to_s if @users.size > 0 &&  @users.size != User.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -47,15 +47,8 @@
         </table>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12 col-md-5">
-        <div class="dataTables_info" id="datatables-orders_info" role="status" aria-live="polite">Showing 1 to 10 of 15 entries</div>
-      </div>
-      <div class="col-sm-12 col-md-7">
-        <div class="dataTables_paginate paging_simple_numbers" id="datatables-orders_paginate">
-          <%= will_paginate @users %>
-        </div>
-      </div>
+    <div class="row paginate-wrap">
+      <%= render "shared/paginate", f: @users %>
     </div>
     </div>
   </div>

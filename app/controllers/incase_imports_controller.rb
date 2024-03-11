@@ -82,7 +82,7 @@ class IncaseImportsController < ApplicationController
       end
     else
       flash.now[:notice] = message
-      render :edit, status: :unprocessable_entity 
+      render :edit, status: :unprocessable_entity
     end
   end
 

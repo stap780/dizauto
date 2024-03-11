@@ -34,6 +34,7 @@ class SuppliesController < ApplicationController
 
   # GET /supplies/1/edit
   def edit
+    # @supply.supply_items.build if @supply.supply_items.count < 1
   end
 
   # POST /supplies or /supplies.json
@@ -42,7 +43,7 @@ class SuppliesController < ApplicationController
 
     respond_to do |format|
       if @supply.save
-        format.html { redirect_to supply_url(@supply), notice: "Supply was successfully created." }
+        format.html { redirect_to supplies_url, notice: "Supply was successfully created." }
         format.json { render :show, status: :created, location: @supply }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -55,7 +56,7 @@ class SuppliesController < ApplicationController
   def update
     respond_to do |format|
       if @supply.update(supply_params)
-        format.html { redirect_to supply_url(@supply), notice: "Supply was successfully updated." }
+        format.html { redirect_to supplies_url, notice: "Supply was successfully updated." }
         format.json { render :show, status: :ok, location: @supply }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -74,15 +75,64 @@ class SuppliesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_supply
-      @supply = Supply.find(params[:id])
-    end
+  def slimselect_nested_item #GET
+    target = params[:turboId]
+    supply_item = SupplyItem.find_by(id: target.remove('supply_item_'))
+    product = Product.find(params[:product_id])
+    child_index = target.remove('supply_item_')
 
-    # Only allow a list of trusted parameters through.
-    def supply_params
-      params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, 
-      supply_items_attributes: [:id, :warehouse_id, :product_id, :quantity, :price, :sum, :total, :_destroy])
+    if supply_item.present?
+      helpers.fields model: Supply.new do |f|
+        f.fields_for :supply_items, supply_item do |ff|
+          render turbo_stream: turbo_stream.replace(
+            target,
+            partial: "supply_items/form_data",
+            locals: { f: ff, product: product, child_index: child_index }
+          )
+        end
+      end
+    else
+      helpers.fields model: Supply.new do |f|
+        f.fields_for :supply_items, SupplyItem.new, child_index: child_index do |ff|
+          render turbo_stream: turbo_stream.replace(
+            target,
+            partial: "supply_items/form_data",
+            locals: { f: ff, product: product, child_index: child_index }
+          )
+        end
+      end
     end
+  end
+
+  def new_nested #GET
+    child_index = Time.now.to_i
+    helpers.fields model: Supply.new do |f|
+      f.fields_for :supply_items, SupplyItem.new, child_index: child_index do |ff|
+        render turbo_stream: turbo_stream.append(
+          "supply_items",
+          partial: "supply_items/form_data",
+          locals: { f: ff, product: nil, child_index: child_index}
+        )
+      end
+    end
+  end
+
+  def remove_nested #POST
+    SupplyItem.find_by(id: params[:supply_item_id]).delete if params[:supply_item_id].present?
+    @remove_element = params[:remove_element]
+    respond_to do |format|
+      format.turbo_stream{flash.now[:notice] = t('.success')}
+    end
+  end
+
+  private
+
+  def set_supply
+    @supply = Supply.find(params[:id])
+  end
+
+  def supply_params
+    params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, supply_items_attributes: [:id, :warehouse_id, :product_id, :quantity, :price, :sum, :_destroy])
+  end
+
 end

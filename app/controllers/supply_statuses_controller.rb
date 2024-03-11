@@ -30,7 +30,7 @@ class SupplyStatusesController < ApplicationController
     respond_to do |format|
       if @supply_status.save
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to incase_statuses_url, notice: t('.success') }
+        format.html { redirect_to supply_statuses_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @supply_status }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class SupplyStatusesController < ApplicationController
     respond_to do |format|
       if @supply_status.update(supply_status_params)
         format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to incase_statuses_url, notice: t('.success') }
+        format.html { redirect_to supply_statuses_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @supply_status }
       else
         format.html { render :edit, status: :unprocessable_entity }

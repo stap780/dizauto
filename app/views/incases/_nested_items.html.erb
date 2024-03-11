@@ -1,7 +1,4 @@
 <tr id="<%= dom_id f.object %>" class="nested-form-wrapper<%= nested_form_index.to_s%>" data-new-record="<%= f.object.new_record? %>">
   <%= render "incase_items/form_data", f: f, import_line: nil %>
-  <td>
-  <button type="button" class="btn btn-link" data-action="nested-form#remove"><i class="fa fa-trash"></i></button>
-  <%= f.hidden_field :_destroy %>
-  </td>
+  <%= td_remove_nested(f)%>
 </tr>

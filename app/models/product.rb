@@ -38,6 +38,7 @@ class Product < ApplicationRecord
 
     scope :first_five, -> {all.limit(5).map{|p| [p.full_title, p.id]}}
     scope :collection_for_select, -> (id)  { where(id: id).map{|p| [p.full_title, p.id]}+ first_five }
+    # scope :test_slim_select, -> {all.map{|p| [p.full_title, p.id]}}
 
     
     def self.ransackable_attributes(auth_object = nil)

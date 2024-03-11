@@ -4,13 +4,14 @@ class Supply < ApplicationRecord
     belongs_to :company
     belongs_to :manager, class_name: "User", foreign_key: "manager_id"
     has_many   :supply_items, dependent: :destroy
-	accepts_nested_attributes_for :supply_items, allow_destroy: true, :reject_if => :all_blank #, reject_if: proc { |attributes| attributes['здесь пишем атрибут из incase_items'].blank? }
+	accepts_nested_attributes_for :supply_items, allow_destroy: true
     has_associated_audits
     after_initialize :add_title
     before_save :normalize_data_white_space
 
 	validates :title, presence: true
     validates :supply_items, presence: true
+
 
     def self.ransackable_associations(auth_object = nil)
         ["associated_audits", "audits", "company", "supply_items"]

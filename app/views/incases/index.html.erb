@@ -41,7 +41,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0">Заказы поставщикам</h5>
+    <h5 class="card-title mb-0">Заказы поставщикам</br>Всего: <%= Incase.all.count %></br><%= "Выбрано: "+@incases.total_entries.to_s if @incases.size > 0 &&  @incases.size != Incase.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-incases_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">

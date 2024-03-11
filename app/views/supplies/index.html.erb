@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0">Всего: <%= Supply.all.count %></br><%= "Выбрано: "+@supplies.total_entries.to_s if @supplies.size > 0 &&  @supplies.size != Supply.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-isupplies_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -52,9 +52,9 @@
                 <%= tag.th(t('helpers.label.supply.supply_status_id'))%>
                 <%= tag.th(t('helpers.label.supply.company_id'))%>
                 <%= tag.th(t('helpers.label.supply.title'))%>
-                <%= tag.th(t('helpers.label.supply.in_number'))%>
-                <%= tag.th(t('helpers.label.supply.in_date'))%>
+                <%= tag.th('')%>
                 <%= tag.th(t('helpers.label.supply.manager_id'))%>
+                <%= tag.th(t('helpers.label.supply.sum'))%>
                 <th></th>
               </tr>
             </thead>

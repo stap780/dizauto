@@ -75,20 +75,16 @@ class ImagesController < ApplicationController
       @blob_signed_id = params[:blob_signed_id]
       image = params[:image_id].present? ? Image.find(params[:image_id]) : nil
       blob = ActiveStorage::Blob.find_signed(@blob_signed_id)
-      # if blob
-      # blob.attachments.any? ? blob.attachments.each { |attachment| attachment.purge } : blob.purge
-      # end
 
-          if image.present?
-            image.destroy
-          else
-            blob.purge
-          end
+      if image.present?
+        image.destroy
+      else
+        blob.purge
+      end
 
-          respond_to do |format|
-              format.turbo_stream{flash.now[:notice] = t('.success')}
-          end
-      # end
+      respond_to do |format|
+          format.turbo_stream{flash.now[:notice] = t('.success')}
+      end
   end
 
     def destroy

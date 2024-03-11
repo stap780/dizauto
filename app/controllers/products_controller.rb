@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
                                                           template: "products/index"} )
         flash[:success] = t '.success'
         redirect_to products_path
-        # This is first example . not delete
+        # This is first example . don't delete
         # service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
         # compressed_filestream = service.call
         # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'

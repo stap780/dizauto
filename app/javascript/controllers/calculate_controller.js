@@ -50,8 +50,7 @@ export default class extends Controller {
     });
 
     this.sumTargets.forEach((element, index) => {
-      itemTotal =
-        pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index];
+      itemTotal = pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index];
 
       element.value = itemTotal.toFixed(2);
 

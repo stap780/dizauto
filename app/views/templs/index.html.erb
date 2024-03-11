@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0">Всего: <%= Templ.all.count %></br><%= "Выбрано: "+@templs.total_entries.to_s if @templs.size > 0 &&  @templs.size != Templ.all.count %></h5>
   </div>
   <div class="card-body">
     <div id="datatables-templ_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
