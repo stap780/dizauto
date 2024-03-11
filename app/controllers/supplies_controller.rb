@@ -29,7 +29,6 @@ class SuppliesController < ApplicationController
   # GET /supplies/new
   def new
     @supply = Supply.new
-    @supply.supply_items.build
   end
 
   # GET /supplies/1/edit
