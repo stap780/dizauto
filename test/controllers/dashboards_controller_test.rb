@@ -17,7 +17,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create dashboard" do
     assert_difference("Dashboard.count") do
-      post dashboards_url, params: { dashboard: {  } }
+      post dashboards_url, params: {dashboard: {}}
     end
 
     assert_redirected_to dashboard_url(Dashboard.last)
@@ -34,7 +34,7 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update dashboard" do
-    patch dashboard_url(@dashboard), params: { dashboard: {  } }
+    patch dashboard_url(@dashboard), params: {dashboard: {}}
     assert_redirected_to dashboard_url(@dashboard)
   end
 

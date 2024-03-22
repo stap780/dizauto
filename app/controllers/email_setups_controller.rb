@@ -4,9 +4,9 @@ class EmailSetupsController < ApplicationController
 
   # GET /email_setups
   def index
-    #@email_setups = EmailSetup.all
+    # @email_setups = EmailSetup.all
     @search = EmailSetup.ransack(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @search.sorts = "id asc" if @search.sorts.empty?
     @email_setups = @search.result.paginate(page: params[:page], per_page: 30)
   end
 
@@ -44,15 +44,15 @@ class EmailSetupsController < ApplicationController
 
   # PATCH/PUT /email_setups/1
   def update
-  respond_to do |format|
-    if @email_setup.update(email_setup_params)
-      format.html { redirect_to email_setups_url, notice: "Email setup was successfully updated." }
-      format.json { render :show, status: :ok, location: @email_setup }
-    else
-      format.html { render :edit, status: :unprocessable_entity }
-      format.json { render json: @email_setup.errors, status: :unprocessable_entity }
+    respond_to do |format|
+      if @email_setup.update(email_setup_params)
+        format.html { redirect_to email_setups_url, notice: "Email setup was successfully updated." }
+        format.json { render :show, status: :ok, location: @email_setup }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @email_setup.errors, status: :unprocessable_entity }
+      end
     end
-  end
   end
 
   # DELETE /email_setups/1
@@ -65,13 +65,14 @@ class EmailSetupsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_email_setup
-      @email_setup = EmailSetup.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def email_setup_params
-      params.require(:email_setup).permit(:address, :port, :domain, :authentication, :user_name, :user_password, :tls)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_email_setup
+    @email_setup = EmailSetup.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def email_setup_params
+    params.require(:email_setup).permit(:address, :port, :domain, :authentication, :user_name, :user_password, :tls)
+  end
 end

@@ -17,7 +17,7 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create place" do
     assert_difference("Place.count") do
-      post places_url, params: { place: { cell: @place.cell, product_id: @place.product_id, sector: @place.sector, warehouse_id: @place.warehouse_id } }
+      post places_url, params: {place: {cell: @place.cell, product_id: @place.product_id, sector: @place.sector, warehouse_id: @place.warehouse_id}}
     end
 
     assert_redirected_to place_url(Place.last)
@@ -34,7 +34,7 @@ class PlacesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update place" do
-    patch place_url(@place), params: { place: { cell: @place.cell, product_id: @place.product_id, sector: @place.sector, warehouse_id: @place.warehouse_id } }
+    patch place_url(@place), params: {place: {cell: @place.cell, product_id: @place.product_id, sector: @place.sector, warehouse_id: @place.warehouse_id}}
     assert_redirected_to place_url(@place)
   end
 

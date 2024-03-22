@@ -17,7 +17,7 @@ class IncaseStatusesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create incase_status" do
     assert_difference("IncaseStatus.count") do
-      post incase_statuses_url, params: { incase_status: { color: @incase_status.color, title: @incase_status.title } }
+      post incase_statuses_url, params: {incase_status: {color: @incase_status.color, title: @incase_status.title}}
     end
 
     assert_redirected_to incase_status_url(IncaseStatus.last)
@@ -34,7 +34,7 @@ class IncaseStatusesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update incase_status" do
-    patch incase_status_url(@incase_status), params: { incase_status: { color: @incase_status.color, title: @incase_status.title } }
+    patch incase_status_url(@incase_status), params: {incase_status: {color: @incase_status.color, title: @incase_status.title}}
     assert_redirected_to incase_status_url(@incase_status)
   end
 

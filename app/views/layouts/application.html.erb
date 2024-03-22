@@ -48,8 +48,8 @@
           <%= render "shared/flash"%>
         </div>
         <%= turbo_stream_from current_user, "exports" if user_signed_in? %>
-        <%= turbo_stream_from current_user, "products" if user_signed_in? %>
         <%= turbo_stream_from current_user, "bulk_actions" if user_signed_in?%>
+        <%= turbo_stream_from current_user, "incase_imports" if user_signed_in? %>
         <!--<div id="our_notif">
           <%# render "shared/notyf"%>
         </div>-->

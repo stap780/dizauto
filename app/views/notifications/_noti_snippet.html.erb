@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "notification_widget_#{notification.id}" do %>
+    <a href="#" class="list-group-item">
+        <div class="row g-0 align-items-center">
+            <div class="col-2">
+                <i class="text-danger" data-feather="alert-circle"></i>
+            </div>
+            <div class="col-10">
+                <div class="text-dark"><%= notification.message %></div>
+                <div class="text-muted small mt-1">Received on <%= notification.created_at %></div>
+                <div class="text-muted small mt-1">Status: <%= notification.read? ? "Read" : "Unread" %></div>
+            </div>
+        </div>
+    </a>
+<% end %>

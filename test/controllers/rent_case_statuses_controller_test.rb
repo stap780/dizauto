@@ -17,7 +17,7 @@ class RentCaseStatusesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create rent_case_status" do
     assert_difference("RentCaseStatus.count") do
-      post rent_case_statuses_url, params: { rent_case_status: { color: @rent_case_status.color, position: @rent_case_status.position, title: @rent_case_status.title } }
+      post rent_case_statuses_url, params: {rent_case_status: {color: @rent_case_status.color, position: @rent_case_status.position, title: @rent_case_status.title}}
     end
 
     assert_redirected_to rent_case_status_url(RentCaseStatus.last)
@@ -34,7 +34,7 @@ class RentCaseStatusesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update rent_case_status" do
-    patch rent_case_status_url(@rent_case_status), params: { rent_case_status: { color: @rent_case_status.color, position: @rent_case_status.position, title: @rent_case_status.title } }
+    patch rent_case_status_url(@rent_case_status), params: {rent_case_status: {color: @rent_case_status.color, position: @rent_case_status.position, title: @rent_case_status.title}}
     assert_redirected_to rent_case_status_url(@rent_case_status)
   end
 

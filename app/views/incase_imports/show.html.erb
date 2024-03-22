@@ -1,5 +1,5 @@
-
 <div class="card">
+<%= turbo_stream_from current_user, "check_incase_imports" if user_signed_in? %>
 <%= turbo_frame_tag @incase_import do %>
   <div class="card-header">Please start import process or return to import main page</div>
 
@@ -17,12 +17,12 @@
     </div>
     <div class="card-footer">
         <div class="btn-group" role="group" aria-label="import button group">
-            <%= link_to 'edit', edit_incase_import_path(@incase_import), class: "btn btn-light" if can? :edit, @incase_import %>
-            <%# form_for [@incase_import], url: check_import_incase_imports_path, html: { multipart: true }, method: :get do |f| %>
+            <%= link_to 'edit', edit_incase_import_path(@incase_import), class: "btn btn-light", data: { turbo_frame: :_top } if can? :edit, @incase_import %>
+            <%# form_for [@incase_import], url: check_incase_imports_path, html: { multipart: true }, method: :get do |f| %>
                 <%# f.submit 'Check', class: 'btn btn-primary', id: "import_start_button" %>
             <%# end %>
-            <%= link_to t('Check'), check_import_incase_imports_path, class: "btn btn-primary", data: {turbo_stream: true} %>
-            <%= link_to t('cancel'), incase_imports_path, class: "btn btn-outline-primary" %>
+            <%= link_to t('Check'), check_incase_imports_path, class: "btn btn-primary", data: {turbo_stream: true} %>
+            <%= link_to t('cancel'), incase_imports_path, class: "btn btn-outline-primary", data: { turbo_frame: :_top } %>
         </div>
     </div>
 <% end %>

@@ -23,9 +23,10 @@
 						<%= current_user.email %>
 					</a>
 					<div class="dropdown-menu dropdown-menu-start">
-						<%= link_to '<i class="align-middle me-1" data-feather="user"></i>Профиль'.html_safe, users_path, class: "dropdown-item" %>
+						<%= link_to '<i class="bi bi-person fs-3 me-2"></i>Профиль'.html_safe, users_path, class: "dropdown-item dropdown-item d-flex align-items-center" %>
 						<!--<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>-->
 						<div class="dropdown-divider"></div>
+						<%= link_to '<i class="bi bi-card-list fs-3 me-2"></i>Оповещения'.html_safe, notifications_path, class: "dropdown-item dropdown-item d-flex align-items-center" %>
 						<!--<a class="dropdown-item" href=""><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>-->
 						<a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
 						<div class="dropdown-divider"></div>
@@ -40,11 +41,11 @@
 
 		<ul class="sidebar-nav">
 			<li class="sidebar-header"></li>
-			<li class="sidebar-item active">
+			<li class="sidebar-item">
 				<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
 						<i class="align-middle" data-feather="bar-chart-2"></i><span class="align-middle">Главная</span>
 				</a>
-				<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+				<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(dashboards_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Дашборд', dashboards_path, class: "sidebar-link" %>
 				</ul>
 			</li>
@@ -52,7 +53,7 @@
 				<a data-bs-target="#outbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Исходящие</span>
 				</a>
-				<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+				<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(orders_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Заказы', orders_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Счета', '#', class: "sidebar-link" %>
 					<%= li_menu_link_to 'Накладные', '#', class: "sidebar-link" %>
@@ -62,7 +63,9 @@
 				<a data-bs-target="#inbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="layout"></i> <span class="align-middle">Входящие</span>
 				</a>
-				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(incases_path) || 
+																								current_page?(incase_imports_path) || 
+																								current_page?(supplies_path)%>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Убытки', incases_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Импорт Убытки', incase_imports_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Поступления', supplies_path, class: "sidebar-link" %>
@@ -72,7 +75,7 @@
 				<a data-bs-target="#warehouse" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="briefcase"></i> <span class="align-middle">Склад</span>
 				</a>
-				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(products_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Товары', products_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Перемещение', "#", class: "sidebar-link" %>
 					<%= li_menu_link_to 'Списание', "#", class: "sidebar-link" %>
@@ -82,7 +85,19 @@
 				<a data-bs-target="#lists" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="list"></i> <span class="align-middle">Справочники</span>
 				</a>
-				<ul id="lists" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+				<ul id="lists" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(properties_path) || 
+																							current_page?(detals_path) || 
+																							current_page?(clients_path) ||
+																							current_page?(companies_path) ||
+																							current_page?(okrugs_path) ||
+																							current_page?(warehouses_path) ||
+																							current_page?(order_statuses_path) ||
+																							current_page?(payment_types_path) ||
+																							current_page?(delivery_types_path) ||
+																							current_page?(supply_statuses_path) ||
+																							current_page?(incase_statuses_path) ||
+																							current_page?(incase_tips_path) || 
+																							current_page?(incase_item_statuses_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Параметры товаров', properties_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Детали', detals_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Клиенты', clients_path, class: "sidebar-link" %>
@@ -91,7 +106,9 @@
 					<%= li_menu_link_to 'Склады', warehouses_path, class: "sidebar-link" %>
 					<li class="sidebar-item">
 						<a data-bs-target="#multi-order" data-bs-toggle="collapse" class="sidebar-link collapsed">Заказы</a>
-						<ul id="multi-order" class="sidebar-dropdown list-unstyled collapse">
+						<ul id="multi-order" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(order_statuses_path) || 
+																											current_page?(payment_types_path) || 
+																											current_page?(delivery_types_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to 'Статусы заказов', order_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Способы оплаты', payment_types_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Способы доставки', delivery_types_path, class: "sidebar-link" %>
@@ -99,13 +116,15 @@
 					</li>
 					<li class="sidebar-item">
 						<a data-bs-target="#multi-supply" data-bs-toggle="collapse" class="sidebar-link collapsed">Поступление</a>
-						<ul id="multi-supply" class="sidebar-dropdown list-unstyled collapse">
+						<ul id="multi-supply" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(supply_statuses_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to 'Статусы', supply_statuses_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 					<li class="sidebar-item">
-						<a data-bs-target="#multi-incase" data-bs-toggle="collapse" class="sidebar-link collapsed">Убытки</a>
-						<ul id="multi-incase" class="sidebar-dropdown list-unstyled collapse">
+						<a data-bs-target="#multi-incase" data-bs-toggle="collapse" class="sidebar-link collapsed ">Убытки</a>
+						<ul id="multi-incase" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(incase_statuses_path) || 
+																											current_page?(incase_tips_path) || 
+																											current_page?(incase_item_statuses_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to 'Статусы убытков', incase_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Типы убытков', incase_tips_path, class: "sidebar-link" %>
 							<%= li_menu_link_to 'Статусы позиций убытков', incase_item_statuses_path, class: "sidebar-link" %>
@@ -117,7 +136,9 @@
 				<a data-bs-target="#settings" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Настройки</span>
 				</a>
-				<ul id="settings" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+				<ul id="settings" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(users_path) || 
+																								current_page?(email_setups_path) || 
+																								current_page?(exports_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Пользователи', users_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Почта', email_setups_path, class: "sidebar-link" %>
 					<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
@@ -129,7 +150,8 @@
 				<a data-bs-target="#multi-trigger" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="fas fa-robot align-middle"></i>
 				<span class="align-middle">Автоматизация</span></a>
-				<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse">
+				<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(triggers_path) || 
+																									current_page?(templs_path) %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to 'Триггеры', triggers_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Шаблоны', templs_path, class: "sidebar-link" %>
 				</ul>
@@ -138,7 +160,7 @@
 				<a data-bs-target="#rental" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="fas fa-solid fa-car-side align-middle"></i>
 				<span class="align-middle">Аренда</span></a>
-				<ul id="rental" class="sidebar-dropdown list-unstyled collapse">
+				<ul id="rental" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(rent_case_statuses_path)%>" data-bs-parent="#sidebar">
 					<li class="sidebar-item"><a class="sidebar-link" href="">Заявки</a></li>
 					<%= li_menu_link_to 'Статусы заявок', rent_case_statuses_path, class: "sidebar-link" %>
 				</ul>

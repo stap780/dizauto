@@ -1,11 +1,11 @@
 class DeliveryTypesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_delivery_type, only: %i[ show edit update destroy ]
+  before_action :set_delivery_type, only: %i[show edit update destroy]
 
   # GET /deliveries or /deliveries.json
   def index
     @search = DeliveryType.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @delivery_types = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -61,13 +61,14 @@ class DeliveryTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_delivery_type
-      @delivery_type = DeliveryType.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def delivery_type_params
-      params.require(:delivery_type).permit(:title, :price, :desc)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_delivery_type
+    @delivery_type = DeliveryType.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def delivery_type_params
+    params.require(:delivery_type).permit(:title, :price, :desc)
+  end
 end

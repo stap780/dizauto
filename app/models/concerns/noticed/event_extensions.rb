@@ -1,0 +1,3 @@
+module Noticed::EventExtensions
+
+end

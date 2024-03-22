@@ -1,11 +1,11 @@
 class IncaseItemStatusesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_item_status, only: %i[ show edit update sort destroy ]
+  before_action :set_incase_item_status, only: %i[show edit update sort destroy]
 
   # GET /incase_item_statuses or /incase_item_statuses.json
   def index
     @search = IncaseItemStatus.ransack(params[:q])
-    @search.sorts = 'position asc' if @search.sorts.empty?
+    @search.sorts = "position asc" if @search.sorts.empty?
     @incase_item_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -28,8 +28,8 @@ class IncaseItemStatusesController < ApplicationController
 
     respond_to do |format|
       if @incase_item_status.save
-        format.turbo_stream { flash.now[:success] = t('.success') }
-        format.html { redirect_to incase_item_statuses_url, notice: t('.success') }
+        format.turbo_stream { flash.now[:success] = t(".success") }
+        format.html { redirect_to incase_item_statuses_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @incase_item_status }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +42,7 @@ class IncaseItemStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @incase_item_status.update(incase_item_status_params)
-        format.turbo_stream { flash.now[:success] = t('.success') }
+        format.turbo_stream { flash.now[:success] = t(".success") }
         format.html { redirect_to incase_item_statuses_url, notice: "Incase item status was successfully updated." }
         format.json { render :show, status: :ok, location: @incase_item_status }
       else
@@ -59,7 +59,7 @@ class IncaseItemStatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incase_item_statuses_url, notice: "Incase item status was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t('.success') }
+      format.turbo_stream { flash.now[:success] = t(".success") }
     end
   end
 
@@ -70,15 +70,15 @@ class IncaseItemStatusesController < ApplicationController
     head :ok
   end
 
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_incase_item_status
-      @incase_item_status = IncaseItemStatus.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def incase_item_status_params
-      params.require(:incase_item_status).permit(:title, :color, :position)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_incase_item_status
+    @incase_item_status = IncaseItemStatus.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def incase_item_status_params
+    params.require(:incase_item_status).permit(:title, :color, :position)
+  end
 end

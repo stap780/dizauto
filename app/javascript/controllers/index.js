@@ -7,6 +7,9 @@ import { application } from "./application"
 import ActionController from "./action_controller"
 application.register("action", ActionController)
 
+import AutoclickController from "./autoclick_controller"
+application.register("autoclick", AutoclickController)
+
 import BadgeController from "./badge_controller"
 application.register("badge", BadgeController)
 

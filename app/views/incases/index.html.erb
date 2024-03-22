@@ -41,33 +41,28 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0">Заказы поставщикам</br>Всего: <%= Incase.all.count %></br><%= "Выбрано: "+@incases.total_entries.to_s if @incases.size > 0 &&  @incases.size != Incase.all.count %></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= render 'count_info' , incases: @incases%></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-incases_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="col-sm-12">
-            <div id="datatables-incases" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-              <div class="row py-2 px-0">
-                <%= div_check_box_tag_all %>
-                <%= tag.div( t( 'helpers.label.incase.incase_status_id'), class: 'col-md-1 fw-semibold' )%>
-                <%= tag.div( t( 'helpers.label.incase.incase_tip_id'), class: 'col-md-1 fw-semibold' )%> 
-                <%= tag.div( '', class: 'col fw-semibold')%>
-                <%= tag.div( t( 'helpers.label.incase.date'), class: 'col-md-1 fw-semibold' )%>
-                <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
-                <%= tag.div('', class: 'col-2 fw-semibold')%>
-              </div>
-              <%= turbo_frame_tag 'incases' do %>
-                  <%= render @incases %>
-              <% end %>
-            </div>
-          </div>
+    <div class="row">
+      <div id="datatables-incases" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+        <div class="row py-2 px-0">
+          <%= div_check_box_tag_all %>
+          <%= tag.div( t( 'helpers.label.incase.incase_status_id'), class: 'col-md-1 fw-semibold' )%>
+          <%= tag.div( t( 'helpers.label.incase.incase_tip_id'), class: 'col-md-1 fw-semibold' )%> 
+          <%= tag.div( '', class: 'col fw-semibold')%>
+          <%= tag.div( t( 'helpers.label.incase.date'), class: 'col-md-1 fw-semibold' )%>
+          <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
+          <%= tag.div('', class: 'col-2 fw-semibold')%>
         </div>
+        <%= turbo_stream_from "incases_list" %>
+        <%= turbo_frame_tag 'incases' do %>
+            <%= render @incases %>
+        <% end %>
       </div>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @incases %>
-      </div>
+    </div>
+    <div class="row paginate-wrap">
+      <%= render "shared/paginate", f: @incases %>
     </div>
   </div>
 </div>

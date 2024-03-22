@@ -1,6 +1,6 @@
 class ClientCompaniesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_client_company, only: %i[ show edit update destroy ]
+  before_action :set_client_company, only: %i[show edit update destroy]
 
   # GET /client_companies or /client_companies.json
   def index
@@ -31,7 +31,7 @@ class ClientCompaniesController < ApplicationController
 
     respond_to do |format|
       if @client_company.save
-        format.turbo_stream { flash.now[:success] = t('.success') }
+        format.turbo_stream { flash.now[:success] = t(".success") }
         format.html { redirect_to client_company_url(@client_company), notice: "Client company was successfully created." }
         format.json { render :show, status: :created, location: @client_company }
       else
@@ -65,13 +65,14 @@ class ClientCompaniesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_client_company
-      @client_company = ClientCompany.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def client_company_params
-      params.require(:client_company).permit(:client_id, :company_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_client_company
+    @client_company = ClientCompany.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def client_company_params
+    params.require(:client_company).permit(:client_id, :company_id)
+  end
 end

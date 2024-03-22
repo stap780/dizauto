@@ -1,2 +1,2 @@
-<%= turbo_stream.remove @product %>
+<%= turbo_stream.remove @product if @check_destroy == true %>
 <%= prepend_flash %>

@@ -1,6 +1,6 @@
 class ActionsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_action, only: %i[ show edit update destroy ]
+  before_action :set_action, only: %i[show edit update destroy]
 
   # GET /actions or /actions.json
   def index
@@ -64,21 +64,21 @@ class ActionsController < ApplicationController
     @targetname = params[:targetname]
     # puts '@target =>'+@target.to_s
     @collection = Action.get_collection(params[:action_name])
-    
-    respond_to do |format|      
+
+    respond_to do |format|
       format.turbo_stream
     end
-
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_action
-      @action = Action.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def action_params
-      params.require(:action).permit(:trigger_id, :action_name, action_params: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_action
+    @action = Action.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def action_params
+    params.require(:action).permit(:trigger_id, :action_name, action_params: [])
+  end
 end

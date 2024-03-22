@@ -1,6 +1,6 @@
 class PlacesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_place, only: %i[ show edit update destroy ]
+  before_action :set_place, only: %i[show edit update destroy]
 
   # GET /places or /places.json
   def index
@@ -59,13 +59,14 @@ class PlacesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_place
-      @place = Place.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def place_params
-      params.require(:place).permit(:sector, :cell, :product_id, :warehouse_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_place
+    @place = Place.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def place_params
+    params.require(:place).permit(:sector, :cell, :product_id, :warehouse_id)
+  end
 end

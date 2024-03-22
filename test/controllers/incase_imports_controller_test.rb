@@ -17,7 +17,7 @@ class IncaseImportsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create incase_import" do
     assert_difference("IncaseImport.count") do
-      post incase_imports_url, params: { incase_import: { active: @incase_import.active, file: @incase_import.file, report: @incase_import.report, title: @incase_import.title, uniq_field: @incase_import.uniq_field } }
+      post incase_imports_url, params: {incase_import: {active: @incase_import.active, file: @incase_import.file, report: @incase_import.report, title: @incase_import.title, uniq_field: @incase_import.uniq_field}}
     end
 
     assert_redirected_to incase_import_url(IncaseImport.last)
@@ -34,7 +34,7 @@ class IncaseImportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update incase_import" do
-    patch incase_import_url(@incase_import), params: { incase_import: { active: @incase_import.active, file: @incase_import.file, report: @incase_import.report, title: @incase_import.title, uniq_field: @incase_import.uniq_field } }
+    patch incase_import_url(@incase_import), params: {incase_import: {active: @incase_import.active, file: @incase_import.file, report: @incase_import.report, title: @incase_import.title, uniq_field: @incase_import.uniq_field}}
     assert_redirected_to incase_import_url(@incase_import)
   end
 

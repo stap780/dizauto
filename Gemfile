@@ -32,42 +32,43 @@ gem "redis", "~> 4.0"
 # gem "bcrypt", "~> 3.1.7"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
-gem 'devise'
-gem 'sidekiq'
-gem 'sidekiq-scheduler'
-gem 'high_voltage', '~> 3.1'
-gem 'cancancan'
-gem 'ransack'
-gem 'will_paginate', '~> 3.3'
-gem 'acts_as_list'
-gem 'requestjs-rails'
-gem 'erb-formatter', '~> 0.4.3'
-gem 'liquid'
-gem 'caxlsx'
-gem 'caxlsx_rails'
-gem 'roo'
-gem 'roo-xls'
-gem 'audited'
-gem 'barby'
-gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
-gem 'combine_pdf'
+gem "devise"
+gem "sidekiq"
+gem "sidekiq-scheduler"
+gem "high_voltage", "~> 3.1"
+gem "cancancan"
+gem "ransack"
+gem "will_paginate", "~> 3.3"
+gem "acts_as_list"
+gem "requestjs-rails"
+gem "erb-formatter", "~> 0.4.3"
+gem "liquid"
+gem "caxlsx"
+gem "caxlsx_rails"
+gem "roo"
+gem "roo-xls"
+gem "audited"
+gem "barby"
+gem "wicked_pdf"
+gem "wkhtmltopdf-binary"
+gem "combine_pdf"
 gem "recaptcha"
 gem "addressable"
-gem 'rest-client'
-gem 'aws-sdk-s3'
-gem 'rack-cors'
+gem "rest-client"
+gem "aws-sdk-s3"
+gem "rack-cors"
 gem "noticed", "~> 2.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "standard"
 end
 
 group :development do
@@ -83,11 +84,10 @@ group :development do
 
   gem "capistrano", "~> 3.10", require: false
   gem "capistrano-rails", "~> 1.6", require: false
-  gem 'capistrano-rvm', require: false
-  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  gem "capistrano-rvm", require: false
+  gem "capistrano3-puma", github: "seuros/capistrano-puma"
   # gem 'capistrano-rails-console', require: false
-  gem 'capistrano-sidekiq', require: false
-
+  gem "capistrano-sidekiq", require: false
 end
 
 group :test do
@@ -96,4 +96,3 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
-

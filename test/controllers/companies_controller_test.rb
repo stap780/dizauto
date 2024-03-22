@@ -17,7 +17,7 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create company" do
     assert_difference("Company.count") do
-      post companies_url, params: { company: { bank_account: @company.bank_account, bank_title: @company.bank_title, bik: @company.bik, fact_address: @company.fact_address, inn: @company.inn, kpp: @company.kpp, ogrn: @company.ogrn, okpo: @company.okpo, title: @company.title, ur_address: @company.ur_address } }
+      post companies_url, params: {company: {bank_account: @company.bank_account, bank_title: @company.bank_title, bik: @company.bik, fact_address: @company.fact_address, inn: @company.inn, kpp: @company.kpp, ogrn: @company.ogrn, okpo: @company.okpo, title: @company.title, ur_address: @company.ur_address}}
     end
 
     assert_redirected_to company_url(Company.last)
@@ -34,7 +34,7 @@ class CompaniesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update company" do
-    patch company_url(@company), params: { company: { bank_account: @company.bank_account, bank_title: @company.bank_title, bik: @company.bik, fact_address: @company.fact_address, inn: @company.inn, kpp: @company.kpp, ogrn: @company.ogrn, okpo: @company.okpo, title: @company.title, ur_address: @company.ur_address } }
+    patch company_url(@company), params: {company: {bank_account: @company.bank_account, bank_title: @company.bank_title, bik: @company.bik, fact_address: @company.fact_address, inn: @company.inn, kpp: @company.kpp, ogrn: @company.ogrn, okpo: @company.okpo, title: @company.title, ur_address: @company.ur_address}}
     assert_redirected_to company_url(@company)
   end
 

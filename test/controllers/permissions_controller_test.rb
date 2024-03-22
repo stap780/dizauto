@@ -17,7 +17,7 @@ class PermissionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create permission" do
     assert_difference("Permission.count") do
-      post permissions_url, params: { permission: { action: @permission.action, model: @permission.model, user_id: @permission.user_id } }
+      post permissions_url, params: {permission: {action: @permission.action, model: @permission.model, user_id: @permission.user_id}}
     end
 
     assert_redirected_to permission_url(Permission.last)
@@ -34,7 +34,7 @@ class PermissionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update permission" do
-    patch permission_url(@permission), params: { permission: { action: @permission.action, model: @permission.model, user_id: @permission.user_id } }
+    patch permission_url(@permission), params: {permission: {action: @permission.action, model: @permission.model, user_id: @permission.user_id}}
     assert_redirected_to permission_url(@permission)
   end
 

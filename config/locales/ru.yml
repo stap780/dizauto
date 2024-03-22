@@ -30,6 +30,9 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ru:
+  total: "Всего"
+  ago: "назад"
+  new_notifications: "Новые"
   hello: "Hello world"
   property_one: "параметр"
   characteristic_one: "значение"
@@ -40,6 +43,9 @@ ru:
   add: 'Добавить'
   property: 'Параметры'
   history: "История"
+  incase_items: "Позиции убытка"
+  order_items: "Позиции заказа"
+  supply_items: "Позиции поступления"
   activerecord:
     attributes:
       client:
@@ -99,6 +105,12 @@ ru:
       incase_tip:
         title: "Название"
         color: "Цвет"
+      incase_import:
+        title: "Название"
+        active: "Вкл/выкл"
+        report: "Отчет"
+        file: "Файл"
+        uniq_field: "Уник поле"
       property:
         title: "Название"
       characteristic:
@@ -190,9 +202,15 @@ ru:
       incase_status:
         one: "статус убытка"
         other: "Статусы убытка"
+      incase_items: 
+        one: "позиция убытка"
+        other: "позиции убытка"
       incase_tip:
         one: "тип убытка"
         other: "Типы убытка"
+      incase_import:
+        one: "импорт убытка"
+        other: "Импорт убытка"
       property:
         one: "параметр"
         other: "Параметры"
@@ -205,6 +223,9 @@ ru:
       order: 
         one: "заказ"
         other: "Заказы"
+      order_items: 
+        one: "позиция заказа"
+        other: "позиции заказа"
       order_status: 
         one: "статусы заказа"
         other: "статусы заказов"
@@ -271,6 +292,15 @@ ru:
     update:
       success: Обновили!
   incase_tips:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  incase_imports:
     create:
       success: Создали!
     destroy:
@@ -409,6 +439,16 @@ ru:
       incase_tip:
         title: "Название"
         color: "Цвет"
+      incase_import:
+        title: "Название"
+        active: "Вкл/выкл"
+        report: "Отчет"
+        file: "Файл"
+        uniq_field: "Уник поле"
+      notification:
+        message: "Сообщение"
+        created_at: "Дата создания"
+        status: "Статус"
       okrug:
         title: "Название"
       order:

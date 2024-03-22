@@ -5,7 +5,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   prepend_before_action :check_captcha, only: [:create]
 
-
   # GET /resource/sign_up
   # def new
   #   super
@@ -63,7 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   private
-  
+
   def check_captcha
     return if verify_recaptcha # verify_recaptcha(action: 'login') for v3
 
@@ -74,6 +73,4 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render :new
     end
   end
-
-
 end

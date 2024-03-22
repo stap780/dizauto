@@ -17,7 +17,7 @@ class CharacteristicsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create characteristic" do
     assert_difference("Characteristic.count") do
-      post characteristics_url, params: { characteristic: { property_id: @characteristic.property_id, title: @characteristic.title } }
+      post characteristics_url, params: {characteristic: {property_id: @characteristic.property_id, title: @characteristic.title}}
     end
 
     assert_redirected_to characteristic_url(Characteristic.last)
@@ -34,7 +34,7 @@ class CharacteristicsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update characteristic" do
-    patch characteristic_url(@characteristic), params: { characteristic: { property_id: @characteristic.property_id, title: @characteristic.title } }
+    patch characteristic_url(@characteristic), params: {characteristic: {property_id: @characteristic.property_id, title: @characteristic.title}}
     assert_redirected_to characteristic_url(@characteristic)
   end
 

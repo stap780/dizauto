@@ -1,12 +1,12 @@
 class WarehousesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_warehouse, only: %i[ show edit update destroy ]
+  before_action :set_warehouse, only: %i[show edit update destroy]
 
   # GET /warehouses or /warehouses.json
   def index
     # @warehouses = Warehouse.all
     @search = Warehouse.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @warehouses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -62,13 +62,14 @@ class WarehousesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_warehouse
-      @warehouse = Warehouse.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def warehouse_params
-      params.require(:warehouse).permit(:title)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_warehouse
+    @warehouse = Warehouse.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def warehouse_params
+    params.require(:warehouse).permit(:title)
+  end
 end

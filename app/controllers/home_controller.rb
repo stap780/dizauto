@@ -1,6 +1,5 @@
 # This controller we use for static pages from gem pages
 class HomeController < ApplicationController
-
   skip_before_action :authenticate_user!, only: [:index]
 
   # GET /homes
@@ -10,7 +9,7 @@ class HomeController < ApplicationController
 
   def dashboard
   end
-  
+
   def show
     render template: "home/#{params[:page]}"
   end

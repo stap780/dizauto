@@ -1,11 +1,11 @@
 class PaymentTypesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_payment_type, only: %i[ show edit update destroy ]
+  before_action :set_payment_type, only: %i[show edit update destroy]
 
   # GET /payments or /payments.json
   def index
     @search = PaymentType.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @payment_types = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -61,13 +61,14 @@ class PaymentTypesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_payment_type
-      @payment_type = PaymentType.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def payment_type_params
-      params.require(:payment_type).permit(:title, :margin, :desc)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_payment_type
+    @payment_type = PaymentType.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def payment_type_params
+    params.require(:payment_type).permit(:title, :margin, :desc)
+  end
 end

@@ -1,6 +1,6 @@
 class IncaseItemsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_item, only: %i[ show edit update destroy ]
+  before_action :set_incase_item, only: %i[show edit update destroy]
 
   # GET /incase_items or /incase_items.json
   def index
@@ -59,13 +59,14 @@ class IncaseItemsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_incase_item
-      @incase_item = IncaseItem.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def incase_item_params
-      params.require(:incase_item).permit(:incase_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_incase_item
+    @incase_item = IncaseItem.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def incase_item_params
+    params.require(:incase_item).permit(:incase_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :product_id)
+  end
 end

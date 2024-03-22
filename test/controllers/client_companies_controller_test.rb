@@ -17,7 +17,7 @@ class ClientCompaniesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create client_company" do
     assert_difference("ClientCompany.count") do
-      post client_companies_url, params: { client_company: { client_id: @client_company.client_id, company_id: @client_company.company_id } }
+      post client_companies_url, params: {client_company: {client_id: @client_company.client_id, company_id: @client_company.company_id}}
     end
 
     assert_redirected_to client_company_url(ClientCompany.last)
@@ -34,7 +34,7 @@ class ClientCompaniesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update client_company" do
-    patch client_company_url(@client_company), params: { client_company: { client_id: @client_company.client_id, company_id: @client_company.company_id } }
+    patch client_company_url(@client_company), params: {client_company: {client_id: @client_company.client_id, company_id: @client_company.company_id}}
     assert_redirected_to client_company_url(@client_company)
   end
 

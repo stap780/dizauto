@@ -1,11 +1,11 @@
-require 'sidekiq/web'
-require 'sidekiq-scheduler/web'
+require "sidekiq/web"
+require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
   resources :rent_case_statuses do
     member do
       patch :sort
-    end 
+    end
   end
   resources :dashboards do
     collection do
@@ -22,15 +22,15 @@ Rails.application.routes.draw do
   resources :supply_statuses do
     member do
       patch :sort
-    end 
+    end
   end
   resources :incase_imports do
     collection do
       post :bulk_print
-      get :pending_bulk 
+      get :pending_bulk
       get :success_bulk
-      get '/:id/import_start', action: 'import_start', as: 'import_start'
-      get '/:id/check_import', action: 'check_import', as: 'check_import'
+      get "/:id/start", action: "start", as: "start"
+      get "/:id/check", action: "check", as: "check"
     end
   end
   resources :supplies do
@@ -44,17 +44,17 @@ Rails.application.routes.draw do
   resources :incase_item_statuses do
     member do
       patch :sort
-    end 
+    end
   end
   resources :incase_tips do
     member do
       patch :sort
-    end 
+    end
   end
   resources :incase_statuses do
     member do
       patch :sort
-    end 
+    end
   end
   resources :actions do
     collection do
@@ -67,7 +67,7 @@ Rails.application.routes.draw do
   resources :payment_types
   resources :order_items
   resources :order_statuses
-  resources :orders  do
+  resources :orders do
     resources :comments, module: :orders
     member do
       get :print
@@ -96,7 +96,7 @@ Rails.application.routes.draw do
   resources :incases do
     resources :comments, module: :incases
     member do
-      get 'act'
+      get "act"
       get :print
     end
     collection do
@@ -104,10 +104,13 @@ Rails.application.routes.draw do
       post :import_setup
       post :convert_file_data
       post :create_from_import
-      #put :update_from_file
+      # put :update_from_file
       post :bulk_print
-      get :pending_bulk 
+      get :pending_bulk
       get :success_bulk
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
     end
   end
   resources :places
@@ -115,7 +118,7 @@ Rails.application.routes.draw do
   resources :okrugs do
     member do
       patch :sort
-    end   
+    end
   end
   resources :company_plan_dates do
     resources :comments, module: :company_plan_dates
@@ -141,6 +144,7 @@ Rails.application.routes.draw do
       end
     end
   end
+  resources :notifications, only: [:index]
   resources :products do
     member do
       get :print
@@ -152,33 +156,35 @@ Rails.application.routes.draw do
       # match 'search' => 'products#search', via: [:get, :post], as: :search
       # get :characteristics
       post :delete_selected
-      #delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
+      # delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
       post :print_etiketki
-      get :pending_etiketki 
+      get :pending_etiketki
       get :success_etiketki
     end
   end
 
   authenticate :user, ->(user) { user.admin? } do
-    mount Sidekiq::Web => '/sidekiq'
+    mount Sidekiq::Web => "/sidekiq"
   end
 
-  root to: 'dashboards#index'
+  root to: "dashboards#index"
   # root to: 'home#dashboard'
   # get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
   devise_for :users, controllers: {
-    registrations:  'users/registrations',
-    sessions:       'users/sessions',
-    passwords:      'users/passwords',
+    registrations: "users/registrations",
+    sessions: "users/sessions",
+    passwords: "users/passwords"
   }
   # devise patch create users inside service
-    get  'users/admin_new' => 'users#admin_new'
-    post 'users/admin_create' => 'users#admin_create'
+  get "users/admin_new" => "users#admin_new"
+  post "users/admin_create" => "users#admin_create"
   #########
 
-  resources :users
-
-
+  resources :users do
+    member do
+      post :read_notification
+    end
+  end
 
 end

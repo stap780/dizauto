@@ -1,15 +1,28 @@
-<tr id="<%= dom_id incase_import %>">
-  <td><%= check_box_tag "incase_import_ids[]", incase_import.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
-  <%= tag.td tag.b(incase_import.id) %>
-  <%= tag.td(incase_import.active) %>
-  <%= tag.td(incase_import.title) %>
-  <%= tag.td(incase_import.report) %>
-  <%= tag.td do %>
-  <%= link_to 'file', rails_blob_path(incase_import.import_file, disposition: 'attachment') %>
-  <% end %>
-  <%= incase_import.uniq_field ? tag.td( t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") ) : ''%>
-  <%= tag.td do %>
-      <%= link_to '<i class="bi bi-eye"></i>'.html_safe, incase_import, class: "px-2" %>
-  <% end %>
-  <%= td_index_edit_delete_link(incase_import)%>
-</tr>
+
+<%= turbo_frame_tag incase_import, class: "d-flex list-group-item py-2 border-start-0 border-end-0 align-items-center row" do %>
+    <%= tag.div class: "col-1" do %>
+        <%=tag.div class: 'form-check' do %>
+            <%= check_box_tag "incase_import_ids[]", incase_import.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
+            <%=tag.label class: 'form-check-label' do %><%= tag.b( incase_import.id ) %><% end %>
+        <% end %>
+    <% end %>
+    
+    <%= tag.div(class: "col-2 d-flex justify-content-between align-items-center") do %>
+        <% if incase_import.active %>
+            <button class="btn btn-outline-info" disabled="disabled" type="button">active<i class="bi bi-check-circle ms-1"></i></button>
+        <% end %>
+    <% end %>
+
+    <%= tag.div(incase_import.title, class: "col-3")%>
+    <%= tag.div(incase_import.report, class: "col-1")%>
+    <%= tag.div("", class: "col-1") do %>
+        <%= link_to 'file', rails_blob_path(incase_import.import_file, disposition: 'attachment') %>
+    <% end %>
+    <%= tag.div("", class: "col-2") do %>
+        <%= incase_import.uniq_field ? t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") : ''%>
+    <% end %>
+    <div class= "col-2 d-flex justify-content-end align-items-center" id="buttons-<%=incase_import.id%>">
+      <%= link_to '<i class="bi bi-eye"></i>'.html_safe, incase_import, class: "px-2", data: { turbo_frame: :_top } %>
+      <%= render 'shared/edit_delete_link', object: incase_import %>
+    </div>
+<% end %>

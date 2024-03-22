@@ -12,7 +12,7 @@
             <%= f.search_field :sku_or_barcode_or_title_cont_all, class: "form-control input-sm"%>
           </div>
           <div class="col-md-6" data-controller="checkbox">
-            <div class="label">Quantity</div>
+            <div class="label"><%= t('quantity') %></div>
             <div class="form-check form-check-inline">
               <%= f.label :all_quantity, class: 'form-check-label' do %>
               <%= f.check_box :all_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> all<% end %>
@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="col-md-6" data-controller="checkbox">
-            <div class="label">Price</div>
+            <div class="label"><%= t('price') %></div>
             <div class="form-check form-check-inline"> 
               <%= f.label :no_price, class: 'form-check-label' do %>
               <%= f.check_box :no_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> = 0<% end %>
@@ -38,6 +38,12 @@
             </div>
           </div>
             
+          <div class="col-md-6">
+            <div class="label"><%= t('created_at') %></div>
+            <%= f.search_field :created_at_datebegin, type: :date , placeholder: 'создан от', class: "form-control", autocomplete: "off" %>
+          </div>
+
+
         </div>
 
   			<div class="btn-group btn-group-sm" role="group"> 

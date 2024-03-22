@@ -2,6 +2,7 @@
 import SimpleBar from "simplebar";
 
 const initialize = () => {
+  console.log('simplebar initialize');
   initializeSimplebar();
   initializeSidebarCollapse();
 }

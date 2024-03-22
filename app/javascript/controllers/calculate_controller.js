@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { StreamActions } from "@hotwired/turbo"
 
 // Connects to data-controller="calculate"
 
@@ -78,3 +79,4 @@ export default class extends Controller {
   }
 
 }
+

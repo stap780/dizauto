@@ -17,7 +17,7 @@ class DetalsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create detal" do
     assert_difference("Detal.count") do
-      post detals_url, params: { detal: { description: @detal.description, sku: @detal.sku, title: @detal.title } }
+      post detals_url, params: {detal: {description: @detal.description, sku: @detal.sku, title: @detal.title}}
     end
 
     assert_redirected_to detal_url(Detal.last)
@@ -34,7 +34,7 @@ class DetalsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update detal" do
-    patch detal_url(@detal), params: { detal: { description: @detal.description, sku: @detal.sku, title: @detal.title } }
+    patch detal_url(@detal), params: {detal: {description: @detal.description, sku: @detal.sku, title: @detal.title}}
     assert_redirected_to detal_url(@detal)
   end
 

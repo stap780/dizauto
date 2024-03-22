@@ -1,25 +1,24 @@
 class IncaseImportsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase_import, only: %i[ show edit update import_start check_import destroy ]
+  before_action :set_incase_import, only: %i[show edit update import_start check_import destroy]
   before_action :validate_params, only: [:update]
-
 
   # GET /incase_imports or /incase_imports.json
   def index
     @incase_imports = IncaseImport.all
     @search = IncaseImport.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @incase_imports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = 'incase_imports.xlsx'
+    filename = "incase_imports.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @incase_imports
     respond_to do |format|
       format.html
       format.zip do
-        CreateZipXlsxJob.perform_later( collection.ids, { model: 'IncaseImport',
+        CreateZipXlsxJob.perform_later(collection.ids, {model: "IncaseImport",
                                                           current_user_id: current_user.id,
-                                                          filename: filename, 
-                                                          template: "incase_imports/index"} )
-        flash[:success] = t '.success'
+                                                          filename: filename,
+                                                          template: "incase_imports/index"})
+        flash[:success] = t ".success"
         redirect_to incase_imports_path
       end
     end
@@ -40,10 +39,10 @@ class IncaseImportsController < ApplicationController
       service = Incase::Import.new(@incase_import)
       header_data = service.header
       if header_data
-        data = header_data.map{|d|{column_file: d, column_system: nil}}
+        data = header_data.map { |d| {column_file: d, column_system: nil} }
         @incase_import.incase_import_columns.create!(data)
       else
-        flash[:alert] = 'Import file not valid'
+        flash[:alert] = "Import file not valid"
       end
     end
   end
@@ -86,20 +85,19 @@ class IncaseImportsController < ApplicationController
     end
   end
 
-  def check_import
-    # if @product_import.active
-    @success, @message = Incase::Import.new(@incase_import).check_import
-    puts @message
+  def check
+    IncaseImportCheckFileJob.perform_later(@incase_import, current_user.id)
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
-  def import_start #get
-    # if @product_import.active
-    import = Incase::Import.new(@incase_import).import
-    if import
-      respond_to do |format|
-        format.html { redirect_to incase_imports_url, notice: "We start import process" }
-      end
+  def start # get
+    IncaseImportStartImportJob.perform_later(@incase_import, current_user.id)
+    respond_to do |format|
+      format.turbo_stream
     end
+
   end
 
   # DELETE /incase_imports/1 or /incase_imports/1.json
@@ -109,38 +107,39 @@ class IncaseImportsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incase_imports_url, notice: "Incase import was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t(".success") }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_incase_import
-      @incase_import = IncaseImport.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def incase_import_params
-      params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field,:import_file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_incase_import
+    @incase_import = IncaseImport.find(params[:id])
+  end
 
-    def validate_params
-      status = []
-      message = []
-      uniq_field = params[:incase_import][:uniq_field]
-      
-      # puts "strategy: product // "
-      # message.push('strategy: product //')
-      system = params[:incase_import][:incase_import_columns_attributes].values.map{|c| c['column_system']}.reject(&:blank?)
-      puts "system => "+system.to_s
-      status.push( system.include?(uniq_field) ? true : false )
-      message.push( system.include?(uniq_field) ? '' : 'Need set uniq_field column' )
-      # status.push( system.include?('product#name') ? true : false )
-      # message.push( system.include?('product#name') ? '' : 'Need product name' )
-      # status.push( system.include?('product#price') ? true : false )
-      # message.push( system.include?('product#price') ? '' : 'Need set price' )
-      
-      check_status = status.uniq.to_s == "[true]" ? true : false
-      [check_status, message.join(' ')]
-    end
+  # Only allow a list of trusted parameters through.
+  def incase_import_params
+    params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :import_file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
+  end
 
+  def validate_params
+    status = []
+    message = []
+    uniq_field = params[:incase_import][:uniq_field]
+
+    # puts "strategy: product // "
+    # message.push('strategy: product //')
+    system = params[:incase_import][:incase_import_columns_attributes].values.map { |c| c["column_system"] }.reject(&:blank?)
+    puts "system => " + system.to_s
+    status.push(system.include?(uniq_field) ? true : false)
+    message.push(system.include?(uniq_field) ? "" : "Need set uniq_field column")
+    # status.push( system.include?('product#name') ? true : false )
+    # message.push( system.include?('product#name') ? '' : 'Need product name' )
+    # status.push( system.include?('product#price') ? true : false )
+    # message.push( system.include?('product#price') ? '' : 'Need set price' )
+
+    check_status = status.uniq.to_s == "[true]"
+    [check_status, message.join(" ")]
+  end
 end

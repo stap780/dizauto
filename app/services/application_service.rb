@@ -1,7 +1,5 @@
 class ApplicationService
-  
-    def self.call(*args, &block)
-        new(*args, &block).call
-    end
-
+  def self.call(*, &)
+    new(*, &).call
+  end
 end

@@ -1,19 +1,19 @@
 class PropertiesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_property, only: %i[ show edit update destroy ]
+  before_action :set_property, only: %i[show edit update destroy]
 
   # GET /properties or /properties.json
   def index
     # @properties = Property.all
     @search = Property.ransack(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @search.sorts = "id asc" if @search.sorts.empty?
     @properties = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
   # GET /properties/1 or /properties/1.json
   def show
     @search = @property.characteristics.ransack(params[:q])
-    @search.sorts = 'id asc' if @search.sorts.empty?
+    @search.sorts = "id asc" if @search.sorts.empty?
     @characteristics = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -62,10 +62,10 @@ class PropertiesController < ApplicationController
     # puts @property.errors.messages
     # puts '====='
     message = if @check_destroy == true
-                flash.now[:success] = t('.success')
-              else
-                flash.now[:notice] = @property.errors.full_messages.join(' ')
-              end
+      flash.now[:success] = t(".success")
+    else
+      flash.now[:notice] = @property.errors.full_messages.join(" ")
+    end
     respond_to do |format|
       format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
@@ -74,13 +74,14 @@ class PropertiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_property
-      @property = Property.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def property_params
-      params.require(:property).permit(:title, characteristics_attributes:[:id, :title, :_destroy])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_property
+    @property = Property.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def property_params
+    params.require(:property).permit(:title, characteristics_attributes: [:id, :title, :_destroy])
+  end
 end

@@ -1,0 +1,27 @@
+<a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+    <%= turbo_stream_from current_user, "notifications_bell_#{current_user.id}" %>
+    <%= turbo_frame_tag "notification_bell" do %>
+    <%= render partial: 'notifications/bell', 
+                locals: { count: current_user.notifications.count, unread: current_user.notifications.unread.count }%>
+    <% end %>
+</a>
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
+    <div class="dropdown-menu-header">
+        <%= turbo_stream_from current_user, "notification_widget_count_#{current_user.id}" %>
+        <%= turbo_frame_tag "notification_widget_count" do %>
+            <%= render partial: "notifications/widget_count", 
+                        locals: { count: current_user.notifications.count, unread: current_user.notifications.unread.count } %>
+        <% end %>
+    </div>
+    <div class="list-group">
+        <%= turbo_stream_from current_user, "notification_widget_#{current_user.id}" %>
+        <%= turbo_frame_tag "notification_widget" do %>
+            <% current_user.notifications.newest_first.unread.limit(4).each do |notification| %>
+                <%= render partial: 'notifications/noti_snippet', locals: { notification: notification }%>
+            <% end %>
+        <% end %>   
+    </div>
+    <div class="dropdown-menu-footer">
+        <a href="/notifications" class="text-muted">Show all notifications</a>
+    </div>
+</div>

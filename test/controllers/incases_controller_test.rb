@@ -17,7 +17,7 @@ class IncasesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create incase" do
     assert_difference("Incase.count") do
-      post incases_url, params: { incase: { carnumber: @incase.carnumber, company_id: @incase.company_id, date: @incase.date, modelauto: @incase.modelauto, region: @incase.region, status: @incase.status, stoanumber: @incase.stoanumber, strah_id: @incase.strah_id, tip: @incase.tip, totalsum: @incase.totalsum, unumber: @incase.unumber } }
+      post incases_url, params: {incase: {carnumber: @incase.carnumber, company_id: @incase.company_id, date: @incase.date, modelauto: @incase.modelauto, region: @incase.region, status: @incase.status, stoanumber: @incase.stoanumber, strah_id: @incase.strah_id, tip: @incase.tip, totalsum: @incase.totalsum, unumber: @incase.unumber}}
     end
 
     assert_redirected_to incase_url(Incase.last)
@@ -34,7 +34,7 @@ class IncasesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update incase" do
-    patch incase_url(@incase), params: { incase: { carnumber: @incase.carnumber, company_id: @incase.company_id, date: @incase.date, modelauto: @incase.modelauto, region: @incase.region, status: @incase.status, stoanumber: @incase.stoanumber, strah_id: @incase.strah_id, tip: @incase.tip, totalsum: @incase.totalsum, unumber: @incase.unumber } }
+    patch incase_url(@incase), params: {incase: {carnumber: @incase.carnumber, company_id: @incase.company_id, date: @incase.date, modelauto: @incase.modelauto, region: @incase.region, status: @incase.status, stoanumber: @incase.stoanumber, strah_id: @incase.strah_id, tip: @incase.tip, totalsum: @incase.totalsum, unumber: @incase.unumber}}
     assert_redirected_to incase_url(@incase)
   end
 

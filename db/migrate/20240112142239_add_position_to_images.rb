@@ -12,5 +12,4 @@ class AddPositionToImages < ActiveRecord::Migration[7.1]
     SQL
     remove_column :images, :position, :integer, null: false, default: 1
   end
-
 end

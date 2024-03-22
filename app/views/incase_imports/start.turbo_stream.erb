@@ -1,0 +1,30 @@
+<%= turbo_stream.update @incase_import do %>
+    <div class="card-body">
+    </div>
+    <div class="card-footer">
+        <div class="d-flex row">
+            <div class="col-12">
+                <%= link_to t('back'), incase_imports_path, class: "btn btn-outline-primary", data: { turbo_frame: :_top } %>
+            </div>
+        </div>
+    </div>
+<% end %>
+
+<%= turbo_stream.update "modal", "" %>
+
+<%= turbo_stream.update "modal" do %>
+    <div class="d-flex row">
+        <div class="col-12">Информация об импорте появится в Оповещениях после окончания процесса</div>
+        <div class="col-12">или</div>
+        <div class="col-12">дождаться информации об окончании в этом окне</div>
+        <div class="col-12"><%= link_to "Перейти в раздел", '/notifications', class: "btn btn-link px-0" , data: { turbo_frame: :_top } %></div>
+        <div class="col-12">
+            <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Running...</span>
+            </button>
+        </div>
+    </div>
+<% end %>
+
+<%= turbo_stream_action_tag :open_modal, targets: '.modal' %>

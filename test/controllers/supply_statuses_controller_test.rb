@@ -17,7 +17,7 @@ class SupplyStatusesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create supply_status" do
     assert_difference("SupplyStatus.count") do
-      post supply_statuses_url, params: { supply_status: { color: @supply_status.color, position: @supply_status.position, title: @supply_status.title } }
+      post supply_statuses_url, params: {supply_status: {color: @supply_status.color, position: @supply_status.position, title: @supply_status.title}}
     end
 
     assert_redirected_to supply_status_url(SupplyStatus.last)
@@ -34,7 +34,7 @@ class SupplyStatusesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update supply_status" do
-    patch supply_status_url(@supply_status), params: { supply_status: { color: @supply_status.color, position: @supply_status.position, title: @supply_status.title } }
+    patch supply_status_url(@supply_status), params: {supply_status: {color: @supply_status.color, position: @supply_status.position, title: @supply_status.title}}
     assert_redirected_to supply_status_url(@supply_status)
   end
 

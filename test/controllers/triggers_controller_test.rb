@@ -17,7 +17,7 @@ class TriggersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create trigger" do
     assert_difference("Trigger.count") do
-      post triggers_url, params: { trigger: { action: @trigger.action, condition: @trigger.condition, event: @trigger.event, pause: @trigger.pause, pause_time: @trigger.pause_time, template_id: @trigger.template_id, title: @trigger.title } }
+      post triggers_url, params: {trigger: {action: @trigger.action, condition: @trigger.condition, event: @trigger.event, pause: @trigger.pause, pause_time: @trigger.pause_time, template_id: @trigger.template_id, title: @trigger.title}}
     end
 
     assert_redirected_to trigger_url(Trigger.last)
@@ -34,7 +34,7 @@ class TriggersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update trigger" do
-    patch trigger_url(@trigger), params: { trigger: { action: @trigger.action, condition: @trigger.condition, event: @trigger.event, pause: @trigger.pause, pause_time: @trigger.pause_time, template_id: @trigger.template_id, title: @trigger.title } }
+    patch trigger_url(@trigger), params: {trigger: {action: @trigger.action, condition: @trigger.condition, event: @trigger.event, pause: @trigger.pause, pause_time: @trigger.pause_time, template_id: @trigger.template_id, title: @trigger.title}}
     assert_redirected_to trigger_url(@trigger)
   end
 

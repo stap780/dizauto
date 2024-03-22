@@ -17,7 +17,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create line_item" do
     assert_difference("LineItem.count") do
-      post line_items_url, params: { line_item: { incase_id: @line_item.incase_id, katnumber: @line_item.katnumber, price: @line_item.price, quantity: @line_item.quantity, status: @line_item.status, sum: @line_item.sum, title: @line_item.title } }
+      post line_items_url, params: {line_item: {incase_id: @line_item.incase_id, katnumber: @line_item.katnumber, price: @line_item.price, quantity: @line_item.quantity, status: @line_item.status, sum: @line_item.sum, title: @line_item.title}}
     end
 
     assert_redirected_to line_item_url(LineItem.last)
@@ -34,7 +34,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update line_item" do
-    patch line_item_url(@line_item), params: { line_item: { incase_id: @line_item.incase_id, katnumber: @line_item.katnumber, price: @line_item.price, quantity: @line_item.quantity, status: @line_item.status, sum: @line_item.sum, title: @line_item.title } }
+    patch line_item_url(@line_item), params: {line_item: {incase_id: @line_item.incase_id, katnumber: @line_item.katnumber, price: @line_item.price, quantity: @line_item.quantity, status: @line_item.status, sum: @line_item.sum, title: @line_item.title}}
     assert_redirected_to line_item_url(@line_item)
   end
 

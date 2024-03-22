@@ -1,7 +1,7 @@
 class CharacteristicsController < ApplicationController
   load_and_authorize_resource
   before_action :get_property
-  before_action :set_characteristic, only: %i[ show edit update destroy]
+  before_action :set_characteristic, only: %i[show edit update destroy]
 
   # GET /characteristics or /characteristics.json
   def index
@@ -24,10 +24,10 @@ class CharacteristicsController < ApplicationController
 
   # POST /characteristics or /characteristics.json
   def create
-    puts "params => "+params.to_s
-    puts "params property_id => "+params['property_id'].to_s
+    puts "params => " + params.to_s
+    puts "params property_id => " + params["property_id"].to_s
     @characteristic = @property.characteristics.build(characteristic_params)
-    puts "characteristic => "+@characteristic.inspect
+    puts "characteristic => " + @characteristic.inspect
     respond_to do |format|
       if @characteristic.save
         format.html { redirect_to property_url(@property), notice: "Characteristic was successfully created." }
@@ -56,12 +56,12 @@ class CharacteristicsController < ApplicationController
   def destroy
     @check_destroy = @characteristic.destroy ? true : false
     message = if @check_destroy == true
-                flash.now[:success] = t('.success')
-              else
-                flash.now[:notice] = @characteristic.errors.full_messages.join(' ')
-              end
+      flash.now[:success] = t(".success")
+    else
+      flash.now[:notice] = @characteristic.errors.full_messages.join(" ")
+    end
     respond_to do |format|
-      format.html { redirect_to property_url(@property), notice: "Characteristic was successfully destroyed."}
+      format.html { redirect_to property_url(@property), notice: "Characteristic was successfully destroyed." }
       format.json { head :no_content }
       format.turbo_stream { message }
     end
@@ -69,26 +69,26 @@ class CharacteristicsController < ApplicationController
 
   def search
     if params[:title].present?
-      @search_results = @property.characteristics.where('title ILIKE ?', "%#{params[:title]}%").select(:title, :id)
-      render json: @search_results, status: :ok 
+      @search_results = @property.characteristics.where("title ILIKE ?", "%#{params[:title]}%").select(:title, :id)
+      render json: @search_results, status: :ok
     else
-      render json: @search_results, status: :unprocessable_entity 
+      render json: @search_results, status: :unprocessable_entity
     end
   end
- 
+
   private
 
-    def get_property
-      @property = Property.find(params[:property_id]) if params[:property_id].present?
-    end
+  def get_property
+    @property = Property.find(params[:property_id]) if params[:property_id].present?
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_characteristic
-      @characteristic = @property.characteristics.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_characteristic
+    @characteristic = @property.characteristics.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def characteristic_params
-      params.require(:characteristic).permit(:title, :property_id)
-    end
+  # Only allow a list of trusted parameters through.
+  def characteristic_params
+    params.require(:characteristic).permit(:title, :property_id)
+  end
 end

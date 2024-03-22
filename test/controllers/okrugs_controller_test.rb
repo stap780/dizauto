@@ -17,7 +17,7 @@ class OkrugsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create okrug" do
     assert_difference("Okrug.count") do
-      post okrugs_url, params: { okrug: { title: @okrug.title } }
+      post okrugs_url, params: {okrug: {title: @okrug.title}}
     end
 
     assert_redirected_to okrug_url(Okrug.last)
@@ -34,7 +34,7 @@ class OkrugsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update okrug" do
-    patch okrug_url(@okrug), params: { okrug: { title: @okrug.title } }
+    patch okrug_url(@okrug), params: {okrug: {title: @okrug.title}}
     assert_redirected_to okrug_url(@okrug)
   end
 

@@ -1,10 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "Позиции") do |sheet|
-    sheet.add_row ['Контрагент','Страховая компания', 'Номер З/Н СТОА', 'Номер дела', 'Марка и Модель ТС', 'Гос номер', 'Деталь']
+  sheet.add_row ["Контрагент", "Страховая компания", "Номер З/Н СТОА", "Номер дела", "Марка и Модель ТС", "Гос номер", "Деталь"]
   @incase.incase_items.each do |li|
     if li.status == "Долг" || li.status == "В работе"
-        sheet.add_row [@incase.company.title, @incase.strah.title, @incase.stoanumber,@incase.unumber,@incase.modelauto,@incase.carnumber, li.title]
+      sheet.add_row [@incase.company.title, @incase.strah.title, @incase.stoanumber, @incase.unumber, @incase.modelauto, @incase.carnumber, li.title]
     end
   end
 end
-

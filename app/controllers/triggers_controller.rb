@@ -1,11 +1,11 @@
 class TriggersController < ApplicationController
   load_and_authorize_resource
-  before_action :set_trigger, only: %i[ show edit update destroy ]
+  before_action :set_trigger, only: %i[show edit update destroy]
 
   # GET /triggers or /triggers.json
   def index
     @search = Trigger.ransack(params[:q])
-    @search.sorts = 'id desc' if @search.sorts.empty?
+    @search.sorts = "id desc" if @search.sorts.empty?
     @triggers = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -28,7 +28,7 @@ class TriggersController < ApplicationController
 
     respond_to do |format|
       if @trigger.save
-        format.html { redirect_to triggers_url, notice: t('.success') }
+        format.html { redirect_to triggers_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @trigger }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class TriggersController < ApplicationController
   def update
     respond_to do |format|
       if @trigger.update(trigger_params)
-        format.html { redirect_to triggers_url, notice: t('.success') }
+        format.html { redirect_to triggers_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @trigger }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,19 +55,20 @@ class TriggersController < ApplicationController
     @trigger.destroy
 
     respond_to do |format|
-      format.html { redirect_to triggers_url, notice: t('.success') }
+      format.html { redirect_to triggers_url, notice: t(".success") }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trigger
-      @trigger = Trigger.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def trigger_params
-      params.require(:trigger).permit(:title, :event, :condition, :pause, :pause_time, :active, actions_attributes: [:id, :trigger_id, :template_id, :action_name, :_destroy, action_params: [] ])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trigger
+    @trigger = Trigger.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def trigger_params
+    params.require(:trigger).permit(:title, :event, :condition, :pause, :pause_time, :active, actions_attributes: [:id, :trigger_id, :template_id, :action_name, :_destroy, action_params: []])
+  end
 end

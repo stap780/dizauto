@@ -1,5 +1,5 @@
 <tr id="<%= dom_id supply %>">
-    <td><%= check_box_tag "supply_ids[]", supply.id, false, {class: 'checkboxes', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
+    <td><%= check_box_tag "supply_ids[]", supply.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
     <%= tag.td tag.b(supply.id) %>
     <%= tag.td(supply.created_at.strftime("%d/%m/%Y")) %>
     <%= tag.td do %>

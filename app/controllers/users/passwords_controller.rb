@@ -35,7 +35,7 @@ class Users::PasswordsController < Devise::PasswordsController
   # end
 
   private
-  
+
   def check_captcha
     return if verify_recaptcha # verify_recaptcha(action: 'login') for v3
 
@@ -46,5 +46,4 @@ class Users::PasswordsController < Devise::PasswordsController
       render :new
     end
   end
-
 end

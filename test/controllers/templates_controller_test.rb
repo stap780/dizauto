@@ -17,7 +17,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create template" do
     assert_difference("Template.count") do
-      post templates_url, params: { template: { content: @template.content, receiver: @template.receiver, subject: @template.subject, title: @template.title } }
+      post templates_url, params: {template: {content: @template.content, receiver: @template.receiver, subject: @template.subject, title: @template.title}}
     end
 
     assert_redirected_to template_url(Template.last)
@@ -34,7 +34,7 @@ class TemplatesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update template" do
-    patch template_url(@template), params: { template: { content: @template.content, receiver: @template.receiver, subject: @template.subject, title: @template.title } }
+    patch template_url(@template), params: {template: {content: @template.content, receiver: @template.receiver, subject: @template.subject, title: @template.title}}
     assert_redirected_to template_url(@template)
   end
 

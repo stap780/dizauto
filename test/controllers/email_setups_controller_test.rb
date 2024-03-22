@@ -17,7 +17,7 @@ class EmailSetupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create email_setup" do
     assert_difference("EmailSetup.count") do
-      post email_setups_url, params: { email_setup: { address: @email_setup.address, authentication: @email_setup.authentication, domain: @email_setup.domain, port: @email_setup.port, tls: @email_setup.tls, user_name: @email_setup.user_name, user_password: @email_setup.user_password } }
+      post email_setups_url, params: {email_setup: {address: @email_setup.address, authentication: @email_setup.authentication, domain: @email_setup.domain, port: @email_setup.port, tls: @email_setup.tls, user_name: @email_setup.user_name, user_password: @email_setup.user_password}}
     end
 
     assert_redirected_to email_setup_url(EmailSetup.last)
@@ -34,7 +34,7 @@ class EmailSetupsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update email_setup" do
-    patch email_setup_url(@email_setup), params: { email_setup: { address: @email_setup.address, authentication: @email_setup.authentication, domain: @email_setup.domain, port: @email_setup.port, tls: @email_setup.tls, user_name: @email_setup.user_name, user_password: @email_setup.user_password } }
+    patch email_setup_url(@email_setup), params: {email_setup: {address: @email_setup.address, authentication: @email_setup.authentication, domain: @email_setup.domain, port: @email_setup.port, tls: @email_setup.tls, user_name: @email_setup.user_name, user_password: @email_setup.user_password}}
     assert_redirected_to email_setup_url(@email_setup)
   end
 

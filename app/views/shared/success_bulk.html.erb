@@ -1,6 +1,6 @@
-<%= turbo_frame_tag "modal" do %>
+<%# turbo_frame_tag "modal" do %>
     <p>Создали файл</p> 
     <%# link_to 'Скачать', bulk_print.split('/public').last, target: '_blank' %>
     <%= link_to 'Скачать', rails_blob_path(bulk_print, disposition: 'attachment') %>
-<% end %>
-<%= turbo_stream_action_tag :open_modal, targets: '.modal' %>
+<%# end %>
+<%# turbo_stream_action_tag :open_modal, targets: '.modal' %>

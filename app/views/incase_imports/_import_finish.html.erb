@@ -1,0 +1,10 @@
+    <div class='border border-success text-success p-3'>
+        <% message[:success].uniq.each do |item| %>
+            <p><%= item %></p>
+        <% end %>
+    </div>
+    <%= tag.div class: 'border border-danger text-danger mt-2 p-3' do %>
+        <% message[:errors].uniq.each do |item| %>
+            <p><%= item %></p>
+        <% end %>
+    <% end if message[:errors].size > 0 %>

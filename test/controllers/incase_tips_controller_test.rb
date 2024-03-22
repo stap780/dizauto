@@ -17,7 +17,7 @@ class IncaseTipsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create incase_tip" do
     assert_difference("IncaseTip.count") do
-      post incase_tips_url, params: { incase_tip: { color: @incase_tip.color, title: @incase_tip.title } }
+      post incase_tips_url, params: {incase_tip: {color: @incase_tip.color, title: @incase_tip.title}}
     end
 
     assert_redirected_to incase_tip_url(IncaseTip.last)
@@ -34,7 +34,7 @@ class IncaseTipsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update incase_tip" do
-    patch incase_tip_url(@incase_tip), params: { incase_tip: { color: @incase_tip.color, title: @incase_tip.title } }
+    patch incase_tip_url(@incase_tip), params: {incase_tip: {color: @incase_tip.color, title: @incase_tip.title}}
     assert_redirected_to incase_tip_url(@incase_tip)
   end
 

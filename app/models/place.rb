@@ -1,5 +1,4 @@
 class Place < ApplicationRecord
-belongs_to :product
-belongs_to :warehouse
-
+  belongs_to :product
+  belongs_to :warehouse
 end

@@ -17,7 +17,7 @@ class WarehousesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create warehouse" do
     assert_difference("Warehouse.count") do
-      post warehouses_url, params: { warehouse: { title: @warehouse.title } }
+      post warehouses_url, params: {warehouse: {title: @warehouse.title}}
     end
 
     assert_redirected_to warehouse_url(Warehouse.last)
@@ -34,7 +34,7 @@ class WarehousesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update warehouse" do
-    patch warehouse_url(@warehouse), params: { warehouse: { title: @warehouse.title } }
+    patch warehouse_url(@warehouse), params: {warehouse: {title: @warehouse.title}}
     assert_redirected_to warehouse_url(@warehouse)
   end
 

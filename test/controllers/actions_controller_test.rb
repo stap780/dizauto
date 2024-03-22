@@ -17,7 +17,7 @@ class ActionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create action" do
     assert_difference("Action.count") do
-      post actions_url, params: { action: { action_name: @action.action_name, action_params: @action.action_params, trigger_id: @action.trigger_id } }
+      post actions_url, params: {action: {action_name: @action.action_name, action_params: @action.action_params, trigger_id: @action.trigger_id}}
     end
 
     assert_redirected_to action_url(Action.last)
@@ -34,7 +34,7 @@ class ActionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update action" do
-    patch action_url(@action), params: { action: { action_name: @action.action_name, action_params: @action.action_params, trigger_id: @action.trigger_id } }
+    patch action_url(@action), params: {action: {action_name: @action.action_name, action_params: @action.action_params, trigger_id: @action.trigger_id}}
     assert_redirected_to action_url(@action)
   end
 

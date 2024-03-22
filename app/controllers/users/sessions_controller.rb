@@ -25,9 +25,9 @@ class Users::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
-  
+
   private
-  
+
   def check_captcha
     return if verify_recaptcha # verify_recaptcha(action: 'login') for v3
 
@@ -38,5 +38,4 @@ class Users::SessionsController < Devise::SessionsController
       render :new
     end
   end
-
 end

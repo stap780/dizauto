@@ -1,0 +1,30 @@
+    <div class="col-md-4 mb-2">
+        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Добавить позицию</button>
+    </div>
+    <template data-nested-form-target="template">
+        <%= f.fields_for :incase_items, IncaseItem.new, child_index: 'NEW_RECORD' do |item| %>
+            <%= render "nested_items", f: item, nested_form_index: nil %>
+        <% end %>
+    </template>
+    <div class="table-responsive">
+        <table class="table table-primary table-striped table-hover" style="table-layout: fixed;" data-controller = "incase">
+            <thead class="">
+                <tr>
+                    <%=tag.th(t('helpers.label.incase_item.title'), scope:'col', class: 'col-4 align-middle')%>
+                    <%=tag.th(t('helpers.label.incase_item.quantity'), scope:'col', class: 'col-1 align-middle')%>
+                    <%=tag.th(t('helpers.label.incase_item.katnumber'), scope:'col', class: 'col-2 align-middle')%>
+                    <%=tag.th(t('helpers.label.incase_item.price'), scope:'col', class: 'col-1 align-middle')%>
+                    <%=tag.th(t('helpers.label.incase_item.sum'), scope:'col', class: 'col-1 align-middle')%>
+                    <%#tag.th(t('helpers.label.incase_item.status'), scope:'col', class: 'col-2')%>
+                    <th class="px-0"><%= select_tag "incase_item_status_label", options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), prompt: "Статус", class: 'form-select', data: {action: "change->incase#changeBulkIncaseItemStatus", incase_target: "itemStatusSelected" }%></th>
+                    <%=tag.th('', scope:'col', class: 'col-1')%>
+                </tr>
+            </thead>
+            <tbody class="">
+                <%= f.fields_for :incase_items do |item| %>
+                    <%= render "nested_items", f: item, nested_form_index: nil %>
+                <% end %>
+                <tr data-nested-form-target="target"></tr>
+            </tbody>
+        </table>
+    </div>

@@ -17,7 +17,7 @@ class ExportsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create export" do
     assert_difference("Export.count") do
-      post exports_url, params: { export: { format: @export.format, link: @export.link, template: @export.template, time: @export.time, title: @export.title } }
+      post exports_url, params: {export: {format: @export.format, link: @export.link, template: @export.template, time: @export.time, title: @export.title}}
     end
 
     assert_redirected_to export_url(Export.last)
@@ -34,7 +34,7 @@ class ExportsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update export" do
-    patch export_url(@export), params: { export: { format: @export.format, link: @export.link, template: @export.template, time: @export.time, title: @export.title } }
+    patch export_url(@export), params: {export: {format: @export.format, link: @export.link, template: @export.template, time: @export.time, title: @export.title}}
     assert_redirected_to export_url(@export)
   end
 
