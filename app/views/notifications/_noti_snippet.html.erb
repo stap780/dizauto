@@ -2,11 +2,19 @@
     <a href="#" class="list-group-item">
         <div class="row g-0 align-items-center">
             <div class="col-2">
-                <i class="text-danger" data-feather="alert-circle"></i>
+                <% if notification.success? %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
+                    <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0"/>
+                    </svg>
+                <% else %>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                        <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0zM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0"/>
+                    </svg>
+                <% end %>
             </div>
             <div class="col-10">
                 <div class="text-dark"><%= notification.message %></div>
-                <div class="text-muted small mt-1">Received on <%= notification.created_at %></div>
+                <div class="text-muted small mt-1"><%= time_ago_in_words(notification.created_at) %> <%= t('ago')%> </div>
                 <div class="text-muted small mt-1">Status: <%= notification.read? ? "Read" : "Unread" %></div>
             </div>
         </div>

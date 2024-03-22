@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   authorize_resource
-  before_action :set_user, only: [:show, :edi, :update, :read_notification, :destroy]
+  before_action :set_user, only: [:show, :edi, :update, :read_notification, :delete_notification, :destroy]
 
   def index
     @search = User.ransack(params[:q])
@@ -137,6 +137,18 @@ class UsersController < ApplicationController
       format.turbo_stream{ flash.now[:success] = t(".success") }
     end
   end
+
+  def delete_notification
+    @notification = @user.notifications.find_by_id(params[:notification_id])
+    if !@notification.blob.nil?
+      @notification.blob.purge
+    end
+    @notification.delete
+    respond_to do |format|
+      format.turbo_stream{ flash.now[:success] = t(".success") }
+    end
+  end
+
 
   private
 

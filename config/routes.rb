@@ -100,14 +100,14 @@ Rails.application.routes.draw do
       get :print
     end
     collection do
-      get :file_import
-      post :import_setup
-      post :convert_file_data
+      # get :file_import
+      # post :import_setup
+      # post :convert_file_data
       post :create_from_import
       # put :update_from_file
       post :bulk_print
-      get :pending_bulk
-      get :success_bulk
+      # get :pending_bulk
+      # get :success_bulk
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
@@ -184,6 +184,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       post :read_notification
+      post :delete_notification
     end
   end
 

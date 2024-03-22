@@ -6,12 +6,7 @@
 <%= turbo_stream.update "modal", "" %>
 
 <%= turbo_stream.update "modal" do %>
-    <p>Формируем файл для печати</p>
-    <p>Дождитесь выполнения задачи</p>
-    <button class="btn btn-primary" type="button" disabled>
-        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
-        <span role="status">Running...</span>
-    </button>
+    <%= render partial: "shared/pending_bulk_text"%>
 <% end %>
 <%= turbo_stream_action_tag :set_unchecked, targets: '.checkboxes' %>
 <%= turbo_stream_action_tag :open_modal, targets: '.modal' %>

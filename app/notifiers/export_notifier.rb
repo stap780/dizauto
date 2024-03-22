@@ -33,6 +33,15 @@ class ExportNotifier < ApplicationNotifier
     def message
       "This is  #{recipient.name} from ExportNotifier #{params[:message]}"
     end
+    
+    def blob
+      params[:blob].nil? ? nil : params[:blob]
+    end
+    
+    def success?
+      params[:error].nil? ? true : false
+    end
+
   end
 
   # deliver_by :custom do |config|

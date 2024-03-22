@@ -44,7 +44,7 @@
 			<main class="content">
 				<div class="container-fluid p-0">
         <%= render "shared/modal_wrap"%>
-        <div id="our_flash" class="position-fixed w-50 top-0 end-0 p-3">
+        <div id="our_flash" class="position-absolute start-50 translate-middle-x w-25" style="top: 20px;">
           <%= render "shared/flash"%>
         </div>
         <%= turbo_stream_from current_user, "exports" if user_signed_in? %>

@@ -15,12 +15,13 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html
       format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Product",
+        CreateZipXlsxJob.perform_later(collection.ids, {  model: "Product",
                                                           current_user_id: current_user.id,
                                                           filename: filename,
                                                           template: "products/index"})
         flash[:success] = t ".success"
-        redirect_to products_path
+        redirect_back fallback_location: products_path
+
         # This is first example . don't delete
         # service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
         # compressed_filestream = service.call
@@ -73,16 +74,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  # def characteristics
-  #   @target = params[:target]
-  #   puts @target
-  #   @property = Property.find(params[:property_id])
-  #   @characteristics = @property.characteristics.pluck(:title, :id)
-  #   respond_to do |format|
-  #     format.turbo_stream
-  #   end
-  # end
-
   def print
     templ = Templ.find(params[:templ_id])
     success, pdf = CreatePdf.new(@product, {templ: templ}).call
@@ -95,11 +86,22 @@ class ProductsController < ApplicationController
   end
 
   def print_etiketki # post
+    # if params[:product_ids]
+    #   ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
+    #   respond_to do |format|
+    #     format.turbo_stream
+    #   end
+    # else
+    #   notice = "Выберите товары"
+    #   redirect_to products_url, alert: notice
+    # end
     if params[:product_ids]
       ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
-      respond_to do |format|
-        format.turbo_stream
-      end
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
     else
       notice = "Выберите товары"
       redirect_to products_url, alert: notice

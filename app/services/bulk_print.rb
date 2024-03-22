@@ -39,4 +39,5 @@ class BulkPrint < ApplicationService
   def clear_dir
     FileUtils.rm_rf(Dir["#{@save_dir}/*"])
   end
+  
 end

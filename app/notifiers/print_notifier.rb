@@ -4,7 +4,7 @@
 
 class PrintNotifier < ApplicationNotifier
   # Add your delivery methods
-  #
+  deliver_by :turbo_stream, class: "DeliveryMethods::TurboStream"
   # deliver_by :email do |config|
   #   config.mailer = "UserMailer"
   #   config.method = "new_post"
@@ -19,9 +19,20 @@ class PrintNotifier < ApplicationNotifier
   # end
 
   notification_methods do
+
     def message
-      "This is  #{recipient.name} from PrintNotifier #{params[:message]}"
+      # recipient.name
+      "#{params[:message]}. Печать #{params[:model]} #{","+params[:error] if !params[:error].nil?}, шаблон #{params[:template]}"
     end
+
+    def blob
+      params[:blob].nil? ? nil : params[:blob]
+    end
+
+    def success?
+      params[:error].nil? ? true : false
+    end
+
   end
 
   # Add required params
