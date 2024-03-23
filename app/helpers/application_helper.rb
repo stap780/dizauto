@@ -144,7 +144,7 @@ module ApplicationHelper
 
   def td_index_edit_delete_link(obj)
     content_tag :th, class: "align-middle" do
-      content_tag :span, class: "no-wrap d-flex align-items-center" do
+      content_tag :span, class: "no-wrap d-flex justify-content-end gap-2 align-items-center" do
         render "shared/edit_delete_link", object: obj
       end
     end

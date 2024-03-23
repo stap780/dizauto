@@ -9,7 +9,7 @@
     <%= tag.div('', class: "col-md-4") do %>
         <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{supply_status.color};")%>
     <% end %>
-    <div class= "col-md-1">
+    <div class= "col-1 d-flex justify-content-end gap-2 align-items-center">
         <%= render 'shared/edit_delete_link', object: supply_status %>
     </div>
 <% end %>

@@ -9,7 +9,7 @@
         <div class="mb-3 col-md-3">
             <%= prop.property.c_val(prop.characteristic_id).title.to_s if prop.present? %>
         </div>
-        <div class="mb-3 col-md-3">
+        <div class="mb-3 col-3 d-flex justify-content-end gap-2 align-items-center">
             <%= render 'shared/edit_delete_link', object: prop %>
         </div>
     </div>

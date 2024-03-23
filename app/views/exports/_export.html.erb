@@ -13,7 +13,7 @@
         <%= t( 'helpers.label.export.format')%>: <%= export.format %><br>
         <%= export.file_data %>
     <% end %>
-    <div class= "col-2 d-flex justify-content-end align-items-center" id="buttons-<%=export.id%>">
+    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=export.id%>">
         <%= link_to download_icon, download_export_path(export), data: {turbo: :false}, title: 'Скачать' %>
         <%= link_to play_icon, run_export_path(export), class: 'px-2', data: {turbo_method: :post, turbo_confirm: "Запустить экспорт?"}, title: 'Запустить экспорт' %>
         <%= render 'shared/edit_delete_link', object: export %>

@@ -189,6 +189,9 @@ ru:
       incase: 
         one: "убыток"
         other: "Убытки"
+      notification: 
+        one: "оповещение"
+        other: "Оповещения"
       incase_item_status:
         one: "статус детали убытка"
         other: "Статусы деталей убытка"
