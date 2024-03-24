@@ -69,13 +69,11 @@ Rails.application.routes.draw do
   resources :order_statuses
   resources :orders do
     resources :comments, module: :orders
-    member do
-      get :print
-    end
     collection do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :bulk_print
     end
   end
   resources :client_companies do
@@ -97,7 +95,6 @@ Rails.application.routes.draw do
     resources :comments, module: :incases
     member do
       get "act"
-      get :print
     end
     collection do
       # get :file_import

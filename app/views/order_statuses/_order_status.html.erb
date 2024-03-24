@@ -5,7 +5,7 @@
         <%= tag.div('', class: "col-md-5") do %>
             <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{order_status.color};")%>
         <% end %>
-        <div class= "col-md-1">
+        <div class= "col-1  d-flex justify-content-end gap-2 align-items-center">
              <%= render 'shared/edit_delete_link_turbo', object: order_status %>
         </div>
     </div>

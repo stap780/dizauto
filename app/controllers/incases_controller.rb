@@ -101,24 +101,6 @@ class IncasesController < ApplicationController
     end
   end
 
-  def print
-    # templ = Templ.find(params[:templ_id])
-    # success, pdf = CreatePdf.new(@incase, {templ: templ}).call
-    # if success
-    #   send_file pdf, type: "application/pdf", disposition: "attachment"
-    # else
-    #   alert = "Ошибка в файле печати: " + pdf.to_s
-    #   redirect_to incases_url, notice: alert
-    # end
-    templ_id = params[:button].split("#").last
-    BulkPrintJob.perform_now("Incase", @incase.id, params[:templ_id], current_user.id)
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
-  end
-
   def bulk_print # post
     if params[:incase_ids]
       templ_id = params[:button].split("#").last

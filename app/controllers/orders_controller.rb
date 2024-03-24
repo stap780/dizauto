@@ -74,14 +74,18 @@ class OrdersController < ApplicationController
     end
   end
 
-  def print
-    templ = Templ.find(params[:templ_id])
-    success, pdf = CreatePdf.new(@order, {templ: templ}).call
-    if success
-      send_file pdf, type: "application/pdf", disposition: "attachment"
+  def bulk_print # post
+    if params[:order_ids]
+      templ_id = params[:button].split("#").last
+      BulkPrintJob.perform_later("Order", params[:order_ids], templ_id, current_user.id)
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
     else
-      alert = "Ошибка в файле печати: " + pdf.to_s
-      redirect_to incases_url, notice: alert
+      notice = "Выберите позиции"
+      redirect_to orders_url, alert: notice
     end
   end
 

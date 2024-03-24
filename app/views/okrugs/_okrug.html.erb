@@ -7,7 +7,7 @@
 
         <%= tag.div tag.b(okrug.id), class: "col-md-1" %>
         <%= tag.div(okrug.title, class: "col-md-5")%>
-        <div class= "col-md-1">
+        <div class= "col-1  d-flex justify-content-end gap-2 align-items-center">
             <%= link_to edit_icon, edit_okrug_path(okrug), class: 'px-2' %>
             <%= link_to trash_icon, okrug, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
         </div>

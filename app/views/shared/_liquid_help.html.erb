@@ -40,7 +40,7 @@
     </div>
     <div class="col-md-12 my-3">
         <div class="h5">Пример</div>
-        <code>{% if incase.strah['title'] == 'Альфа' and incase.totalsum == 0 and incase.line_items_statuses contains 'Нет' %} {{do_work}} {% endif %}</code>
+        <code>{% if incase.strah['title'] == 'Альфа' and incase.totalsum == 0 and incase.items_statuses contains 'Нет' %} {{do_work}} {% endif %}</code>
     </div>
     <div class="col-md-6">
         <%= tag.div("#{Incase.model_name.human(count: 2)} (incase)", class: "h5")%>
@@ -121,6 +121,42 @@
     </div>
     <div class="col-md-6">
         <%= tag.dev("#{Order.model_name.human(count: 2)} (order)", class: 'h5')%>
+        <div class="table-responsive">
+            <table class="table table-striped-columns">
+                <thead>
+                    <tr>
+                        <th scope="col">значение</th>
+                        <th scope="col">описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">status</td>
+                        <td><%= t('helpers.label.order.status')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">client</td>
+                        <td><%= t('helpers.label.order.client_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">payment_type</td>
+                        <td><%= t('helpers.label.prodorderuct.payment_type_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">delivery_type</td>
+                        <td><%= t('helpers.label.order.delivery_type_id')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">totalsum</td>
+                        <td><%= t('helpers.label.order.totalsum')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">items</td>
+                        <td> позиции заказа ( "product_title","price","discount","sum","quantity","vat")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="col-md-6">
         <%= tag.div("#{Product.model_name.human(count: 2)} (product)", class: 'h5')%>
