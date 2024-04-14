@@ -158,7 +158,7 @@ module ApplicationHelper
       return_value = val.short_title if val.present? && val.respond_to?(:short_title)
       return_value.present? ? return_value : value.to_s
     else
-      key.include?("data") ? value.to_date.strftime("%d/%m/%YT%H:%M") : value
+      value
     end
   end
 
