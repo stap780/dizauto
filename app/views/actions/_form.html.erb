@@ -1,26 +1,11 @@
 <%= form_with(model: action) do |form| %>
       <%= render "shared/errors", object: action %>
 
-  <div>
-    <%= form.label :action_name, style: "display: block" %>
-    <%= form.text_field :action_name %>
-  </div>
-
-  <div>
-    <%= form.label :action_params, style: "display: block" %>
-    <%= form.text_field :action_params %>
-  </div>
-  <%=render 'form_data', f: f%>
-
+<%= render 'form_data', f: f %>
   <div>
     <%= form.label :trigger_id, style: "display: block" %>
     <%= form.number_field :trigger_id %>
   </div>
-    <div class="mb-3 col-md-12">
-      <%= f.label :template_id, class: "form-label" %> 
-      <%= f.select :template_id, @templates, {}, {class: "form-select"} %>
-    </div>
-
   <div>
     <%= form.submit %>
   </div>

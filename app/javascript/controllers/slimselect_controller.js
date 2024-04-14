@@ -21,7 +21,7 @@ export default class extends Controller {
         select: this.element,
         settings: {
           //minSelected: 1,
-          maxSelected: 1,
+          //maxSelected: 1,
         },
         events: {
           search: (search, currentData) => {
@@ -69,7 +69,7 @@ export default class extends Controller {
             let params = new URLSearchParams()
             params.append("turboId", turboId)
             // params.append("selectId", selectId)
-            params.append("product_id", newVal[0].value)
+            params.append("selected_id", newVal[0].value)
             
             get(`${nestedUrl}?${params}`, {  
               responseKind: "turbo-stream"
@@ -84,7 +84,7 @@ export default class extends Controller {
         select: this.element,
         settings: {
           //minSelected: 1,
-          maxSelected: 1,
+          //maxSelected: 2,
         },
         events: {
           events: {

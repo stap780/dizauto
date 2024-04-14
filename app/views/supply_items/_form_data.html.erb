@@ -16,7 +16,7 @@
     <% end %>
     
     <%= tag.div class: "col-2 p-0 m-0" do %>
-        <%= f.select :warehouse_id, Warehouse.all.map{|p| [p.title, p.id]}, {include_blank: true}, { class: "rounded-0", data: {controller: 'slimselect'}} %>
+        <%= f.select :warehouse_id, Warehouse.all.map{|p| [p.title, p.id]}, {include_blank: true}, { class: "rounded-0 form-select", data: {choose_target: 'itemResults'}} %>
     <% end %>
 
     <%= tag.div class: "col-1 p-0 m-0" do %>

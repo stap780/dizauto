@@ -1,6 +1,6 @@
 class PaymentTypesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_payment_type, only: %i[show edit update destroy]
+  before_action :set_payment_type, only: %i[show edit update sort destroy]
 
   # GET /payments or /payments.json
   def index
@@ -28,6 +28,13 @@ class PaymentTypesController < ApplicationController
 
     respond_to do |format|
       if @payment_type.save
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(PaymentType.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to payment_types_url, notice: "Payment was successfully created." }
         format.json { render :show, status: :created, location: @payment_type }
       else
@@ -41,6 +48,12 @@ class PaymentTypesController < ApplicationController
   def update
     respond_to do |format|
       if @payment_type.update(payment_type_params)
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to payment_types_url, notice: "Payment was successfully updated." }
         format.json { render :show, status: :ok, location: @payment_type }
       else
@@ -52,12 +65,22 @@ class PaymentTypesController < ApplicationController
 
   # DELETE /payments/1 or /payments/1.json
   def destroy
-    @payment_type.destroy
-
+    # @payment_type.destroy
+    @check_destroy = @payment_type.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @payment_type.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to payment_types_url, notice: "Payment was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def sort
+    @payment_type.insert_at params[:new_position]
+    head :ok
   end
 
   private
@@ -69,6 +92,6 @@ class PaymentTypesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def payment_type_params
-    params.require(:payment_type).permit(:title, :margin, :desc)
+    params.require(:payment_type).permit(:title, :margin, :desc, :position)
   end
 end

@@ -19,6 +19,9 @@ application.register("calculate", CalculateController)
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 
+import ChooseController from "./choose_controller"
+application.register("choose", ChooseController)
+
 import ColorPickerController from "./color_picker_controller"
 application.register("color-picker", ColorPickerController)
 
@@ -52,14 +55,14 @@ application.register("hello", HelloController)
 import ImageController from "./image_controller"
 application.register("image", ImageController)
 
-import IncaseController from "./incase_controller"
-application.register("incase", IncaseController)
-
 import ModalController from "./modal_controller"
 application.register("modal", ModalController)
 
 import NestedFormController from "./nested_form_controller"
 application.register("nested-form", NestedFormController)
+
+import OffcanvasController from "./offcanvas_controller"
+application.register("offcanvas", OffcanvasController)
 
 import ProductController from "./product_controller"
 application.register("product", ProductController)

@@ -8,8 +8,9 @@
         <% end %>
 
         <div class="card">
-            <div class="card-header">
-                <%= tabs_head('incase', [ ['main', t(:main)],['property', t(:property)],['history', t(:history)] ]) if !f.object.new_record? %>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <%= tabs_head('incase', [ ['main', t(:main)],['property', t(:property)] ]) if !f.object.new_record? %>
+                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
             </div>
             <div class="card-body">
                 <div class="tab-content">
@@ -19,11 +20,6 @@
                     <div class="tab-pane" id="property_tab" role="tabpanel" aria-labelledby="property_tab">
                         <%= render "props_nested", f: f %>
                     </div>
-                    <% if !f.object.new_record? %>
-                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
-                        <%= render "shared/history", f: f %>
-                    </div>
-                    <% end %>
                 </div>
             </div>
             <div class="card-footer">

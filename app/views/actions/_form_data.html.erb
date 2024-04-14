@@ -1,0 +1,35 @@
+<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i : child_index %>
+<%= turbo_frame_tag "action_#{ f.object.persisted? ? f.object.id : child_index }", 
+                    class: "d-flex w-100 m-auto justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
+    <%= f.hidden_field :id if !f.object.new_record? %>
+
+    <% object_name = f.object.name if f.object.present? && f.object.name.present?%>
+    <% start_name = !object_name.present? && slimselect_name.present? ? slimselect_name : object_name %>
+
+    <%= tag.div class: "col-5 p-0 m-0 name #{start_name} // #{object_name}" do %>
+        
+        <% selected_name = Action::Name.select{ |r| r[1] ==  start_name  }.flatten if start_name %>
+        
+        <%= f.select :name, options_for_select(Action::Name.map{ |r| [ r[0], r[1] ] }, selected_name), { include_blank: true }, 
+            { class: "p-1", data: {controller: 'slimselect',search_url:  "/products/search", nested_url:  "/triggers/slimselect_nested_item"}} %>
+
+    <% end %>
+    <%= tag.div class: "col-5 p-0 m-0 action_params" do %>
+        
+        <% collection = start_name.present? ? Action.get_collection(start_name) : []%>
+
+        <% if start_name.present? && !start_name.include?('create')%>
+            <%= f.select :value, collection, { include_blank: true }, 
+                    { multiple: false, data: {controller: "slimselect", action_target: "select" }} %>
+        <% else %>
+            <%=f.text_field :value, multiple: true, class: "form-control", placeholder: start_name.present? ? "здесь условие, если надо или просто {{do_work}}" : "" %>
+        <% end %>
+
+    <% end %>
+    
+    <div class="col-2 p-0 d-flex justify-content-center">
+        <%= link_to trash_icon, remove_nested_triggers_path(action_id: f.object.id, remove_element: "action_#{ f.object.persisted? ? f.object.id : child_index }"),class: "",
+                                data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+    </div>
+
+<% end %>

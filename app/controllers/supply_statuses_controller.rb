@@ -4,7 +4,7 @@ class SupplyStatusesController < ApplicationController
 
   # GET /supply_statuses or /supply_statuses.json
   def index
-    @supply_statuses = SupplyStatus.all
+    # @supply_statuses = SupplyStatus.all
     @search = SupplyStatus.ransack(params[:q])
     @search.sorts = "position asc" if @search.sorts.empty?
     @supply_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
@@ -29,7 +29,13 @@ class SupplyStatusesController < ApplicationController
 
     respond_to do |format|
       if @supply_status.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(SupplyStatus.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to supply_statuses_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @supply_status }
       else
@@ -43,7 +49,12 @@ class SupplyStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @supply_status.update(supply_status_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to supply_statuses_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @supply_status }
       else
@@ -55,7 +66,13 @@ class SupplyStatusesController < ApplicationController
 
   # DELETE /supply_statuses/1 or /supply_statuses/1.json
   def destroy
-    @supply_status.destroy
+    # @supply_status.destroy
+    @check_destroy = @supply_status.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @supply_status.errors.full_messages.join(" ")
+              end
 
     respond_to do |format|
       format.html { redirect_to supply_statuses_url, notice: "Supply status was successfully destroyed." }

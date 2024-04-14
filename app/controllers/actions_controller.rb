@@ -79,6 +79,6 @@ class ActionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def action_params
-    params.require(:action).permit(:trigger_id, :action_name, action_params: [])
+    params.require(:action).permit(:trigger_id, :name, :value)
   end
 end

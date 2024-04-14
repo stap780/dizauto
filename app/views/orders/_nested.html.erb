@@ -14,7 +14,7 @@
     </div>
     <%= turbo_frame_tag 'order_items', class: "container" do %>
         <%= f.fields_for :order_items do |item| %>
-            <% render "order_items/form_data", f: item, product: nil%>
+            <%= render "order_items/form_data", f: item, product: nil%>
         <% end %>
     <% end %>
     <div class="row">

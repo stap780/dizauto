@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
   def slimselect_nested_item # GET
     target = params[:turboId]
     order_item = OrderItem.find_by(id: target.remove("order_item_"))
-    product = Product.find(params[:product_id])
+    product = Product.find(params[:selected_id])
     child_index = target.remove("order_item_")
 
     if order_item.present?

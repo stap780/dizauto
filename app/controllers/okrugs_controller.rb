@@ -28,7 +28,12 @@ class OkrugsController < ApplicationController
 
     respond_to do |format|
       if @okrug.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(Okrug.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to okrugs_url, notice: "Okrug was successfully created." }
         format.json { render :show, status: :created, location: @okrug }
       else
@@ -42,7 +47,12 @@ class OkrugsController < ApplicationController
   def update
     respond_to do |format|
       if @okrug.update(okrug_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to okrugs_url, notice: "Okrug was successfully updated." }
         format.json { render :show, status: :ok, location: @okrug }
       else
@@ -56,7 +66,6 @@ class OkrugsController < ApplicationController
   def destroy
     @okrug.destroy
     respond_to do |format|
-      format.turbo_stream { flash.now[:success] = t(".success") }
       format.html { redirect_to okrugs_url, notice: "Okrug was successfully destroyed." }
       format.json { head :no_content }
     end

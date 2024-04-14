@@ -34,7 +34,7 @@ class Product < ApplicationRecord
   after_initialize :set_default_new
   before_save :normalize_data_white_space
   after_commit :create_barcode, on: :create
-  before_destroy :check_relations_present!, prepend: true
+  before_destroy :check_relations_present, prepend: true
   after_create_commit { broadcast_prepend_to "products_list" }
   after_commit :update_counter, on: [ :create, :destroy ]
 
@@ -182,7 +182,7 @@ class Product < ApplicationRecord
     end
   end
 
-  def check_relations_present!
+  def check_relations_present
     if places.count > 0
       errors.add(:base, "Cannot delete product. You have #{I18n.t('places')} with it.")
     end

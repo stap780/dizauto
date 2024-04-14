@@ -1,15 +1,14 @@
 <%= turbo_frame_tag incase_tip, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
     sort_url: sort_incase_tip_path(incase_tip.id), sort_item_id: incase_tip.id }  do %>
-    <%= tag.div('', class: "col-md-1") do %>
-        <i class="bi bi-arrows-move js-sort-handle fs-3"></i>
-        <span class="badge bg-info float-end mt-1" data-sortable-target="position"><%= incase_tip.position%></span>
-    <% end %>
-    <%= tag.div tag.b(incase_tip.id), class: "col-md-1" %>
-    <%= tag.div(incase_tip.title, class: "col-md-4")%>
-    <%= tag.div('', class: "col-md-4") do %>
+  <%= tag.div(class: "col-1") do %>
+    <%= sortable_with_badge(incase_tip.position)%>
+    <%= incase_tip.id%>
+  <% end %>
+    <%= tag.div(incase_tip.title, class: "col-5")%>
+    <%= tag.div('', class: "col-4") do %>
         <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{incase_tip.color};")%>
     <% end %>
-    <div class= "col-1 d-flex justify-content-end gap-2 align-items-center">
-        <%= render 'shared/edit_delete_link', object: incase_tip %>
+    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
+        <%= render 'shared/edit_delete_link_turbo', object: incase_tip %>
     </div>
 <% end %>

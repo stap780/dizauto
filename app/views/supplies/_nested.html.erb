@@ -6,7 +6,15 @@
 
     <div class="row py-2 px-0">
         <%= tag.div(t('helpers.label.supply_item.product_id'), class: 'col-5 fw-semibold')%> 
-        <%= tag.div(t('helpers.label.supply_item.warehouse_id'), class: 'col-2 fw-semibold')%>
+        <%= tag.div( '', class: 'col-2 fw-semibold' ) do %>    
+            <%= select_tag t('helpers.label.supply_item.warehouse_id'), 
+                            options_from_collection_for_select(Warehouse.order(:id), "id", "title"), 
+                            prompt: t('helpers.label.supply_item.warehouse_id'), class: 'form-select', 
+                            data: {
+                                action: "change->choose#changeBulkItemStatus", 
+                                choose_target: "itemSelected" 
+                                }%>
+        <% end %>
         <%= tag.div( t('helpers.label.supply_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.supply_item.price'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.order_item.nds'), class: 'col-1 fw-semibold' )%>

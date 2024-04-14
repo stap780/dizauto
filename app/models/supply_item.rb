@@ -1,9 +1,9 @@
 class SupplyItem < ApplicationRecord
   belongs_to :supply
   belongs_to :warehouse
+  belongs_to :product
   audited associated_with: :supply
 
-  validates :product_id, presence: true
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   before_save :normalize_data_white_space

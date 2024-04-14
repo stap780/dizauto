@@ -7,7 +7,7 @@ class Client < ApplicationRecord
   validates :email, uniqueness: true
 
   before_save :normalize_data_white_space
-  before_destroy :check_presence_in_orders!, prepend: true
+  before_destroy :check_relations_present, prepend: true
 
   scope :first_five, -> { all.limit(5).map { |p| [p.full_name, p.id] } }
   scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.full_name, p.id] } + first_five }
@@ -28,10 +28,16 @@ class Client < ApplicationRecord
     end
   end
 
-  def check_presence_in_orders!
+  def check_relations_present
     if orders.count > 0
-      errors.add(:base, "Cannot delete client. You have items with it.")
+      errors.add(:base, "Cannot delete Client. You have #{I18n.t('orders')} with it.")
+    end
+    if companies.count > 0
+      errors.add(:base, "Cannot delete Client. You have #{I18n.t('companies')} with it.")
+    end
+    if errors.present?
       throw(:abort)
     end
   end
+
 end

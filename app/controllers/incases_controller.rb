@@ -1,6 +1,6 @@
 class IncasesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase, only: %i[show edit update destroy act print]
+  before_action :set_incase, only: %i[show edit update destroy act new_supply]
 
   # GET /incases or /incases.json
   def index
@@ -119,7 +119,7 @@ class IncasesController < ApplicationController
   def slimselect_nested_item # GET
     target = params[:turboId]
     incase_item = IncaseItem.find_by(id: target.remove("incase_item_"))
-    product = Product.find(params[:product_id])
+    product = Product.find(params[:selected_id])
     child_index = target.remove("incase_item_")
 
     if incase_item.present?
@@ -166,6 +166,11 @@ class IncasesController < ApplicationController
     end
   end
 
+  def new_supply
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
 
   private
 

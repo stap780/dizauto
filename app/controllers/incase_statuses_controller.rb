@@ -28,7 +28,13 @@ class IncaseStatusesController < ApplicationController
 
     respond_to do |format|
       if @incase_status.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(IncaseStatus.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_statuses_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @incase_status }
       else
@@ -42,7 +48,13 @@ class IncaseStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @incase_status.update(incase_status_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            # turbo_stream.replace(@incase_status, partial: 'incase_statuses/incase_status', locals: { incase_status: @incase_status }),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_statuses_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @incase_status }
       else
@@ -54,8 +66,13 @@ class IncaseStatusesController < ApplicationController
 
   # DELETE /incase_statuses/1 or /incase_statuses/1.json
   def destroy
-    @incase_status.destroy
-
+    # @incase_status.destroy
+    @check_destroy = @incase_status.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @incase_status.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to incase_statuses_url, notice: "Incase status was successfully destroyed." }
       format.json { head :no_content }

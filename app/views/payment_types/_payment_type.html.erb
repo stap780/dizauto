@@ -1,7 +1,14 @@
-<tr id="<%= dom_id payment_type %>">
-    <td><b><%= payment_type.id%></b></td>
-    <td><%= payment_type.title %></td>
-     <td><%= payment_type.margin %></td>
-     <td><%= payment_type.desc %></td>
-    <%= td_index_edit_delete_link(payment_type)%>
-</tr>
+
+<%= turbo_frame_tag payment_type, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
+    sort_url: sort_payment_type_path(payment_type.id), sort_item_id: payment_type.id }  do %>
+  <%= tag.div(class: "col-1") do %>
+    <%= sortable_with_badge(payment_type.position)%>
+    <%= payment_type.id%>
+  <% end %>
+  <%= tag.div(payment_type.title, class: "col-3")%>
+  <%= tag.div(payment_type.desc, class: "col-4")%>
+  <%= tag.div(payment_type.margin, class: "col-2")%>
+  <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
+    <%= render 'shared/edit_delete_link_turbo', object: payment_type %>
+  </div>
+<% end %>

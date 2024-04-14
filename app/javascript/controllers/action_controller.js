@@ -28,7 +28,7 @@ export default class extends Controller {
     params.append("targetname", this.selectTarget.name)
     
     // console.log('params', params)
-    // console.log('this.urlValue', this.urlValue)
+    console.log('this.urlValue', this.urlValue)
 
     get(`${this.urlValue}?${params}`, {
       responseKind: "turbo-stream"

@@ -28,7 +28,13 @@ class IncaseTipsController < ApplicationController
 
     respond_to do |format|
       if @incase_tip.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(IncaseTip.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_tips_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @incase_tip }
       else
@@ -42,7 +48,12 @@ class IncaseTipsController < ApplicationController
   def update
     respond_to do |format|
       if @incase_tip.update(incase_tip_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully updated." }
         format.json { render :show, status: :ok, location: @incase_tip }
       else
@@ -54,8 +65,13 @@ class IncaseTipsController < ApplicationController
 
   # DELETE /incase_tips/1 or /incase_tips/1.json
   def destroy
-    @incase_tip.destroy
-
+    # @incase_tip.destroy
+    @check_destroy = @incase_tip.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @incase_tip.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully destroyed." }
       format.json { head :no_content }

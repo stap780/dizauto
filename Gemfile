@@ -53,7 +53,11 @@ gem "caxlsx"
 gem "caxlsx_rails"
 gem "roo"
 gem "roo-xls"
+
 gem "audited"
+gem "audited-ui"
+gem 'kaminari'
+
 gem "barby"
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"

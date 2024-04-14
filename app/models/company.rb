@@ -16,6 +16,8 @@ class Company < ApplicationRecord
   # validates :client_companies, presence: true
 
   before_save :normalize_data_white_space
+  before_destroy :check_relations_present, prepend: true
+
 
   scope :strah, -> { where(tip: "страховая") }
   scope :standart, -> { where(tip: "стандартная") }
@@ -51,4 +53,17 @@ class Company < ApplicationRecord
       self[key] = value.squish if value.respond_to?(:squish)
     end
   end
+
+  def check_relations_present
+    if incases.count > 0
+      errors.add(:base, "Cannot delete Company. You have #{I18n.t('incases')} with it.")
+    end
+    if clients.count > 0
+      errors.add(:base, "Cannot delete Company. You have #{I18n.t('clients')} with it.")
+    end
+    if errors.present?
+      throw(:abort)
+    end
+  end
+
 end

@@ -9,7 +9,8 @@ class Trigger < ApplicationRecord
 
   scope :active, -> { where(active: true).order(:id) }
 
-  Event = [["Создание убытка", "create_incase", "incase"], ["Редактирование убытка", "update_incase", "incase"]].freeze
+  Event = [ ["Создание убытка", "create_incase", "incase"], ["Редактирование убытка", "update_incase", "incase"],
+            ["Создание заказа", "create_order", "order"], ["Редактирование заказа", "update_order", "order"]].freeze
 
   def self.ransackable_attributes(auth_object = nil)
     Trigger.attribute_names

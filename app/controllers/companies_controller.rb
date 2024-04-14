@@ -56,8 +56,13 @@ class CompaniesController < ApplicationController
 
   # DELETE /companies/1 or /companies/1.json
   def destroy
-    @company.destroy
-
+    # @company.destroy
+    @check_destroy = @company.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @company.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to companies_url, notice: t(".success") }
       format.json { head :no_content }

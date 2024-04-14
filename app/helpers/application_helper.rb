@@ -102,6 +102,32 @@ module ApplicationHelper
     html.join.html_safe
   end
 
+  def sortable_icon
+    '<i class="bi bi-arrows-move js-sort-handle fs-3"></i>'.html_safe
+  end
+
+  def sortable_with_badge(position)
+    content_tag :i, class: "bi bi-arrows-move js-sort-handle fs-3 position-relative me-2" do
+      content_tag(:span, position, class: "badge bg-info rounded-circle position-absolute fs-6 top-0 start-100 translate-middle border border-light", "data-sortable-target": "position")
+    end
+  end
+
+  def history_icon
+    '<i class="bi bi-clock-history"></i>'.html_safe
+  end
+
+  def close_icon
+    '<i class="bi bi-x"></i>'.html_safe
+  end
+
+  def false_icon
+  '<i class="bi bi-x-circle"></i>'.html_safe
+  end
+  
+  def more_icon
+    '<i class="bi bi-three-dots"></i>'.html_safe
+  end
+
   def download_icon
     '<i class="bi bi-cloud-arrow-down"></i>'.html_safe
   end
@@ -143,12 +169,13 @@ module ApplicationHelper
   end
 
   def td_index_edit_delete_link(obj)
-    content_tag :th, class: "align-middle" do
+    content_tag :td, class: "align-middle" do
       content_tag :span, class: "no-wrap d-flex justify-content-end gap-2 align-items-center" do
         render "shared/edit_delete_link", object: obj
       end
     end
   end
+
 
   def tabs_head(collection, tabs)
     items = tabs.map.with_index { |tab, index| tab_a_tag(tab, index.zero?) }

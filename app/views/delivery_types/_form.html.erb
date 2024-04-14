@@ -1,33 +1,33 @@
+<%= turbo_frame_tag delivery_type do %>
 <%= form_with(model: delivery_type) do |f| %>
   <%= render "shared/errors", object: delivery_type %>
 
-  <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-            </div>
-            <div class="card-body">
-              <div class="row col-md-7">
-                  <div class="mb-3 col-md-12">
-                    <%= f.label :title, class: "form-label" %>
-                    <%= f.text_field :title, class: "form-control" %>
-                  </div>
-                  <div class="mb-3 col-md-12">
-                    <%= f.label :desc, class: "form-label" %>
-                    <%= f.text_field :desc, class: "form-control" %>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <%= f.label :price, class: "form-label" %>
-                    <%= f.text_field :price, class: "form-control" %>
-                  </div>
-              </div>            
-            </div>
-            <div class="card-footer">
-                <%= f.submit class: "btn btn-primary" %>
-                <%= link_to t('back'), :back, class: "btn btn-outline-primary" %>
-            </div>
+    <div class="card">
+        <div class="card-body">
+          <div class="row">
+              <% if !f.object.new_record? %>
+              <div class="col-1"><%= f.object.id if !f.object.new_record? %></div>
+              <% end %>
+              <div class="col-3">
+                <%= f.label :title, class: "form-label" if f.object.new_record?%>
+                <%= f.text_field :title, class: "form-control" %>
+              </div>
+              <div class="col-4">
+                <%= f.label :desc, class: "form-label" if f.object.new_record?%>
+                <%= f.text_field :desc, class: "form-control" %>
+              </div>
+              <div class="col-2">
+                <%= f.label :price, class: "form-label" if f.object.new_record?%>
+                <%= f.text_field :price, class: "form-control" %>
+              </div>
+              <div class="<%= f.object.new_record? ? "col" : "col-2"%> d-flex justify-content-end gap-2 align-items-center">
+                <%= f.submit t(:save), class: "btn btn-primary" %>
+                <%= link_to close_icon, :back, class: "btn btn-outline-primary" %>
+              </div>
+
+          </div>            
         </div>
     </div>
-  </div>
 
+<% end %>
 <% end %>

@@ -10,7 +10,6 @@ class Supply < ApplicationRecord
   before_save :normalize_data_white_space
 
   validates :title, presence: true
-  validates :supply_items, presence: true
 
   def self.ransackable_associations(auth_object = nil)
     ["associated_audits", "audits", "company", "supply_items"]

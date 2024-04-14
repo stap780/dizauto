@@ -28,8 +28,17 @@ class SuppliesController < ApplicationController
 
   # GET /supplies/new
   def new
-    @supply = Supply.new
-    @supply.supply_items.build
+    if params[:incase_id].present?
+      incase = Incase.find(params[:incase_id])
+      @supply = Supply.new(company_id: incase.company_id, manager_id: current_user.id)
+      items = params[:incase_item_status_id].present? ? incase.incase_items.where(incase_item_status_id: params[:incase_item_status_id]) : incase.incase_items
+      items.each do |inc|
+        @supply.supply_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+      end
+    else
+      @supply = Supply.new
+      @supply.supply_items.build
+    end
   end
 
   # GET /supplies/1/edit
@@ -78,7 +87,7 @@ class SuppliesController < ApplicationController
   def slimselect_nested_item # GET
     target = params[:turboId]
     supply_item = SupplyItem.find_by(id: target.remove("supply_item_"))
-    product = Product.find(params[:product_id])
+    product = Product.find(params[:selected_id])
     child_index = target.remove("supply_item_")
 
     if supply_item.present?
@@ -122,7 +131,6 @@ class SuppliesController < ApplicationController
     @remove_element = params[:remove_element]
     respond_to do |format|
       format.turbo_stream { flash.now[:notice] = t(".success") }
-      
     end
   end
 

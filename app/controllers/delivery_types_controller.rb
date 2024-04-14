@@ -1,6 +1,6 @@
 class DeliveryTypesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_delivery_type, only: %i[show edit update destroy]
+  before_action :set_delivery_type, only: %i[show edit update sort destroy]
 
   # GET /deliveries or /deliveries.json
   def index
@@ -28,6 +28,12 @@ class DeliveryTypesController < ApplicationController
 
     respond_to do |format|
       if @delivery_type.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(DeliveryType.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to delivery_types_url, notice: "Delivery was successfully created." }
         format.json { render :show, status: :created, location: @delivery_type }
       else
@@ -41,6 +47,12 @@ class DeliveryTypesController < ApplicationController
   def update
     respond_to do |format|
       if @delivery_type.update(delivery_type_params)
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to delivery_types_url, notice: "Delivery was successfully updated." }
         format.json { render :show, status: :ok, location: @delivery_type }
       else
@@ -52,12 +64,22 @@ class DeliveryTypesController < ApplicationController
 
   # DELETE /deliveries/1 or /deliveries/1.json
   def destroy
-    @delivery_type.destroy
-
+    # @delivery_type.destroy
+    @check_destroy = @delivery_type.destroy ? true : false
+    message = if @delivery_type == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @delivery_type.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to delivery_types_url, notice: "Delivery was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def sort
+    @delivery_type.insert_at params[:new_position]
+    head :ok
   end
 
   private
@@ -69,6 +91,6 @@ class DeliveryTypesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def delivery_type_params
-    params.require(:delivery_type).permit(:title, :price, :desc)
+    params.require(:delivery_type).permit(:title, :price, :desc, :position)
   end
 end

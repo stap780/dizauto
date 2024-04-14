@@ -9,8 +9,8 @@
                             options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), 
                             prompt: "Статус", class: 'form-select', 
                             data: {
-                                action: "change->incase#changeBulkIncaseItemStatus", 
-                                incase_target: "itemStatusSelected" 
+                                action: "change->choose#changeBulkItemStatus", 
+                                choose_target: "itemSelected" 
                                 }%>
         <% end %>
         <%= tag.div( t('helpers.label.incase_item.title'), class: 'col-4 fw-semibold')%> 
@@ -23,7 +23,7 @@
     </div>
     <%= turbo_frame_tag 'incase_items', class: "container m-0 p-0" do %>
         <%= f.fields_for :incase_items do |item| %>
-            <% render "incase_items/form_data", f: item, product: nil%>
+            <%= render "incase_items/form_data", f: item, product: nil%>
         <% end %>
     <% end %>
     <div class="row">

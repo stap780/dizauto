@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true
+  validates_format_of :email, with: URI::MailTo::EMAIL_REGEXP
 
   Role = ["admin", "user", "driver"]
 
@@ -29,4 +30,11 @@ class User < ApplicationRecord
   def self.admin_emails
     User.where(role: "admin").pluck(:email).join(",")
   end
+
+  private 
+
+  def valid_email?
+    self.email =~ URI::MailTo::EMAIL_REGEXP
+  end
+
 end

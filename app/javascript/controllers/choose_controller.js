@@ -2,19 +2,19 @@ import { Controller } from "@hotwired/stimulus"
 import { patch } from "@rails/request.js"
 
 
-// Connects to data-controller="incase"
+// Connects to data-controller="choose"
 export default class extends Controller {
-  static targets = ['itemStatusResults','itemStatusSelected']
+  static targets = ['itemResults','itemSelected']
   connect() {
 
   }
 
-  changeBulkIncaseItemStatus(event){
+  changeBulkItemStatus(event){
     console.log(event.target)
     //let selected = document.getElementById('incase_item_status_label')
-    let selected = this.itemStatusSelectedTarget
+    let selected = this.itemSelectedTarget
     console.log(selected.value)
-    this.itemStatusResultsTargets.forEach((element, index) => {
+    this.itemResultsTargets.forEach((element, index) => {
       element.value = selected.value
     })    
   }

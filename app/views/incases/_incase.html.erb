@@ -24,7 +24,7 @@
         <div class="col-6 fst-italic"><%= incase.unumber %></div>
         <div class="col-6 fst-italic"><%= incase.carnumber %> <%= incase.modelauto %></div>
     <% end %>
-    <%= tag.div( incase.date.strftime("%d/%m/%Y"), class: "col-1" ) %>
+    <%= tag.div( incase.date.strftime("%d/%m/%Y"), class: "col-1 p-0" ) %>
     <%= tag.div( incase.totalsum, class: "col-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=incase.id%>">
@@ -40,7 +40,13 @@
                 <% end %>
             <% end %>
             </ul>
-        <% end %>   
+        <% end %>
+        <div class="dropdown position-relative">
+            <a href="#" data-bs-toggle="dropdown" data-bs-display="static"><%= more_icon%></a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <%= link_to 'Создать поступление'.html_safe, new_supply_incase_path(incase), class: 'dropdown-item', data: {turbo_stream: true}%>
+            </div>
+        </div>
         <%= render 'shared/edit_delete_link', object: incase %>
     </div>
 <% end %>

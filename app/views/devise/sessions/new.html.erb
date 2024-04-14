@@ -32,8 +32,8 @@
 										</div>
 										<div class="text-center mt-3">
 										<%# START add reCAPTCHA %>
-										<%= flash[:recaptcha_error] %>
-										<%= recaptcha_tags %>
+										<%= flash[:recaptcha_error] if !Rails.env.development?%>
+										<%= recaptcha_tags if !Rails.env.development?%>
 										<%# END add reCAPTCHA %>
 										</div>
 										<div class="text-center mt-3">

@@ -1,7 +1,13 @@
-<tr id="<%= dom_id delivery_type %>">
-    <td><b><%= delivery_type.id%></b></td>
-    <td><%= delivery_type.title %></td>
-     <td><%= delivery_type.price %></td>
-     <td><%= delivery_type.desc %></td>
-    <%= td_index_edit_delete_link(delivery_type)%>
-</tr>
+<%= turbo_frame_tag delivery_type, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
+    sort_url: sort_delivery_type_path(delivery_type.id), sort_item_id: delivery_type.id }  do %>
+  <%= tag.div(class: "col-1") do %>
+    <%= sortable_with_badge(delivery_type.position)%>
+    <%= delivery_type.id%>
+  <% end %>
+  <%= tag.div(delivery_type.title, class: "col-3")%>
+  <%= tag.div(delivery_type.desc, class: "col-4")%>
+  <%= tag.div(delivery_type.price, class: "col-2")%>
+  <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
+    <%= render 'shared/edit_delete_link_turbo', object: delivery_type %>
+  </div>
+<% end %>

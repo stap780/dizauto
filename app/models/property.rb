@@ -5,7 +5,7 @@ class Property < ApplicationRecord
   accepts_nested_attributes_for :characteristics, reject_if: ->(attributes) { attributes["title"].blank? }, allow_destroy: true
   validates :title, presence: true
   validates :title, uniqueness: true
-  before_destroy :check_presence_in_props!, prepend: true
+  before_destroy :check_presence_in_props, prepend: true
 
   def self.ransackable_attributes(auth_object = nil)
     Property.attribute_names
@@ -17,7 +17,7 @@ class Property < ApplicationRecord
 
   private
 
-  def check_presence_in_props!
+  def check_presence_in_props
     if props.count > 0
       errors.add(:base, "Cannot delete property. You have items with it.")
       throw(:abort)

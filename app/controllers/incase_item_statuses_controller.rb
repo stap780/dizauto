@@ -28,7 +28,13 @@ class IncaseItemStatusesController < ApplicationController
 
     respond_to do |format|
       if @incase_item_status.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(IncaseItemStatus.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_item_statuses_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @incase_item_status }
       else
@@ -42,7 +48,12 @@ class IncaseItemStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @incase_item_status.update(incase_item_status_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to incase_item_statuses_url, notice: "Incase item status was successfully updated." }
         format.json { render :show, status: :ok, location: @incase_item_status }
       else

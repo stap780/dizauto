@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                  <%= tabs_head('company', [ ['main', t(:main)],['rekviziti', t(:rekviziti)],['history', t(:history)] ]) %>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <%= tabs_head('company', [ ['main', t(:main)],['rekviziti', t(:rekviziti) ] ]) %>
+                  <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "company", auditable_id: company.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
                 </div>
                 <div class="card-body">
 
@@ -55,9 +56,6 @@
                     </div>
                     <div class="tab-pane" id="rekviziti_tab" role="tabpanel" aria-labelledby="rekviziti_tab">
                         <%= render "form_data", f: f %>
-                    </div>
-                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
-                        <%= render "shared/history", f: f %>
                     </div>
                 </div>
 

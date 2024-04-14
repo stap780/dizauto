@@ -44,9 +44,9 @@
 			<main class="content">
 				<div class="container-fluid p-0">
         <%= render "shared/modal_wrap"%>
-        <div id="our_flash" class="position-absolute start-50 translate-middle-x w-25" style="top: 20px;">
-          <%= render "shared/flash"%>
-        </div>
+        <%= render "shared/offcanvas_history"%>
+        <%= render "shared/flash"%>
+        
         <%= turbo_stream_from current_user, "exports" if user_signed_in? %>
         <%= turbo_stream_from current_user, "bulk_actions" if user_signed_in?%>
         <%= turbo_stream_from current_user, "incase_imports" if user_signed_in? %>

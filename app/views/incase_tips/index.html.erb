@@ -1,5 +1,6 @@
-<%= link_to "<i data-feather='plus'></i> #{IncaseTip.model_name.human}".html_safe, 
-    new_incase_tip_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseTip.new) } %>
+<%= link_to new_incase_tip_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseTip.new) } do %>
+    <%= add_icon %>
+<% end %>
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= IncaseTip.model_name.human(count: 2)%></h1>
 </div>
@@ -9,7 +10,7 @@
     <div class="card-actions float-end">
       <div class="dropdown position-relative">
         <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <i class="align-middle" data-feather="more-horizontal"></i>
+          <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
@@ -23,12 +24,12 @@
         <%= turbo_frame_tag IncaseTip.new %>
         <div class="col-sm-12 list-group list-group-striped">
           <div class="row py-2 px-4">
-            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
-            <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
-            <%= tag.div( t( 'helpers.label.incase_tip.title'), class: 'col-md-4 fw-semibold' )%>
-            <%= tag.div( t( 'helpers.label.incase_tip.color'), class: 'col-md-4 fw-semibold' )%>
-            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
+            <%= tag.div('#', class: 'col-1 fw-semibold')%>
+            <%= tag.div( t( 'helpers.label.incase_tip.title'), class: 'col-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_tip.color'), class: 'col-4 fw-semibold' )%>
+            <%= tag.div('', class: 'col-2 fw-semibold')%>
           </div>
+          <%= turbo_stream_from "incase_tips" %>    
           <%= turbo_frame_tag 'incase_tips', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
               <%= render @incase_tips %>
           <% end %>

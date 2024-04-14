@@ -4,7 +4,7 @@
     <%# f.hidden_field :incase_id %>
     <%= f.hidden_field :id %>
     <%= tag.div class: "col-2 p-0 m-0" do %>
-        <%= f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), {include_blank: true}, { class: "form-select rounded-0", data: {incase_target: 'itemStatusResults'} }%>
+        <%= f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), {include_blank: true}, { class: "form-select rounded-0", data: {choose_target: 'itemResults'} }%>
     <% end %>
     <%= tag.div class: "col-4 p-0 m-0" do %>
         <%= f.text_field :title , class: 'form-control rounded-0'%>

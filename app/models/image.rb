@@ -65,4 +65,5 @@ class Image < ApplicationRecord
       self.file.attach(new_blob.signed_id)
     end
   end
+  
 end

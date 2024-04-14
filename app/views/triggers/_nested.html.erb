@@ -1,0 +1,18 @@
+<div class="col-md-2 mb-2">
+    <%= link_to add_icon, new_nested_triggers_path, class: "btn btn-primary", data: { turbo_stream: true } %>
+</div>
+
+<div class="col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+    <div class="row py-2 px-0 text-center">
+        <%= tag.div( 'Название', class: 'col-5 fw-semibold')%> 
+        <%= tag.div( 'Значение', class: 'col-5 fw-semibold' )%>
+        <%= tag.div('', class: 'col-2 fw-semibold')%>
+    </div>
+
+    <%= turbo_frame_tag 'actions', class: "container" do %>
+        <%= f.fields_for :actions do |item| %>
+            <%= render "actions/form_data", f: item, slimselect_action_name: nil %>
+        <% end %>
+    <% end %>
+
+</div>

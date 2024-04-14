@@ -10,6 +10,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_url
   end
 
+
+  def render_turbo_flash
+    turbo_stream.update("our_flash", partial: "shared/flash")
+  end
+
+
   private
 
   def after_sign_in_path_for(resource_or_scope)
@@ -34,7 +40,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    attributes = [:name, :email]
+    attributes = [:email] #[:name, :email]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
   end
 end

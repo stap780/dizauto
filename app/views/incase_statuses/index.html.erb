@@ -1,5 +1,6 @@
-<%= link_to "<i data-feather='plus'></i> #{IncaseStatus.model_name.human}".html_safe, 
-    new_incase_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseStatus.new) } %>
+<%= link_to new_incase_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(IncaseStatus.new) } do %>
+    <%= add_icon %>
+<% end %>
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= IncaseStatus.model_name.human(count: 2)%></h1>
 </div>
@@ -9,7 +10,7 @@
     <div class="card-actions float-end">
       <div class="dropdown position-relative">
         <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <i class="align-middle" data-feather="more-horizontal"></i>
+          <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
@@ -19,17 +20,17 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-incase_status_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+    <div id="datatables-incase_status_wrapper" class="">
         <%= turbo_frame_tag IncaseStatus.new %>
 
         <div class="col-sm-12 list-group list-group-striped">
           <div class="row py-2 px-4">
-            <%= tag.div('', class: 'col-md-1 fw-semibold')%> 
-            <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
-            <%= tag.div( t( 'helpers.label.incase_status.title'), class: 'col-md-4 fw-semibold' )%>
-            <%= tag.div( t( 'helpers.label.incase_status.color'), class: 'col-md-4 fw-semibold' )%>
-            <%= tag.div('', class: 'col-md-1 fw-semibold')%>
+            <%= tag.div('#', class: 'col-md-1 fw-semibold text-center')%>
+            <%= tag.div( t( 'helpers.label.incase_status.title'), class: 'col-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.incase_status.color'), class: 'col-4 fw-semibold' )%>
+            <%= tag.div('', class: 'col-2 fw-semibold')%>
           </div>
+          <%= turbo_stream_from "incase_statuses" %>    
           <%= turbo_frame_tag 'incase_statuses', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
               <%= render @incase_statuses %>
           <% end %>

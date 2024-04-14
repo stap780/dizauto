@@ -1,0 +1,55 @@
+<div class="row col-md-8">
+
+    <div class="col-md-2 align-self-center">
+    <div class="form-check form-switch">
+        <%= f.check_box :active, {class: "form-check-input", role: "switch"} %>
+        <%= f.label :active, class: "form-check-label"%>
+    </div>
+    </div>
+    <div class="mb-3 col-md-10">
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" %>
+    </div>
+    <div class="mb-3 col-md-12">
+        <%= f.label :event, class: "form-label" %>
+        <%= f.select :event, Trigger::Event.map{ |r| [r[0], r[1], { value2: r[2]}] }, {}, {class: "form-select"} %>
+    </div>
+    <div class="mb-3 col-md-12">
+        <%= f.label :condition, class: "form-label" %>
+        <%= f.text_area :condition, class: "form-control" %>
+    </div>
+    <div class="mb-3 col-md-12">
+    <div class="text-bg-light p-3">
+    <div class="mb-2">
+        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add action</button>
+    </div>
+    <template data-nested-form-target="template">
+        <%= f.fields_for :actions, Action.new, child_index: 'NEW_RECORD' do |action| %>
+            <%= render "nested_actions", f: action %>
+        <% end %>
+    </template> 
+    <div class="d-flex my-2 text-center">
+        <div class="p-0 col-md-5">Название</div>
+        <div class="p-0 col-md-5">Значение</div>
+        <div class="p-0 col-md-2"></div>
+    </div>
+    <%= f.fields_for :actions, data: {controller: 'action slimselect'} do |action| %>
+        <%= render "nested_actions", f: action %>
+    <% end %>
+    <div data-nested-form-target="target"></div>
+    </div>
+    </div>
+
+    <div class="col-md-4 align-self-center">
+    <div class="form-check form-switch">
+    <%= f.check_box :pause, {class: "form-check-input", role: "switch"} %>
+    <%= f.label :pause, class: "form-check-label"%>
+    </div>
+    </div>
+
+    <div class="mb-3 col-md-8">
+    <%= f.label :pause_time, class: "form-label" %>
+    <%= f.number_field :pause_time, class: "form-control" %>
+    </div>
+
+</div>            

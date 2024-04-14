@@ -2,7 +2,7 @@
 
     <div class="p-0 col-md-5 action_params" data-action-target='action_params_wrap' id='<%= @wraptarget%>' >
         <%= select_tag @targetname, options_for_select(@collection), 
-                    {multiple: true, include_blank: true, id: @wraptarget.split('wrap_').last , data: {controller: "slimselect", action_target: "select" }}  %>
+                    {multiple: false, include_blank: true, id: @wraptarget.split('wrap_').last , data: {controller: "slimselect", action_target: "select" }}  %>
     </div>
 
 <% end %>

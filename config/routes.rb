@@ -62,11 +62,29 @@ Rails.application.routes.draw do
     end
   end
   resources :templs
-  resources :triggers
-  resources :delivery_types
-  resources :payment_types
+  resources :triggers do
+    collection do
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
+    end
+  end
+  resources :delivery_types do
+    member do
+      patch :sort
+    end
+  end
+  resources :payment_types do
+    member do
+      patch :sort
+    end
+  end
   resources :order_items
-  resources :order_statuses
+  resources :order_statuses do
+    member do
+      patch :sort
+    end
+  end
   resources :orders do
     resources :comments, module: :orders
     collection do
@@ -95,6 +113,7 @@ Rails.application.routes.draw do
     resources :comments, module: :incases
     member do
       get "act"
+      get :new_supply
     end
     collection do
       # get :file_import
@@ -111,7 +130,11 @@ Rails.application.routes.draw do
     end
   end
   resources :places
-  resources :warehouses
+  resources :warehouses do
+    member do
+      patch :sort
+    end
+  end
   resources :okrugs do
     member do
       patch :sort

@@ -1,12 +1,12 @@
 class WarehousesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_warehouse, only: %i[show edit update destroy]
+  before_action :set_warehouse, only: %i[show edit update sort destroy]
 
   # GET /warehouses or /warehouses.json
   def index
     # @warehouses = Warehouse.all
     @search = Warehouse.ransack(params[:q])
-    @search.sorts = "id desc" if @search.sorts.empty?
+    @search.sorts = "position asc" if @search.sorts.empty?
     @warehouses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
@@ -29,6 +29,13 @@ class WarehousesController < ApplicationController
 
     respond_to do |format|
       if @warehouse.save
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(Warehouse.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to warehouses_url, notice: "Warehouse was successfully created." }
         format.json { render :show, status: :created, location: @warehouse }
       else
@@ -42,6 +49,12 @@ class WarehousesController < ApplicationController
   def update
     respond_to do |format|
       if @warehouse.update(warehouse_params)
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to warehouses_url, notice: "Warehouse was successfully updated." }
         format.json { render :show, status: :ok, location: @warehouse }
       else
@@ -53,12 +66,22 @@ class WarehousesController < ApplicationController
 
   # DELETE /warehouses/1 or /warehouses/1.json
   def destroy
-    @warehouse.destroy
-
+    # @warehouse.destroy
+    @check_destroy = @warehouse.destroy ? true : false
+    message = if @check_destroy == true
+      flash.now[:success] = t(".success")
+    else
+      flash.now[:notice] = @warehouse.errors.full_messages.join(" ")
+    end
     respond_to do |format|
       format.html { redirect_to warehouses_url, notice: "Warehouse was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def sort
+    @warehouse.insert_at params[:new_position]
+    head :ok
   end
 
   private
@@ -70,6 +93,6 @@ class WarehousesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def warehouse_params
-    params.require(:warehouse).permit(:title)
+    params.require(:warehouse).permit(:title, :position)
   end
 end

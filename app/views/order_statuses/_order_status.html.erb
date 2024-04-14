@@ -1,8 +1,12 @@
-<%= turbo_frame_tag order_status, class: "list-group-item py-2 border-start-0 border-end-0" do %>
+<%= turbo_frame_tag order_status, class: "list-group-item py-2 border-start-0 border-end-0", data: {
+    sort_url: sort_order_status_path(order_status.id), sort_item_id: order_status.id }  do %>
     <div class="row">
-        <%= tag.div tag.b(order_status.id), class: "col-md-1" %>
-        <%= tag.div(order_status.title, class: "col-md-5")%>
-        <%= tag.div('', class: "col-md-5") do %>
+        <%= tag.div(class: "col-1") do %>
+            <%= sortable_with_badge(order_status.position)%>
+            <%= order_status.id%>
+        <% end %>
+        <%= tag.div(order_status.title, class: "col-5")%>
+        <%= tag.div('', class: "col-4") do %>
             <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{order_status.color};")%>
         <% end %>
         <div class= "col-1  d-flex justify-content-end gap-2 align-items-center">

@@ -1,10 +1,10 @@
-<%= form_with(model: supply, data: { controller: 'nested-form slimselect', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
-                class: 'supply-form' ) do |f| %>
+<%= form_with(model: supply, data: { controller: 'choose slimselect' }, class: 'supply-form' ) do |f| %>
    <%= render 'shared/errors', object: supply%>
 
             <div class="card">
-                <div class="card-header">
-                    <%= tabs_head('supply', [ ['main', t(:main)],['history', t(:history)] ]) if !f.object.new_record? %>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <%= tabs_head('supply', [ ['main', t(:main)] ]) if !f.object.new_record? %>
+                    <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "supply", auditable_id: supply.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
                 </div>
                 <div class="card-body">
                 <div class="tab-content">
@@ -16,11 +16,6 @@
                             <%= render 'nested', f: f %>
                         </div>
                     </div>
-                    <% if !f.object.new_record? %>
-                    <div class="tab-pane" id="history_tab" role="tabpanel" aria-labelledby="history_tab">
-                        <%= render "shared/history", f: f %>
-                    </div>
-                    <% end %>
                 </div>
                 </div>
                 <div class="card-footer">

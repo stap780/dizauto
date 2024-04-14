@@ -1,7 +1,7 @@
 <% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i : child_index %>
 <%= turbo_frame_tag "order_item_#{ f.object.persisted? ? f.object.id : child_index}", 
                     class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
-    <%= f.hidden_field :id %>
+   <%= f.hidden_field :id %> 
     <%= tag.div class: "col-6 p-0 m-0" do %>
         <% start_product_id = f.object.product_id if f.object.present? %>
         <% product_id = product.present? ? product.id : start_product_id %>

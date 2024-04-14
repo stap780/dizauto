@@ -39,7 +39,8 @@ class Drop::Order < Liquid::Drop
       #li.attributes 
       @order.order_items.present? ? @order.order_items.map { |li| 
         {
-          "product_title"=>li.product.title, 
+          "id"=>li.id,
+          "title"=>li.product.title, 
           "price"=>li.price, 
           "discount"=>li.discount, 
           "sum"=> li.sum,

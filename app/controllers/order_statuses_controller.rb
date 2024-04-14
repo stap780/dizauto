@@ -1,6 +1,6 @@
 class OrderStatusesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_order_status, only: %i[show edit update destroy]
+  before_action :set_order_status, only: %i[show edit update sort destroy]
 
   # GET /order_statuses or /order_statuses.json
   def index
@@ -28,7 +28,13 @@ class OrderStatusesController < ApplicationController
 
     respond_to do |format|
       if @order_status.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(OrderStatus.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to order_statuses_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @order_status }
       else
@@ -42,7 +48,12 @@ class OrderStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @order_status.update(order_status_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to order_statuses_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @order_status }
       else
@@ -54,12 +65,23 @@ class OrderStatusesController < ApplicationController
 
   # DELETE /order_statuses/1 or /order_statuses/1.json
   def destroy
-    @order_status.destroy
+    # @order_status.destroy
+    @check_destroy = @order_status.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @order_status.errors.full_messages.join(" ")
+              end
     respond_to do |format|
       format.html { redirect_to order_statuses_url, notice: t(".success") }
       format.json { head :no_content }
       format.turbo_stream { flash.now[:success] = t(".success") }
     end
+  end
+
+  def sort
+    @payment_type.insert_at params[:new_position]
+    head :ok
   end
 
   private
@@ -71,6 +93,6 @@ class OrderStatusesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_status_params
-    params.require(:order_status).permit(:title, :color)
+    params.require(:order_status).permit(:title, :color,:position)
   end
 end
