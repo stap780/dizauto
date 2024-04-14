@@ -149,10 +149,16 @@ module ApplicationHelper
   end
 
   def history_value(key, value)
-    # puts key
-    if value.present? && key.include?("_id")
-      val = key.split("_id").first.classify.safe_constantize.where(id: value).present? ? key.split("_id").first.classify.safe_constantize.find(value) : nil
-      (val.present? && val.respond_to?(:title)) ? val.title : value
+    puts "key ====="
+    puts key
+    if key.include?("_id")
+      search_key = key == 'strah_id' ? 'company' : key.split("_id").first
+      val = search_key.classify.safe_constantize.where(id: value).present? ? search_key.classify.safe_constantize.find_by_id(value.to_i) : nil
+      return_value = val.title if val.present? && val.respond_to?(:title)
+      return_value = val.short_title if val.present? && val.respond_to?(:short_title)
+      return_value.present? ? return_value : value.to_s
+    else
+      key.include?("data") ? value.to_date.strftime("%d/%m/%YT%H:%M") : value
     end
   end
 

@@ -50,8 +50,8 @@
                 <td rowspan="<%= audit.audited_changes.size %>"><%= audit.user.try(:email) || t(".system") %></td>
               <% end %>
               <td><%=t "activerecord.attributes.#{audit.auditable_type.underscore.downcase}.#{attribute}" %></td>
-              <td><%= change.respond_to?('each') ? history_value(attribute, change[0]) : change %></td>
-              <td><%= change.respond_to?('each') ? history_value(attribute, change[1]) : change %></td>
+              <td><%= change.respond_to?('each') ? history_value(attribute, change[0]) : history_value(attribute,change) %></td>
+              <td><%= change.respond_to?('each') ? history_value(attribute, change[1]) : history_value(attribute,change) %></td>
               <%# tag.td(audit.comment)%>
             </tr>
           <% end %>
