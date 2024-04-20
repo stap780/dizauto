@@ -20,13 +20,13 @@ class Action < ApplicationRecord
 
     if !name.include?("email")
       i_s = IncaseStatus.where(id: value.to_i) if attribute == "incase_status_id"
-      find_title = i_s.first.title if i_s.count > 0 && attribute == "incase_status_id"
+      find_title = i_s.first.title if !i_s.nil? && i_s.count > 0 && attribute == "incase_status_id"
 
       i_t = IncaseTip.where(id: value.to_i) if attribute == "incase_tip_id"
-      find_title = i_t.first.title if i_t.count > 0 && attribute == "incase_tip_id"
+      find_title = i_t.first.title if !i_t.nil? && i_t.count > 0 && attribute == "incase_tip_id"
 
       o_s = OrderStatus.where(id: value.to_i) if attribute == "order_status_id"
-      find_title = o_s.first.title if o_s.count > 0 && attribute == "order_status_id"
+      find_title = o_s.first.title if !o_s.nil? && o_s.count > 0 && attribute == "order_status_id"
       # find_title = value if model == "incase" && attribute == "create_supply"
       full_name.push(title + ": " + find_title.to_s)
     end
