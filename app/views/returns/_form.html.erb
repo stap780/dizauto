@@ -1,0 +1,35 @@
+<%= form_with(  model: @return, 
+                data: { controller: 'nested-form slimselect', nested_form_wrapper_selector_value: '.nested-form-wrapper' }, 
+                class: '@return-form' ) do |f| %>
+   <%= render 'shared/errors', object: @return %>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <%= tabs_head('@return', [ ['main', t(:main)] ]) if !f.object.new_record? %>
+            <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "@return", auditable_id: @return.id), 
+                                    class: 'btn btn-outline-success d-flex btn-lg', 
+                                    data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                    <div class="row">
+                        <%= render 'form_data', f: f%>
+                    </div>
+                    <div class="row" data-controller="calculate">
+                        <%= render 'nested', f: f %>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <%= f.submit class: "btn btn-primary" %>
+            <%= link_to t('back'), returns_path, class: "btn btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<% end %>

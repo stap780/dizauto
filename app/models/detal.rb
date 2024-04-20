@@ -1,7 +1,7 @@
 class Detal < ApplicationRecord
-  has_many :props
-  has_many :properties, through: :props
-  accepts_nested_attributes_for :props, allow_destroy: true
+  has_many :detal_props, dependent: :destroy
+  has_many :properties, through: :detal_props
+  accepts_nested_attributes_for :detal_props, allow_destroy: true
   has_rich_text :description
 
   validates :sku, presence: true
@@ -10,7 +10,7 @@ class Detal < ApplicationRecord
   before_save :normalize_data_white_space
 
   def self.ransackable_associations(auth_object = nil)
-    ["properties", "props", "rich_text_description"]
+    ["properties", "detal_props", "rich_text_description"]
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -24,4 +24,5 @@ class Detal < ApplicationRecord
       self[key] = value.squish if value.respond_to?(:squish)
     end
   end
+
 end

@@ -5,7 +5,7 @@ class OrderStatusesController < ApplicationController
   # GET /order_statuses or /order_statuses.json
   def index
     @search = OrderStatus.ransack(params[:q])
-    @search.sorts = "id desc" if @search.sorts.empty?
+    @search.sorts = "position asc" if @search.sorts.empty?
     @order_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 

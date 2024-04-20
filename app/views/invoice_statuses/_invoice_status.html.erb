@@ -1,0 +1,16 @@
+<%= turbo_frame_tag invoice_status, class: "list-group-item py-2 border-start-0 border-end-0", data: {
+    sort_url: sort_invoice_status_path(invoice_status.id), sort_item_id: invoice_status.id }  do %>
+    <div class="row">
+        <%= tag.div(class: "col-1") do %>
+            <%= sortable_with_badge(invoice_status.position)%>
+            <%= invoice_status.id%>
+        <% end %>
+        <%= tag.div(invoice_status.title, class: "col-5")%>
+        <%= tag.div('', class: "col-4") do %>
+            <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{invoice_status.color};")%>
+        <% end %>
+        <div class= "col-1  d-flex justify-content-end gap-2 align-items-center">
+             <%= render 'shared/edit_delete_link_turbo', object: invoice_status %>
+        </div>
+    </div>
+<% end %>

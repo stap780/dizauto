@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id: 1
+  number: MyString
+  invoice_status_id: 1
+  order_id: 1
+
+two:
+  company_id: 1
+  number: MyString
+  invoice_status_id: 1
+  order_id: 1

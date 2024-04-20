@@ -1,34 +1,30 @@
 <%= form_with(model: detal, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
     <%= render 'shared/errors', object: detal%>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header"></div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="mb-3 col-md-3">
-                            <%= f.label :sku, class: "form-label" %>
-                            <%= f.text_field :sku, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                            <%= f.label :title, class: "form-label" %>
-                            <%= f.text_field :title, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-9">
-                            <%= f.label :description, class: "form-label" %>
-                            <%= f.rich_text_area :description, class: "form-control" %>
-                        </div>
-                        <div class="mb-3 col-md-6">
-                        </div>
-                    </div>
-                    <%= render "props_nested", f: f %>
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <div class="row col-9">
+                <div class="mb-3 col-4">
+                    <%= f.label :sku, class: "form-label" %>
+                    <%= f.text_field :sku, class: "form-control" %>
                 </div>
-                <div class="card-footer">
-                    <%= f.submit class: "btn btn-primary" %>
-                    <%= link_to t('back'), detals_path, class: "btn btn-outline-primary" %>
+                <div class="mb-3 col-8">
+                    <%= f.label :title, class: "form-label" %>
+                    <%= f.text_field :title, class: "form-control" %>
+                </div>
+                <div class="mb-3 col-12">
+                    <%= f.label :description, class: "form-label" %>
+                    <%= f.rich_text_area :description, class: "form-control" %>
+                </div>
+                <div class="mb-3 col-12">
+                    <%= render "props_nested", f: f, detal: detal if !f.object.new_record?%>
                 </div>
             </div>
+        </div>
+        <div class="card-footer">
+            <%= f.submit class: "btn btn-primary" %>
+            <%= link_to t('back'), detals_path, class: "btn btn-outline-primary" %>
         </div>
     </div>
 

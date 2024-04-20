@@ -1,0 +1,63 @@
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Invoice.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <% if Templ.invoice_print.presence %>
+    <%= button_print %>
+    <ul class="dropdown-menu">
+    <%= form_with url: bulk_print_invoices_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% Templ.invoice_print.each do |templ|%>
+        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+          <%= templ.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
+  <% end %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("invoices/_filter").any? %>
+    <%= link_to arrow_clockwise, orders_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_invoice_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<%= render 'filter', q: @search, title: 'Invoice filter' if lookup_context.find_all("invoices/_filter").any?  %>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <%= more_icon%>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+          <%= link_to '.xlsx', invoices_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+
+    <div id="datatables-invoices" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+      <div class="row py-2 px-0 justify-content-between align-items-center">
+        <%= div_check_box_tag_all %>
+        <%= tag.div( t( 'helpers.label.invoice.invoice_status_id'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.invoice.number'), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.invoice.contact'), class: 'col-4 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.invoice.sum'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.invoice.created_at'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div('', class: 'col-2 fw-semibold')%>
+      </div>
+      <%= turbo_stream_from "invoices" %>
+      <%= turbo_frame_tag 'invoices' do %>
+          <%= render @invoices %>
+      <% end %>
+    </div>
+
+      <div class="row paginate-wrap">
+        <%= render "shared/paginate", f: @invoices %>
+      </div>
+  </div>
+</div>

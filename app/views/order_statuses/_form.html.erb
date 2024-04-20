@@ -11,12 +11,10 @@
                 <div class="col-5">
                   <%= f.label :title, class: "col-form-label" if f.object.new_record?%>
                   <%= f.text_field :title, class: "form-control" %>
-                  <%= inline_error_for(:title, order_status)%>
                 </div>
-                <div class="col-md-3 row" data-controller="color-picker">
+                <div class="col-4 row" data-controller="color-picker">
                   <%= f.label :color, class: "col-form-label" if f.object.new_record?%>
                   <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
-                  <%= inline_error_for(:color, order_status)%>
                   <span data-color-picker-target="button"></span>
                 </div>
               <div class="<%= f.object.new_record? ? "col" : "col-2"%> d-flex justify-content-end gap-2 align-items-center">

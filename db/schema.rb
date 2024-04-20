@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_20_155935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -157,6 +157,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
     t.integer "position", default: 1, null: false
   end
 
+  create_table "detal_props", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.bigint "characteristic_id", null: false
+    t.bigint "detal_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["characteristic_id"], name: "index_detal_props_on_characteristic_id"
+    t.index ["detal_id"], name: "index_detal_props_on_detal_id"
+    t.index ["property_id"], name: "index_detal_props_on_property_id"
+  end
+
   create_table "detals", force: :cascade do |t|
     t.string "sku"
     t.string "title"
@@ -271,6 +282,39 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "invoice_items", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.decimal "price", precision: 12, scale: 2
+    t.integer "discount"
+    t.decimal "sum", precision: 12, scale: 2
+    t.integer "quantity"
+    t.integer "vat"
+    t.bigint "invoice_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
+    t.index ["product_id"], name: "index_invoice_items_on_product_id"
+  end
+
+  create_table "invoice_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "company_id"
+    t.string "number"
+    t.integer "invoice_status_id"
+    t.integer "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "client_id", null: false
+    t.index ["client_id"], name: "index_invoices_on_client_id"
+  end
+
   create_table "noticed_events", force: :cascade do |t|
     t.string "type"
     t.string "record_type"
@@ -304,9 +348,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "product_id"
-    t.decimal "price"
+    t.decimal "price", precision: 12, scale: 2
     t.integer "discount"
-    t.decimal "sum"
+    t.decimal "sum", precision: 12, scale: 2
     t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -330,6 +374,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order_status_id"
+    t.bigint "company_id"
+    t.index ["company_id"], name: "index_orders_on_company_id"
   end
 
   create_table "payment_types", force: :cascade do |t|
@@ -364,8 +410,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
     t.string "title"
     t.string "description"
     t.integer "quantity"
-    t.decimal "costprice"
-    t.decimal "price"
+    t.decimal "costprice", precision: 12, scale: 2
+    t.decimal "price", precision: 12, scale: 2
     t.string "video"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -379,13 +425,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
   end
 
   create_table "props", force: :cascade do |t|
-    t.integer "product_id"
     t.integer "property_id"
     t.integer "characteristic_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "detal_id"
+    t.bigint "product_id"
     t.index ["characteristic_id"], name: "index_props_on_characteristic_id"
+    t.index ["product_id"], name: "index_props_on_product_id"
     t.index ["property_id"], name: "index_props_on_property_id"
   end
 
@@ -395,6 +441,42 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
     t.integer "position", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "return_items", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.decimal "price", precision: 12, scale: 2
+    t.integer "discount"
+    t.decimal "sum", precision: 12, scale: 2
+    t.integer "quantity"
+    t.integer "vat"
+    t.bigint "return_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_return_items_on_product_id"
+    t.index ["return_id"], name: "index_return_items_on_return_id"
+  end
+
+  create_table "return_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "returns", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "company_id", null: false
+    t.string "number"
+    t.bigint "return_status_id", null: false
+    t.bigint "invoice_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_returns_on_client_id"
+    t.index ["company_id"], name: "index_returns_on_company_id"
+    t.index ["invoice_id"], name: "index_returns_on_invoice_id"
+    t.index ["return_status_id"], name: "index_returns_on_return_status_id"
   end
 
   create_table "supplies", force: :cascade do |t|
@@ -474,4 +556,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_13_144728) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "detal_props", "characteristics"
+  add_foreign_key "detal_props", "detals"
+  add_foreign_key "detal_props", "properties"
+  add_foreign_key "invoice_items", "invoices"
+  add_foreign_key "invoice_items", "products"
+  add_foreign_key "invoices", "clients"
+  add_foreign_key "orders", "companies"
+  add_foreign_key "props", "products"
+  add_foreign_key "return_items", "products"
+  add_foreign_key "return_items", "returns"
+  add_foreign_key "returns", "clients"
+  add_foreign_key "returns", "companies"
+  add_foreign_key "returns", "invoices"
+  add_foreign_key "returns", "return_statuses"
 end

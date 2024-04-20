@@ -1,0 +1,10 @@
+<h1>Editing invoice status</h1>
+
+<%= render "form", invoice_status: @invoice_status %>
+
+<br>
+
+<div>
+  <%= link_to "Show this invoice status", @invoice_status %> |
+  <%= link_to "Back to invoice statuses", invoice_statuses_path %>
+</div>

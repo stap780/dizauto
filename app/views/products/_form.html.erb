@@ -1,7 +1,4 @@
-<%= form_with(model: product, data: {
-                                    controller: 'product nested-form', 
-                                    nested_form_wrapper_selector_value: '.nested-form-wrapper',
-                                    'item-id': product.id.to_s }, class: 'row upload-form') do |f| %>
+<%= form_with(model: product, data: { controller: 'product ', 'item-id': product.id.to_s }, class: 'row upload-form') do |f| %>
     <div class="col-md-8">
         <%= turbo_frame_tag "errors" do %>
             <%= render "shared/errors", object: product%>
@@ -18,7 +15,7 @@
                         <%= render "form_data", f: f %>
                     </div>
                     <div class="tab-pane" id="property_tab" role="tabpanel" aria-labelledby="property_tab">
-                        <%= render "props_nested", f: f %>
+                        <%= render "props_nested", f: f, product: product if !f.object.new_record? %>
                     </div>
                 </div>
             </div>

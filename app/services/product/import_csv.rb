@@ -28,7 +28,7 @@ class Product::ImportCsv
     @file_data = if Rails.env.development?
       CSV.foreach(@download_path, headers: true).take(10).map(&:to_h)
     else
-      CSV.foreach(@download_path, headers: true).take(5000).map(&:to_h)
+      CSV.foreach(@download_path, headers: true).take(5500).map(&:to_h)
     end
     # @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
   end

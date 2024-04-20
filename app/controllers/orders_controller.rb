@@ -69,6 +69,7 @@ class OrdersController < ApplicationController
     @order.destroy
 
     respond_to do |format|
+      format.turbo_stream { flash.now[:success] = t(".success") }
       format.html { redirect_to orders_url, notice: t(".success") }
       format.json { head :no_content }
     end
@@ -148,7 +149,8 @@ class OrdersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def order_params
-    params.require(:order).permit(:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
+    params.require(:order).permit(:company_id,:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
       order_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :_destroy])
   end
+
 end

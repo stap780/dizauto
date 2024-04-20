@@ -43,6 +43,12 @@ ru:
   incase_items: "Позиции убытка"
   order_items: "Позиции заказа"
   supply_items: "Позиции поступления"
+  inventory: "Склад"
+  settings: "Настройки"
+  rules: "Автоматизация"
+  rent: "Аренда"
+  purchasing: "Закупки"
+  selling: "Продажи"
   activerecord:
     attributes:
       audit:
@@ -114,6 +120,23 @@ ru:
         report: "Отчет"
         file: "Файл"
         uniq_field: "Уник поле"
+      invoice:
+        invoice_status_id: "Статус"
+        number: "Номер"
+        client_id: "Клиент"
+        company_id: "Компания"
+        sum: "Сумма"
+      invoice_status:
+        title: "Название"
+        color: "Цвет"
+      invoice_item:
+        product_id: "Товар"
+        quantity: "Кол-во"
+        price: "Цена" 
+        discount: "Скидка"
+        sum: "Сумма"
+        invoice_id: "id накладной"
+        product: "Товар"
       property:
         title: "Название"
       characteristic:
@@ -133,10 +156,11 @@ ru:
         order_status_id: "Статус"
         order_items: "Позиции заказа"
         number: "Номер"
-        client_id: "Клиент" 
+        client_id: "Клиент"
+        company_id: "Компания"
         manager_id: "Менеджер"
-        payment_type_id: "Способ оплаты"
-        delivery_type_id: "Способ доставки"
+        payment_type_id: "Оплаты"
+        delivery_type_id: "Доставки"
         created_at: "Дата создания"
         sum: "Сумма"
       order_item:
@@ -199,12 +223,24 @@ ru:
       delivery_type: 
         one: "способ доставки"
         other: "Способы доставки"
+      detal: 
+        one: "деталь"
+        other: "Детали"
+      email_setup: 
+        one: "почта"
+        other: "Почта"
       export:
         one: "экспорт"
         other: "Экспорты"
       incase: 
         one: "убыток"
         other: "Убытки"
+      invoice: 
+        one: "накладная"
+        other: "Накладные"
+      invoice_status: 
+        one: "статус накладной"
+        other: "Статусы накладной"
       notification: 
         one: "оповещение"
         other: "Оповещения"
@@ -229,12 +265,6 @@ ru:
       characteristic:
         one: "значение параметра"
         other: "Значения параметра"
-      payment_type: 
-        one: "способ оплаты"
-        other: "Способы оплаты"
-      product: 
-        one: "товар"
-        other: "Товары"
       order: 
         one: "заказ"
         other: "Заказы"
@@ -242,11 +272,23 @@ ru:
         one: "позиция заказа"
         other: "позиции заказа"
       order_status: 
-        one: "статусы заказа"
-        other: "статусы заказов"
+        one: "статус заказа"
+        other: "Статусы заказа"
       okrug: 
         one: "округ"
         other: "Округа"
+      payment_type: 
+        one: "способ оплаты"
+        other: "Способы оплаты"
+      product: 
+        one: "товар"
+        other: "Товары"
+      return:
+        one: "возврат"
+        other: "Возвраты"
+      return_status:
+        one: "статус возврата"
+        other: "Статусы возврата"
       supply: 
         one: "поступление"
         other: "Поступления"
@@ -344,6 +386,15 @@ ru:
       title: Редактировать
     update:
       success: Обновили!
+  detal_props:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
   incase_item_statuses:
     create:
       success: Создали!
@@ -391,6 +442,24 @@ ru:
       success: Обновили!
     create_from_import:
       success: Создали!
+  invoices:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  invoice_statuses:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
   orders:
     create:
       success: Создали!
@@ -420,6 +489,42 @@ ru:
       success: Обновили!
     print_etiketki:
       success: Создали этикетки!
+  props:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  returns:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  return_items:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
+  return_statuses:
+    create:
+      success: Создали!
+    destroy:
+      success: Удалили!
+    edit:
+      title: Редактировать
+    update:
+      success: Обновили!
   supplies:
     create:
       success: Создали!
@@ -529,6 +634,24 @@ ru:
         report: "Отчет"
         file: "Файл"
         uniq_field: "Уник поле"
+      invoice:
+        invoice_status_id: "Статус"
+        number: "Номер"
+        client_id: "Клиент"
+        company_id: "Компания"
+        sum: "Сумма"
+        created_at: "Дата создания"
+      invoice_status:
+        title: "Название"
+        color: "Цвет"
+      invoice_item:
+        product_id: "Товар"
+        quantity: "Кол-во"
+        price: "Цена" 
+        discount: "Скидка"
+        sum: "Сумма"
+        invoice_id: "id накладной"
+        product: "Товар"
       notification:
         message: "Сообщение"
         created_at: "Дата создания"
@@ -540,8 +663,8 @@ ru:
         number: "Номер"
         client_id: "Клиент" 
         manager_id: "Менеджер"
-        payment_type_id: "Способ оплаты"
-        delivery_type_id: "Способ доставки"
+        payment_type_id: "Оплаты"
+        delivery_type_id: "Доставки"
         created_at: "Дата создания"
         order_items: "Позиции заказа"
         sum: "Сумма"
@@ -552,6 +675,9 @@ ru:
         discount: "Скидка"
         sum: "Сумма"
         order_id: "id заказа"
+      order_status:
+        title: "Название"
+        color: "Цвет"
       payment_type:
         title: "Название"
         desc: "Описание"

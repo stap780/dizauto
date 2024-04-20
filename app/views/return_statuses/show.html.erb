@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @return_status %>
+
+<div>
+  <%= link_to "Edit this return status", edit_return_status_path(@return_status) %> |
+  <%= link_to "Back to return statuses", return_statuses_path %>
+
+  <%= button_to "Destroy this return status", @return_status, method: :delete %>
+</div>

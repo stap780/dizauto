@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Detal props</h1>
+
+<div id="detal_props">
+  <% @detal_props.each do |detal_prop| %>
+    <%= render detal_prop %>
+    <p>
+      <%= link_to "Show this detal prop", detal_prop %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New detal prop", new_detal_prop_path %>

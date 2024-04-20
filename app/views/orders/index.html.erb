@@ -3,18 +3,25 @@
     <h1 class="h3 d-inline align-middle"><%= Order.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
-      <span><i data-feather='sliders'></i></span>
-      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
-        <span class="visually-hidden"></span>
-      </span>
+      <% if Templ.order_print.presence %>
+    <%= button_print %>
+    <ul class="dropdown-menu">
+    <%= form_with url: bulk_print_orders_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% Templ.order_print.each do |templ|%>
+        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+          <%= templ.title %>
+        <% end %>
+      <% end %>
     <% end %>
-    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, orders_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i data-feather='plus'></i> #{Order.model_name.human}".html_safe, new_order_path, class: "btn btn-primary" %>
+    </ul>
+  <% end %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("orders/_filter").any? %>
+    <%= link_to arrow_clockwise, orders_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_order_path, class: "btn btn-primary" %>
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Order filter' %>
+<%= render 'filter', q: @search, title: 'Order filter' if lookup_context.find_all("orders/_filter").any?  %>
 
 <div class="card">
   <div class="card-header pb-0">
@@ -37,15 +44,14 @@
       <div class="row py-2 px-0 justify-content-between align-items-center">
         <%= div_check_box_tag_all %>
         <%= tag.div( t( 'helpers.label.order.order_status_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.client_id'), class: 'col-2 fw-semibold' )%> 
-        <%= tag.div( t( 'helpers.label.order.manager_id'), class: 'col-1 fw-semibold p-0')%>
+        <%= tag.div( t( 'helpers.label.order.contact'), class: 'col-2 fw-semibold' )%> 
         <%= tag.div( t( 'helpers.label.order.payment_type_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.delivery_type_id'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.delivery_type_id'), class: 'col-2 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.order.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.created_at'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.created_at'), class: 'col-2 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
-      <%= turbo_stream_from "orders_list" %>
+      <%= turbo_stream_from "orders" %>
       <%= turbo_frame_tag 'orders' do %>
           <%= render @orders %>
       <% end %>

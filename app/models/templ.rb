@@ -11,10 +11,17 @@ class Templ < ApplicationRecord
   scope :product_print, -> { where(modelname: "product", tip: "simple").order(:id) }
   scope :incase_import_print, -> { where(modelname: "incase_import_print", tip: "simple").order(:id) }
   scope :supply_print, -> { where(modelname: "supply", tip: "simple").order(:id) }
+  scope :invoice_print, -> { where(modelname: "invoice", tip: "simple").order(:id) }
+  scope :return_print, -> { where(modelname: "return", tip: "simple").order(:id) }
 
   Templ::RECEIVER = [["Клиент", "client"], ["Пользователь", "user"]].freeze
   Templ::TIP = [["Простое", "simple"], ["Сообщения", "message"]].freeze
-  Templ::MODELNAME = [["Убытки", "incase"], ["Заказы", "order"], ["Товары", "product"], ["Поступления","supply"]].freeze  #, ["incase_supply","incase_supply"]
+  Templ::MODELNAME = [["Убытки", "incase"], 
+                      ["Заказы", "order"],
+                      ["Товары", "product"],
+                      ["Поступления","supply"],
+                      ["Накладные","invoice"],
+                      ["Возвраты","return"],].freeze  #, ["incase_supply","incase_supply"]
 
   def self.ransackable_attributes(auth_object = nil)
     Templ.attribute_names
@@ -27,4 +34,5 @@ class Templ < ApplicationRecord
       self[key] = value.squish if value.respond_to?(:squish) && self[key] != content
     end
   end
+  
 end

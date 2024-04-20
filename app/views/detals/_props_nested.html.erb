@@ -1,15 +1,18 @@
-<div class="row col-md-8">
-    <div class="col-md-3 mb-4">
-        <button type="button" class="btn btn-primary" data-action="nested-form#add"><i data-feather='plus'></i>Add property</button>
+<div class="d-flex row">
+    <div class="col-12 mb-3">
+    <%= link_to new_detal_detal_prop_path(detal), class: "btn btn-primary float-start mt-n1", data: {turbo_frame: dom_id(detal, dom_id(DetalProp.new)) } do %>
+        <%= add_icon %>
+    <% end %>
     </div>
-    <template data-nested-form-target="template">
-        <%= f.fields_for :props, Prop.new, child_index: 'NEW_RECORD' do |prop| %>
-            <%= render "props/nested_data", f: prop %>
+    <div class="col-12">
+    <%= turbo_stream_from detal, :detal_props %>     
+    <%= turbo_frame_tag detal, :detal_props, data: { } do %>
+        <% @detal_props.each do |detal_prop|%>
+            <%= render partial: "detal_props/detal_prop", locals: { detal_prop: detal_prop, detal: detal } %>
         <% end %>
-    </template>
-    
-        <%= f.fields_for :props, data: {controller: 'prop slimselect'} do |prop| %>
-            <%= render "props/nested_data", f: prop %>
-        <% end %>
-    <div data-nested-form-target="target"></div>
+    <% end %>
+    </div>
+    <div class="col-12">
+        <%= turbo_frame_tag dom_id(detal, dom_id(DetalProp.new)) %>
+    </div>
 </div>

@@ -30,12 +30,11 @@ class DetalsController < ApplicationController
   # GET /detals/new
   def new
     @detal = Detal.new
-    @props = @detal.props
   end
 
   # GET /detals/1/edit
   def edit
-    @props = @detal.props
+    @detal_props = @detal.detal_props
   end
 
   # POST /detals or /detals.json
@@ -85,6 +84,6 @@ class DetalsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def detal_params
-    params.require(:detal).permit(:sku, :title, :description, props_attributes: [:id, :product_id, :property_id, :characteristic_id, :detal_id, :_destroy])
+    params.require(:detal).permit(:sku, :title, :description, detal_props_attributes: [:id, :property_id, :characteristic_id, :detal_id, :_destroy])
   end
 end

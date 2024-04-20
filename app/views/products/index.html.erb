@@ -3,7 +3,7 @@
     <h1 class="h3 d-inline align-middle"><%= Product.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-print"></i></button>
+    <%= button_print %>
     <ul class="dropdown-menu">
       <%= form_with url: print_etiketki_products_path, method: :post, id: :print_etiketki_form  do |form| %>
           <%= form.submit "Этикетки", class: "dropdown-item"%>
@@ -36,7 +36,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0" id="count_info"><%= render 'count_info' , products: @products%></h5>
+    <h5 class="card-title mb-0" id="count_info"></h5>
   </div>
   <div class="card-body">
     <%= turbo_stream_from current_user, "products" if user_signed_in? %>

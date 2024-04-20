@@ -1,72 +1,106 @@
 class PropsController < ApplicationController
   load_and_authorize_resource
+  before_action :set_product
   before_action :set_prop, only: %i[show edit update destroy]
 
-  # GET /properties or /properties.json
   def index
-    @props = Prop.all
+    @props = @product.props  
   end
 
-  # GET /properties/1 or /properties/1.json
   def show
   end
 
-  # GET /properties/new
   def new
-    @prop = Prop.new
+    @prop = @product.props.build
+    @characteristics = []
   end
 
-  # GET /properties/1/edit
   def edit
+    @selected = @prop.property.id
+    @characteristics = @prop.property.characteristics.pluck(:title, :id)
   end
 
-  # POST /properties or /properties.json
   def create
-    @prop = Prop.new(prop_params)
-    if @prop.save
-      flash.now[:success] = "prop created!"
-    else
-      render :new
+    @prop = @product.props.build(prop_params)
+
+    respond_to do |format|
+      if @prop.save
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+          format.html { redirect_to product_props_path(@product), notice: 'prop was successfully created.' }
+          format.json { render :show, status: :created, location: @prop }
+      else
+          format.html { render :new }
+          format.json { render json: @prop.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  # PATCH/PUT /properties/1 or /properties/1.json
   def update
-    if @prop.update(prop_params)
-      flash.now[:success] = "prop updated!"
-    else
-      render :edit
+    respond_to do |format|
+      if @prop.update(prop_params)
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+        format.html { redirect_to product_prop_path(@product), notice: 'prop was successfully updated.' }
+        format.json { render :show, status: :ok, location: @prop }
+      else
+        format.html { render :edit }
+        format.json { render json: @prop.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  # DELETE /properties/1 or /properties/1.json
   def destroy
     @prop.destroy
-    flash.now[:success] = "prop deleted!"
+     respond_to do |format|
+      format.html { redirect_to product_props_path(@product), notice: 'prop was successfully destroyed.' }
+      format.json { head :no_content }
+      format.turbo_stream { flash.now[:success] = t(".success") }
+    end
   end
 
   def characteristics
-    @target = params[:target]
-    @wraptarget = params[:wraptarget]
-    @targetname = params[:targetname]
-    # puts '@target =>'+@target.to_s
-    # puts 'params[:property_id] =>'+params[:property_id].to_s
-    @property = Property.includes(:characteristics).find(params[:property_id])
-    @characteristics = [] # @property.characteristics.pluck(:title, :id)
+
+    @target = params[:turboId]
+    @selected = params[:selected_id]
+    @property = Property.includes(:characteristics).find(params[:selected_id])
+
+    prop = params[:turboId].include?('new') ? @product.props.build : @prop
+    
+    @characteristics = @property.characteristics.pluck(:title, :id)
     respond_to do |format|
-      format.turbo_stream
+      format.turbo_stream do
+        render turbo_stream: 
+          turbo_stream.replace(
+            @target, partial: "props/form", locals: {prop: prop}
+          )
+      end
     end
+
   end
 
   private
 
+  def set_product
+    @product = Product.find(params[:product_id])
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_prop
-    @prop = Prop.find(params[:id])
+    @prop = @product.props.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def prop_params
-    params.require(:prop).permit(:product_id, :property_id, :characteristic_id, :detal_id)
+    params.require(:prop).permit(:property_id, :characteristic_id)
   end
+
+
 end

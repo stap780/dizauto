@@ -18,6 +18,10 @@ class Drop::Order < Liquid::Drop
     def client
       @order.client.present? ? @order.client.attributes : []
     end
+  
+    def company
+      @order.company.present? ? @order.company.attributes : []
+    end
 
     def manager
         @order.manager.present? ?  @order.manager.attributes : []

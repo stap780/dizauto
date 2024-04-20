@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Return items</h1>
+
+<div id="return_items">
+  <% @return_items.each do |return_item| %>
+    <%= render return_item %>
+    <p>
+      <%= link_to "Show this return item", return_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New return item", new_return_item_path %>

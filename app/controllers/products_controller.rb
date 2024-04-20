@@ -176,6 +176,7 @@ class ProductsController < ApplicationController
     head :ok
   end
 
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -186,8 +187,7 @@ class ProductsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:sku, :barcode, :title, :description, :quantity, :costprice, :price, :video, images: [],
-      images_attachments_attributes: [:id, :position, :_destroy],
-      props_attributes: [:id, :product_id, :property_id, :characteristic_id, :detal_id, :_destroy],
+      props_attributes: [:id, :product_id, :property_id, :characteristic_id, :_destroy],
       images_attributes: [:id, :product_id, :position, :file, :_destroy], photo_signed_ids: [])
   end
 

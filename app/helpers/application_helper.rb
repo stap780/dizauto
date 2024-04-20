@@ -112,6 +112,10 @@ module ApplicationHelper
     end
   end
 
+  def button_print
+    '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-printer"></i></button>'.html_safe
+  end
+
   def history_icon
     '<i class="bi bi-clock-history"></i>'.html_safe
   end
@@ -120,6 +124,14 @@ module ApplicationHelper
     '<i class="bi bi-x"></i>'.html_safe
   end
 
+  def slider_vertical
+    '<i class="bi bi-sliders2-vertical"></i>'.html_safe
+  end
+
+  def arrow_clockwise
+    "<i class='bi bi-arrow-clockwise'></i>".html_safe
+  end
+  
   def false_icon
   '<i class="bi bi-x-circle"></i>'.html_safe
   end
@@ -152,10 +164,14 @@ module ApplicationHelper
     puts "key ====="
     puts key
     if key.include?("_id")
-      search_key = key == 'strah_id' ? 'company' : key.split("_id").first
+      search_key = 'company' if key == 'strah_id'
+      search_key = 'user' if key == 'manager_id'
+      search_key = key.split("_id").first if key != 'strah_id' && key != 'manager_id'
+
       val = search_key.classify.safe_constantize.where(id: value).present? ? search_key.classify.safe_constantize.find_by_id(value.to_i) : nil
       return_value = val.title if val.present? && val.respond_to?(:title)
       return_value = val.short_title if val.present? && val.respond_to?(:short_title)
+      return_value = val.name if val.present? && val.respond_to?(:name)
       return_value.present? ? return_value : value.to_s
     else
       value
@@ -214,4 +230,5 @@ module ApplicationHelper
       render "shared/nested_delete", object: obj
     end
   end
+
 end

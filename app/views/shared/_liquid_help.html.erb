@@ -212,7 +212,7 @@
     </div>
 
     <div class="col-6">
-        <%= tag.dev("#{Supply.model_name.human(count: 2)} (order)", class: 'h5')%>
+        <%= tag.dev("#{Supply.model_name.human(count: 2)} (supply)", class: 'h5')%>
         <div class="table-responsive">
             <table class="table table-striped-columns">
                 <thead>
@@ -259,5 +259,86 @@
             </table>
         </div>
     </div>
+
+    <div class="col-6">
+        <%= tag.dev("#{Invoice.model_name.human(count: 2)} (invoice)", class: 'h5')%>
+        <div class="table-responsive">
+            <table class="table table-striped-columns">
+                <thead>
+                    <tr>
+                        <th scope="col">значение</th>
+                        <th scope="col">описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">status</td>
+                        <td><%= t('helpers.label.invoice.status')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">number</td>
+                        <td><%= t('helpers.label.invoice.number')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">client</td>
+                        <td><%= t('helpers.label.invoice.client_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">company</td>
+                        <td><%= t('helpers.label.invoice.company_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">totalsum</td>
+                        <td><%= t('helpers.label.invoice.totalsum')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">items</td>
+                        <td>позиции заказа ("title","price","discount","sum","quantity","vat")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <div class="col-6">
+        <%= tag.dev("#{Return.model_name.human(count: 2)} (return)", class: 'h5')%>
+        <div class="table-responsive">
+            <table class="table table-striped-columns">
+                <thead>
+                    <tr>
+                        <th scope="col">значение</th>
+                        <th scope="col">описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="">
+                        <td scope="row">status</td>
+                        <td><%= t('helpers.label.return.status')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">number</td>
+                        <td><%= t('helpers.label.return.number')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">client</td>
+                        <td><%= t('helpers.label.return.client_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">company</td>
+                        <td><%= t('helpers.label.return.company_id') %></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">totalsum</td>
+                        <td><%= t('helpers.label.return.totalsum')%></td>
+                    </tr>
+                    <tr class="">
+                        <td scope="row">items</td>
+                        <td>позиции заказа ("title","price","discount","sum","quantity","vat")</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
 </div>

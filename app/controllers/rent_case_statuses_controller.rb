@@ -28,7 +28,13 @@ class RentCaseStatusesController < ApplicationController
 
     respond_to do |format|
       if @rent_case_status.save
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(RentCaseStatus.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to rent_case_status_url(@rent_case_status), notice: "Rent case status was successfully created." }
         format.json { render :show, status: :created, location: @rent_case_status }
       else
@@ -42,7 +48,12 @@ class RentCaseStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @rent_case_status.update(rent_case_status_params)
-        format.turbo_stream { flash.now[:success] = t(".success") }
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to rent_case_status_url(@rent_case_status), notice: "Rent case status was successfully updated." }
         format.json { render :show, status: :ok, location: @rent_case_status }
       else

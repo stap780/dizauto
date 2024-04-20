@@ -13,10 +13,10 @@ export default class extends Controller {
     // console.log( 'this.element', this.element )
     const searchUrl = this.element.dataset.searchUrl ;
     const nestedUrl = this.element.dataset.nestedUrl ;
-
+    
+    console.log( 'searchUrl', nestedUrl );
     console.log( 'nestedUrl', nestedUrl );
 
-    if (searchUrl != undefined ){
       this.slimselect = new SlimSelect({
         select: this.element,
         settings: {
@@ -29,31 +29,32 @@ export default class extends Controller {
               if (search.length < 2) {
                 return reject('Search must be at least 2 characters')
               }
-
-              post(searchUrl, {
-                body: JSON.stringify({
-                  title: search,
-                }),
-              })
-                .then((response) => response.json
-                // {
-                //   console.log( 'response', response );
-                //   const body = response.json
-                //   console.log( 'body', body );
-                //   body
-                //   }
-                )
-                .then((data) => {
-                  console.log( 'data', data );
-                  const options = data.map((d) => {
-                    return {
-                      text: `${d.title}`,
-                      value: `${d.id}`,
-                    }
-                  })
-
-                  resolve(options);
+              if (searchUrl != undefined ){
+                post(searchUrl, {
+                  body: JSON.stringify({
+                    title: search,
+                  }),
                 })
+                  .then((response) => response.json
+                  // {
+                  //   console.log( 'response', response );
+                  //   const body = response.json
+                  //   console.log( 'body', body );
+                  //   body
+                  //   }
+                  )
+                  .then((data) => {
+                    console.log( 'data', data );
+                    const options = data.map((d) => {
+                      return {
+                        text: `${d.title}`,
+                        value: `${d.id}`,
+                      }
+                    })
+
+                    resolve(options);
+                  })
+              }
             })
           },
           beforeChange: (newVal, oldVal) => {
@@ -61,44 +62,30 @@ export default class extends Controller {
             //return false // this will stop the change from happening
           },
           afterChange: ( newVal ) => {
-            var turboId = this.element.closest('turbo-frame').getAttribute('id');
-            // var selectId = this.element.getAttribute('id')
-            // console.log('selectId', selectId)
-            // console.log('nestedUrl', nestedUrl)
-            
-            let params = new URLSearchParams()
-            params.append("turboId", turboId)
-            // params.append("selectId", selectId)
-            params.append("selected_id", newVal[0].value)
-            
-            get(`${nestedUrl}?${params}`, {  
-              responseKind: "turbo-stream"
-            })
-          }
-        }
-
-      })  
-    } else {
-
-      this.slimselect = new SlimSelect({
-        select: this.element,
-        settings: {
-          //minSelected: 1,
-          //maxSelected: 2,
-        },
-        events: {
-          events: {
-            afterChange: (newVal) => {
-              console.log(newVal)
+            if (nestedUrl != undefined ){
+              var turboId = this.element.closest('turbo-frame').getAttribute('id');
+              // var selectId = this.element.getAttribute('id')
+              // console.log('selectId', selectId)
+              // console.log('nestedUrl', nestedUrl)
+              
+              let params = new URLSearchParams()
+              params.append("turboId", turboId)
+              // params.append("selectId", selectId)
+              params.append("selected_id", newVal[0].value)
+              
+              get(`${nestedUrl}?${params}`, {  
+                responseKind: "turbo-stream"
+              })
             }
           }
         }
+
       })
   
     }
 
-  }
-
-
 }
+
+
+
 

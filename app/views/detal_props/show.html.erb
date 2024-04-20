@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @detal_prop %>
+
+<div>
+  <%= link_to "Edit this detal prop", edit_detal_prop_path(@detal_prop) %> |
+  <%= link_to "Back to detal props", detal_props_path %>
+
+  <%= button_to "Destroy this detal prop", @detal_prop, method: :delete %>
+</div>

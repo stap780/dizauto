@@ -1,0 +1,16 @@
+<%= turbo_frame_tag return_status, class: "list-group-item py-2 border-start-0 border-end-0", data: {
+    sort_url: sort_return_status_path(return_status.id), sort_item_id: return_status.id }  do %>
+  <div class="row">
+      <%= tag.div(class: "col-1") do %>
+          <%= sortable_with_badge(return_status.position)%>
+          <%= return_status.id%>
+      <% end %>
+      <%= tag.div(return_status.title, class: "col-5")%>
+      <%= tag.div('', class: "col-4") do %>
+          <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{return_status.color};")%>
+      <% end %>
+      <div class= "col-1  d-flex justify-content-end gap-2 align-items-center">
+            <%= render 'shared/edit_delete_link_turbo', object: return_status %>
+      </div>
+  </div>
+<% end %>

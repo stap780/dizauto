@@ -5,7 +5,7 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
   <% if Templ.incase_print.presence %>
-    <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-print"></i></button>
+    <%= button_print %>
     <ul class="dropdown-menu">
     <%= form_with url: bulk_print_incases_path, method: :post, id: :bulk_action_form  do |f| %>
       <% Templ.incase_print.each do |templ|%>
@@ -19,8 +19,8 @@
 
 
     <%= render 'shared/index_filter' if lookup_context.find_all("incases/_filter").any? %>
-    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, incases_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i class='bi bi-plus'></i> #{Incase.model_name.human}".html_safe, new_incase_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise, incases_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_incase_path, class: "btn btn-primary" %>
   </div>
 </div>
 

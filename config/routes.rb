@@ -2,6 +2,36 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
+  resources :return_items
+  resources :return_statuses do
+    member do
+      patch :sort
+    end
+  end
+  resources :returns do
+    resources :comments, module: :orders
+    collection do
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
+      post :bulk_print
+    end
+  end
+  resources :invoice_items
+  resources :invoice_statuses do
+    member do
+      patch :sort
+    end
+  end
+  resources :invoices do
+    resources :comments, module: :orders
+    collection do
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
+      post :bulk_print
+    end
+  end
   resources :rent_case_statuses do
     member do
       patch :sort
@@ -112,18 +142,12 @@ Rails.application.routes.draw do
   resources :incases do
     resources :comments, module: :incases
     member do
-      get "act"
+      get :act
       get :new_supply
     end
     collection do
-      # get :file_import
-      # post :import_setup
-      # post :convert_file_data
       post :create_from_import
-      # put :update_from_file
       post :bulk_print
-      # get :pending_bulk
-      # get :success_bulk
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
@@ -145,16 +169,17 @@ Rails.application.routes.draw do
   end
   resources :companies do
   end
-  resources :detals
+  resources :detals do
+    resources :detal_props do
+      collection do
+        get :characteristics
+      end
+    end
+  end
   resources :exports do
     member do
       get :download
       post :run
-    end
-  end
-  resources :props do
-    collection do
-      get :characteristics
     end
   end
   resources :properties do
@@ -173,13 +198,15 @@ Rails.application.routes.draw do
     end
     collection do
       post :search
-      # match 'search' => 'products#search', via: [:get, :post], as: :search
-      # get :characteristics
       post :delete_selected
-      # delete '/:id/images/:image_id', action: 'delete_image', as: 'delete_image'
       post :print_etiketki
       get :pending_etiketki
       get :success_etiketki
+    end
+    resources :props do
+      collection do
+        get :characteristics
+      end
     end
   end
 

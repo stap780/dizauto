@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   include Rails.application.routes.url_helpers
   audited
 
-  has_many :props
+  has_many :props, dependent: :destroy
   has_many :properties, through: :props
   has_many :incase_items
   has_many :incases, through: :incase_items
@@ -36,7 +36,7 @@ class Product < ApplicationRecord
   after_commit :create_barcode, on: :create
   before_destroy :check_relations_present, prepend: true
   after_create_commit { broadcast_prepend_to "products_list" }
-  after_commit :update_counter, on: [ :create, :destroy ]
+  # after_commit :update_counter, on: [ :create, :destroy ]
 
   validates :title, presence: true
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
@@ -200,8 +200,8 @@ class Product < ApplicationRecord
     end
   end
 
-  def update_counter
-    broadcast_update_to('products_list', target: 'count_info', partial: "products/count_info", locals: {products: nil})
-  end
+  # def update_counter
+  #   broadcast_update_to('products_list', target: 'count_info', partial: "products/count_info", locals: {products: nil})
+  # end
 
 end
