@@ -1,6 +1,6 @@
 class Drop::Return < Liquid::Drop
-    def initialize(return)
-      @return = return
+    def initialize(myreturn)
+      @myreturn = myreturn
     end
   
     def do_work # this is for check condition true/false
@@ -8,28 +8,28 @@ class Drop::Return < Liquid::Drop
     end
   
     def id
-      @return.id
+      @myreturn.id
     end
 
     def status
-        @return.return_status.present? ? @return.return_status.title : ""
+        @myreturn.myreturn_status.present? ? @myreturn.myreturn_status.title : ""
     end
   
     def client
-      @return.client.present? ? @return.client.attributes : []
+      @myreturn.client.present? ? @myreturn.client.attributes : []
     end
   
     def company
-      @return.company.present? ? @return.company.attributes : []
+      @myreturn.company.present? ? @myreturn.company.attributes : []
     end
   
     def totalsum
-      @return.return_items.present? ?  @return.return_items.sum(:sum) : ''
+      @myreturn.myreturn_items.present? ?  @myreturn.myreturn_items.sum(:sum) : ''
     end
   
     def items
       #li.attributes 
-      @return.return_items.present? ? @return.return_items.map { |li| 
+      @myreturn.myreturn_items.present? ? @myreturn.myreturn_items.map { |li| 
         {
           "id"=>li.id,
           "title"=>li.product.title, 
