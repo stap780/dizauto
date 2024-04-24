@@ -75,7 +75,7 @@ class InvoiceStatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to invoice_statuses_url, notice: "Invoice status was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
+      format.turbo_stream { message }
     end
   end
 

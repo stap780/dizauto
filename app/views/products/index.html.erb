@@ -16,8 +16,8 @@
         <span class="visually-hidden"></span>
       </span>
     <% end %>
-    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, products_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i data-feather='plus'></i> #{Product.model_name.human}".html_safe, new_product_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise, products_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_product_path, class: "btn btn-primary" %>
   </div>
 </div>
 

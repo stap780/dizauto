@@ -44,4 +44,5 @@ class IncaseImport < ApplicationRecord
       errors.add(:import_file, "must be a CSV or XLS")
     end
   end
+  
 end

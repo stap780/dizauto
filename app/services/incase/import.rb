@@ -27,6 +27,7 @@ class Incase::Import
     @check_import = true
     import # we use it for check data
     check_nested_incase_item_statuses
+    puts "@check_message[:errors] => "+@check_message[:errors].to_s
     if @check_message[:errors].size > 0
       @incase_import.update!(check: false)
       [false, @check_message]
@@ -147,27 +148,23 @@ class Incase::Import
       incase_data.delete("incase_item_data")
       puts incase_data
       incase = Incase.create!(incase_data)
-      incase.automation_on_create
+      # incase.automation_on_create # пробую callback
     end
   end
 
   def line_validate_incase(index, incase_data)
     incase = Incase.new(incase_data)
-    if incase.validate == false
-      puts "incase.errors"
-      puts incase.errors.full_messages
-      @check_message[:errors].push("Строка #{index} в файле => " + incase.errors.full_messages.join(" ")) if incase.errors && incase.errors.full_messages.present?
+    if incase.validate == false && incase.errors.full_messages.present?
+      puts "line_validate_incase full_messages => "+incase.errors.full_messages.to_s
+      @check_message[:errors].push("Строка #{index} в файле => " + incase.errors.full_messages.join(" "))
     end
   end
 
   def line_validate_incase_items(index, incase_item_data)
     incase_item = IncaseItem.new(incase_item_data)
-    if incase_item.validate == false
-      puts incase_item.errors.full_messages
-      incase_item.errors.delete(:incase)
-      puts "incase_item.errors"
-      puts incase_item.errors.full_messages
-      @check_message[:errors].push("Строка #{index} в файле => " + incase_item.errors.full_messages.join(" ")) if incase_item.errors && incase_item.errors.full_messages.present?
+    if incase_item.validate == false && incase_item.errors.delete(:incase) && incase_item.errors.full_messages.present?
+      puts "line_validate_incase_items full_messages => "+incase_item.errors.full_messages.to_s
+      @check_message[:errors].push("Строка #{index} в файле => " + incase_item.errors.full_messages.join(" "))
     end
   end
 

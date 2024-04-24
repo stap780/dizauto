@@ -112,6 +112,9 @@ module ApplicationHelper
     end
   end
 
+  def check_circle
+    '<i class="bi bi-check-circle"></i>'.html_safe
+  end
   def button_print
     '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-printer"></i></button>'.html_safe
   end

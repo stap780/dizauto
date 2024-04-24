@@ -75,6 +75,7 @@ class ReturnStatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to return_statuses_url, notice: "Return status was successfully destroyed." }
       format.json { head :no_content }
+      format.turbo_stream { message }
     end
   end
 

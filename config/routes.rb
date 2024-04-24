@@ -86,18 +86,18 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
-  resources :actions do
-    collection do
-      get :values
-    end
-  end
+  # resources :actions do
+  #   collection do
+  #     get :values
+  #   end
+  # end
   resources :templs
   resources :triggers do
-    collection do
-      get :slimselect_nested_item
-      get :new_nested
-      post :remove_nested
-    end
+    resources :trigger_actions do
+      collection do
+        get :values
+      end
+    end   
   end
   resources :delivery_types do
     member do

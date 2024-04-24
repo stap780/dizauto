@@ -1,4 +1,4 @@
-<%= form_with(model: detal, data: {controller: 'product nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
+<%= form_with(model: detal, data: {controller: 'product'}) do |f| %>
     <%= render 'shared/errors', object: detal%>
 
     <div class="card">
@@ -18,6 +18,8 @@
                     <%= f.rich_text_area :description, class: "form-control" %>
                 </div>
                 <div class="mb-3 col-12">
+                    <%=tag.label('Параметры', class: "my-3 fs-4 fw-bold")%>
+                    <%=tag.div("сохраните Деталь чтобы появились параметры", class: "notice") if f.object.new_record? %>
                     <%= render "props_nested", f: f, detal: detal if !f.object.new_record?%>
                 </div>
             </div>

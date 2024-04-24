@@ -11,6 +11,7 @@ class TriggersController < ApplicationController
 
   # GET /triggers/1 or /triggers/1.json
   def show
+    @actions = @trigger.actions
   end
 
   # GET /triggers/new
@@ -20,6 +21,7 @@ class TriggersController < ApplicationController
 
   # GET /triggers/1/edit
   def edit
+
   end
 
   # POST /triggers or /triggers.json
@@ -28,7 +30,7 @@ class TriggersController < ApplicationController
 
     respond_to do |format|
       if @trigger.save
-        format.html { redirect_to triggers_url, notice: t(".success") }
+        format.html { redirect_to edit_trigger_url(@trigger), notice: t(".success") }
         format.json { render :show, status: :created, location: @trigger }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,9 +41,6 @@ class TriggersController < ApplicationController
 
   # PATCH/PUT /triggers/1 or /triggers/1.json
   def update
-    puts "======"
-    puts trigger_params
-    puts "======"
     respond_to do |format|
       if @trigger.update(trigger_params)
         format.html { redirect_to triggers_url, notice: t(".success") }
@@ -55,66 +54,18 @@ class TriggersController < ApplicationController
 
   # DELETE /triggers/1 or /triggers/1.json
   def destroy
-    @trigger.destroy
+    # @trigger.destroy
+    @check_destroy = @trigger.destroy ? true : false
+    message = if @check_destroy == true
+                flash.now[:success] = t(".success")
+              else
+                flash.now[:notice] = @trigger.errors.full_messages.join(" ")
+              end
 
     respond_to do |format|
       format.html { redirect_to triggers_url, notice: t(".success") }
       format.json { head :no_content }
-    end
-  end
-
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    action = Action.find_by(id: target.remove("action_"))
-    slimselect_name = params[:selected_id]
-    p "+++++++"
-    p slimselect_name
-    p "+++++++"
-    child_index = target.remove("action_")
-
-    if action.present?
-      p "action.present"
-      helpers.fields model: Trigger.new do |f|
-        f.fields_for :actions, action do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "actions/form_data",
-            locals: {f: ff, slimselect_name: slimselect_name, child_index: child_index}
-          )
-        end
-      end
-    else
-      p "action.present - not"
-      helpers.fields model: Trigger.new do |f|
-        f.fields_for :actions, Action.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "actions/form_data",
-            locals: {f: ff, slimselect_name: slimselect_name, child_index: child_index}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Trigger.new do |f|
-      f.fields_for :actions, Action.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "actions",
-          partial: "actions/form_data",
-          locals: {f: ff, slimselect_name: nil, child_index: child_index}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    Action.find_by(id: params[:action_id]).delete if params[:action_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
+      format.turbo_stream { message }
     end
   end
 
@@ -128,6 +79,6 @@ class TriggersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def trigger_params
-    params.require(:trigger).permit(:title, :event, :condition, :pause, :pause_time, :active, actions_attributes: [:id, :trigger_id, :template_id, :action_name, :_destroy, :action_params, action_params: []])
+    params.require(:trigger).permit(:title, :event, :condition, :pause, :pause_time, :active, actions_attributes: [:id, :trigger_id, :name, :value, :_destroy])
   end
 end

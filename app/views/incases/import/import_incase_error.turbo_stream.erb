@@ -1,9 +1,0 @@
-<%= turbo_stream.update "import_incase_error_"+@turbo_id do %>
-    <div class="alert alert-danger">
-      <ul class="mb-0">
-        <% @incase.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-<% end %>

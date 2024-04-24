@@ -43,7 +43,7 @@ class DetalsController < ApplicationController
 
     respond_to do |format|
       if @detal.save
-        format.html { redirect_to detals_path, notice: "Detal was successfully created." }
+        format.html { redirect_to edit_detal_path(@detal), notice: "Detal was successfully created." }
         format.json { render :show, status: :created, location: @detal }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -65,10 +65,6 @@ class IncaseImportsController < ApplicationController
   # PATCH/PUT /incase_imports/1 or /incase_imports/1.json
   def update
     success, message = validate_params
-    puts "###########"
-    puts "success"
-    puts success
-    puts "###########"
     if success
       respond_to do |format|
         if @incase_import.update(incase_import_params)
@@ -97,7 +93,6 @@ class IncaseImportsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
     end
-
   end
 
   # DELETE /incase_imports/1 or /incase_imports/1.json

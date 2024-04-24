@@ -1,31 +1,24 @@
-<%= form_with(model: trigger, data: {controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
+<%= form_with(model: trigger, data: {}) do |f| %>
     <%= render "shared/errors", object: trigger %>
 
   <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-            <ul class="nav nav-pills" id="triggerEditTab" role="tablist">
-                <li class="nav-item border border-primary rounded" role="presentation">
-                    <a class="nav-link active" id="triggerEditMain-tab" data-bs-toggle="tab" data-bs-target="#triggerEditMain">Основные</a>
-                </li>
-                <li class="nav-item border border-primary rounded" role="presentation">
-                    <a class="nav-link" id="triggerEditHelp-tab" data-bs-toggle="tab" data-bs-target="#triggerEditHelp">Помощь</a>
-                </li>
-            </ul>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <%= tabs_head('trigger', [ ['main', t(:main)],['help', t(:help)] ]) %>
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="triggerEditMain" role="tabpanel" aria-labelledby="triggerEditMain-tab">
-                        <%= render "form_data", f: f %>
+                    <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="triggerEditMain-tab">
+                        <%= render "form_data", f: f, trigger: trigger %>
                     </div>
-                    <div class="tab-pane" id="triggerEditHelp" role="tabpanel" aria-labelledby="triggerEditHelp-tab">              
+                    <div class="tab-pane" id="help_tab" role="tabpanel" aria-labelledby="triggerEditHelp-tab">              
                         <%= render "shared/liquid_help" %>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-              <%= f.submit class: "btn btn-primary" %>
+              <%= f.submit class: "btn btn-primary", data: {turbo_stream: "_top"} %>
               <%= link_to t('back'), triggers_path, class: "btn btn-outline-primary" %>
             </div>
         </div>

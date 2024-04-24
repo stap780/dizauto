@@ -42,6 +42,7 @@
     <div class="col-12 my-3">
         <div class="h5">Пример</div>
         <code>{% if incase.strah['title'] == 'Альфа' and incase.totalsum == 0 and incase.items_statuses contains 'Нет' %} {{do_work}} {% endif %}</code>
+    <code>{% if incase_item.status_nil? %}{{do_work}}{%end%}</code>
     </div>
     <div class="col-6">
         <%= tag.div("#{Incase.model_name.human(count: 2)} (incase)", class: "h5")%>

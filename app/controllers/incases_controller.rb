@@ -41,7 +41,6 @@ class IncasesController < ApplicationController
     @incase = Incase.new(incase_params)
     respond_to do |format|
       if @incase.save
-        @incase.automation_on_create
         format.html { redirect_to incases_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @incase }
       else
@@ -51,25 +50,10 @@ class IncasesController < ApplicationController
     end
   end
 
-  def create_from_import
-    @incase = Incase.new(incase_params)
-    respond_to do |format|
-      @turbo_id = params[:commit].remove("Создать из импорта").to_s
-      if @incase.save
-        @incase.automation_on_create
-        flash.now[:success] = t(".success")
-        format.turbo_stream { render "incases/import/create_from_import" }
-      else
-        format.turbo_stream { render "incases/import/import_incase_error", status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PATCH/PUT /incases/1 or /incases/1.json
   def update
     respond_to do |format|
       if @incase.update(incase_params)
-        @incase.automation_on_update
         format.html { redirect_to incases_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @incase }
       else

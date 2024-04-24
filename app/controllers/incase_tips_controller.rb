@@ -75,7 +75,7 @@ class IncaseTipsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to incase_tips_url, notice: "Incase tip was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
+      format.turbo_stream { message }
     end
   end
 

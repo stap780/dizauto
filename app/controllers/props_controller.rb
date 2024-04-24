@@ -4,7 +4,7 @@ class PropsController < ApplicationController
   before_action :set_prop, only: %i[show edit update destroy]
 
   def index
-    @props = @product.props  
+    @props = @product.props
   end
 
   def show
@@ -72,8 +72,8 @@ class PropsController < ApplicationController
     @target = params[:turboId]
     @selected = params[:selected_id]
     @property = Property.includes(:characteristics).find(params[:selected_id])
-
-    prop = params[:turboId].include?('new') ? @product.props.build : @prop
+    prop_id = params[:turboId].split('_')[1] if !params[:turboId].include?('new')
+    prop = params[:turboId].include?('new') ? @product.props.build : @product.props.find(prop_id)
     
     @characteristics = @property.characteristics.pluck(:title, :id)
     respond_to do |format|
@@ -99,7 +99,7 @@ class PropsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def prop_params
-    params.require(:prop).permit(:property_id, :characteristic_id)
+    params.require(:prop).permit(:product_id, :property_id, :characteristic_id)
   end
 
 

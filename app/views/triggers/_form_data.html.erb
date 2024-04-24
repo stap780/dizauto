@@ -19,10 +19,6 @@
         <%= f.label :condition, class: "form-label" %>
         <%= f.text_area :condition, class: "form-control" %>
     </div>
-    <div class="mb-3 col-12">
-        <%= render 'nested', f: f %>
-    </div>
-
     <div class="col-4 align-self-center">
         <div class="form-check form-switch">
             <%= f.check_box :pause, {class: "form-check-input", role: "switch"} %>
@@ -34,5 +30,11 @@
         <%= f.label :pause_time, class: "form-label" %>
         <%= f.number_field :pause_time, class: "form-control" %>
     </div>
+    <div class="mb-3 col-12">
+        <%=tag.label('Действия', class: "my-3 fs-4 fw-bold")%>
+        <%=tag.div("сохраните триггер чтобы появились условия", class: "notice") if f.object.new_record? %>
+        <%= render partial: 'nested', locals: {f: f, trigger: trigger} if !f.object.new_record? %>
+    </div>
+
 
 </div>            

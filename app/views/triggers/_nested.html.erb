@@ -1,18 +1,24 @@
-<div class="col-md-2 mb-2">
-    <%= link_to add_icon, new_nested_triggers_path, class: "btn btn-primary", data: { turbo_stream: true } %>
-</div>
 
-<div class="col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
+<div class="d-flex row">
+    <div class="col-12 mb-3">
+    <%= link_to new_trigger_trigger_action_path(trigger), class: "btn btn-primary float-start mt-n1", data: {turbo_frame: dom_id(trigger, dom_id(TriggerAction.new)) } do %>
+        <%= add_icon %>
+    <% end %>
+    </div>
     <div class="row py-2 px-0 text-center">
         <%= tag.div( 'Название', class: 'col-5 fw-semibold')%> 
         <%= tag.div( 'Значение', class: 'col-5 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
     </div>
-
-    <%= turbo_frame_tag 'actions', class: "container" do %>
-        <%= f.fields_for :actions do |item| %>
-            <%= render "actions/form_data", f: item, slimselect_action_name: nil %>
+    <div class="col-12">
+    <%= turbo_stream_from trigger, :trigger_actions %>     
+    <%= turbo_frame_tag trigger, :trigger_actions, data: { } do %>
+        <% @trigger.trigger_actions.each do |trigger_action|%>
+            <%= render partial: "trigger_actions/trigger_action", locals: { trigger_action: trigger_action, trigger: trigger } %>
         <% end %>
+        <div class="col-12">
+            <%= turbo_frame_tag dom_id(trigger, dom_id(TriggerAction.new)) %>
+        </div>
     <% end %>
-
+    </div>
 </div>

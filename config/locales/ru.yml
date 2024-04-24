@@ -23,6 +23,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 ru:
+  trigger_actions:
+    incase_status_id#incase: "Сменить статус убытка"
+    incase_tip_id#incase: "Сменить тип убытка"
+    email#incase: "Отправить письмо по убытку"
+    order_status_id#order: "Сменить статус заказа"
+    email#order: "Отправить письмо по заказу"
+    incase_item_status_id#incase_item: "Сменить статус позиции убытка"
   attribute: "Атирибут"
   before: "до"
   after: "после"
@@ -722,7 +729,7 @@ ru:
         event: "Событие"
         condition: "Условие"
         action: "Действие"
-        pause: "Отложить отправку?"
+        pause: "Пауза?"
         pause_time: "Кол-во минут"
       user:
         name: "Имя"

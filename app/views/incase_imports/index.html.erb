@@ -18,8 +18,8 @@
   <% end %>
 
     <%= render 'shared/index_filter' if lookup_context.find_all("incase_imports/_filter").any? %>
-    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, incase_imports_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i data-feather='plus'></i> #{IncaseImport.model_name.human}".html_safe, new_incase_import_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise, incase_imports_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_incase_import_path, class: "btn btn-primary" %>
   </div>
 </div>
 

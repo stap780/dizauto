@@ -31,13 +31,13 @@ class Automation < ApplicationService
 
           if check_render_value == "do_work"
             puts "automation template.render check_render_value.length => " + check_render_value.length.to_s
-            trigger.actions.each do |action|
+            trigger.trigger_actions.each do |action|
               wait = (trigger.pause == true && trigger.pause_time.present?) ? trigger.pause_time : 1
 
               attr = action.name.split("#").first
 
-              update_object(attr, value) if !action.name.include?("email")
-              send_email(attr, value, wait) if action.name.include?("email")
+              update_object(attr, action.value) if !action.name.include?("email")
+              send_email(attr, action.value, wait) if action.name.include?("email")
             end
           end
         end
@@ -62,20 +62,19 @@ class Automation < ApplicationService
 
           if check_render_value == "do_work"
             puts "automation template.render check_render_value.length => " + check_render_value.length.to_s
-            trigger.actions.each do |action|
+            trigger.trigger_actions.each do |action|
               wait = (trigger.pause == true && trigger.pause_time.present?) ? trigger.pause_time : 1
 
               attr = action.name.split("#").first
 
-              if !action.name.include?("email") && !action.name.include?("create")
-                update_object(attr, value)
-              end
-              if action.name.include?("email") && object_condition_attributes_have_changes?(template)
-                send_email(attr, value, wait)
-              end
-              if action.name.include?("create")
-                create_object(attr, value)
-              end
+              update_object(attr, action.value) if !action.name.include?("email")
+
+              send_email(attr, action.value, wait) if action.name.include?("email")
+              
+              # this is for future create relation object
+              # if action.name.include?("create")
+              #   create_object(attr, value)
+              # end
             end
           end
         end
@@ -137,13 +136,14 @@ class Automation < ApplicationService
     (object_have_changes.uniq.size == 1 && object_have_changes.uniq.first == true) ? true : false
   end
 
-  def create_object(attr, value)
-    # here attr = "create_supply"
-    # new_object = attr.remove("create_")
-    new_object = attr.remove("create_").classify.constantize
-    if value.present?
+  # this is for future create relation object
+  # def create_object(attr, value)
+  #   # here attr = "create_supply"
+  #   # new_object = attr.remove("create_")
+  #   new_object = attr.remove("create_").classify.constantize
+  #   if value.present?
     
-    end
-  end
+  #   end
+  # end
 
 end

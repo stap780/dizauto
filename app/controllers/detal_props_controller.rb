@@ -80,8 +80,8 @@ class DetalPropsController < ApplicationController
     @target = params[:turboId]
     @selected = params[:selected_id]
     @property = Property.includes(:characteristics).find(params[:selected_id])
-
-    detal_prop = params[:turboId].include?('new') ? @detal.detal_props.build : @detal_prop
+    detal_prop_id = params[:turboId].split('_')[2] if !params[:turboId].include?('new')
+    detal_prop = params[:turboId].include?('new') ? @detal.detal_props.build : @detal.detal_prop.find(detal_prop_id)
     
     @characteristics = @property.characteristics.pluck(:title, :id)
     respond_to do |format|
@@ -100,6 +100,7 @@ class DetalPropsController < ApplicationController
     def set_detal
       @detal = Detal.find(params[:detal_id])
     end
+    
     # Use callbacks to share common setup or constraints between actions.
     def set_detal_prop
       @detal_prop = @detal.detal_props.find(params[:id])

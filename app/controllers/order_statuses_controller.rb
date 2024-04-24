@@ -75,7 +75,7 @@ class OrderStatusesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to order_statuses_url, notice: t(".success") }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
+      format.turbo_stream { message }
     end
   end
 

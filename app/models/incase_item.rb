@@ -7,13 +7,24 @@ class IncaseItem < ApplicationRecord
   validates :title, presence: true
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
+  
+  after_initialize :set_default_new
   before_save :normalize_data_white_space
   before_create :create_product
-  after_initialize :set_default_new
+  after_create_commit :automation_on_create
+  after_update_commit :automation_on_update
 
 
   def self.ransackable_attributes(auth_object = nil)
     IncaseItem.attribute_names
+  end
+  
+  def automation_on_create
+    Automation.new(self).create
+  end
+
+  def automation_on_update
+    Automation.new(self).update
   end
 
   private
