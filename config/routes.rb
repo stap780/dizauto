@@ -2,6 +2,15 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
+  resources :placements do
+    resources :locations do 
+      resources :comments, module: :locations
+    end
+    collection do
+      get :new_nested
+      post :remove_nested  
+    end
+  end
   resources :return_items
   resources :return_statuses do
     member do
@@ -9,7 +18,7 @@ Rails.application.routes.draw do
     end
   end
   resources :returns do
-    resources :comments, module: :orders
+    resources :comments, module: :returns
     collection do
       get :slimselect_nested_item
       get :new_nested
@@ -24,7 +33,7 @@ Rails.application.routes.draw do
     end
   end
   resources :invoices do
-    resources :comments, module: :orders
+    resources :comments, module: :invoices
     collection do
       get :slimselect_nested_item
       get :new_nested
@@ -48,7 +57,6 @@ Rails.application.routes.draw do
       post :delete
     end
   end
-  resources :supply_items
   resources :supply_statuses do
     member do
       patch :sort
@@ -64,6 +72,11 @@ Rails.application.routes.draw do
     end
   end
   resources :supplies do
+    resources :supply_items do
+      collection do
+        get :slimselect
+      end
+    end
     collection do
       post :bulk_print
       get :slimselect_nested_item
@@ -153,8 +166,8 @@ Rails.application.routes.draw do
       post :remove_nested
     end
   end
-  resources :places
   resources :warehouses do
+    resources :places
     member do
       patch :sort
     end

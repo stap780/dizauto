@@ -1,6 +1,7 @@
 class SuppliesController < ApplicationController
   load_and_authorize_resource
   before_action :set_supply, only: %i[show edit update destroy]
+  include ActionView::RecordIdentifier
 
   # GET /supplies or /supplies.json
   def index
@@ -89,6 +90,7 @@ class SuppliesController < ApplicationController
     supply_item = SupplyItem.find_by(id: target.remove("supply_item_"))
     product = Product.find(params[:selected_id])
     child_index = target.remove("supply_item_")
+    warehouse_id = params[:warehouse_id]
 
     if supply_item.present?
       helpers.fields model: Supply.new do |f|
@@ -96,7 +98,7 @@ class SuppliesController < ApplicationController
           render turbo_stream: turbo_stream.replace(
             target,
             partial: "supply_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
+            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
           )
         end
       end
@@ -106,7 +108,7 @@ class SuppliesController < ApplicationController
           render turbo_stream: turbo_stream.replace(
             target,
             partial: "supply_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
+            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
           )
         end
       end
@@ -118,9 +120,9 @@ class SuppliesController < ApplicationController
     helpers.fields model: Supply.new do |f|
       f.fields_for :supply_items, SupplyItem.new, child_index: child_index do |ff|
         render turbo_stream: turbo_stream.append(
-          "supply_items",
+          "supply_items_supply",
           partial: "supply_items/form_data",
-          locals: {f: ff, product: nil, child_index: child_index}
+          locals: {f: ff, product: nil, our_dom_id: "supply_item_#{child_index}_supply", warehouse_id: nil}
         )
       end
     end
@@ -141,6 +143,7 @@ class SuppliesController < ApplicationController
   end
 
   def supply_params
-    params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, supply_items_attributes: [:id, :warehouse_id, :product_id, :quantity, :price, :sum, :_destroy])
+    params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, :warehouse_id, 
+    supply_items_attributes: [:id, :product_id, :quantity, :price, :sum, :_destroy])
   end
 end

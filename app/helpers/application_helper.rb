@@ -112,6 +112,14 @@ module ApplicationHelper
     end
   end
 
+  def check2_icon
+    '<i class="bi bi-check2"></i>'.html_safe
+  end
+
+  def search_icon
+    '<i class="bi bi-search"></i></span>'.html_safe
+  end
+
   def check_circle
     '<i class="bi bi-check-circle"></i>'.html_safe
   end
@@ -127,11 +135,15 @@ module ApplicationHelper
     '<i class="bi bi-x"></i>'.html_safe
   end
 
+  def caret_left_icon
+    '<i class="bi bi-caret-left"></i>'.html_safe
+  end
+
   def slider_vertical
     '<i class="bi bi-sliders2-vertical"></i>'.html_safe
   end
 
-  def arrow_clockwise
+  def arrow_clockwise_icon
     "<i class='bi bi-arrow-clockwise'></i>".html_safe
   end
   
@@ -161,6 +173,10 @@ module ApplicationHelper
 
   def trash_icon
     '<i class="bi bi-trash3"></i>'.html_safe
+  end
+
+  def eye_icon
+    '<i class="bi bi-eye"></i>'.html_safe
   end
 
   def history_value(key, value)

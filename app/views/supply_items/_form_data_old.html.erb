@@ -1,0 +1,66 @@
+<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i : child_index %>
+<% our_dom_id = "supply_item_#{ f.object.persisted? ? f.object.id : child_index}"%>
+<%= turbo_frame_tag our_dom_id, 
+                    class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
+    
+    <%= f.hidden_field :id %>
+    <% start_product_id = f.object.product_id if f.object.present? %>
+    <% product_id = product.present? ? product.id : start_product_id %>
+
+    <%= tag.div class: "col-5 p-0 m-0" do %>
+        <% selected = Product.collection_for_select(product_id).first if product_id %>
+        <%= f.select :product_id, options_for_select(Product.collection_for_select(product_id), selected: selected ),
+                                {include_blank: true}, 
+                                { class: "rounded-0", data: { controller: 'slimselect', 
+                                                        search_url:  "/products/search",
+                                                        nested_url:  "/supplies/slimselect_nested_item",
+                                                        action: "change->calculate#recalculate" } } %>
+    <% end %>
+    
+    <%= tag.div class: "col-2 p-0 m-0" do %>
+    <%# if !f.object.new_record? && f.object.present? && f.object.supply.warehouse_id.present? && !f.object.product.location.present? %>
+        <% if product_id.present? %>
+        <%= product_id %>
+            <% product = Product.find(product_id)%>
+            <% target = dom_id(Location.new, our_dom_id) %>
+            <%= turbo_frame_tag target do %>
+            <%= turbo_stream_from "locations" %>   
+                <%= link_to new_location_path(product_id: product_id, warehouse_id: f.object.supply.warehouse_id, target: target), class: "btn btn-primary float-start", data: {turbo_stream: true } do %>
+                    <%= add_icon %>
+                <% end if !product.location.present? && f.object.supply.present?%>
+                <%= render product.location if product.location.present? %>
+            <% end %>
+        <% end %>
+    <% end %>
+
+    <%= tag.div class: "col-1 p-0 m-0" do %>
+        <% start_quantity = f.object.quantity.present? ? f.object.quantity : 0 %>
+        <% quantity = product.present? ? 0 : start_quantity %>
+        <%= f.number_field :quantity,   class: "form-control rounded-0", min: "0", value: quantity,
+                                        data: { action: "change->calculate#recalculate", calculate_target: "qty" } %>
+    <% end %>
+
+    <%= tag.div class: "col-1 p-0 m-0" do %>
+        <% start_price = f.object.price.present? ? f.object.price : 0 %>
+        <% price = product.present? ? product.price : start_price %>
+        <%= f.number_field :price,  class: "form-control rounded-0", value: price, min: "0",
+                                    data: { action: "change->calculate#recalculate", calculate_target: "price" } %>
+    <% end %>
+
+    <%= tag.div class: "col-1 p-0 m-0" do %>
+        <%= f.number_field :vat, class: "form-control rounded-0 disabled", disabled: true, data: { calculate_target: "vat" } %>
+    <% end %>
+    
+    <%= tag.div class: "col-1 p-0 m-0" do %>
+        <% start_sum = f.object.sum.present? ? f.object.sum : 0 %>
+        <% sum = product.present? ? 0 : start_sum %>
+        <%= f.number_field :sum, class: "form-control disabled rounded-0", readonly: true, min: "0",
+                                data: { calculate_target: "sum" }, value: sum %>
+    <% end %>
+
+    <div class="col-1 p-0 d-flex justify-content-center">
+        <%= link_to trash_icon, remove_nested_supplies_path(supply_item_id: f.object.id, remove_element: "supply_item_#{ f.object.persisted? ? f.object.id : child_index  }"),
+                                class: "px-2", data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+    </div>
+
+<% end %>

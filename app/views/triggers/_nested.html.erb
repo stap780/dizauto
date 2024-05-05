@@ -6,19 +6,19 @@
     <% end %>
     </div>
     <div class="row py-2 px-0 text-center">
-        <%= tag.div( 'Название', class: 'col-5 fw-semibold')%> 
-        <%= tag.div( 'Значение', class: 'col-5 fw-semibold' )%>
+        <%= tag.div( t('helpers.label.trigger_action.name'), class: 'col-5 fw-semibold')%> 
+        <%= tag.div( t('helpers.label.trigger_action.value'), class: 'col-5 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
     </div>
     <div class="col-12">
-    <%= turbo_stream_from trigger, :trigger_actions %>     
-    <%= turbo_frame_tag trigger, :trigger_actions, data: { } do %>
-        <% @trigger.trigger_actions.each do |trigger_action|%>
-            <%= render partial: "trigger_actions/trigger_action", locals: { trigger_action: trigger_action, trigger: trigger } %>
+        <%= turbo_stream_from trigger, :trigger_actions %>     
+        <%= turbo_frame_tag trigger, :trigger_actions, data: { } do %>
+            <% @trigger.trigger_actions.each do |trigger_action|%>
+                <%= render partial: "trigger_actions/trigger_action", locals: { trigger_action: trigger_action, trigger: trigger } %>
+            <% end %>
+            <div class="col-12">
+                <%= turbo_frame_tag dom_id(trigger, dom_id(TriggerAction.new)) %>
+            </div>
         <% end %>
-        <div class="col-12">
-            <%= turbo_frame_tag dom_id(trigger, dom_id(TriggerAction.new)) %>
-        </div>
-    <% end %>
     </div>
 </div>

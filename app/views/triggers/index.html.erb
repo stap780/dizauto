@@ -9,7 +9,7 @@
         <span class="visually-hidden"></span>
       </span>
     <% end %>
-    <%= link_to arrow_clockwise, triggers_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, triggers_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_trigger_path, class: "btn btn-primary float-end mt-n1" %>
   </div>
 </div>
@@ -49,9 +49,8 @@
       <%= turbo_frame_tag 'triggers' do %>
           <%= render @triggers %>
       <% end %>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @triggers %>
-      </div>
+      
+      <%= render "shared/paginate", f: @triggers %>
     </div>
   </div>
 </div>

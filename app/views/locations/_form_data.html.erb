@@ -1,0 +1,25 @@
+<%= turbo_frame_tag our_dom_id, class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>    
+    <div class = "col-1">
+      <%= f.text_field :id, class: "form-control disabled", readonly: true %>
+    </div>
+    <div class = "col-4">
+        <% start_product_id = f.object.product_id if f.object.present? %>
+        <% product_id = product.present? ? product.id : start_product_id %>
+        <% selected = Product.collection_for_select(product_id).first if product_id %>
+        <%= f.select :product_id, options_for_select(Product.collection_for_select(product_id), selected: selected ),
+                                    {include_blank: true}, { class: "rounded-0", data: { controller: 'slimselect', 
+                                                            search_url:  "/products/search",
+                                                            warehouse_id: warehouse_id } } %>
+
+    </div>
+    <div class="col-3">
+      <%= f.select :place_id, @places, {include_blank: true}, {class: "form-select"} %>
+    </div>
+    <div class="col-3">
+        <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
+            <%= render 'comments/form_data', f: comment%>
+        <% end %>
+    </div>
+    <div class = "col-1">
+    </div>
+<% end %>

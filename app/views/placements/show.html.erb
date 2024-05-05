@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @placement %>
+
+<div>
+  <%= link_to "Edit this placement", edit_placement_path(@placement) %> |
+  <%= link_to "Back to placements", placements_path %>
+
+  <%= button_to "Destroy this placement", @placement, method: :delete %>
+</div>

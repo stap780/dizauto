@@ -18,8 +18,8 @@
 
 
     <%= render 'shared/index_filter' if lookup_context.find_all("supplies/_filter").any? %>
-    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, supplies_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i class='bi bi-plus'></i> #{Supply.model_name.human}".html_safe, new_supply_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise_icon, supplies_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_supply_path, class: "btn btn-primary" %>
   </div>
 </div>
 
@@ -64,9 +64,8 @@
           </table>
         </div>
       </div>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @supplies %>
-      </div>
+      
+      <%= render "shared/paginate", f: @supplies %>
     </div>
   </div>
 </div>

@@ -2,8 +2,8 @@
     <td><b><%= property.id%></b></td>
     <td><%= property.title %></td>
     <td>
-        <%= link_to '<i class="bi bi-eye"></i>'.html_safe, property_path(property), class: 'px-2' %>
-        <%= link_to '<i data-feather="plus-circle"></i>'.html_safe, new_property_characteristic_path(property) %>
+        <%= link_to eye_icon, property_path(property), class: "px-2" %>
+        <%= link_to add_icon, new_property_characteristic_path(property), class: " px-2" %>
         <%= property.characteristics.pluck(:title).take(10).join(',')+' ...' if  property.characteristics.present? %>
     </td>
     <%= td_index_edit_delete_link(property)%>

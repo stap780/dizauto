@@ -12,6 +12,9 @@ class WarehousesController < ApplicationController
 
   # GET /warehouses/1 or /warehouses/1.json
   def show
+    @search = @warehouse.places.ransack(params[:q])
+    @search.sorts = "id asc" if @search.sorts.empty?
+    @places = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
   # GET /warehouses/new
@@ -93,6 +96,6 @@ class WarehousesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def warehouse_params
-    params.require(:warehouse).permit(:title, :position)
+    params.require(:warehouse).permit(:title, :position, places_attributes: [:id, :sector, :cell, :_destroy])
   end
 end

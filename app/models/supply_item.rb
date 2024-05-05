@@ -1,6 +1,5 @@
 class SupplyItem < ApplicationRecord
   belongs_to :supply
-  belongs_to :warehouse
   belongs_to :product
   audited associated_with: :supply
 

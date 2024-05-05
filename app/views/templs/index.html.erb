@@ -9,7 +9,7 @@
         <span class="visually-hidden"></span>
       </span>
     <% end %>
-    <%= link_to arrow_clockwise, templs_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, templs_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_templ_path, class: "btn btn-primary float-end mt-n1" %>
   </div>
 </div>
@@ -53,9 +53,8 @@
           </table>
         </div>
       </div>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @templs %>
-      </div>
+      
+      <%= render "shared/paginate", f: @templs %>
     </div>
   </div>
 </div>

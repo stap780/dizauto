@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -307,6 +307,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
     t.index ["client_id"], name: "index_invoices_on_client_id"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "place_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "placement_id"
+    t.index ["place_id"], name: "index_locations_on_place_id"
+    t.index ["placement_id"], name: "index_locations_on_placement_id"
+    t.index ["product_id"], name: "index_locations_on_product_id"
+  end
+
   create_table "noticed_events", force: :cascade do |t|
     t.string "type"
     t.string "record_type"
@@ -387,10 +398,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
     t.text "pactions", default: [], array: true
   end
 
+  create_table "placements", force: :cascade do |t|
+    t.bigint "warehouse_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["warehouse_id"], name: "index_placements_on_warehouse_id"
+  end
+
   create_table "places", force: :cascade do |t|
     t.string "sector"
     t.string "cell"
-    t.integer "product_id"
     t.integer "warehouse_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -407,6 +424,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
     t.string "video"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "draft", null: false
+    t.string "tip", default: "product", null: false
   end
 
   create_table "properties", force: :cascade do |t|
@@ -480,12 +499,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
     t.datetime "in_date"
     t.integer "supply_status_id"
     t.integer "manager_id"
+    t.integer "warehouse_id"
   end
 
   create_table "supply_items", force: :cascade do |t|
     t.integer "supply_id"
     t.integer "product_id"
-    t.integer "warehouse_id"
     t.integer "quantity", default: 0
     t.decimal "price", precision: 12, scale: 2
     t.decimal "sum", precision: 12, scale: 2
@@ -562,7 +581,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_23_164428) do
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "products"
   add_foreign_key "invoices", "clients"
+  add_foreign_key "locations", "placements"
+  add_foreign_key "locations", "places"
+  add_foreign_key "locations", "products"
   add_foreign_key "orders", "companies"
+  add_foreign_key "placements", "warehouses"
   add_foreign_key "props", "products"
   add_foreign_key "return_items", "products"
   add_foreign_key "return_items", "returns"

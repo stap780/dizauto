@@ -16,7 +16,7 @@
     </ul>
   <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("invoices/_filter").any? %>
-    <%= link_to arrow_clockwise, orders_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, orders_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_invoice_path, class: "btn btn-primary" %>
   </div>
 </div>
@@ -56,8 +56,7 @@
       <% end %>
     </div>
 
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @invoices %>
-      </div>
+      
+      <%= render "shared/paginate", f: @invoices %>
   </div>
 </div>

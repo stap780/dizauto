@@ -1,7 +1,9 @@
 class Warehouse < ApplicationRecord
   acts_as_list
-  has_many :places
-  has_many :products, through: :places
+  has_many :places, dependent: :destroy
+  accepts_nested_attributes_for :places, allow_destroy: true, reject_if: :all_blank
+  has_many :supplies
+  has_many :placements
 
   before_save :normalize_data_white_space
   validates :title, presence: true
@@ -14,6 +16,10 @@ class Warehouse < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     Warehouse.attribute_names
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["places", "supplies", "locations"]
   end
 
   private

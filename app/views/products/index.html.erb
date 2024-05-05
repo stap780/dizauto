@@ -16,7 +16,7 @@
         <span class="visually-hidden"></span>
       </span>
     <% end %>
-    <%= link_to arrow_clockwise, products_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, products_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_product_path, class: "btn btn-primary" %>
   </div>
 </div>
@@ -55,8 +55,7 @@
           <%= render @products %>
       <% end %>
     </div>
-    <div class="row paginate-wrap">
-      <%= render "shared/paginate", f: @products %>
-    </div>
+    
+    <%= render "shared/paginate", f: @products %>
   </div>
 </div>

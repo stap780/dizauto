@@ -10,9 +10,9 @@
     --ss-error-color: #dc3545;
     --ss-main-height: 30px;
     --ss-content-height: 300px;
-    --ss-spacing-l: 7px;
-    --ss-spacing-m: 5px;
-    --ss-spacing-s: 3px;
+    --ss-spacing-l: 8px;
+    --ss-spacing-m: 5.5px;
+    --ss-spacing-s: 4.8px;
     --ss-animation-timing: 0.2s;
     --ss-border-radius: 4px
 }
@@ -61,7 +61,7 @@
     outline: 0;
     box-sizing: border-box;
     transition: background-color var(--ss-animation-timing);
-    overflow: hidden
+    overflow: hidden;
 }
 
 .ss-main:focus {

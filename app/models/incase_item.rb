@@ -37,8 +37,10 @@ class IncaseItem < ApplicationRecord
     product = Product.create!(
       title: self.title || 'Incase product',
       quantity: self.quantity || 0,
-      price: self.price || 0
-      )
+      price: self.price || 0,
+      status: "draft",
+      type: "product"
+    )
     self.product_id = product.id
   end
 

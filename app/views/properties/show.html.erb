@@ -41,9 +41,8 @@
                 </table>
               </div>
             </div>
-            <div class="row paginate-wrap">
-              <%= render "shared/paginate", f: @characteristics %>
-            </div>
+            
+            <%= render "shared/paginate", f: @characteristics %>
           </div>
           <div class="card-footer">
             <%= link_to t('back'), properties_path, class: "btn btn-outline-primary" %>

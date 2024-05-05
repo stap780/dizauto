@@ -18,7 +18,7 @@
   <% end %>
 
     <%= render 'shared/index_filter' if lookup_context.find_all("incase_imports/_filter").any? %>
-    <%= link_to arrow_clockwise, incase_imports_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, incase_imports_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_incase_import_path, class: "btn btn-primary" %>
   </div>
 </div>
@@ -59,9 +59,7 @@
 
       </div>
       
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @incase_imports %>
-      </div>
+      <%= render "shared/paginate", f: @incase_imports %>
 
   </div>
 </div>

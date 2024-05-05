@@ -6,7 +6,7 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <%= tabs_head('incase', [ ['main', t(:main)],['property', t(:property)] ]) if !f.object.new_record? %>
+                <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) if !f.object.new_record? %>
                 <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
             </div>
             <div class="card-body">
@@ -16,6 +16,9 @@
                     </div>
                     <div class="tab-pane" id="property_tab" role="tabpanel" aria-labelledby="property_tab">
                         <%= render "props_nested", f: f, product: product if !f.object.new_record? %>
+                    </div>
+                    <div class="tab-pane" id="placement_tab" role="tabpanel" aria-labelledby="placement_tab">
+                        <%= render "placements", f: f, product: product if !f.object.new_record? %>
                     </div>
                 </div>
             </div>
@@ -32,7 +35,27 @@
         <% if f.object.barcode.present? %>
             <div class="card">
                 <div class="card-body">
-                    <%= f.object.html_barcode %>
+                    <div class="row">
+                        <div class="col-8 mb-3 px-0">
+
+                        <div class="btn-group" role="group" aria-label="product statuses button group">
+                            <% Product::Status.each do |key| %>
+                                <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
+                                <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
+                            <% end %>
+                        </div>
+
+
+                        </div>
+
+                        <div class="col-4 mb-3 px-0">
+                            <%# f.label :tip, class: "form-label" %>
+                            <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <%= f.object.html_barcode %>
+                        </div>
+                    </div>
                 </div>
             </div>
         <% end %>

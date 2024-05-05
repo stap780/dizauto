@@ -77,8 +77,10 @@
 				<a data-bs-target="#warehouse" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="briefcase"></i> <span class="align-middle"><%= t('inventory')%></span>
 				</a>
-				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(products_path) %>" data-bs-parent="#sidebar">
+				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(products_path) || 
+																								current_page?(placements_path)%>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Product.model_name.human(count: 2), products_path, class: "sidebar-link" %>
+					<%= li_menu_link_to Placement.model_name.human(count: 2), placements_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Перемещение', "#", class: "sidebar-link" %>
 					<%= li_menu_link_to 'Списание', "#", class: "sidebar-link" %>
 				</ul>

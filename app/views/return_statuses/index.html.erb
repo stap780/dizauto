@@ -35,9 +35,8 @@
           <%= render @return_statuses %>
         <% end %>
       </div>
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @return_statuses %>
-      </div>
+      
+      <%= render "shared/paginate", f: @return_statuses %>
     </div>
   </div>
 </div>

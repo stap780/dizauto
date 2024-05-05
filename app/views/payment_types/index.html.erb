@@ -36,9 +36,8 @@
             <%= render @payment_types %>
           <% end %>
       </div> 
-      <div class="row paginate-wrap">
-        <%= render "shared/paginate", f: @payment_types %>
-      </div>
+      
+      <%= render "shared/paginate", f: @payment_types %>
     </div>
   </div>
 

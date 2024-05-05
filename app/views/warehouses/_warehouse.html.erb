@@ -4,7 +4,10 @@
     <%= sortable_with_badge(warehouse.position)%>
     <%= warehouse.id%>
   <% end %>
-  <%= tag.div(warehouse.title, class: "col-9")%>
+  <%= tag.div(warehouse.title, class: "col-8")%>
+  <%= tag.div(class: "col-1 d-flex justify-content-center") do %>
+    <%= link_to eye_icon, warehouse_path(warehouse) , class: "", data: {turbo_frame: "_top"}%>
+  <% end %>
   <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
     <%= render 'shared/edit_delete_link_turbo', object: warehouse %>
   </div>

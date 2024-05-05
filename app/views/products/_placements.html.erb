@@ -1,0 +1,14 @@
+<%= tag.div( class: "col-10 row") do %>
+    <%= tag.div( t(:created_at), class: "col-3 fw-bold")%>
+    <%= tag.div( Warehouse.model_name.human(count: 1), class: "col-3 fw-bold")%>
+    <%= tag.div( Place.model_name.human(count: 1), class: "col-3 fw-bold")%>
+    <%= tag.div( Comment.model_name.human(count: 1), class: "col-3 fw-bold")%>
+<% end if !f.object.new_record? %>
+<%= tag.div( class: "col-10 row") do %>
+    <% product.locations.each do |location| %>
+        <%= tag.div( location.created_at.strftime("%d/%m/%Y"), class: "col-3")%>
+        <%= tag.div( location.place.warehouse.title, class: "col-3")%>
+        <%= tag.div( location.place.full_title, class: "col-3")%>
+        <%= tag.div( location.comments.first.body, class: "col-3")%>
+    <% end %>
+<% end if !f.object.new_record? %>

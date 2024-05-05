@@ -46,6 +46,7 @@ ru:
   add: 'Добавить'
   save: "Сохранить"
   property: 'Параметры'
+  placement: "Размещения"
   history: "История"
   incase_items: "Позиции убытка"
   order_items: "Позиции заказа"
@@ -148,6 +149,10 @@ ru:
         title: "Название"
       characteristic:
         title: "Название"
+      placement:
+        created_at: "Дата создания"
+        warehouse_id: "Склад"
+        items_quantity: "Кол-во позиций"
       product:
         sku: "Артикул"
         title: "Название"
@@ -224,6 +229,9 @@ ru:
       company: 
         one: "компания"
         other: "Компании"
+      comment: 
+        one: "комментарий"
+        other: "Комментарии"
       client_companies: 
         one: "клиенты (компании)"
         other: "клиенты (компании)"
@@ -287,6 +295,12 @@ ru:
       payment_type: 
         one: "способ оплаты"
         other: "Способы оплаты"
+      place: 
+        one: "место"
+        other: "Места"
+      placement: 
+        one: "размещение"
+        other: "Размещения"
       product: 
         one: "товар"
         other: "Товары"
@@ -296,6 +310,9 @@ ru:
       return_status:
         one: "статус возврата"
         other: "Статусы возврата"
+      stock_transfer:
+        one: "перемещение"
+        other: "Перемещения"
       supply: 
         one: "поступление"
         other: "Поступления"
@@ -701,6 +718,10 @@ ru:
         price: "Ц. П. ₽"
         video: "Видео"
         created_at: "Создан"
+      placement:
+        created_at: "Дата создания"
+        warehouse_id: "Склад"
+        items_quantity: "Кол-во позиций"
       supply:
         title: "Название"
         company_id: "Компания"

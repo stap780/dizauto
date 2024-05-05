@@ -11,13 +11,14 @@ class Supply < ApplicationRecord
 
   validates :title, presence: true
 
+  def self.ransackable_attributes(auth_object = nil)
+    Supply.attribute_names
+  end
+  
   def self.ransackable_associations(auth_object = nil)
     ["associated_audits", "audits", "company", "supply_items"]
   end
 
-  def self.ransackable_attributes(auth_object = nil)
-    Supply.attribute_names
-  end
 
   private
 
@@ -30,4 +31,5 @@ class Supply < ApplicationRecord
   def add_title
     self.title = "Поступление"
   end
+
 end

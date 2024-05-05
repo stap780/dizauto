@@ -3,7 +3,7 @@ require "will_paginate/view_helpers/action_view"
 
 class BootstrapPaginateRenderer < WillPaginate::ActionView::LinkRenderer
   def html_container(html)
-    tag(:ul, html, class: "pagination")
+    tag(:ul, html, class: "pagination p-0 m-0")
   end
 
   def previous_or_next_page(page, text, classname)
@@ -25,4 +25,5 @@ class BootstrapPaginateRenderer < WillPaginate::ActionView::LinkRenderer
   def gap
     tag(:li, tag(:a, "&hellip;", class: "page-link"), class: "page-item disabled")
   end
+
 end

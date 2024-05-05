@@ -1,9 +1,27 @@
 class SupplyItemsController < ApplicationController
   load_and_authorize_resource
+  before_action :set_supply
   before_action :set_supply_item, only: %i[show edit update destroy]
 
+  def index
+    @supply_items = @supply.supply_items
+  end
+
+  def show
+  end
+
   def new
-    @supply_item = SupplyItem.new
+    @supply_item = @supply.supply_items.build
+    # child_index = Time.now.to_i
+    # helpers.fields model: Supply.new do |f|
+    #   f.fields_for :supply_items, @supply_item, child_index: child_index do |ff|
+    #     render turbo_stream: turbo_stream.append(
+    #       dom_id(@supply, :supply_items),
+    #       partial: "supply_items/form_data",
+    #       locals: {f: ff, product: nil, our_dom_id: dom_id(@supply, "supply_item_#{child_index}"), warehouse_id: @supply.warehouse_id}
+    #     )
+    #   end
+    # end
   end
 
   # GET /supply_statuses/1/edit
@@ -12,7 +30,8 @@ class SupplyItemsController < ApplicationController
 
   # POST /supply_statuses or /supply_statuses.json
   def create
-    @supply_item = SupplyItem.new(supply_item_params)
+    # @supply_item = SupplyItem.new(supply_item_params)
+    @supply_item = @supply.supply_items.build(supply_item_params)
 
     respond_to do |format|
       if @supply_item.save
@@ -44,19 +63,30 @@ class SupplyItemsController < ApplicationController
     @supply_item.destroy
 
     respond_to do |format|
+      flash.now[:success] = t(".success")
+      format.turbo_stream do
+        render turbo_stream: [
+          # turbo_stream.remove @supply_item,
+          render_turbo_flash
+        ]
+      end
       format.html { redirect_to supply_items_url, notice: "SupplyItem was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
     end
   end
 
   private
 
+  def set_supply
+    @supply = Supply.find(params[:supply_id])
+  end
+
   def set_supply_item
-    @supply_item = SupplyItem.find(params[:id])
+    @supply_item = @supply.supply_items.find(params[:id])
   end
 
   def supply_params
-    params.require(:supply_item).permit(:warehouse_id, :product_id, :quantity, :price, :sum)
+    params.require(:supply_item).permit(:product_id, :location_id, :quantity, :price, :sum)
   end
+
 end

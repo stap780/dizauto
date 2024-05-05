@@ -1,7 +1,3 @@
-<div class="mb-3 col-2">
-    <%= f.label :order_status_id, class: "form-label" %>
-    <%= f.select :order_status_id, OrderStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
-</div>
 <div class="mb-3 col-4">
     <%= f.label :client_id, class: "form-label" %>
     <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
@@ -19,8 +15,4 @@
 <div class="mb-3 col-2">
     <%= f.label :delivery_type_id, class: "form-label" %>
     <%= f.select :delivery_type_id, DeliveryType.all.map{|d| [d.title_price, d.id]}, {include_blank: false}, {class: "form-select"} %>
-</div>
-<div class="mb-3 col-2">
-    <%= f.label :manager_id, class: "form-label" %>
-    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
 </div>

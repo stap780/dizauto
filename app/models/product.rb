@@ -8,6 +8,8 @@ class Product < ApplicationRecord
 
   has_many :props, dependent: :destroy
   has_many :properties, through: :props
+  accepts_nested_attributes_for :props, allow_destroy: true
+  
   has_many :incase_items
   has_many :incases, through: :incase_items
   has_many :order_items
@@ -15,10 +17,8 @@ class Product < ApplicationRecord
   has_many :supply_items
   has_many :supplies, through: :supply_items
 
-  accepts_nested_attributes_for :props, allow_destroy: true
-  has_many :places
-  has_many :warehouses, through: :places
-  accepts_nested_attributes_for :places, allow_destroy: true
+  has_many :locations, dependent: :destroy
+  has_many :placements, through: :locations
 
   has_rich_text :description
   # has_many_attached :images, dependent: :destroy do |attachable|
@@ -43,11 +43,20 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
+  scope :active, -> { where(status: 'active') }
+  scope :draft, -> { where(status: 'draft') }
+  scope :archived, -> { where(status: 'archived') }
+
+  scope :tip_product, -> { where(tip: 'product') }
+  scope :tip_service, -> { where(tip: 'service') }
+  scope :tip_kit, -> { where(tip: 'kit') }
+
+  # scopes for slimselect
   scope :first_five, -> { order(:id).limit(5) }
   scope :selected, ->(id) { where(id: id) }
-  # scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.full_title, p.id] } + first_five }
 
-  # scope :test_slim_select, -> {all.map{|p| [p.full_title, p.id]}}
+  Status = ["draft","active","archived"]
+  Tip = ["product","service","kit"]
 
   def self.collection_for_select(id)
     collection = (selected(id) + first_five).uniq

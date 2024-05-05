@@ -11,8 +11,9 @@ export default class extends Controller {
     console.log( 'connect slimselect' );
     // console.log( 'this from slimselect', this )
     // console.log( 'this.element', this.element )
-    const searchUrl = this.element.dataset.searchUrl ;
-    const nestedUrl = this.element.dataset.nestedUrl ;
+    const searchUrl = this.element.dataset.searchUrl;
+    const nestedUrl = this.element.dataset.nestedUrl;
+    const warehouseId = this.element.dataset.warehouseId;
     
     console.log( 'searchUrl', nestedUrl );
     console.log( 'nestedUrl', nestedUrl );
@@ -70,6 +71,9 @@ export default class extends Controller {
               
               let params = new URLSearchParams()
               params.append("turboId", turboId)
+              // if (warehouseId != undefined ){
+                params.append("warehouse_id", warehouseId);
+              // }
               // params.append("selectId", selectId)
               params.append("selected_id", newVal[0].value)
               

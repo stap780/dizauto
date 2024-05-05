@@ -1,22 +1,12 @@
-<div id="<%= dom_id place %>">
-  <p>
-    <strong>Sector:</strong>
-    <%= place.sector %>
-  </p>
-
-  <p>
-    <strong>Cell:</strong>
-    <%= place.cell %>
-  </p>
-
-  <p>
-    <strong>Product:</strong>
-    <%= place.product_id %>
-  </p>
-
-  <p>
-    <strong>Warehouse:</strong>
-    <%= place.warehouse_id %>
-  </p>
-
-</div>
+<%= turbo_frame_tag "place_#{place.id}_warehouse_#{warehouse.id}", class: "row justify-content-between align-items-center mb-3" do %>
+  <div class="col-5">
+      <%= place.sector%>
+  </div>
+  <div class="col-5">
+      <%= place.cell %>
+  </div>
+  <div class="col d-flex justify-content-end gap-2 align-items-center">
+      <%= link_to edit_icon, [:edit, warehouse, place], class: '' %>
+      <%= link_to trash_icon, [warehouse,place], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>
+  </div>
+<% end %>
