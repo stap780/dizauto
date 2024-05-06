@@ -148,7 +148,7 @@ ru:
       property:
         title: "Название"
       characteristic:
-        title: "Название"
+        title: "Название значения"
       placement:
         created_at: "Дата создания"
         warehouse_id: "Склад"
@@ -616,7 +616,7 @@ ru:
         bank_title: "Название банка"
         bank_account: "Расчетный счет"
       characteristic:
-        title: "Название"
+        title: "Название значения"
       export:
         title: "Название"
         link: "Ссылка"

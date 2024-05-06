@@ -9,11 +9,9 @@
   <div class="col-md-12">
       <div class="card">
           <div class="card-header">
-          <h5 class="card-title mb-0">Список значений</h5>
-          </div>
-          <div class="card-body dataTables_wrapper">
             <div class="row">
                 <div class="col-9">
+          <h5 class="card-title mb-0">Список значений</h5>
                 </div>
                 <%= search_form_for @search, {url: property_path(@property), class: 'form-inline col-sm-12 col-md-3 pl-0 pr-0'} do |f| %>
                   <div class="input-group input-group-sm">
@@ -23,6 +21,8 @@
                   </div>
                 <% end %>
             </div>
+          </div>
+          <div class="card-body dataTables_wrapper">
             <div class="row">
               <div class="mb-3 col-md-12">
                 <table class="table table-striped">    

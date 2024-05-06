@@ -3,12 +3,7 @@
 <h1>Characteristics</h1>
 
 <div id="characteristics">
-  <% @characteristics.each do |characteristic| %>
-    <%= render characteristic %>
-    <p>
-      <%= link_to "Show this characteristic", characteristic %>
-    </p>
-  <% end %>
+    <%= render @characteristics %>
 </div>
 
-<%= link_to "New characteristic", new_characteristic_path %>
+<%# link_to "New characteristic", new_characteristic_path %>
