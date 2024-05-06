@@ -6,7 +6,7 @@ class Image < ApplicationRecord
 
   belongs_to :product
   has_one_attached :file do |attachable|
-    attachable.variant :sm, resize_to_limit: [120, 120]
+    # attachable.variant :sm, resize_to_limit: [120, 120]
     attachable.variant :thumb, resize_to_limit: [200, 200]
     attachable.variant :default, saver: {strip: true}
     # PNG is increase volume - only example

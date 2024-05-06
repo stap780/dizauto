@@ -6,7 +6,7 @@
         <% end %>
     <% end %>
     <%= tag.div class: "col-md-1 p-0" do %>
-        <%= image_tag product.image_first.variant(:sm), class: "w-100" if product.image_first %>
+        <%= image_tag product.image_first.variant(:thumb), class: "w-100" if product.image_first %>
     <% end %>
     <%= tag.div class: "col row" do %>
         <div class="col-12 text-break fw-semibold"><%= product.title %></div>
