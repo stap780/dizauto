@@ -17,7 +17,7 @@
     </div>
     <div class="col-3">
         <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
-            <%= render 'comments/form_data', f: comment%>
+            <%= render partial: 'comments/form_data', locals: {f: comment}%>
         <% end %>
     </div>
     <div class = "col-1">

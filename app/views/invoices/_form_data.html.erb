@@ -1,8 +1,8 @@
 
 <%= f.hidden_field :order_id, value: params[:order_id].present? ? params[:order_id] : f.object.order_id %>
 <div class="mb-3 col-2">
-    <%= f.label :invoice_status_id, class: "form-label" %>
-    <%= f.select :invoice_status_id, InvoiceStatus.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
+    <%= f.label :number, class: "form-label" %>
+    <%= f.text_field :number, class: "form-control" %>
 </div>
 <div class="mb-3 col-4">
     <%= f.label :client_id, class: "form-label" %>
@@ -13,8 +13,4 @@
     <%= f.label :company_id, class: "form-label" %>
     <%= f.select :company_id, Company.all.pluck(:short_title, :id), {include_blank: true}, 
                             { data: {controller: 'slimselect'} } %>
-</div>
-<div class="mb-3 col-2">
-    <%= f.label :number, class: "form-label" %>
-    <%= f.text_field :number, class: "form-control" %>
 </div>

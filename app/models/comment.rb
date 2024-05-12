@@ -23,7 +23,7 @@ class Comment < ApplicationRecord
   after_update_commit do
     broadcast_replace_to [commentable, :comments], target: dom_id(commentable, dom_id(self)), 
                                                     partial: "comments/comment", 
-                                                    locals: { comment: self, commentable: commentable, admin: false }
+                                                    locals: { comment: self, commentable: commentable, admin: false, user: false  }
   end
 
   after_destroy_commit do

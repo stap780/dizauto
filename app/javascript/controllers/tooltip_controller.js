@@ -4,7 +4,10 @@ import { Tooltip } from 'bootstrap'
 // Connects to data-controller="tooltip"
 export default class extends Controller {
   connect() {
-    console.log("Tooltip work");
-    this.modal = new Tooltip(this.element)
+    // console.log("Tooltip work");
+    this.tooltip = new Tooltip(this.element, {
+      // container: 'body',
+      // trigger : 'hover click'
+  });
   }
 }
