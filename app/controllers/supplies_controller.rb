@@ -144,6 +144,6 @@ class SuppliesController < ApplicationController
 
   def supply_params
     params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, :warehouse_id, 
-    supply_items_attributes: [:id, :product_id, :quantity, :price, :sum, :_destroy])
+    supply_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
   end
 end

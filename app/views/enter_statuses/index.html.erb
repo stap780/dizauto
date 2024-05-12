@@ -1,0 +1,43 @@
+<%= link_to new_enter_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(EnterStatus.new) } do %>
+    <%= add_icon %>
+<% end %>
+<div class="mb-3">
+  <h1 class="h3 d-inline align-middle"><%= EnterStatus.model_name.human(count: 2)%></h1>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <%= more_icon%>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-enter_status_wrapper" class="">
+        <%= turbo_frame_tag EnterStatus.new %>
+
+        <div class="col-12 list-group list-group-striped">
+          <div class="row py-2 px-4">
+            <%= tag.div('#', class: 'col-1 fw-semibold text-center')%>
+            <%= tag.div( t( 'helpers.label.enter_status.title'), class: 'col-5 fw-semibold' )%>
+            <%= tag.div( t( 'helpers.label.enter_status.color'), class: 'col-4 fw-semibold' )%>
+            <%= tag.div('', class: 'col-2 fw-semibold')%>
+          </div>
+          <%= turbo_stream_from "enter_statuses" %>    
+          <%= turbo_frame_tag 'enter_statuses', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+              <%= render @enter_statuses %>
+          <% end %>
+        </div>
+
+      
+      <%= render "shared/paginate", f: @enter_statuses %>
+    </div>
+  </div>
+</div>

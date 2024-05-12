@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @enter %>
+
+<div>
+  <%= link_to "Edit this enter", edit_enter_path(@enter) %> |
+  <%= link_to "Back to enters", enters_path %>
+
+  <%= button_to "Destroy this enter", @enter, method: :delete %>
+</div>

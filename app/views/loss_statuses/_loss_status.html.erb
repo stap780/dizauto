@@ -1,0 +1,14 @@
+<%= turbo_frame_tag loss_status, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
+    sort_url: sort_loss_status_path(loss_status.id), sort_item_id: loss_status.id }  do %>
+  <%= tag.div(class: "col-1") do %>
+    <%= sortable_with_badge(loss_status.position)%>
+    <%= loss_status.id%>
+  <% end %>
+    <%= tag.div(loss_status.title, class: "col-5")%>
+    <%= tag.div('', class: "col-4") do %>
+        <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{loss_status.color};")%>
+    <% end %>
+    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
+        <%= render 'shared/edit_delete_link_turbo', object: loss_status %>
+    </div>
+<% end %>

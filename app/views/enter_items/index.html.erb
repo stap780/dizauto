@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Enter items</h1>
+
+<div id="enter_items">
+  <% @enter_items.each do |enter_item| %>
+    <%= render enter_item %>
+    <p>
+      <%= link_to "Show this enter item", enter_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New enter item", new_enter_item_path %>

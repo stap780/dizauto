@@ -1,20 +1,20 @@
 <%= form_with(model: supply, data: { controller: 'choose slimselect' }, class: 'supply-form' ) do |f| %>
    <%= render 'shared/errors', object: supply%>
 
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <div class="d-flex justify-content-between align-items-center gap-3">
-                        <%= f.select :supply_status_id, SupplyStatus.order(:position).pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
-                        <%= tabs_head('supply', [ ['main', t(:main)] ]) if !f.object.new_record? %>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center gap-3">
-                        <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
-                    <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "supply", auditable_id: supply.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
-                    </div>
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                    <%= f.select :supply_status_id, SupplyStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select"}%>
+                    <%= tabs_head('supply', [ ['main', t(:main)] ]) if !f.object.new_record? %>
                 </div>
-                <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center gap-3">
+                    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
+                    <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "supply", auditable_id: supply.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
+                </div>
+            </div>
+            <div class="card-body">
                 <div class="tab-content">
-                     <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                    <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
                         <div class="row">
                             <%= render 'form_data', f: f %>
                         </div>
@@ -23,11 +23,11 @@
                         </div>
                     </div>
                 </div>
-                </div>
-                <div class="card-footer">
-                    <%= f.submit class: "btn btn-primary" %>
-                    <%= link_to t('back'), supplies_path, class: "btn btn-outline-primary" %>
-                </div>
             </div>
+            <div class="card-footer">
+                <%= f.submit class: "btn btn-primary" %>
+                <%= link_to t('back'), supplies_path, class: "btn btn-outline-primary" %>
+            </div>
+        </div>
 
 <% end %>

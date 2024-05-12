@@ -5,12 +5,13 @@ class Order < ApplicationRecord
   belongs_to :delivery_type
   belongs_to :client
   belongs_to :company, optional: true
-  belongs_to :manager, class_name: "User", foreign_key: "manager_id"
+  belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
   has_many :order_items, dependent: :destroy
   accepts_nested_attributes_for :order_items, allow_destroy: true
-  after_destroy_commit { broadcast_remove_to "orders" }
+  has_many :comments, as: :commentable, dependent: :destroy
+  accepts_nested_attributes_for :comments, allow_destroy: true
 
-  # validates :order_items, presence: true
+  after_destroy_commit { broadcast_remove_to "orders" }
 
   before_save :normalize_data_white_space
 
@@ -27,3 +28,4 @@ class Order < ApplicationRecord
   end
 
 end
+

@@ -1,0 +1,2 @@
+<%= link_to edit_icon, "/#{commentable.class.to_s.downcase.pluralize}/#{commentable.id}/comments/#{comment.id}/edit", class: ''%>
+<%= link_to trash_icon, polymorphic_url([commentable,comment]), data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>

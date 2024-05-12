@@ -13,6 +13,7 @@ class Templ < ApplicationRecord
   scope :supply_print, -> { where(modelname: "supply", tip: "simple").order(:id) }
   scope :invoice_print, -> { where(modelname: "invoice", tip: "simple").order(:id) }
   scope :return_print, -> { where(modelname: "return", tip: "simple").order(:id) }
+  scope :enter_print, -> { where(modelname: "enter", tip: "simple").order(:id) }
 
   Templ::RECEIVER = [["Клиент", "client"], ["Пользователь", "user"]].freeze
   Templ::TIP = [["Простое", "simple"], ["Сообщения", "message"]].freeze

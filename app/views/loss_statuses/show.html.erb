@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loss_status %>
+
+<div>
+  <%= link_to "Edit this loss status", edit_loss_status_path(@loss_status) %> |
+  <%= link_to "Back to loss statuses", loss_statuses_path %>
+
+  <%= button_to "Destroy this loss status", @loss_status, method: :delete %>
+</div>

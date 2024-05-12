@@ -1,0 +1,62 @@
+<%= form_with(model: enter_status) do |form| %>
+  <% if enter_status.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(enter_status.errors.count, "error") %> prohibited this enter_status from being saved:</h2>
+
+      <ul>
+        <% enter_status.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :color, style: "display: block" %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div>
+    <%= form.label :position, style: "display: block" %>
+    <%= form.number_field :position %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= turbo_frame_tag enter_status do %>
+  <%= form_with(model: enter_status ) do |f| %>
+    <%= render "shared/errors", object: enter_status %>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+            <%=tag.div( f.object.id , class: "col-1") if !f.object.new_record?%>
+          <div class="col-5">
+            <%= f.label :title, class: "col-form-label" if f.object.new_record?%>
+            <%= f.text_field :title, class: "form-control" %>
+            <%= inline_error_for(:title, enter_status)%>
+          </div>
+          <div class="col-4" data-controller="color-picker">
+            <%= f.label :color, class: "col-form-label" if f.object.new_record? %>
+            <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
+            <%= inline_error_for(:color, enter_status)%>
+            <span data-color-picker-target="button"></span>
+          </div>
+          <div class="<%= f.object.new_record? ? "col" : "col-2"%> d-flex justify-content-end gap-2 align-items-center">
+            <%= f.submit t(:save), class: "btn btn-primary" %>
+            <%= link_to close_icon, :back, class: "btn btn-outline-primary" %>
+          </div>
+        </div>            
+      </div>
+    </div>
+
+  <% end %>
+<% end %>

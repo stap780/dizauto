@@ -34,6 +34,9 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
+    @commentable = @order
+    # @comment = @commentable.comments.build
+    # @comments = @order.comments.order(created_at: :desc)
   end
 
   # POST /orders or /orders.json
@@ -142,6 +145,9 @@ class OrdersController < ApplicationController
 
   private
 
+  def set_commentable
+    @commentable = Order.find(params[:order_id])
+  end
   # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])
@@ -150,7 +156,7 @@ class OrdersController < ApplicationController
   # Only allow a list of trusted parameters through.
   def order_params
     params.require(:order).permit(:company_id,:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
-      order_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :_destroy])
+      order_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :_destroy], comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])
   end
 
 end

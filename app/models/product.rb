@@ -144,6 +144,7 @@ class Product < ApplicationRecord
     host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
     images.map do |image|
       host + rails_blob_path(image.file, only_path: true) if image.file.attached?
+      # rails_blob_path(image.file, only_path: true) if image.file.attached?
     end
   end
 

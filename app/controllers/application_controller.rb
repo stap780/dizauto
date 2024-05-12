@@ -6,10 +6,16 @@ class ApplicationController < ActionController::Base
     puts "CanCan::AccessDenied message => " + exception.message.to_s
     puts "CanCan::AccessDenied action => " + exception.action.to_s
     puts "CanCan::AccessDenied subject => " + exception.subject.to_s
-    flash[:notice] = "#{exception.message} #{exception.action}--#{exception.subject}"
-    redirect_to root_url
-  end
+    msg = "#{exception.message} #{exception.action}--#{exception.subject}"
+    # flash[:notice] = msg
+    # redirect_to root_url # redirect_to(request.referrer || root_path)
+    
+    flash.now[:notice] = msg
+    render turbo_stream: [
+      render_turbo_flash
+    ]
 
+  end
 
   def render_turbo_flash
     turbo_stream.update("our_flash", partial: "shared/flash")

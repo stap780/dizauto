@@ -1,0 +1,29 @@
+<%= turbo_frame_tag inventory_status do %>
+  <%= form_with(model: inventory_status ) do |f| %>
+    <%= render "shared/errors", object: inventory_status %>
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <%=tag.div( f.object.id , class: "col-1") if !f.object.new_record?%>
+          <div class="col-5">
+            <%= f.label :title, class: "col-form-label" if f.object.new_record?%>
+            <%= f.text_field :title, class: "form-control" %>
+            <%= inline_error_for(:title, inventory_status)%>
+          </div>
+          <div class="col-4" data-controller="color-picker">
+            <%= f.label :color, class: "col-form-label" if f.object.new_record? %>
+            <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
+            <%= inline_error_for(:color, inventory_status)%>
+            <span data-color-picker-target="button"></span>
+          </div>
+          <div class="<%= f.object.new_record? ? "col" : "col-2"%> d-flex justify-content-end gap-2 align-items-center">
+            <%= f.submit t(:save), class: "btn btn-primary" %>
+            <%= link_to close_icon, :back, class: "btn btn-outline-primary" %>
+          </div>
+        </div>            
+      </div>
+    </div>
+
+  <% end %>
+<% end %>

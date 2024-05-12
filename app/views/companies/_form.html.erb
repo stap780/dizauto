@@ -27,7 +27,7 @@
                               <%= f.text_field :short_title, class: "form-control" %>
                             </div>
                             <div class="col-md-12" data-controller='nested-form', data-nested-form-wrapper-selector-value='.nested-form-wrapper'>
-                            <button type="button" class="btn btn-primary my-3" data-action="nested-form#add"><i class="fa-solid fa-plus"></i>Добавить планируемую дату</button>
+                              <button type="button" class="btn btn-primary my-3" data-action="nested-form#add"><i class='bi bi-plus'></i> Добавить планируемую дату</button>
                               <template data-nested-form-target="template">
                                 <%= f.fields_for :company_plan_dates, CompanyPlanDate.new, child_index: 'NEW_RECORD' do |company_plan_date| %>
                                   <%= render "companies/plan_date", f: company_plan_date %>
@@ -62,7 +62,7 @@
 
                 </div>
                 <div class="card-footer">
-                    <%= f.submit class: "btn btn-primary" %>
+                    <%= f.submit t('save'), class: "btn btn-primary" %>
                     <%= link_to t('back'), company.new_record? ? companies_path : :back, class: "btn btn-outline-primary" %>
                 </div>
             </div>

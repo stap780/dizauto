@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_10_145606) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -180,6 +180,39 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "enter_items", force: :cascade do |t|
+    t.bigint "enter_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.integer "vat"
+    t.decimal "sum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enter_id"], name: "index_enter_items_on_enter_id"
+    t.index ["product_id"], name: "index_enter_items_on_product_id"
+  end
+
+  create_table "enter_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "enters", force: :cascade do |t|
+    t.bigint "enter_status_id", null: false
+    t.string "title"
+    t.datetime "date"
+    t.bigint "warehouse_id", null: false
+    t.integer "manager_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["enter_status_id"], name: "index_enters_on_enter_status_id"
+    t.index ["warehouse_id"], name: "index_enters_on_warehouse_id"
+  end
+
   create_table "exports", force: :cascade do |t|
     t.string "title"
     t.string "link"
@@ -274,6 +307,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "inventory_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "invoice_items", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.decimal "price", precision: 12, scale: 2
@@ -316,6 +357,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
     t.index ["place_id"], name: "index_locations_on_place_id"
     t.index ["placement_id"], name: "index_locations_on_placement_id"
     t.index ["product_id"], name: "index_locations_on_product_id"
+  end
+
+  create_table "loss_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "noticed_events", force: :cascade do |t|
@@ -490,6 +539,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
     t.index ["return_status_id"], name: "index_returns_on_return_status_id"
   end
 
+  create_table "stock_transfer_statuses", force: :cascade do |t|
+    t.string "title"
+    t.string "color"
+    t.integer "position", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "supplies", force: :cascade do |t|
     t.integer "company_id"
     t.datetime "created_at", null: false
@@ -578,6 +635,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_110414) do
   add_foreign_key "detal_props", "characteristics"
   add_foreign_key "detal_props", "detals"
   add_foreign_key "detal_props", "properties"
+  add_foreign_key "enter_items", "enters"
+  add_foreign_key "enter_items", "products"
+  add_foreign_key "enters", "enter_statuses"
+  add_foreign_key "enters", "warehouses"
   add_foreign_key "invoice_items", "invoices"
   add_foreign_key "invoice_items", "products"
   add_foreign_key "invoices", "clients"

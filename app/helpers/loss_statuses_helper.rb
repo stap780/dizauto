@@ -1,0 +1,2 @@
+module LossStatusesHelper
+end

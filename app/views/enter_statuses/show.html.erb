@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @enter_status %>
+
+<div>
+  <%= link_to "Edit this enter status", edit_enter_status_path(@enter_status) %> |
+  <%= link_to "Back to enter statuses", enter_statuses_path %>
+
+  <%= button_to "Destroy this enter status", @enter_status, method: :delete %>
+</div>

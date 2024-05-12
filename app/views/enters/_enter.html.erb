@@ -1,0 +1,35 @@
+<%= turbo_frame_tag enter, class: "d-flex list-group-item py-2 border-start-0 benter-end-0 row justify-content-between align-items-center px-0" do %>
+    <%= tag.div class: "col-1" do %>
+        <%=tag.div class: 'form-check' do %>
+            <%= check_box_tag "enter_ids[]", enter.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
+            <%=tag.label class: 'form-check-label' do %><%= tag.b( enter.id ) %><% end %>
+        <% end %>
+    <% end %>
+    <%= tag.div class: "col-2" do %>
+        <%= tag.span(   enter.enter_status.title,
+                        class: 'w-100', 
+                        style: 'background-color:'+enter.enter_status.color,
+                        data: {controller: 'badge', badge_target: 'value', bg_color: enter.enter_status.color }) if enter.enter_status %>
+    <% end %>
+    <%= tag.div( enter.date.strftime("%d/%m/%Y"), class: "col-2 p-0" ) %>
+    <%= tag.div( enter.title, class: "col-2") %>
+    <%= tag.div( enter.warehouse.title, class: "col-2") %>
+    <%= tag.div( enter.enter_items.sum(:sum)  , class: "col-1") %>
+    
+    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=enter.id%>">
+        <% if Templ.enter_print.presence %>
+            <%= button_print %>
+            <ul class="dropdown-menu">
+            <%= form_with url: bulk_print_enters_path, method: :post  do |f| %>
+                <%= hidden_field_tag 'enter_ids[]', enter.id %>
+                <% Templ.enter_print.each do |templ|%>
+                    <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+                    <%= templ.title %>
+                    <% end %>
+                <% end %>
+            <% end %>
+            </ul>
+        <% end %>
+        <%= render 'shared/edit_delete_link', object: enter %>
+    </div>
+<% end %>

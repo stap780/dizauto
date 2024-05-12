@@ -1,0 +1,2 @@
+module EnterStatusesHelper
+end

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enter_status: one
+  title: MyString
+  date: 2024-05-10 17:17:38
+  warehouse: one
+  manager: one
+
+two:
+  enter_status: two
+  title: MyString
+  date: 2024-05-10 17:17:38
+  warehouse: two
+  manager: two

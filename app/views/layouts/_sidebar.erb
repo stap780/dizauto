@@ -45,7 +45,7 @@
 				<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
 						<i class="bi bi-house"></i><span class="align-middle">Главная</span>
 				</a>
-				<ul id="dashboards" class="list-unstyled collapse <%= 'show' if current_page?(dashboards_path) %>" data-bs-parent="#sidebar">
+				<ul id="dashboards" class="list-unstyled collapse <%= 'show' if current_page_active?('dashboards') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to "<i class='bi bi-bar-chart-fill'></i> #{Dashboard.model_name.human(count: 2)}".html_safe, dashboards_path, class: "sidebar-link" %>
 				</ul>
 			</li>
@@ -53,9 +53,9 @@
 				<a data-bs-target="#outbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="bi bi-cart4"></i> <span class="align-middle"><%= t('selling')%></span>
 				</a>
-				<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(orders_path) || 
-																								current_page?(invoices_path) ||
-																								current_page?(returns_path) %>" data-bs-parent="#sidebar">
+				<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('orders') || 
+																								current_page_active?('invoices') ||
+																								current_page_active?('returns') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Order.model_name.human(count: 2), orders_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Invoice.model_name.human(count: 2), invoices_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Return.model_name.human(count: 2), returns_path, class: "sidebar-link" %>
@@ -65,9 +65,9 @@
 				<a data-bs-target="#inbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="layout"></i> <span class="align-middle"><%= t('purchasing')%></span>
 				</a>
-				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(incases_path) || 
-																								current_page?(incase_imports_path) || 
-																								current_page?(supplies_path)%>" data-bs-parent="#sidebar">
+				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('incases') || 
+																								current_page_active?('incase_imports') || 
+																								current_page_active?('supplies') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Incase.model_name.human(count: 2), incases_path, class: "sidebar-link" %>
 					<%= li_menu_link_to IncaseImport.model_name.human(count: 2), incase_imports_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Supply.model_name.human(count: 2), supplies_path, class: "sidebar-link" %>
@@ -77,10 +77,12 @@
 				<a data-bs-target="#warehouse" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="briefcase"></i> <span class="align-middle"><%= t('inventory')%></span>
 				</a>
-				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(products_path) || 
-																								current_page?(placements_path)%>" data-bs-parent="#sidebar">
+				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('products') || 
+																								current_page_active?('placements') ||
+																								current_page_active?('enters') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Product.model_name.human(count: 2), products_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Placement.model_name.human(count: 2), placements_path, class: "sidebar-link" %>
+					<%= li_menu_link_to Enter.model_name.human(count: 2), enters_path, class: "sidebar-link" %>
 					<%= li_menu_link_to 'Перемещение', "#", class: "sidebar-link" %>
 					<%= li_menu_link_to 'Списание', "#", class: "sidebar-link" %>
 				</ul>
@@ -89,21 +91,21 @@
 				<a data-bs-target="#lists" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="list"></i> <span class="align-middle">Справочники</span>
 				</a>
-				<ul id="lists" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(properties_path) || 
-																							current_page?(detals_path) || 
-																							current_page?(clients_path) ||
-																							current_page?(companies_path) ||
-																							current_page?(okrugs_path) ||
-																							current_page?(warehouses_path) ||
-																							current_page?(order_statuses_path) ||
-																							current_page?(payment_types_path) ||
-																							current_page?(delivery_types_path) ||
-																							current_page?(supply_statuses_path) ||
-																							current_page?(incase_statuses_path) ||
-																							current_page?(incase_tips_path) || 
-																							current_page?(incase_item_statuses_path) ||
-																							current_page?(invoice_statuses_path) ||
-																							current_page?(return_statuses_path) %>" data-bs-parent="#sidebar">
+				<ul id="lists" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('properties') || 
+																							current_page_active?('detals') || 
+																							current_page_active?('clients') ||
+																							current_page_active?('companies') ||
+																							current_page_active?('okrugs') ||
+																							current_page_active?('warehouses') ||
+																							current_page_active?('order_statuses') ||
+																							current_page_active?('payment_types') ||
+																							current_page_active?('delivery_types') ||
+																							current_page_active?('supply_statuses') ||
+																							current_page_active?('incase_statuses') ||
+																							current_page_active?('incase_tips') || 
+																							current_page_active?('incase_item_statuses') ||
+																							current_page_active?('invoice_statuses') ||
+																							current_page_active?('return_statuses') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Property.model_name.human(count: 2), properties_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Detal.model_name.human(count: 2), detals_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Client.model_name.human(count: 2), clients_path, class: "sidebar-link" %>
@@ -111,41 +113,41 @@
 					<%= li_menu_link_to Okrug.model_name.human(count: 2), okrugs_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Warehouse.model_name.human(count: 2), warehouses_path, class: "sidebar-link" %>
 					<li class="sidebar-item">
-						<a data-bs-target="#multi-order" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= Order.model_name.human(count: 2)%></a>
-						<ul id="multi-order" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(order_statuses_path) || 
-																											current_page?(payment_types_path) || 
-																											current_page?(delivery_types_path) %>" data-bs-parent="#lists">
+						<a data-bs-target="#multi-selling" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= t('selling')%></a>
+						<ul id="multi-selling" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('order_statuses') || 
+																											current_page_active?('payment_types') || 
+																											current_page_active?('delivery_types') || 
+																											current_page_active?('invoice_statuses') || 
+																											current_page_active?('return_statuses') %>" data-bs-parent="#lists">
 							<%= li_menu_link_to OrderStatus.model_name.human(count: 2), order_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to PaymentType.model_name.human(count: 2), payment_types_path, class: "sidebar-link" %>
 							<%= li_menu_link_to DeliveryType.model_name.human(count: 2), delivery_types_path, class: "sidebar-link" %>
-						</ul>
-					</li>
-					<li class="sidebar-item">
-						<a data-bs-target="#multi-invoice" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= Invoice.model_name.human(count: 2)%></a>
-						<ul id="multi-invoice" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(invoice_statuses_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to InvoiceStatus.model_name.human(count: 2), invoice_statuses_path, class: "sidebar-link" %>
-						</ul>
-					</li>
-					<li class="sidebar-item">
-						<a data-bs-target="#multi-return" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= Return.model_name.human(count: 2)%></a>
-						<ul id="multi-return" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(return_statuses_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to ReturnStatus.model_name.human(count: 2), return_statuses_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 					<li class="sidebar-item">
-						<a data-bs-target="#multi-supply" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= Supply.model_name.human(count: 2)%></a>
-						<ul id="multi-supply" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(supply_statuses_path) %>" data-bs-parent="#lists">
+						<a data-bs-target="#multi-purchasing" data-bs-toggle="collapse" class="sidebar-link collapsed "><%= t('purchasing')%></a>
+						<ul id="multi-purchasing" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('supply_statuses') ||
+																											current_page_active?('incase_statuses') || 
+																											current_page_active?('incase_tips') || 
+																											current_page_active?('incase_item_statuses') %>" data-bs-parent="#lists">
 							<%= li_menu_link_to SupplyStatus.model_name.human(count: 2), supply_statuses_path, class: "sidebar-link" %>
-						</ul>
-					</li>
-					<li class="sidebar-item">
-						<a data-bs-target="#multi-incase" data-bs-toggle="collapse" class="sidebar-link collapsed "><%= Incase.model_name.human(count: 2)%></a>
-						<ul id="multi-incase" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(incase_statuses_path) || 
-																											current_page?(incase_tips_path) || 
-																											current_page?(incase_item_statuses_path) %>" data-bs-parent="#lists">
 							<%= li_menu_link_to IncaseStatus.model_name.human(count: 2), incase_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to IncaseTip.model_name.human(count: 2), incase_tips_path, class: "sidebar-link" %>
 							<%= li_menu_link_to IncaseItemStatus.model_name.human(count: 2), incase_item_statuses_path, class: "sidebar-link" %>
+						</ul>
+					</li>
+					<li class="sidebar-item">
+						<a data-bs-target="#multi-inventory" data-bs-toggle="collapse" class="sidebar-link collapsed "><%= t('inventory')%></a>
+						<ul id="multi-inventory" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('enter_statuses') ||
+																											current_page_active?('loss_statuses') || 
+																											current_page_active?('stock_transfer_statuses') || 
+																											current_page_active?('inventory_statuses') %>" data-bs-parent="#lists">
+							<%= li_menu_link_to EnterStatus.model_name.human(count: 2), enter_statuses_path, class: "sidebar-link" %>
+							<%= li_menu_link_to LossStatus.model_name.human(count: 2), loss_statuses_path, class: "sidebar-link" %>
+							<%= li_menu_link_to StockTransferStatus.model_name.human(count: 2), stock_transfer_statuses_path, class: "sidebar-link" %>
+							<%= li_menu_link_to InventoryStatus.model_name.human(count: 2), inventory_statuses_path, class: "sidebar-link" %>
 						</ul>
 					</li>
 				</ul>
@@ -154,9 +156,9 @@
 				<a data-bs-target="#settings" data-bs-toggle="collapse" class="sidebar-link collapsed">
 					<i class="align-middle" data-feather="sliders"></i> <span class="align-middle"><%= t('settings')%></span>
 				</a>
-				<ul id="settings" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page?(users_path) || 
-																								current_page?(email_setups_path) || 
-																								current_page?(exports_path) %>" data-bs-parent="#sidebar">
+				<ul id="settings" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('users') || 
+																								current_page_active?('email_setups') || 
+																								current_page_active?('exports') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to User.model_name.human(count: 2), users_path, class: "sidebar-link" %>
 					<%= li_menu_link_to EmailSetup.model_name.human(count: 2), email_setups_path, class: "sidebar-link" %>
 					<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
@@ -168,8 +170,8 @@
 				<a data-bs-target="#multi-trigger" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="fas fa-robot align-middle"></i>
 				<span class="align-middle"><%= t('rules')%></span></a>
-				<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(triggers_path) || 
-																									current_page?(templs_path) %>" data-bs-parent="#sidebar">
+				<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('triggers') || 
+																									current_page_active?('templs') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Trigger.model_name.human(count: 2), triggers_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Templ.model_name.human(count: 2), templs_path, class: "sidebar-link" %>
 				</ul>
@@ -178,7 +180,7 @@
 				<a data-bs-target="#rental" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="fas fa-solid fa-car-side align-middle"></i>
 				<span class="align-middle"><%= t('rent')%></span></a>
-				<ul id="rental" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page?(rent_case_statuses_path)%>" data-bs-parent="#sidebar">
+				<ul id="rental" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('rent_case_statuses')%>" data-bs-parent="#sidebar">
 					<li class="sidebar-item"><a class="sidebar-link" href="">Заявки</a></li>
 					<%= li_menu_link_to RentCaseStatus.model_name.human(count: 2), rent_case_statuses_path, class: "sidebar-link" %>
 				</ul>

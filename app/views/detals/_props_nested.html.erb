@@ -1,16 +1,14 @@
 <div class="d-flex row">
-    <div class="col-12 mb-3">
-    <%= link_to new_detal_detal_prop_path(detal), class: "btn btn-primary float-start mt-n1", data: {turbo_frame: dom_id(detal, dom_id(DetalProp.new)) } do %>
-        <%= add_icon %>
-    <% end %>
+    <div class="col-12 my-3">
+        <%= link_to add_icon, new_detal_detal_prop_path(detal), class: "btn btn-primary float-start", data: {turbo_frame: dom_id(detal, dom_id(DetalProp.new)) } %>
     </div>
     <div class="col-12">
-    <%= turbo_stream_from detal, :detal_props %>     
-    <%= turbo_frame_tag detal, :detal_props, data: { } do %>
-        <% @detal_props.each do |detal_prop|%>
-            <%= render partial: "detal_props/detal_prop", locals: { detal_prop: detal_prop, detal: detal } %>
+        <%= turbo_stream_from detal, :detal_props %>     
+        <%= turbo_frame_tag detal, :detal_props, data: { } do %>
+            <% @detal_props.each do |detal_prop|%>
+                <%= render partial: "detal_props/detal_prop", locals: { detal_prop: detal_prop, detal: detal } %>
+            <% end %>
         <% end %>
-    <% end %>
     </div>
     <div class="col-12">
         <%= turbo_frame_tag dom_id(detal, dom_id(DetalProp.new)) %>

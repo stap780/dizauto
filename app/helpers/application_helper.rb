@@ -86,7 +86,7 @@ module ApplicationHelper
   end
 
   def li_menu_link_to(name = nil, options = nil, html_options = nil, &block)
-    status = current_page?(options) ? "active" : ""
+    status = request.path.start_with?(options) ? "active" : ""
     content_tag :li, class: "sidebar-item #{status}" do
       link_to(name, options, html_options, &block)
     end
@@ -123,6 +123,7 @@ module ApplicationHelper
   def check_circle
     '<i class="bi bi-check-circle"></i>'.html_safe
   end
+
   def button_print
     '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-printer"></i></button>'.html_safe
   end
@@ -180,8 +181,6 @@ module ApplicationHelper
   end
 
   def history_value(key, value)
-    puts "key ====="
-    puts key
     if key.include?("_id")
       search_key = 'company' if key == 'strah_id'
       search_key = 'user' if key == 'manager_id'
@@ -220,7 +219,7 @@ module ApplicationHelper
 
   def tabs_head(collection, tabs)
     items = tabs.map.with_index { |tab, index| tab_a_tag(tab, index.zero?) }
-    content_tag(:ul, safe_join(items), class: "nav nav-pills", id: collection + "_tabs", role: "tablist")
+    content_tag(:ul, safe_join(items), class: "nav nav-pills text-capitalize", id: collection + "_tabs", role: "tablist")
   end
 
   def tab_a_tag(tab, is_active)
@@ -248,6 +247,10 @@ module ApplicationHelper
     content_tag :div, class: "col-md-2 d-flex justify-content-start" do
       render "shared/nested_delete", object: obj
     end
+  end
+
+  def current_page_active?(page)
+    request.path.start_with?("/#{page}")
   end
 
 end

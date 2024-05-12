@@ -24,7 +24,7 @@ class SupplyStatus < ApplicationRecord
 
   def check_presence_in_supplies
     if supplies.count > 0
-      errors.add(:base, "Cannot delete Supply Status. You have Supplies with it.")
+      errors.add(:base, "Cannot delete Status. You have Supplies with it.")
       throw(:abort)
     end
   end

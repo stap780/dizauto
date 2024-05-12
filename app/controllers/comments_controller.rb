@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_comment, only: %i[show edit update destroy]
+  before_action :set_commentable
+
+  # before_action :set_comment, only: %i[show edit update destroy]
 
   # GET /comments or /comments.json
   def index
@@ -13,19 +15,26 @@ class CommentsController < ApplicationController
 
   # GET /comments/new
   def new
-    @comment = Comment.new
+    @comment = @commentable.comments.build
   end
 
   # GET /comments/1/edit
   def edit
+    @comment = @commentable.comments.find(params[:id])
   end
 
   # POST /comments or /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @comment = @commentable.comments.new(comment_params)
 
     respond_to do |format|
       if @comment.save
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
         format.json { render :show, status: :created, location: @comment }
       else
@@ -39,6 +48,12 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
@@ -53,17 +68,13 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
+      format.turbo_stream { flash.now[:success] = t(".success") }
       format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_comment
-    @comment = Comment.find(params[:id])
-  end
 
   # Only allow a list of trusted parameters through.
   def comment_params

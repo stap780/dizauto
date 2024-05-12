@@ -31,8 +31,8 @@ class Warehouse < ApplicationRecord
   end
 
   def check_presence_in_products
-    if products.count > 0
-      errors.add(:base, "Cannot delete warehouse. You have products with it.")
+    if placements.count > 0
+      errors.add(:base, "Cannot delete warehouse. You have placements with it.")
       throw(:abort)
     end
   end

@@ -35,6 +35,8 @@ ru:
   after: "после"
   total: "Всего"
   ago: "назад"
+  rekviziti: "реквизиты"
+  comment: "комментарии"
   new_notifications: "Новые"
   hello: "Hello world"
   property_one: "параметр"
@@ -244,6 +246,9 @@ ru:
       email_setup: 
         one: "почта"
         other: "Почта"
+      enter: 
+        one: "оприходование"
+        other: "Оприходования"
       export:
         one: "экспорт"
         other: "Экспорты"

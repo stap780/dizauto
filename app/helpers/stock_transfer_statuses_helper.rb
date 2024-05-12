@@ -1,0 +1,2 @@
+module StockTransferStatusesHelper
+end

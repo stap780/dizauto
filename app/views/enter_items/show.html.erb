@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @enter_item %>
+
+<div>
+  <%= link_to "Edit this enter item", edit_enter_item_path(@enter_item) %> |
+  <%= link_to "Back to enter items", enter_items_path %>
+
+  <%= button_to "Destroy this enter item", @enter_item, method: :delete %>
+</div>

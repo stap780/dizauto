@@ -1,0 +1,25 @@
+
+<div class="row mb-3">
+  <%= link_to add_icon, [:new, commentable, :comment], class: "btn btn-primary float-start col-2", data: {turbo_frame: dom_id(commentable,dom_id(Comment.new)) } if can?(:new, Comment) %>
+</div>
+
+<%= turbo_stream_from commentable, :comments %>
+<% if current_user&.admin? %>
+  <%= turbo_stream_from commentable, :comments, :admin  if current_user&.admin?%>
+<% else %>
+  <%= turbo_stream_from commentable, :comments, current_user&.to_gid_param %>
+<% end %>
+<%= turbo_frame_tag dom_id(commentable,dom_id(Comment.new)) %>
+<div class="col-10 row my-3">
+    <div class="col-3">Date</div>
+    <div class="col">Comment</div>
+    <div class="col-3">User</div>
+    <%=tag.div( class: "col") %>
+</div>
+<%= turbo_frame_tag commentable, :comments, class: "col-10 row my-3" do %>
+  <% commentable.comments.order(created_at: :asc).each do |comment| %>
+    <%= render partial: "comments/comment", locals: {commentable: commentable, comment: comment, admin: current_user.admin?, user: current_user == comment.user } %>
+  <% end %>
+<% end %>
+
+

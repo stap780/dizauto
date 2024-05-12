@@ -1,22 +1,9 @@
-<div id="<%= dom_id comment %>">
-  <p>
-    <strong>Commentable type:</strong>
-    <%= comment.commentable_type %>
-  </p>
-
-  <p>
-    <strong>Commentable:</strong>
-    <%= comment.commentable_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= comment.user_id %>
-  </p>
-
-  <p>
-    <strong>Body:</strong>
-    <%= comment.body %>
-  </p>
-
-</div>
+<%= turbo_frame_tag dom_id(commentable, dom_id(comment)), class: "col-10 row mb-3" do %>
+  <%=tag.div( comment.created_at.strftime("%d/%m/%Y %H:%M") , class: "col-3")%>
+  <%=tag.div( comment.body , class: "col")%>
+  <%=tag.div( comment.user ? comment.user.email : '', class: "col-3")%>
+  <%=tag.div( class: "col d-flex justify-content-end gap-2 align-items-center", admin: admin, user: user, id: "controls_#{dom_id(commentable, dom_id(comment))}" ) do %>
+      <%= render partial: "comments/user_controls", locals: {commentable: commentable, comment: comment} if !admin && user %>
+      <%= render partial: "comments/admin_controls", locals: {commentable: commentable, comment: comment} if admin %>
+  <% end %>
+<% end %>
