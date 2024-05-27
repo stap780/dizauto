@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @loss %>
+
+<div>
+  <%= link_to "Edit this loss", edit_loss_path(@loss) %> |
+  <%= link_to "Back to losses", losses_path %>
+
+  <%= button_to "Destroy this loss", @loss, method: :delete %>
+</div>

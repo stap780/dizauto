@@ -4,7 +4,9 @@ class EntersController < ApplicationController
 
   # GET /enters or /enters.json
   def index
-    @enters = Enter.all
+    @search = Enter.ransack(params[:q])
+    @search.sorts = "id desc" if @search.sorts.empty?
+    @enters = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
   # GET /enters/1 or /enters/1.json
@@ -27,7 +29,7 @@ class EntersController < ApplicationController
 
     respond_to do |format|
       if @enter.save
-        format.html { redirect_to enter_url(@enter), notice: "Enter was successfully created." }
+        format.html { redirect_to enters_url, notice: "Enter was successfully created." }
         format.json { render :show, status: :created, location: @enter }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +42,7 @@ class EntersController < ApplicationController
   def update
     respond_to do |format|
       if @enter.update(enter_params)
-        format.html { redirect_to enter_url(@enter), notice: "Enter was successfully updated." }
+        format.html { redirect_to enters_url, notice: "Enter was successfully updated." }
         format.json { render :show, status: :ok, location: @enter }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -96,7 +98,7 @@ class EntersController < ApplicationController
         render turbo_stream: turbo_stream.append(
           "enter_items",
           partial: "enter_items/form_data",
-          locals: {f: ff, product: nil, our_dom_id: "enter_item_#{child_index}_supply", warehouse_id: nil}
+          locals: {f: ff, product: nil, our_dom_id: "enter_item_#{child_index}_enter", warehouse_id: nil}
         )
       end
     end

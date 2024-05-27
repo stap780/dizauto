@@ -1,5 +1,4 @@
 class EnterStatus < ApplicationRecord
-
     acts_as_list
     has_many :enters
   

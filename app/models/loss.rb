@@ -1,10 +1,10 @@
-class Enter < ApplicationRecord
+class Loss < ApplicationRecord
   audited
-  belongs_to :enter_status
+  belongs_to :loss_status
   belongs_to :warehouse
   belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
-  has_many :enter_items, dependent: :destroy
-  accepts_nested_attributes_for :enter_items, allow_destroy: true
+  has_many :loss_items, dependent: :destroy
+  accepts_nested_attributes_for :loss_items, allow_destroy: true
   has_associated_audits
   after_initialize :add_default
   before_save :normalize_data_white_space
@@ -13,7 +13,7 @@ class Enter < ApplicationRecord
   validates :date, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
-    Enter.attribute_names
+    Loss.attribute_names
   end
   
   def self.ransackable_associations(auth_object = nil)
@@ -30,7 +30,7 @@ class Enter < ApplicationRecord
   end
 
   def add_default
-    self.title = "Оприходование"
+    self.title = "Списание"
     self.date = Time.now
   end
 

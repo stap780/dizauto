@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_10_145606) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -359,12 +359,37 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_10_145606) do
     t.index ["product_id"], name: "index_locations_on_product_id"
   end
 
+  create_table "loss_items", force: :cascade do |t|
+    t.bigint "loss_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.decimal "price", precision: 12, scale: 2
+    t.integer "vat"
+    t.decimal "sum", precision: 12, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loss_id"], name: "index_loss_items_on_loss_id"
+    t.index ["product_id"], name: "index_loss_items_on_product_id"
+  end
+
   create_table "loss_statuses", force: :cascade do |t|
     t.string "title"
     t.string "color"
     t.integer "position", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "losses", force: :cascade do |t|
+    t.bigint "loss_status_id", null: false
+    t.string "title"
+    t.datetime "date"
+    t.bigint "warehouse_id", null: false
+    t.integer "manager_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["loss_status_id"], name: "index_losses_on_loss_status_id"
+    t.index ["warehouse_id"], name: "index_losses_on_warehouse_id"
   end
 
   create_table "noticed_events", force: :cascade do |t|
@@ -645,6 +670,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_10_145606) do
   add_foreign_key "locations", "placements"
   add_foreign_key "locations", "places"
   add_foreign_key "locations", "products"
+  add_foreign_key "loss_items", "losses"
+  add_foreign_key "loss_items", "products"
+  add_foreign_key "losses", "loss_statuses"
+  add_foreign_key "losses", "warehouses"
   add_foreign_key "orders", "companies"
   add_foreign_key "placements", "warehouses"
   add_foreign_key "props", "products"

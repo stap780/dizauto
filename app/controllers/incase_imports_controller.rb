@@ -5,7 +5,6 @@ class IncaseImportsController < ApplicationController
 
   # GET /incase_imports or /incase_imports.json
   def index
-    @incase_imports = IncaseImport.all
     @search = IncaseImport.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @incase_imports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)

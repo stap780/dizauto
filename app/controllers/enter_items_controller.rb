@@ -1,4 +1,5 @@
 class EnterItemsController < ApplicationController
+  load_and_authorize_resource
   before_action :set_enter_item, only: %i[ show edit update destroy ]
 
   # GET /enter_items or /enter_items.json

@@ -1,0 +1,2 @@
+module LossesHelper
+end

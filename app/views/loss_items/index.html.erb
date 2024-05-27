@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Loss items</h1>
+
+<div id="loss_items">
+  <% @loss_items.each do |loss_item| %>
+    <%= render loss_item %>
+    <p>
+      <%= link_to "Show this loss item", loss_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New loss item", new_loss_item_path %>

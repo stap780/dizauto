@@ -1,0 +1,61 @@
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Loss.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <% if Templ.loss_print.presence %>
+      <%= button_print %>
+      <ul class="dropdown-menu">
+      <%= form_with url: bulk_print_losses_path, method: :post, id: :bulk_action_form  do |f| %>
+        <% Templ.loss_print.each do |templ|%>
+          <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+            <%= templ.title %>
+          <% end %>
+        <% end %>
+      <% end %>
+      </ul>
+    <% end %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("losses/_filter").any? %>
+    <%= link_to arrow_clockwise_icon, losses_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_loss_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+<%= render 'filter', q: @search, title: 'Loss filter' if lookup_context.find_all("losses/_filter").any?  %>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <%= more_icon%>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <a href="#" class="dropdown-item">test</a>
+          <%= link_to '.xlsx', losses_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+
+    <div id="datatables-losses" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
+      <div class="row py-2 px-0 justify-content-between align-items-center">
+        <%= div_check_box_tag_all %>
+        <%= tag.div( t( 'helpers.label.loss.loss_status_id'), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.loss.date'), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.loss.title'), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.loss.warehouse_id'), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.loss.sum'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div('', class: 'col fw-semibold')%>
+      </div>
+      <%= turbo_stream_from "losses" %>
+      <%= turbo_frame_tag 'losses' do %>
+          <%= render @losses %>
+      <% end %>
+    </div>
+
+    <%= render "shared/paginate", f: @losses %>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<%= form_with(model: loss, data: { controller: 'slimselect'}, class: 'loss-form' ) do |f| %>
+   <%= render 'shared/errors', object: loss%>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-closs">
+              <div class="d-flex justify-content-between align-items-closs gap-3">
+                  <%= f.select :loss_status_id, LossStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select"}%>
+                  <%= tabs_head('loss', [ ['main', t(:main)] ]) if !f.object.new_record? %>
+              </div>
+              <div class="d-flex justify-content-between align-items-closs gap-3">
+                  <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
+                  <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "loss", auditable_id: loss.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
+              </div>
+          </div>
+          <div class="card-body">
+              <div class="tab-content">
+                  <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                      <div class="row mb-3">
+                          <%= render 'form_data', f: f %>
+                      </div>
+                      <div class="row" data-controller="calculate">
+                          <%= render 'nested', f: f %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="card-footer">
+              <%= f.submit class: "btn btn-primary" %>
+              <%= link_to t('back'), losses_path, class: "btn btn-outline-primary" %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+<% end %>

@@ -36,6 +36,7 @@ class Product < ApplicationRecord
   after_commit :create_barcode, on: :create
   before_destroy :check_relations_present, prepend: true
   after_create_commit { broadcast_prepend_to "products_list" }
+  after_destroy_commit { broadcast_remove_to "products_list" }
   # after_commit :update_counter, on: [ :create, :destroy ]
 
   validates :title, presence: true

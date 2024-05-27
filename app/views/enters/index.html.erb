@@ -3,7 +3,7 @@
     <h1 class="h3 d-inline align-middle"><%= Enter.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-      <% if Templ.enter_print.presence %>
+    <% if Templ.enter_print.presence %>
     <%= button_print %>
     <ul class="dropdown-menu">
     <%= form_with url: bulk_print_enters_path, method: :post, id: :bulk_action_form  do |f| %>

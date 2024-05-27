@@ -8,3 +8,4 @@ class DeleteUnattachedBlobsScheduler
     Rake::Task["file:delete_unattached_blobs_every_day"].invoke
   end
 end
+
