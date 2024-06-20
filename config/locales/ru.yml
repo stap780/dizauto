@@ -24,41 +24,43 @@
 
 ru:
   trigger_actions:
-    incase_status_id#incase: "Сменить статус убытка"
-    incase_tip_id#incase: "Сменить тип убытка"
-    email#incase: "Отправить письмо по убытку"
-    order_status_id#order: "Сменить статус заказа"
-    email#order: "Отправить письмо по заказу"
-    incase_item_status_id#incase_item: "Сменить статус позиции убытка"
-  attribute: "Атирибут"
+    incase_status_id#incase: "сменить статус убытка"
+    incase_tip_id#incase: "сменить тип убытка"
+    email#incase: "отправить письмо по убытку"
+    order_status_id#order: "сменить статус заказа"
+    email#order: "отправить письмо по заказу"
+    incase_item_status_id#incase_item: "сменить статус позиции убытка"
+  attribute: "атрибут"
   before: "до"
   after: "после"
-  total: "Всего"
+  total: "всего"
   ago: "назад"
   rekviziti: "реквизиты"
   comment: "комментарии"
-  new_notifications: "Новые"
+  new_notifications: "новые"
   hello: "Hello world"
   property_one: "параметр"
   characteristic_one: "значение"
   okrug_one: "округ"
   warehouse_one: "склад"
-  back: "Назад"
-  main: 'Основные'
-  add: 'Добавить'
-  save: "Сохранить"
-  property: 'Параметры'
-  placement: "Размещения"
-  history: "История"
-  incase_items: "Позиции убытка"
-  order_items: "Позиции заказа"
-  supply_items: "Позиции поступления"
-  inventory: "Склад"
-  settings: "Настройки"
-  rules: "Автоматизация"
-  rent: "Аренда"
-  purchasing: "Закупки"
-  selling: "Продажи"
+  back: "назад"
+  main: 'основные'
+  add: 'добавить'
+  save: "сохранить"
+  directories: "справочники"
+  property: 'параметры'
+  placement: "размещения"
+  history: "история"
+  incase_items: "позиции убытка"
+  order_items: "позиции заказа"
+  supply_items: "позиции поступления"
+  inventory: "склад"
+  settings: "настройки"
+  rules: "автоматизация"
+  rent: "аренда"
+  purchasing: "закупки"
+  selling: "продажи"
+  statuses: статусы
   activerecord:
     attributes:
       audit:
@@ -67,278 +69,317 @@ ru:
         created_at: "дата создания"
         audited_changes: "изменения"
         before: "до"
-      client:
-        surname: "Фамилия"
-        name: "Имя"
-        middlename: "Отчество"
-        phone: "Телефон"
-        email: "Email"
-        created_at: "Создан"
-      company:
-        title: "Название"
-        short_title: "Краткое название"
-        inn: "ИНН"
-        tip: "Тип"
-        kpp: "КПП"
-        ogrn: "ОГРН"
-        okpo: "ОКПО"
-        ur_address: "Юр адрес"
-        fact_address: "Факт адрес"
-        bik: "БИК"
-        bank_title: "Название банка"
-        bank_account: "Расчетный счет"
-        client_companies: "Клиенты"
-      export:
-        title: "Название"
-        link: "Ссылка"
-        format: "Формат"
-        work_time: "Время работы"
-        created_at: "Время создания"
-        file_data: "Данные по файлу"
-      incase:
-        incase_items: "Позиции убытка"
-        incase_status_id: "Статус"
-        incase_tip_id: "Тип"
-        region: "Регион"
-        strah_id: "Страховая"
-        stoanumber: "СТОА"
-        unumber: "Номер убытка"
-        carnumber: "Номер машины"
-        date: "Дата"
-        totalsum: "Сумма"
+      client:  &client
+        surname: "фамилия"
+        name: "имя"
+        middlename: "отчество"
+        phone: "телефон"
+        email: "email"
+        created_at: "создан"
+      company:  &company
+        title: "название"
+        short_title: "краткое название"
+        inn: "инн"
+        tip: "тип"
+        kpp: "кпп"
+        ogrn: "огрн"
+        okpo: "окпо"
+        ur_address: "юр адрес"
+        fact_address: "факт адрес"
+        bik: "бик"
+        bank_title: "название банка"
+        bank_account: "расчетный счет"
+        client_companies: "клиенты"
+      enter_status:
+        title: "название"
+        color: "цвет"
+      export: &export
+        title: "название"
+        link: "ссылка"
+        format: "формат"
+        work_time: "время работы"
+        created_at: "время создания"
+        file_data: "данные по файлу"
+      loss_status:
+        title: "название"
+        color: "цвет"
+      incase: &incase
+        incase_items: "позиции убытка"
+        incase_status_id: "статус"
+        incase_tip_id: "тип"
+        region: "регион"
+        strah_id: "страховая"
+        stoanumber: "стоа"
+        unumber: "номер убытка"
+        carnumber: "номер машины"
+        date: "дата"
+        totalsum: "сумма"
         company_id: "Компания"
         modelauto: "Машина"
-      incase_item:
-        title: "Название позиции"
-        quantity: "Кол-во"
+      incase_item: &incase_item
+        title: "название позиции"
+        quantity: "кол-во"
         katnumber: "Каталожный номер"
-        price: "Цена"
-        sum: "Сумма"
-        status: "Статус"
+        price: "цена"
+        sum: "сумма"
+        status: "статус"
       incase_item_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_tip:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_import:
-        title: "Название"
-        active: "Вкл/выкл"
-        report: "Отчет"
-        file: "Файл"
-        uniq_field: "Уник поле"
+        title: "название"
+        active: "вкл/выкл"
+        report: "отчет"
+        file: "файл"
+        uniq_field: "уник поле"
+      inventory_status:
+        title: "название"
+        color: "цвет"
       invoice:
-        invoice_status_id: "Статус"
-        number: "Номер"
-        client_id: "Клиент"
+        invoice_status_id: "статус"
+        number: "номер"
+        client_id: "клиент"
         company_id: "Компания"
-        sum: "Сумма"
+        sum: "сумма"
       invoice_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       invoice_item:
-        product_id: "Товар"
-        quantity: "Кол-во"
-        price: "Цена" 
+        product_id: "товар"
+        quantity: "кол-во"
+        price: "цена" 
         discount: "Скидка"
-        sum: "Сумма"
+        sum: "сумма"
         invoice_id: "id накладной"
-        product: "Товар"
+        product: "товар"
       property:
-        title: "Название"
+        title: "название"
       characteristic:
-        title: "Название значения"
+        title: "название значения"
       placement:
-        created_at: "Дата создания"
-        warehouse_id: "Склад"
-        items_quantity: "Кол-во позиций"
-      product:
-        sku: "Артикул"
-        title: "Название"
-        barcode: "Штрихкод"
-        description: "Описание"
-        quantity: "Кол-во"
-        costprice: "Цена закупки"
-        price: "Ц. П. ₽"
-        video: "Видео"
-        created_at: "Создан"
-      order:
-        id: "Номер"
-        order_status_id: "Статус"
-        order_items: "Позиции заказа"
-        number: "Номер"
-        client_id: "Клиент"
-        company_id: "Компания"
-        manager_id: "Менеджер"
-        payment_type_id: "Оплаты"
-        delivery_type_id: "Доставки"
-        created_at: "Дата создания"
-        sum: "Сумма"
-      order_item:
-        product_id: "Товар"
-        quantity: "Кол-во"
-        price: "Цена" 
+        created_at: "дата создания"
+        warehouse_id: "склад"
+        items_quantity: "кол-во позиций"
+      product: &product
+        sku: "артикул"
+        title: "название"
+        barcode: "штрихкод"
+        description: "описание"
+        quantity: "кол-во"
+        costprice: "цена закупки"
+        price: "ц. п. р"
+        video: "видео"
+        created_at: "создан"
+      order: &order
+        id: "номер"
+        order_status_id: "статус"
+        order_items: "позиции заказа"
+        number: "номер"
+        client_id: "клиент"
+        company_id: "компания"
+        manager_id: "менеджер"
+        payment_type_id: "оплаты"
+        delivery_type_id: "доставки"
+        created_at: "дата создания"
+        sum: "сумма"
+      order_item: &nested_item
+        product_id: "товар"
+        quantity: "кол-во"
+        price: "цена" 
         discount: "Скидка"
-        sum: "Сумма"
+        sum: "сумма"
         order_id: "id заказа"
-        product: "Товар"
+        product: "товар"
       okrug:
-        title: "Название"
+        title: "название"
       supply:
-        title: "Название"
-        company_id: "Компания"
-        in_number: "Вх номер"
-        in_date: "Вх дата"
-        manager_id: "Менеджер"
-        created_at: "Дата"
-        supply_status_id: "Статус"
+        title: "название"
+        company_id: "компания"
+        in_number: "вх номер"
+        in_date: "вх дата"
+        manager_id: "менеджер"
+        created_at: "дата"
+        supply_status_id: "статус"
       supply_items:
-        product_id: "Товар"
-        warehouse_id: "Склад"
-        quantity: "Кол-во"
-        price: "Цена"
-        sum: "Сумма"
-        total: "Итого"
-        warehouse: "Склад"
-        product: "Товар"
+        product_id: "товар"
+        warehouse_id: "склад"
+        quantity: "кол-во"
+        price: "цена"
+        sum: "сумма"
+        total: "итого"
+        warehouse: "склад"
+        product: "товар"
+      stock_transfer: &stock_transfer
+        stock_transfer_status_id: "статус"
+        created_at: "дата создания"
+        products: "товары"
+        origin_warehouse_id: "начальный склад"
+        destination_warehouse_id: "конечный склад"
+      stock_transfer_status:
+        title: "название"
+        color: "цвет"
       templ:
-        title: "Название"
-        subject: "Тема письма"
-        receiver: "Получатель"
-        content: "Контент"
-        tip: "Тип"
-        modelname: "Раздел"
+        title: "название"
+        subject: "тема письма"
+        receiver: "получатель"
+        content: "контент"
+        tip: "тип"
+        modelname: "раздел"
       trigger:
-        title: "Название"
-        active: "Вкл?"
-        event: "Событие"
-        condition: "Условие"
-        action: "Действие"
-        pause: "Отложить отправку?"
-        pause_time: "Кол-во минут"
+        title: "название"
+        active: "вкл?"
+        event: "событие"
+        condition: "условие"
+        action: "действие"
+        pause: "отложить отправку?"
+        pause_time: "кол-во минут"
       user:
-        name: "Имя"
-        phone: "Телефон"
-        email: "Email"
-        role: "Роль"
+        name: "имя"
+        phone: "телефон"
+        email: "email"
+        role: "роль"
     models:
       client: 
         one: "клиент"
-        other: "Клиенты"
+        other: "клиенты"
       company: 
         one: "компания"
-        other: "Компании"
+        other: "компании"
       comment: 
         one: "комментарий"
-        other: "Комментарии"
+        other: "комментарии"
       client_companies: 
         one: "клиенты (компании)"
         other: "клиенты (компании)"
       delivery_type: 
         one: "способ доставки"
-        other: "Способы доставки"
+        other: "способы доставки"
       detal: 
         one: "деталь"
-        other: "Детали"
+        other: "детали"
       email_setup: 
         one: "почта"
-        other: "Почта"
+        other: "почта"
       enter: 
         one: "оприходование"
-        other: "Оприходования"
+        other: "оприходования"
+      enter_status: 
+        one: "статус оприходования"
+        other: "cтатусы оприходования"
       export:
         one: "экспорт"
-        other: "Экспорты"
-      incase: 
-        one: "убыток"
-        other: "Убытки"
-      invoice: 
-        one: "накладная"
-        other: "Накладные"
-      invoice_status: 
-        one: "статус накладной"
-        other: "Статусы накладной"
+        other: "экспорты"
+      loss: 
+        one: "списание"
+        other: "списания"
+      loss_status: 
+        one: "статус списания"
+        other: "статусы списания"
       notification: 
         one: "оповещение"
-        other: "Оповещения"
+        other: "оповещения"
+      incase: 
+        one: "убыток"
+        other: "убытки"
+      invoice: 
+        one: "накладная"
+        other: "накладные"
+      invoice_status: 
+        one: "статус накладной"
+        other: "статусы накладной"
       incase_item_status:
         one: "статус детали убытка"
-        other: "Статусы деталей убытка"
+        other: "статусы деталей убытка"
       incase_status:
         one: "статус убытка"
-        other: "Статусы убытка"
+        other: "статусы убытка"
       incase_items: 
         one: "позиция убытка"
         other: "позиции убытка"
       incase_tip:
         one: "тип убытка"
-        other: "Типы убытка"
+        other: "типы убытка"
       incase_import:
         one: "импорт убытка"
-        other: "Импорт убытка"
+        other: "импорт убытка"
+      inventory:
+        one: "инвенторизация"
+        other: "инвенторизации"
+      inventory_status:
+        one: "статус инвенторизации"
+        other: "статусы инвенторизации"
       property:
         one: "параметр"
-        other: "Параметры"
+        other: "параметры"
       characteristic:
         one: "значение параметра"
-        other: "Значения параметра"
+        other: "значения параметра"
       order: 
         one: "заказ"
-        other: "Заказы"
+        other: "заказы"
       order_items: 
         one: "позиция заказа"
         other: "позиции заказа"
       order_status: 
         one: "статус заказа"
-        other: "Статусы заказа"
+        other: "статусы заказа"
       okrug: 
         one: "округ"
-        other: "Округа"
+        other: "округа"
       payment_type: 
         one: "способ оплаты"
-        other: "Способы оплаты"
+        other: "способы оплаты"
       place: 
         one: "место"
-        other: "Места"
+        other: "места"
       placement: 
         one: "размещение"
-        other: "Размещения"
+        other: "размещения"
       product: 
         one: "товар"
-        other: "Товары"
+        other: "товары"
       return:
         one: "возврат"
-        other: "Возвраты"
+        other: "возвраты"
       return_status:
         one: "статус возврата"
-        other: "Статусы возврата"
+        other: "статусы возврата"
       stock_transfer:
         one: "перемещение"
-        other: "Перемещения"
+        other: "перемещения"
       supply: 
         one: "поступление"
-        other: "Поступления"
+        other: "поступления"
+      stock_transfer: 
+        one: "перемещение"
+        other: "перемещения"
+      stock_transfer_status: 
+        one: "статус перемещения"
+        other: "cтатусы перемещения"
       supply_item: 
         one: "позиции поступления"
-        other: "Позиции поступления"
+        other: "позиции поступления"
       supply_status: 
         one: "статусы поступления"
-        other: "Статусы поступления"
+        other: "статусы поступления"
       templ: 
         one: "шаблон"
-        other: "Шаблоны"
+        other: "шаблоны"
       trigger: 
         one: "триггер"
-        other: "Триггеры"
+        other: "триггеры"
       user: 
         one: "пользователь"
-        other: "Пользователи"
+        other: "пользователи"
       warehouse: 
         one: "склад"
-        other: "Склады"
+        other: склады
     errors:
       format: "%{attribute} %{message}"
       messages:
@@ -395,398 +436,214 @@ ru:
           before: до
           empty: No hay registros de auditoría aún.
           system: Sistema
-  companies:
+  companies: &model_system_flash
     create:
-      success: Создали!
+      success: создали!
     destroy:
-      success: Удалили!
+      success: удалили!
     edit:
-      title: Редактировать
+      title: редактировать
     update:
-      success: Обновили!
+      success: обновили!
+    remove_nested:
+      success: удалили!
   clients:
-    create:
-      success: Создали!
-    create_turbo:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   detal_props:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
+  enter_statuses:
+    <<: *model_system_flash
+  loss_statuses:
+    <<: *model_system_flash
   incase_item_statuses:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   incase_statuses:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   incase_tips:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   incase_imports:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   incases:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
     create_from_import:
-      success: Создали!
+      success: создали!
+  inventory_statuses:
+    <<: *model_system_flash
   invoices:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   invoice_statuses:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   orders:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   order_statuses:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   products:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
     print_etiketki:
       success: Создали этикетки!
   props:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   returns:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   return_items:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   return_statuses:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
+  stock_transfers:
+    <<: *model_system_flash
+  stock_transfer_statuses:
+    <<: *model_system_flash
   supplies:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   users:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
     admin_create:
-      success: Создали!
+      success: создали!
     admin_update:
-      success: Обновили!
+      success: обновили!
     read_notification:
-      success: Прочитано!
+      success: прочитано!
     delete_notification:
-      success: Удалили!
+      success: удалили!
   triggers:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   templs:
-    create:
-      success: Создали!
-    destroy:
-      success: Удалили!
-    edit:
-      title: Редактировать
-    update:
-      success: Обновили!
+    <<: *model_system_flash
   helpers:
     label:
       client:
-        surname: "Фамилия"
-        name: "Имя"
-        middlename: "Отчество"
-        phone: "Телефон"
-        email: "Email"
-        created_at: "Создан"
+        <<: *client
       company:
-        title: "Название"
-        short_title: "Краткое название"
-        inn: "ИНН"
-        tip: "Тип"
-        kpp: "КПП"
-        ogrn: "ОГРН"
-        okpo: "ОКПО"
-        ur_address: "Юр адрес"
-        fact_address: "Факт адрес"
-        bik: "БИК"
-        bank_title: "Название банка"
-        bank_account: "Расчетный счет"
+        <<: *company
       characteristic:
-        title: "Название значения"
+        title: "название значения"
+      enter_status:
+        title: "название"
+        color: "цвет"
       export:
-        title: "Название"
-        link: "Ссылка"
-        format: "Формат"
-        work_time: "Время работы"
-        created_at: "Время создания"
-        file_data: "Данные по файлу"
+        <<: *export
       incase:
-        incase_status_id: "Статус"
-        incase_tip_id: "Тип"
-        region: "Регион"
-        strah_id: "Страховая"
-        stoanumber: "СТОА"
-        unumber: "Номер убытка"
-        carnumber: "Номер машины"
-        date: "Дата"
-        totalsum: "Сумма"
-        company_id: "Компания"
-        modelauto: "Машина"
+        <<: *incase
       incase_item:
-        title: "Название позиции"
-        quantity: "Кол-во"
-        katnumber: "Каталожный номер"
-        price: "Цена"
-        sum: "Сумма"
-        status: "Статус"
+        <<: *incase_item
       incase_item_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_tip:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       incase_import:
-        title: "Название"
-        active: "Вкл/выкл"
-        report: "Отчет"
-        file: "Файл"
-        uniq_field: "Уник поле"
+        title: "название"
+        active: "вкл/выкл"
+        report: "отчет"
+        file: "файл"
+        uniq_field: "уник поле"
       invoice:
-        invoice_status_id: "Статус"
-        number: "Номер"
-        client_id: "Клиент"
-        company_id: "Компания"
-        sum: "Сумма"
-        created_at: "Дата создания"
+        invoice_status_id: "статус"
+        number: "номер"
+        client_id: "клиент"
+        company_id: "компания"
+        sum: "сумма"
+        created_at: "дата создания"
       invoice_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       invoice_item:
-        product_id: "Товар"
-        quantity: "Кол-во"
-        price: "Цена" 
-        discount: "Скидка"
-        sum: "Сумма"
+        product_id: "товар"
+        quantity: "кол-во"
+        price: "цена" 
+        discount: "скидка"
+        sum: "сумма"
         invoice_id: "id накладной"
-        product: "Товар"
+        product: "товар"
       notification:
-        message: "Сообщение"
-        created_at: "Дата создания"
-        status: "Статус"
+        message: "сообщение"
+        created_at: "дата создания"
+        status: "статус"
       okrug:
-        title: "Название"
+        title: "название"
       order:
-        order_status_id: "Статус"
-        number: "Номер"
-        client_id: "Клиент" 
-        manager_id: "Менеджер"
-        payment_type_id: "Оплаты"
-        delivery_type_id: "Доставки"
-        created_at: "Дата создания"
-        order_items: "Позиции заказа"
-        sum: "Сумма"
+        <<: *order
       order_item:
-        product_id: "Товар"
-        quantity: "Кол-во"
-        price: "Цена" 
-        discount: "Скидка"
-        sum: "Сумма"
+        <<: *nested_item
         order_id: "id заказа"
       order_status:
-        title: "Название"
-        color: "Цвет"
+        title: "название"
+        color: "цвет"
       payment_type:
-        title: "Название"
-        desc: "Описание"
+        title: "название"
+        desc: "описание"
         margin: "Наценка"
       property:
-        title: "Название"
+        title: "название"
       product:
-        sku: "Артикул"
-        title: "Название"
-        barcode: "Штрихкод"
-        description: "Описание"
-        quantity: "Кол-во"
-        costprice: "Цена закупки"
-        price: "Ц. П. ₽"
-        video: "Видео"
-        created_at: "Создан"
+        <<: *product
       placement:
-        created_at: "Дата создания"
-        warehouse_id: "Склад"
-        items_quantity: "Кол-во позиций"
+        created_at: "дата создания"
+        warehouse_id: "склад"
+        items_quantity: "кол-во позиций"
+      stock_transfer:
+        <<: *stock_transfer
+      stock_transfer_item:
+        <<: *nested_item
       supply:
-        title: "Название"
-        company_id: "Компания"
-        in_number: "Вх номер"
-        in_date: "Вх дата"
-        manager_id: "Менеджер"
-        created_at: "Дата"
-        supply_status_id: "Статус"
+        title: "название"
+        company_id: "компания"
+        in_number: "вх номер"
+        in_date: "вх дата"
+        manager_id: "менеджер"
+        created_at: "дата"
+        supply_status_id: "статус"
       supply_item:
-        product_id: "Товар"
-        warehouse_id: "Склад"
-        quantity: "Кол-во"
-        price: "Цена"
-        sum: "Сумма"
-        total: "Итого"
+        <<: *nested_item
       templ:
-        title: "Название"
-        subject: "Тема письма"
-        receiver: "Получатель"
-        content: "Контент"
-        tip: "Тип"
+        title: "название"
+        subject: "тема письма"
+        receiver: "получатель"
+        content: "контент"
+        tip: "тип"
         modelname: "Раздел"
       trigger:
-        title: "Название"
-        active: "Вкл?"
-        event: "Событие"
-        condition: "Условие"
-        action: "Действие"
-        pause: "Пауза?"
-        pause_time: "Кол-во минут"
+        title: "название"
+        active: "вкл?"
+        event: "событие"
+        condition: "условие"
+        action: "действие"
+        pause: "пауза?"
+        pause_time: "кол-во минут"
       user:
-        name: "Имя"
-        phone: "Телефон"
-        email: "Email"
-        role: "Роль"
+        name: "имя"
+        phone: "телефон"
+        email: "email"
+        role: "роль"
       warehouse:
-        title: "Название"
+        title: "название"
     select:
       prompt: "Выберите: "
     submit:
-      add: "Доавить %{model}"
-      create: "Создать %{model}"
-      submit: "Сохранить %{model}"
-      update: "Сохранить %{model}"
+      add: "добавить %{model}"
+      create: "создать %{model}"
+      submit: "сохранить %{model}"
+      update: "сохранить %{model}"
   will_paginate:
     previous_label: "&#8592; Назад"
-    next_label: "Вперёд &#8594;"
+    next_label: "вперёд &#8594;"
     page_gap: "&hellip;"
     page_entries_info:
       single_page:
         zero:  "%{model} не найдена"
-        one:   "Показана 1 %{model}"
-        other: "Показаны все %{count} %{model}"
+        one:   "показана 1 %{model}"
+        other: "показаны все %{count} %{model}"
       single_page_html:
         zero:  "%{model} не найдена"
-        one:   "Показана <b>1</b> %{model}"
-        other: "Показаны <b>все&nbsp;%{count}</b> %{model}"
+        one:   "показана <b>1</b> %{model}"
+        other: "показаны <b>все&nbsp;%{count}</b> %{model}"
 
-      multi_page: "Показана %{model} %{from} - %{to} из %{count} всего"
-      multi_page_html: "Показана %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
+      multi_page: "показана %{model} %{from} - %{to} из %{count} всего"
+      multi_page_html: "показана %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
     format: "%{attribute} %{message}"
     messages:
       accepted: нужно подтвердить
@@ -826,7 +683,7 @@ ru:
         many: неверной длины (может быть длиной ровно %{count} символов)
         other: неверной длины (может быть длиной ровно %{count} символа)
     template:
-      body: 'Проблемы возникли со следующими полями:'
+      body: 'проблемы возникли со следующими полями:'
       header:
         one: "%{model}: сохранение не удалось из-за %{count} ошибки"
         few: "%{model}: сохранение не удалось из-за %{count} ошибок"
@@ -1045,5 +902,5 @@ ru:
         index:
           title:
             all: Auditing everything
-            auditable: История
+            auditable: история
 

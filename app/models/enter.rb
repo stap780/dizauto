@@ -2,6 +2,7 @@ class Enter < ApplicationRecord
   audited
   belongs_to :enter_status
   belongs_to :warehouse
+  belongs_to :stock_transfer, optional: true
   belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
   has_many :enter_items, dependent: :destroy
   accepts_nested_attributes_for :enter_items, allow_destroy: true

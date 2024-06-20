@@ -80,17 +80,18 @@
 				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('products') || 
 																								current_page_active?('placements') ||
 																								current_page_active?('enters') ||
-																								current_page_active?('losses') %>" data-bs-parent="#sidebar">
+																								current_page_active?('losses') ||
+																								current_page_active?('stock_transfers') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Product.model_name.human(count: 2), products_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Placement.model_name.human(count: 2), placements_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Enter.model_name.human(count: 2), enters_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Loss.model_name.human(count: 2), losses_path, class: "sidebar-link" %>
-					<%= li_menu_link_to 'Перемещение', "#", class: "sidebar-link" %>
+					<%= li_menu_link_to StockTransfer.model_name.human(count: 2), stock_transfers_path, class: "sidebar-link" %>
 				</ul>
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#lists" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="align-middle" data-feather="list"></i> <span class="align-middle">Справочники</span>
+					<i class="align-middle" data-feather="list"></i> <span class="align-middle"><%= t('directories')%></span>
 				</a>
 				<ul id="lists" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('properties') || 
 																							current_page_active?('detals') || 
@@ -106,7 +107,11 @@
 																							current_page_active?('incase_tips') || 
 																							current_page_active?('incase_item_statuses') ||
 																							current_page_active?('invoice_statuses') ||
-																							current_page_active?('return_statuses') %>" data-bs-parent="#sidebar">
+																							current_page_active?('return_statuses') || 
+																							current_page_active?('enter_statuses') ||
+																							current_page_active?('loss_statuses') || 
+																							current_page_active?('stock_transfer_statuses') || 
+																							current_page_active?('inventory_statuses')%>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Property.model_name.human(count: 2), properties_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Detal.model_name.human(count: 2), detals_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Client.model_name.human(count: 2), clients_path, class: "sidebar-link" %>
@@ -114,37 +119,29 @@
 					<%= li_menu_link_to Okrug.model_name.human(count: 2), okrugs_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Warehouse.model_name.human(count: 2), warehouses_path, class: "sidebar-link" %>
 					<li class="sidebar-item">
-						<a data-bs-target="#multi-selling" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= t('selling')%></a>
+						<a data-bs-target="#multi-selling" data-bs-toggle="collapse" class="sidebar-link collapsed"><%= t('statuses')%></a>
 						<ul id="multi-selling" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('order_statuses') || 
 																											current_page_active?('payment_types') || 
 																											current_page_active?('delivery_types') || 
 																											current_page_active?('invoice_statuses') || 
-																											current_page_active?('return_statuses') %>" data-bs-parent="#lists">
+																											current_page_active?('return_statuses') || 
+																											current_page_active?('supply_statuses') ||
+																											current_page_active?('incase_statuses') || 
+																											current_page_active?('incase_tips') || 
+																											current_page_active?('incase_item_statuses') ||
+																											current_page_active?('enter_statuses') ||
+																											current_page_active?('loss_statuses') || 
+																											current_page_active?('stock_transfer_statuses') || 
+																											current_page_active?('inventory_statuses')%>" data-bs-parent="#lists">
 							<%= li_menu_link_to OrderStatus.model_name.human(count: 2), order_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to PaymentType.model_name.human(count: 2), payment_types_path, class: "sidebar-link" %>
 							<%= li_menu_link_to DeliveryType.model_name.human(count: 2), delivery_types_path, class: "sidebar-link" %>
 							<%= li_menu_link_to InvoiceStatus.model_name.human(count: 2), invoice_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to ReturnStatus.model_name.human(count: 2), return_statuses_path, class: "sidebar-link" %>
-						</ul>
-					</li>
-					<li class="sidebar-item">
-						<a data-bs-target="#multi-purchasing" data-bs-toggle="collapse" class="sidebar-link collapsed "><%= t('purchasing')%></a>
-						<ul id="multi-purchasing" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('supply_statuses') ||
-																											current_page_active?('incase_statuses') || 
-																											current_page_active?('incase_tips') || 
-																											current_page_active?('incase_item_statuses') %>" data-bs-parent="#lists">
 							<%= li_menu_link_to SupplyStatus.model_name.human(count: 2), supply_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to IncaseStatus.model_name.human(count: 2), incase_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to IncaseTip.model_name.human(count: 2), incase_tips_path, class: "sidebar-link" %>
 							<%= li_menu_link_to IncaseItemStatus.model_name.human(count: 2), incase_item_statuses_path, class: "sidebar-link" %>
-						</ul>
-					</li>
-					<li class="sidebar-item">
-						<a data-bs-target="#multi-inventory" data-bs-toggle="collapse" class="sidebar-link collapsed "><%= t('inventory')%></a>
-						<ul id="multi-inventory" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('enter_statuses') ||
-																											current_page_active?('loss_statuses') || 
-																											current_page_active?('stock_transfer_statuses') || 
-																											current_page_active?('inventory_statuses') %>" data-bs-parent="#lists">
 							<%= li_menu_link_to EnterStatus.model_name.human(count: 2), enter_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to LossStatus.model_name.human(count: 2), loss_statuses_path, class: "sidebar-link" %>
 							<%= li_menu_link_to StockTransferStatus.model_name.human(count: 2), stock_transfer_statuses_path, class: "sidebar-link" %>

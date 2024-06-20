@@ -2,6 +2,15 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
+  resources :stock_transfer_items
+  resources :stock_transfers do
+    resources :comments, module: :enters
+    collection do
+      get :slimselect_nested_item
+      get :new_nested
+      post :remove_nested
+    end
+  end
   resources :loss_items
   resources :losses do
     resources :comments, module: :enters

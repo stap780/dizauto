@@ -1,0 +1,11 @@
+<div class="col-3">
+    <%= f.label :origin_warehouse_id, class: "form-label" %>
+    <%= f.select :origin_warehouse_id, Warehouse.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
+</div>
+<div class="col-1 d-flex justify-content-center align-items-center fs-1 text-primary">
+    <i class="bi bi-arrow-right-square"></i>
+</div>
+<div class="col-3">
+    <%= f.label :destination_warehouse_id, class: "form-label" %>
+    <%= f.select :destination_warehouse_id, Warehouse.pluck(:title, :id), {include_blank: false}, {class: "form-select"}%>
+</div>

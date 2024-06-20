@@ -7,6 +7,18 @@ class EntersController < ApplicationController
     @search = Enter.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @enters = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = "enters.xlsx"
+    collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
+    respond_to do |format|
+      format.html
+      format.zip do
+        CreateZipXlsxJob.perform_later(collection.ids, {model: "Enter",
+                                                          current_user_id: current_user.id,
+                                                          filename: filename,
+                                                          template: "enters/index"})
+        flash[:success] = t ".success"
+        redirect_to losses_url
+      end
   end
 
   # GET /enters/1 or /enters/1.json
@@ -15,8 +27,17 @@ class EntersController < ApplicationController
 
   # GET /enters/new
   def new
-    @enter = Enter.new
-    @enter.enter_items.build
+    if params[:stock_transfer_id].present?
+      stock_transfer = StockTransfer.find(params[:stock_transfer_id])
+      @enter = Enter.new(manager_id: current_user.id, warehouse_id: stock_transfer.destination_warehouse_id, stock_transfer_id: params[:stock_transfer_id])
+      items = stock_transfer.stock_transfer_items
+      items.each do |inc|
+        @enter.enter_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+      end
+    else
+      @enter = Enter.new
+      @enter.enter_items.build
+    end
   end
 
   # GET /enters/1/edit
@@ -29,7 +50,7 @@ class EntersController < ApplicationController
 
     respond_to do |format|
       if @enter.save
-        format.html { redirect_to enters_url, notice: "Enter was successfully created." }
+        format.html { redirect_to enters_url, notice: t(".success") }
         format.json { render :show, status: :created, location: @enter }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -42,7 +63,7 @@ class EntersController < ApplicationController
   def update
     respond_to do |format|
       if @enter.update(enter_params)
-        format.html { redirect_to enters_url, notice: "Enter was successfully updated." }
+        format.html { redirect_to enters_url, notice: t(".success") }
         format.json { render :show, status: :ok, location: @enter }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -120,8 +141,8 @@ class EntersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def enter_params
-      params.require(:enter).permit(:enter_status_id, :title, :date, :warehouse_id, :manager_id,
-      enter_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
+      params.require(:enter).permit(:enter_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
+      enter_items_attributes: [:id, :product_id, :enter_id, :quantity, :price, :vat, :sum, :_destroy])
     end
     
 end

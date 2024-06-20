@@ -2,6 +2,7 @@ class Loss < ApplicationRecord
   audited
   belongs_to :loss_status
   belongs_to :warehouse
+  belongs_to :stock_transfer, optional: true
   belongs_to :manager, class_name: 'User', foreign_key: 'manager_id'
   has_many :loss_items, dependent: :destroy
   accepts_nested_attributes_for :loss_items, allow_destroy: true

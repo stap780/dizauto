@@ -7,6 +7,19 @@ class LossesController < ApplicationController
     @search = Loss.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @losses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = "losses.xlsx"
+    collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
+    respond_to do |format|
+      format.html
+      format.zip do
+        CreateZipXlsxJob.perform_later(collection.ids, {model: "Loss",
+                                                          current_user_id: current_user.id,
+                                                          filename: filename,
+                                                          template: "losses/index"})
+        flash[:success] = t ".success"
+        redirect_to losses_url
+      end
+    end
   end
 
   # GET /losses/1 or /losses/1.json
@@ -16,6 +29,17 @@ class LossesController < ApplicationController
   # GET /losses/new
   def new
     @loss = Loss.new
+    if params[:stock_transfer_id].present?
+      stock_transfer = StockTransfer.find(params[:stock_transfer_id])
+      @loss = Loss.new( manager_id: current_user.id, warehouse_id: stock_transfer.origin_warehouse_id, stock_transfer_id: params[:stock_transfer_id])
+      items = stock_transfer.stock_transfer_items
+      items.each do |inc|
+        @loss.loss_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+      end
+    else
+      @loss = Loss.new
+      @loss.loss_items.build
+    end
   end
 
   # GET /losses/1/edit
@@ -120,7 +144,7 @@ class LossesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loss_params
-      params.require(:loss).permit(:loss_status_id, :title, :date, :warehouse_id, :manager_id,
+      params.require(:loss).permit(:loss_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
       loss_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
     end
 end

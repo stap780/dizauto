@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Stock transfer items</h1>
+
+<div id="stock_transfer_items">
+  <% @stock_transfer_items.each do |stock_transfer_item| %>
+    <%= render stock_transfer_item %>
+    <p>
+      <%= link_to "Show this stock transfer item", stock_transfer_item %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New stock transfer item", new_stock_transfer_item_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_30_175300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -209,6 +209,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
     t.integer "manager_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stock_transfer_id"
     t.index ["enter_status_id"], name: "index_enters_on_enter_status_id"
     t.index ["warehouse_id"], name: "index_enters_on_warehouse_id"
   end
@@ -388,6 +389,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
     t.integer "manager_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "stock_transfer_id"
     t.index ["loss_status_id"], name: "index_losses_on_loss_status_id"
     t.index ["warehouse_id"], name: "index_losses_on_warehouse_id"
   end
@@ -564,12 +566,34 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
     t.index ["return_status_id"], name: "index_returns_on_return_status_id"
   end
 
+  create_table "stock_transfer_items", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "stock_transfer_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.integer "vat"
+    t.decimal "sum"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_stock_transfer_items_on_product_id"
+    t.index ["stock_transfer_id"], name: "index_stock_transfer_items_on_stock_transfer_id"
+  end
+
   create_table "stock_transfer_statuses", force: :cascade do |t|
     t.string "title"
     t.string "color"
     t.integer "position", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "stock_transfers", force: :cascade do |t|
+    t.bigint "stock_transfer_status_id", null: false
+    t.integer "origin_warehouse_id", null: false
+    t.integer "destination_warehouse_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stock_transfer_status_id"], name: "index_stock_transfers_on_stock_transfer_status_id"
   end
 
   create_table "supplies", force: :cascade do |t|
@@ -683,4 +707,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_27_121658) do
   add_foreign_key "returns", "companies"
   add_foreign_key "returns", "invoices"
   add_foreign_key "returns", "return_statuses"
+  add_foreign_key "stock_transfer_items", "products"
+  add_foreign_key "stock_transfer_items", "stock_transfers"
+  add_foreign_key "stock_transfers", "stock_transfer_statuses"
 end

@@ -23,4 +23,5 @@ class Property < ApplicationRecord
       throw(:abort)
     end
   end
+  
 end
