@@ -19,6 +19,7 @@ class EntersController < ApplicationController
         flash[:success] = t ".success"
         redirect_to losses_url
       end
+    end
   end
 
   # GET /enters/1 or /enters/1.json
