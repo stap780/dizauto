@@ -5,9 +5,11 @@
 
 <%= turbo_stream_from commentable, :comments %>
 <% if current_user&.admin? %>
-  <%= turbo_stream_from commentable, :comments, :admin  if current_user&.admin?%>
+  <span class="d-none">stream from admin</span>
+  <%= turbo_stream_from [commentable, :comments, "admin"]  if current_user&.admin?%>
 <% else %>
-  <%= turbo_stream_from commentable, :comments, current_user&.to_gid_param %>
+  <span class="d-none">stream from user</span>
+  <%= turbo_stream_from [commentable, :comments, current_user&.to_gid_param] %>
 <% end %>
 <%= turbo_frame_tag dom_id(commentable,dom_id(Comment.new)) %>
 <div class="col-10 row my-3">
@@ -18,7 +20,7 @@
 </div>
 <%= turbo_frame_tag commentable, :comments, class: "col-10 row my-3" do %>
   <% commentable.comments.order(created_at: :asc).each do |comment| %>
-    <%= render partial: "comments/comment", locals: {commentable: commentable, comment: comment, admin: current_user.admin?, user: current_user == comment.user } %>
+    <%= render partial: "comments/comment", locals: { commentable: commentable, comment: comment, admin: current_user.admin?, user: comment.user == current_user } %>
   <% end %>
 <% end %>
 

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product: one
+  user: one
+  stockable: one
+  stockable_type: Stockable
+  move: MyString
+  value: 1
+
+two:
+  product: two
+  user: two
+  stockable: two
+  stockable_type: Stockable
+  move: MyString
+  value: 1

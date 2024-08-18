@@ -1,4 +1,4 @@
-<div class="col-2 mb-2">
+<div class="col-2 my-3">
     <%= link_to add_icon, new_nested_supplies_path, class: "btn btn-primary", data: { turbo_stream: true } %>
 </div>
 
@@ -7,13 +7,13 @@
         <%= tag.div(t('helpers.label.supply_item.product_id'), class: 'col-7 fw-semibold')%> 
         <%= tag.div( t('helpers.label.supply_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.supply_item.price'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.order_item.nds'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t('helpers.label.supply_item.nds'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.supply_item.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col fw-semibold')%>
     </div>
     <%= turbo_frame_tag supply, :supply_items, class: "container" do %>
         <%= f.fields_for :supply_items do |ff| %>
-            <%= render "supply_items/form_data", f: ff, product: nil, our_dom_id: dom_id(supply, dom_id(ff.object)), warehouse_id: supply.warehouse_id %>
+            <%= render "supply_items/form_data", f: ff, product: nil, warehouse_id: supply.warehouse_id %>
         <% end %>
     <% end %>
 

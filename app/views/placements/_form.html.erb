@@ -19,7 +19,8 @@
             </div>
             <div class="row my-3">
               <div class="col-2">
-                <%= link_to add_icon, new_nested_placements_path(warehouse_id: params[:warehouse_id]), class: "btn btn-primary float-start", data: { turbo_stream: true } %>
+                <%= link_to add_icon, new_nested_placements_path(warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id), 
+                                      class: "btn btn-primary float-start", data: { turbo_stream: true } %>
               </div>
             </div>
             <div class="row py-2 px-0">
@@ -29,14 +30,14 @@
                 <%= tag.div( t('helpers.label.location.comment'), class: 'col-3 fw-semibold' )%>
                 <%= tag.div('', class: 'col fw-semibold')%>
             </div>
-              <%= turbo_frame_tag placement, :locations, class: "container" do %>
+              <%= turbo_frame_tag :locations, :placement, class: "container" do %>
                 <%= f.fields_for :locations do |ff| %>
-                  <%= render "locations/form_data", f: ff, product: nil, our_dom_id: dom_id(placement, dom_id(ff.object)), warehouse_id: params[:warehouse_id] %>
+                  <%= render "locations/form_data", f: ff, product: nil, warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id %>
                 <% end %>
               <% end %>
           </div>
           <div class="card-footer">
-            <%= f.submit class: "btn btn-primary", data: {turbo_frame: "_top"} %>
+            <%= f.submit t('save'),class: "btn btn-primary", data: {turbo_frame: "_top"} %>
             <%= link_to t('back'), :back, class: "btn btn-outline-primary", data: {turbo_frame: "_top"} %>
           </div>
         </div>

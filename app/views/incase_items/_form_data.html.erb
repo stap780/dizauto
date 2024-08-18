@@ -1,4 +1,4 @@
-<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i : child_index %>
+<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i+f.index : child_index %>
 <%= turbo_frame_tag "incase_item_#{ f.object.persisted? ? f.object.id : child_index}", 
                     class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
     <%# f.hidden_field :incase_id %>

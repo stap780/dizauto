@@ -17,6 +17,9 @@ class Product < ApplicationRecord
   has_many :supply_items
   has_many :supplies, through: :supply_items
 
+  has_many :stocks
+  accepts_nested_attributes_for :stocks, allow_destroy: true
+
   has_many :locations, dependent: :destroy
   has_many :placements, through: :locations
 
@@ -31,7 +34,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true
 
   has_associated_audits
-  after_initialize :set_default_new
+  after_initialize :set_default_new, if: :new_record?
   before_save :normalize_data_white_space
   after_commit :create_barcode, on: :create
   before_destroy :check_relations_present, prepend: true
@@ -183,7 +186,7 @@ class Product < ApplicationRecord
   private
 
   def set_default_new
-    self.quantity = 0 if quantity.nil?
+    self.quantity = self.stocks.present? ? self.stocks.amount : 0
     self.price = 0 if price.nil?
   end
 

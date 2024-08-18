@@ -12,9 +12,9 @@
         <%= tag.div( t('helpers.label.return_item.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col fw-semibold')%>
     </div>
-    <%= turbo_frame_tag 'return_items', class: "container" do %>
+    <%= turbo_frame_tag :return_items, :return, class: "container" do %>
         <%= f.fields_for :return_items do |item| %>
-            <%= render "return_items/form_data", f: item, product: nil%>
+            <%= render "return_items/form_data", f: item, product: nil %>
         <% end %>
     <% end %>
     <div class="row">

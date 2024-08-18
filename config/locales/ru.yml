@@ -21,7 +21,6 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 ru:
   trigger_actions:
     incase_status_id#incase: "сменить статус убытка"
@@ -69,6 +68,7 @@ ru:
         created_at: "дата создания"
         audited_changes: "изменения"
         before: "до"
+        version: "версия"
       client:  &client
         surname: "фамилия"
         name: "имя"
@@ -100,6 +100,16 @@ ru:
         work_time: "время работы"
         created_at: "время создания"
         file_data: "данные по файлу"
+      location:
+        product_id: "товар"
+        place_id: "место"
+        comment: "комментарий"
+      loss:
+        loss_status_id: "статус"
+        date: "дата"
+        title: "название"
+        warehouse_id: "склад"
+        sum: "сумма"
       loss_status:
         title: "название"
         color: "цвет"
@@ -192,10 +202,11 @@ ru:
         product_id: "товар"
         quantity: "кол-во"
         price: "цена" 
-        discount: "Скидка"
+        discount: "скидка"
         sum: "сумма"
         order_id: "id заказа"
         product: "товар"
+        nds: "ндс"
       okrug:
         title: "название"
       supply:
@@ -424,18 +435,6 @@ ru:
           has_one: 'Невозможно удалить запись, так как существует зависимость: %{record}'
           has_many: 'Невозможно удалить запись, так как существуют зависимости: %{record}'
       template:
-  audited:
-    ui:
-      audits:
-        index:
-          actions:
-            create: Creación
-            update: Actualización
-          after: после
-          attribute: Атирибут
-          before: до
-          empty: No hay registros de auditoría aún.
-          system: Sistema
   companies: &model_system_flash
     create:
       success: создали!
@@ -448,6 +447,8 @@ ru:
     remove_nested:
       success: удалили!
   clients:
+    <<: *model_system_flash
+  comments:
     <<: *model_system_flash
   detal_props:
     <<: *model_system_flash
@@ -475,6 +476,8 @@ ru:
     <<: *model_system_flash
   orders:
     <<: *model_system_flash
+    comments:
+      <<: *model_system_flash
   order_statuses:
     <<: *model_system_flash
   products:
@@ -517,9 +520,17 @@ ru:
         <<: *company
       characteristic:
         title: "название значения"
+      enter:
+        enter_status_id: "статус"
+        date: "дата"
+        title: "название"
+        warehouse_id: "склад"
+        sum: "сумма"
       enter_status:
         title: "название"
         color: "цвет"
+      enter_item:
+        <<: *nested_item
       export:
         <<: *export
       incase:
@@ -552,13 +563,19 @@ ru:
         title: "название"
         color: "цвет"
       invoice_item:
+        <<: *nested_item
+      location:
         product_id: "товар"
-        quantity: "кол-во"
-        price: "цена" 
-        discount: "скидка"
+        place_id: "место"
+        comment: "комментарий"
+      loss:
+        loss_status_id: "статус"
+        date: "дата"
+        title: "название"
+        warehouse_id: "склад"
         sum: "сумма"
-        invoice_id: "id накладной"
-        product: "товар"
+      loss_item:
+        <<: *nested_item
       notification:
         message: "сообщение"
         created_at: "дата создания"
@@ -585,6 +602,8 @@ ru:
         created_at: "дата создания"
         warehouse_id: "склад"
         items_quantity: "кол-во позиций"
+      return_item:
+        <<: *nested_item
       stock_transfer:
         <<: *stock_transfer
       stock_transfer_item:
@@ -903,4 +922,13 @@ ru:
           title:
             all: Auditing everything
             auditable: история
+          actions:
+            create: создали
+            update: обновили
+          after: после
+          attribute: атрибут
+          before: до
+          empty: No hay registros de auditoría aún.
+          system: система
+
 

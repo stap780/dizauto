@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
+  before_action :set_current_user
+
 
   rescue_from CanCan::AccessDenied do |exception|
     puts "CanCan::AccessDenied message => " + exception.message.to_s
@@ -43,10 +45,15 @@ class ApplicationController < ActionController::Base
     super
   end
 
+  def set_current_user
+    User.current = current_user
+  end
+
   protected
 
   def configure_permitted_parameters
-    attributes = [:email] #[:name, :email]
+    attributes = [:name, :email]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
   end
+
 end

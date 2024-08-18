@@ -29,7 +29,7 @@ class ReturnsController < ApplicationController
   # GET /returns/new
   def new
     if params[:invoice_id].present?
-    invoice = Invoice.find(params[:invoice_id])
+      invoice = Invoice.find(params[:invoice_id])
       @return = Return.new(company_id: invoice.company_id, client_id: invoice.client_id)
       items = invoice.invoice_items
       items.each do |inc|

@@ -13,13 +13,13 @@
         <div class="col-6 fst-italic">Sku: <%= product.sku %></div>
         <div class="col-6 fst-italic">barcode: <%= product.barcode %></div>
     <% end %>
-    <%= tag.div( product.quantity, class: "col-md-1" ) %>
+    <%= tag.div( product.stocks.amount, class: "col-md-1" ) %>
     <%= tag.div( product.price, class: "col-md-1" ) %>
     <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=product.id%>">
-        <%= link_to '<i class="bi bi-upc"></i>'.html_safe, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: "Print barcode?"}, title: 'Print barcode' %>
-        <%= link_to '<i class="bi bi-copy"></i>'.html_safe, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: 'Copy product' %>
+        <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: "Print barcode?"}, title: 'Print barcode' %>
+        <%= link_to copy_icon, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: 'Copy product' %>
         <%= render 'shared/edit_delete_link', object: product %>
     </div>
 <% end %>

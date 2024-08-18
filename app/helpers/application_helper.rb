@@ -136,6 +136,14 @@ module ApplicationHelper
     '<i class="bi bi-x"></i>'.html_safe
   end
 
+  def copy_icon
+    '<i class="bi bi-copy"></i>'.html_safe
+  end
+
+  def barcode_icon
+    '<i class="bi bi-upc"></i>'.html_safe
+  end
+
   def caret_left_icon
     '<i class="bi bi-caret-left"></i>'.html_safe
   end

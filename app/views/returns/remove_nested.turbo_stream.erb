@@ -1,0 +1,5 @@
+<%= turbo_stream.remove @remove_element %>
+<%= prepend_flash %>
+<%= turbo_stream.append "return_items" do %>
+    <%= tag.a 'recalculate_after_remove', id: 'recalculate_after_remove', class: 'd-none', href: '#', data: {controller: "autoclick", action: "click->calculate#recalculate", turbo_cache: false}%>
+<% end %>

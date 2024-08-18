@@ -10,6 +10,7 @@ class Enter < ApplicationRecord
   after_initialize :add_default
   before_save :normalize_data_white_space
 
+
   validates :title, presence: true
   validates :date, presence: true
 

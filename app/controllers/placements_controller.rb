@@ -21,7 +21,7 @@ class PlacementsController < ApplicationController
 
   # GET /placements/1/edit
   def edit
-    @places = Warehouse.find_by_id(@placement.warehouse_id).places.map{|p| [p.full_title, p.id]}
+    # @places = Warehouse.find_by_id(@placement.warehouse_id).places.map{|p| [p.full_title, p.id]}
   end
 
   # POST /placements or /placements.json

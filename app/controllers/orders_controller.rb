@@ -35,8 +35,6 @@ class OrdersController < ApplicationController
   # GET /orders/1/edit
   def edit
     @commentable = @order
-    # @comment = @commentable.comments.build
-    # @comments = @order.comments.order(created_at: :desc)
   end
 
   # POST /orders or /orders.json
@@ -145,9 +143,8 @@ class OrdersController < ApplicationController
 
   private
 
-  def set_commentable
-    @commentable = Order.find(params[:order_id])
-  end
+  # @commentable - as separate folder controllers/orders/comments_controller.rb
+
   # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])

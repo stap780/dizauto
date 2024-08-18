@@ -1,4 +1,6 @@
-<%= turbo_frame_tag our_dom_id, class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>    
+<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i+f.index : child_index %>
+<%= turbo_frame_tag "location_#{ f.object.persisted? ? f.object.id : child_index}", 
+                    class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>    
     <div class = "col-1">
       <%= f.text_field :id, class: "form-control disabled", readonly: true %>
     </div>
@@ -13,13 +15,15 @@
 
     </div>
     <div class="col-3">
-      <%= f.select :place_id, @places, {include_blank: true}, {class: "form-select"} %>
+      <%= f.select :place_id, Warehouse.find_by_id(warehouse_id).places.map{|p| [p.full_title, p.id]}, { include_blank: true }, { class: "form-select" } %>
     </div>
     <div class="col-3">
         <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
             <%= render partial: 'comments/form_data', locals: {f: comment}%>
         <% end %>
     </div>
-    <div class = "col-1">
+    <div class="col p-0 d-flex justify-content-center">
+        <%= link_to trash_icon, remove_nested_placements_path( location_id: f.object.id, remove_element: "location_#{ f.object.persisted? ? f.object.id : child_index}" ),
+                                class: "px-2", data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
     </div>
 <% end %>

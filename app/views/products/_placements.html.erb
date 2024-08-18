@@ -9,6 +9,6 @@
         <%= tag.div( location.created_at.strftime("%d/%m/%Y"), class: "col-3")%>
         <%= tag.div( location.place.warehouse.title, class: "col-3")%>
         <%= tag.div( location.place.full_title, class: "col-3")%>
-        <%= tag.div( location.comments.first.body, class: "col-3")%>
+        <%= tag.div( location.comments.first.body, class: "col-3") if location.comments.first.present? %>
     <% end %>
 <% end if !f.object.new_record? %>

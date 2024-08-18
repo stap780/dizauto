@@ -12,7 +12,7 @@
         <%= tag.div( t('helpers.label.loss_item.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col fw-semibold')%>
     </div>
-    <%= turbo_frame_tag 'loss_items', class: "container" do %>
+    <%= turbo_frame_tag :loss_items, :loss, class: "container" do %>
         <%= f.fields_for :loss_items do |item| %>
             <%= render "loss_items/form_data", f: item, product: nil%>
         <% end %>

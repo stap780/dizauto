@@ -1,6 +1,5 @@
 class Invoice < ApplicationRecord
     audited
-    
     has_many :invoice_items, dependent: :destroy
     accepts_nested_attributes_for :invoice_items, allow_destroy: true
     belongs_to :company, optional: true
@@ -21,5 +20,5 @@ class Invoice < ApplicationRecord
         self[key] = value.squish if value.respond_to?(:squish)
       end
     end
-
+  
 end

@@ -1,4 +1,6 @@
-<%= turbo_frame_tag our_dom_id, class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
+<% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i+f.index : child_index %>
+<%= turbo_frame_tag "supply_item_#{ f.object.persisted? ? f.object.id : child_index}", 
+    class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>
 
     <% start_product_id = f.object.product_id if f.object.present? %>
     <% product_id = product.present? ? product.id : start_product_id %>
@@ -38,7 +40,7 @@
     <% end %>
 
     <div class="col p-0 d-flex justify-content-center">
-        <%= link_to trash_icon, remove_nested_supplies_path( supply_item_id: f.object.id, remove_element: our_dom_id ),
+        <%= link_to trash_icon, remove_nested_supplies_path( supply_item_id: f.object.id, remove_element: "supply_item_#{ f.object.persisted? ? f.object.id : child_index}" ),
                                 class: "px-2", data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
     </div>
 <% end %>

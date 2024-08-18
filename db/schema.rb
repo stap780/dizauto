@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_175300) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_08_120010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -596,6 +596,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_175300) do
     t.index ["stock_transfer_status_id"], name: "index_stock_transfers_on_stock_transfer_status_id"
   end
 
+  create_table "stocks", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "user_id", null: false
+    t.string "stockable_type", null: false
+    t.bigint "stockable_id", null: false
+    t.string "move"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_stocks_on_product_id"
+    t.index ["stockable_type", "stockable_id"], name: "index_stocks_on_stockable"
+    t.index ["user_id"], name: "index_stocks_on_user_id"
+  end
+
   create_table "supplies", force: :cascade do |t|
     t.integer "company_id"
     t.datetime "created_at", null: false
@@ -710,4 +724,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_175300) do
   add_foreign_key "stock_transfer_items", "products"
   add_foreign_key "stock_transfer_items", "stock_transfers"
   add_foreign_key "stock_transfers", "stock_transfer_statuses"
+  add_foreign_key "stocks", "products"
+  add_foreign_key "stocks", "users"
 end
