@@ -1,14 +1,70 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Stocks</h1>
-
-<div id="stocks">
-  <% @stocks.each do |stock| %>
-    <%= render stock %>
-    <p>
-      <%= link_to "Show this stock", stock %>
-    </p>
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Stock.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+  <% if Templ.product_print.presence %>
+    <%= button_print %>
+    <ul class="dropdown-menu">
+    <%= form_with url: bulk_print_products_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% Templ.product_print.each do |templ|%>
+        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+          <%= templ.title %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
   <% end %>
+
+
+    <%= render 'shared/index_filter' if lookup_context.find_all("products/_filter").any? %>
+    <%= link_to arrow_clockwise_icon, products_path, class: 'btn btn-outline-primary me-2' %>
+    <%# link_to add_icon, new_product_path, class: "btn btn-primary" %>
+  </div>
 </div>
 
-<%= link_to "New stock", new_stock_path %>
+<%= render 'filter', q: @search, title: 'products filter' if lookup_context.find_all("products/_filter").any?%>
+
+<div class="card">
+  <div class="card-header pb-0">
+    <div class="card-actions float-end">
+      <div class="dropdown position-relative">
+        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+          <%= more_icon%>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end">
+          <%= link_to '.xlsx', stocks_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
+        </div>
+      </div>
+    </div>
+    <h5 class="card-title mb-0"></h5>
+  </div>
+  <div class="card-body">
+    <div id="datatables-stocks_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+      <div class="row">
+        <div class="col-sm-12 table-responsive">
+          <table id="datatables-stocks" class="table table-striped" data-controller="selectall">
+            <thead>
+              <tr>
+                <%= th_check_box_tag_all %>
+                <%= tag.th('#')%>
+                <%= tag.th(t('helpers.label.stock.title'))%>
+                <%= tag.th(t('helpers.label.stock.plus'))%>
+                <%= tag.th(t('helpers.label.stock.minus'))%>
+                <%= tag.th(t('helpers.label.stock.amount'))%>
+              </tr>
+            </thead>
+            <tbody>
+              <%# render @stocks %>
+              <% @stocks.each do |product| %>
+                <%= render partial: "stocks/stock", locals: {product: product} %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      
+      <%= render "shared/paginate", f: @stocks %>
+    </div>
+  </div>
+</div>

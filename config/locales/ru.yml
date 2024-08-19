@@ -361,6 +361,9 @@ ru:
       return_status:
         one: "статус возврата"
         other: "статусы возврата"
+      stock:
+        one: "остаток"
+        other: "остатки"
       stock_transfer:
         one: "перемещение"
         other: "перемещения"

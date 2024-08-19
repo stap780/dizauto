@@ -1,9 +1,28 @@
 class StocksController < ApplicationController
+  load_and_authorize_resource
   before_action :set_stock, only: %i[ show edit update destroy ]
 
   # GET /stocks or /stocks.json
   def index
-    @stocks = Stock.all
+    products_with_stocks = Stock.group(:product_id).count
+    products_with_stocks_ids = products_with_stocks.keys
+    # @search = Stock.includes(:product).ransack(params[:q])
+    @search = Product.where(id: products_with_stocks_ids).ransack(params[:q])
+    # @search.sorts = "id desc" if @search.sorts.empty?
+    @stocks = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+    filename = "stocks.xlsx"
+    collection = @search.present? ? @search.result(distinct: true) : @stocks
+    respond_to do |format|
+      format.html
+      format.zip do
+        CreateZipXlsxJob.perform_later(collection.ids, {model: "Stock",
+                                                          current_user_id: current_user.id,
+                                                          filename: filename,
+                                                          template: "stocks/index"})
+        flash[:success] = t ".success"
+        redirect_to stocks_path
+      end
+    end
   end
 
   # GET /stocks/1 or /stocks/1.json

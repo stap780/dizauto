@@ -37,7 +37,7 @@
         <div class="dropdown-menu dropdown-menu-end">
           <%#OLD IMPORT link_to 'Импорт'.html_safe, file_import_incases_path, class: 'dropdown-item', data: {turbo_frame: "modal"} %>
           <%= link_to 'Импорт'.html_safe, incase_imports_path, class: 'dropdown-item'%>
-          <%= link_to '.xlsx', incases_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+          <%= link_to '.xlsx', incases_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>

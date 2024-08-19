@@ -33,14 +33,14 @@
           <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%= link_to '.xlsx', supplies_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+          <%= link_to '.xlsx', supplies_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>
     <h5 class="card-title mb-0">Всего: <%= Supply.all.count %></br><%= "Выбрано: "+@supplies.total_entries.to_s if @supplies.size > 0 &&  @supplies.size != Supply.all.count %></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-isupplies_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+    <div id="datatables-supplies_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
       <div class="row">
         <div class="col-sm-12 table-responsive">
           <table id="datatables-supplies" class="table table-striped" data-controller="selectall">
@@ -55,7 +55,7 @@
                 <%= tag.th('')%>
                 <%= tag.th(t('helpers.label.supply.manager_id'))%>
                 <%= tag.th(t('helpers.label.supply.sum'))%>
-                <th></th>
+                <%= tag.th('')%>
               </tr>
             </thead>
             <tbody>

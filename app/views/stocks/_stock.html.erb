@@ -1,27 +1,9 @@
-<div id="<%= dom_id stock %>">
-  <p>
-    <strong>Product:</strong>
-    <%= stock.product_id %>
-  </p>
-
-  <p>
-    <strong>User:</strong>
-    <%= stock.user_id %>
-  </p>
-
-  <p>
-    <strong>Stockable:</strong>
-    <%= stock.stockable_id %>
-  </p>
-
-  <p>
-    <strong>Move:</strong>
-    <%= stock.move %>
-  </p>
-
-  <p>
-    <strong>Value:</strong>
-    <%= stock.value %>
-  </p>
-
-</div>
+<tr id="<%= dom_id product %>">
+  <td><%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
+  <%= tag.td tag.b(product.id) %>
+  <%= tag.td(product.title) %>
+  <%= tag.td(product.stocks.plus) %>
+  <%= tag.td(product.stocks.minus) %>
+  <%= tag.td(product.stocks.amount) %>
+  <%# td_index_edit_delete_link(product)%>
+</tr>

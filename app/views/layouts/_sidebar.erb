@@ -81,12 +81,14 @@
 																								current_page_active?('placements') ||
 																								current_page_active?('enters') ||
 																								current_page_active?('losses') ||
-																								current_page_active?('stock_transfers') %>" data-bs-parent="#sidebar">
+																								current_page_active?('stock_transfers') ||
+																								current_page_active?('stocks') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Product.model_name.human(count: 2), products_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Placement.model_name.human(count: 2), placements_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Enter.model_name.human(count: 2), enters_path, class: "sidebar-link" %>
 					<%= li_menu_link_to Loss.model_name.human(count: 2), losses_path, class: "sidebar-link" %>
 					<%= li_menu_link_to StockTransfer.model_name.human(count: 2), stock_transfers_path, class: "sidebar-link" %>
+					<%= li_menu_link_to Stock.model_name.human(count: 2), stocks_path, class: "sidebar-link" %>
 				</ul>
 			</li>
 			<li class="sidebar-item">

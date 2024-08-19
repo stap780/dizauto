@@ -33,7 +33,7 @@
           <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%= link_to '.xlsx', incase_imports_path(request.parameters.merge(format: 'zip')), class:"dropdown-item" %>
+          <%= link_to '.xlsx', incase_imports_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>

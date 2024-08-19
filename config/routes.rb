@@ -2,7 +2,11 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
-  resources :stocks
+  resources :stocks do
+    collection do
+      post :bulk_print
+    end
+  end
   resources :stock_transfer_items
   resources :stock_transfers do
     resources :comments, module: :stock_transfers

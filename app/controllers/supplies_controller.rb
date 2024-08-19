@@ -9,7 +9,7 @@ class SuppliesController < ApplicationController
     @search.sorts = "id desc" if @search.sorts.empty?
     @supplies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     filename = "supplies.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @incases
+    collection = @search.present? ? @search.result(distinct: true) : @supplies
     respond_to do |format|
       format.html
       format.zip do
