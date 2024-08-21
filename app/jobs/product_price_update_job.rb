@@ -6,7 +6,7 @@ class ProductPriceUpdateJob < ApplicationJob
 
     success, message = Product::PriceUpdate.new( products, {price_type: price_type, price_move: price_move, price_shift: price_shift, price_points: price_points} ).call
     if success
-      PrintNotifier.with(
+      PriceUpdateNotifier.with(
                         record: products.first, 
                         message: "Success",
                         blob: nil,
@@ -23,9 +23,9 @@ class ProductPriceUpdateJob < ApplicationJob
         locals: {bulk_print: nil, message: message }
       )
     else
-      PrintNotifier.with(
+      PriceUpdateNotifier.with(
                         record: products.first, 
-                        message: "Error.",
+                        message: "Error",
                         blob: nil,
                         error: message,
                         model: 'Product'
