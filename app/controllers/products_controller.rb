@@ -4,7 +4,6 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
   before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image reorder_image update_image]
 
-  # GET /products or /products.json
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
@@ -41,28 +40,27 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1 or /products/1.json
   def show
+    respond_to do |format|
+      format.html { redirect_to edit_product_path(@product) }
+    end
   end
 
-  # GET /products/new
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
   def edit
     @product.images.includes([:file_attachment, :file_blob])
     @props = @product.props
   end
 
-  # POST /products or /products.json
   def create
     check_positions(params[:product][:images_attributes])
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
-        format.html { redirect_to products_path, notice: "Product was successfully created." }
+        format.html { redirect_to products_path, notice: t(".success") }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -86,15 +84,6 @@ class ProductsController < ApplicationController
   end
 
   def print_etiketki # post
-    # if params[:product_ids]
-    #   ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
-    #   respond_to do |format|
-    #     format.turbo_stream
-    #   end
-    # else
-    #   notice = "Выберите товары"
-    #   redirect_to products_url, alert: notice
-    # end
     if params[:product_ids]
       ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
       render turbo_stream: 
@@ -108,13 +97,12 @@ class ProductsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /products/1 or /products/1.json
   def update
     # @product.images.update_all(position: 0)
     check_positions(params[:product][:images_attributes])
     respond_to do |format|
       if @product.update(product_params)
-        format.html { redirect_to products_path, notice: "Product was successfully updated." }
+        format.html { redirect_to products_path, notice: t(".success") }
         format.json { render :show, status: :ok, location: @product }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -146,15 +134,38 @@ class ProductsController < ApplicationController
     end
   end
 
-  # DELETE /products/1 or /products/1.json
-  def destroy
-    # @product.destroy
-    # respond_to do |format|
-    #   format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
-    #   format.json { head :no_content }
-    #   format.turbo_stream { flash.now[:success] = t(".success") }
-    # end
+	def price_edit
+    if params[:product_ids]
+      @products = Product.where(id: params[:product_ids])
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      notice = "Выберите позиции"
+      redirect_to products_url, alert: notice
+    end
+  end
 
+	def price_update
+    if params[:product_ids]
+      price_type = params[:product_price][:price_type]
+      price_move = params[:product_price][:price_move]
+      price_shift = params[:product_price][:price_shift]
+      price_points = params[:product_price][:price_points]
+
+      ProductPriceUpdateJob.perform_later(params[:product_ids],price_type, price_move, price_shift, price_points, current_user.id)
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          partial: "shared/pending_bulk_text"
+        )
+    else
+      notice = "Выберите товары"
+      redirect_to products_url, alert: notice
+    end
+	end
+
+  def destroy
     @check_destroy = @product.destroy ? true : false
     message = if @check_destroy == true
       flash.now[:success] = t(".success")
@@ -179,12 +190,10 @@ class ProductsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_product
     @product = Product.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def product_params
     params.require(:product).permit(:status, :tip, :sku, :barcode, :title, :description, :quantity, :costprice, :price, :video,
       props_attributes: [:id, :product_id, :property_id, :characteristic_id, :_destroy],

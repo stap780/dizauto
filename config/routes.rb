@@ -267,6 +267,8 @@ Rails.application.routes.draw do
       post :print_etiketki
       get :pending_etiketki
       get :success_etiketki
+      post :price_edit
+      post :price_update
     end
     resources :props do
       collection do

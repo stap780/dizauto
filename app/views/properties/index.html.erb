@@ -1,7 +1,12 @@
-<%= link_to "<i data-feather='plus'></i> #{Property.model_name.human}".html_safe, new_property_path, class: "btn btn-primary float-end mt-n1" %>
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= Property.model_name.human(count: 2)%></h1>
+<div class="row index-head mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= Property.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to add_icon, new_property_path, class: "btn btn-primary" %>
+  </div>
 </div>
+
 
 <div class="card">
   <div class="card-header pb-0">

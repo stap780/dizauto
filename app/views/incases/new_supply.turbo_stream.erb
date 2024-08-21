@@ -1,23 +1,23 @@
 <%= turbo_stream.update "modal", '' %>
 <%= turbo_stream.update "modal" do %>
-        <%# link_to 'Создать поступление'.html_safe, new_supply_path(incase: @incase), class: 'btn btn-primary', data: {turbo_frame: "_top"} %>
+    <%# link_to 'Создать поступление'.html_safe, new_supply_path(incase: @incase), class: 'btn btn-primary', data: {turbo_frame: "_top"} %>
 
-        <%= form_with( url: new_supply_path, method: :get, data: {turbo_frame: "_top"}) do |f| %>
-            <%= hidden_field_tag 'incase_id', @incase.id %>
-            <div class="col-12 mb-3" data-controller="checkbox">
-                <div class="h5 pb-3">Выберите статус позиции товара если это необходимо</div>
-                <% IncaseItemStatus.order(:position).each do |status| %>
-                    <div class="form-check form-check-inline">
-                        <%= label_tag :incase_item_status_id, class: 'form-check-label' do %>
-                            <%= check_box_tag :incase_item_status_id, status.id , class: 'form-check-input', 
-                                data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%><%= status.title%>
-                        <% end %>
-                    </div>
-                <% end %>
-            </div>
-            <div class="col-12 p-3">
-                <%= f.submit 'Создать', class: "btn btn-primary" %>
-            </div>
-        <% end %>
+    <%= form_with( url: new_supply_path, method: :get, data: {turbo_frame: "_top"}) do |f| %>
+        <%= hidden_field_tag 'incase_id', @incase.id %>
+        <div class="col-12 mb-3" data-controller="checkbox">
+            <div class="h5 pb-3">Выберите статус позиции товара если это необходимо</div>
+            <% IncaseItemStatus.order(:position).each do |status| %>
+                <div class="form-check form-check-inline">
+                    <%= label_tag :incase_item_status_id, class: 'form-check-label' do %>
+                        <%= check_box_tag :incase_item_status_id, status.id , class: 'form-check-input', 
+                            data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%><%= status.title%>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+        <div class="col-12 p-3">
+            <%= f.submit 'Создать', class: "btn btn-primary" %>
+        </div>
+    <% end %>
 <% end %>
 <%= turbo_stream_action_tag :open_modal, targets: '.modal' %>

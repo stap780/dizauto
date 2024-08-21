@@ -3,7 +3,7 @@ class CreateEtiketka < ApplicationService
     @products = products
     @save_dir = "#{Rails.public_path}/barcodepdfs"
     @result_file_path = "#{@save_dir}/barcodes.pdf"
-    @error_message = "We have error while etiketka create"
+    @error_message = "We have error while create etiketka"
     @multi_pdf = CombinePDF.new
   end
 

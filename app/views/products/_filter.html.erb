@@ -42,6 +42,10 @@
             <div class="label"><%= t('created_at') %></div>
             <%= f.search_field :created_at_datebegin, type: :date , placeholder: 'создан от', class: "form-control", autocomplete: "off" %>
           </div>
+          <div class="col-md-6">
+            <%= f.label :status_eq %>
+            <%= f.select :status_eq, Product::Status, { :prompt => ''}, class: "form-select input-sm" %>
+          </div>
 
 
         </div>

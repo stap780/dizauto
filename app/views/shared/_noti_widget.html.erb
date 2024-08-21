@@ -22,6 +22,6 @@
         <% end %>   
     </div>
     <div class="dropdown-menu-footer">
-        <a href="/notifications" class="text-muted">Show all notifications</a>
+        <%= link_to t(:all_notifications), '/notifications', class: 'text-muted', data: {turbo_prefetch: false} %>
     </div>
 </div>

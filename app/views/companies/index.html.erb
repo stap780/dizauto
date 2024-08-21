@@ -4,10 +4,9 @@
     <h1 class="h3 d-inline align-middle"><%= Company.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-
     <%= render 'shared/index_filter' if lookup_context.find_all("companies/_filter").any? %>
-    <%= link_to "<i class='bi bi-arrow-clockwise'></i>".html_safe, companies_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i class='bi bi-plus'></i> #{Company.model_name.human}".html_safe, new_company_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise_icon, companies_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_company_path, class: "btn btn-primary" %>
   </div>
 </div>
 

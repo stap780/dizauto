@@ -1,0 +1,24 @@
+<%= turbo_stream.update "modal", '' %>
+<%= turbo_stream.update "modal" do %>
+    <%= form_with( url: price_update_products_path, method: :post, data: {turbo_frame: "_top"}) do |f| %>
+        <%@products.each do |pr|%>
+            <%= hidden_field_tag "product_ids[]", pr.id %>
+        <% end %>
+        <div class="col-12 mb-3" data-controller="checkbox">
+            <div class="h5 pb-3">Обновление цен</div>
+            <%= fields_for :product_price do |f| %>
+                <div class="input-group">
+                <%= f.select :price_type, [['Цена продажи','price']], {:include_blank => false}, {class: "form-control"} %>
+                <%= f.select :price_move, [['+','plus'], ['-','minus']], {:include_blank => false}, {class: "form-select"} %>
+                <%= f.text_field :price_shift, {type: "number", class: "form-control"} %>
+                <%= f.select :price_points, [['%','percents'], ['ед.','fixed']], {:include_blank => false}, {class: "form-select"} %>
+                </div>
+            <% end %>
+        </div>
+        <div class="col-12 py-3">
+            <%= f.submit t('update'), class: "btn btn-primary" %>
+        </div>
+    <% end %>
+<% end %>
+<%= turbo_stream_action_tag :set_unchecked, targets: '.checkboxes' %>
+<%= turbo_stream_action_tag :open_modal, targets: '.modal' %>

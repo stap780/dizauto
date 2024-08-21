@@ -120,6 +120,10 @@ module ApplicationHelper
     '<i class="bi bi-search"></i></span>'.html_safe
   end
 
+  def arrow_down_up_icon
+    '<i class="bi bi-arrow-down-up"></i>'.html_safe
+  end
+
   def check_circle
     '<i class="bi bi-check-circle"></i>'.html_safe
   end
@@ -148,7 +152,7 @@ module ApplicationHelper
     '<i class="bi bi-caret-left"></i>'.html_safe
   end
 
-  def slider_vertical
+  def slider_vertical_icon
     '<i class="bi bi-sliders2-vertical"></i>'.html_safe
   end
 

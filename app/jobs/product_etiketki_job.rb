@@ -21,7 +21,7 @@ class ProductEtiketkiJob < ApplicationJob
         target: "modal",
         template: "shared/success_bulk",
         layout: false,
-        locals: {bulk_print: blob}
+        locals: {bulk_print: blob, message: nil}
       )
     else
       PrintNotifier.with(

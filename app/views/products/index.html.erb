@@ -3,14 +3,16 @@
     <h1 class="h3 d-inline align-middle"><%= Product.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-    <%= button_print %>
-    <ul class="dropdown-menu">
-      <%= form_with url: print_etiketki_products_path, method: :post, id: :print_etiketki_form  do |form| %>
-          <%= form.submit "Этикетки", class: "dropdown-item"%>
-      <% end %>
-    </ul>
-
-    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
+    <%= form_with url: print_etiketki_products_path, method: :post, id: :bulk_action_form  do |f| %>
+    <div class="btn-group" role="group">
+      <%= button_print %>
+      <ul class="dropdown-menu">
+        <%= f.submit "Этикетки", class: "dropdown-item"%>
+      </ul>
+    </div>
+    <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'price-update', formaction: price_edit_products_path do %><%= arrow_down_up_icon %> Цена<% end%>
+    <% end %>
+    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-1 position-relative', data: {bs_toggle: 'offcanvas'} do %>
       <span><i data-feather='sliders'></i></span>
       <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
         <span class="visually-hidden"></span>
@@ -36,7 +38,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0" id="count_info"></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info @products if @products.size > 0 %></h5>
   </div>
   <div class="card-body">
     <%= turbo_stream_from current_user, "products" if user_signed_in? %>

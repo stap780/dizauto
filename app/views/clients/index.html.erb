@@ -3,18 +3,13 @@
     <h1 class="h3 d-inline align-middle"><%= Client.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
-      <span><i data-feather='sliders'></i></span>
-      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
-        <span class="visually-hidden"></span>
-      </span>
-    <% end %>
-    <%= link_to "<i data-feather='rotate-cw'></i>".html_safe, clients_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to "<i data-feather='plus'></i> #{Client.model_name.human}".html_safe, new_client_path, class: "btn btn-primary" %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("clients/_filter").any? %>
+    <%= link_to arrow_clockwise_icon, clients_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to add_icon, new_client_path, class: "btn btn-primary" %>
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Client filter' %>
+<%= render 'filter', q: @search, title: 'Client filter' if lookup_context.find_all("clients/_filter").any?%>
 
 <div class="card">
   <div class="card-header pb-0">

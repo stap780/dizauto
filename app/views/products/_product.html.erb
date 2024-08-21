@@ -1,7 +1,7 @@
 <%= turbo_frame_tag product, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center px-0" do %>
     <%= tag.div class: "col-md-1" do %>
         <%=tag.div class: 'form-check' do %>
-            <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :print_etiketki_form } %>
+            <%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( product.id ) %><% end %>
         <% end %>
     <% end %>
@@ -18,8 +18,8 @@
     <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=product.id%>">
-        <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: "Print barcode?"}, title: 'Print barcode' %>
-        <%= link_to copy_icon, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: 'Copy product' %>
+        <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: I18n.t("print_barcode")}, title: I18n.t("print_barcode") %>
+        <%= link_to copy_icon, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: I18n.t('copy') %>
         <%= render 'shared/edit_delete_link', object: product %>
     </div>
 <% end %>

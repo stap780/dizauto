@@ -37,6 +37,10 @@ ru:
   rekviziti: "реквизиты"
   comment: "комментарии"
   new_notifications: "новые"
+  all_notifications: "все оповещения"
+  we_update_price: "цены обновились"
+  print_barcode: "Печатать штрихкод?"
+  copy: "копировать"
   hello: "Hello world"
   property_one: "параметр"
   characteristic_one: "значение"
@@ -46,6 +50,7 @@ ru:
   main: 'основные'
   add: 'добавить'
   save: "сохранить"
+  update: "обновить"
   directories: "справочники"
   property: 'параметры'
   placement: "размещения"

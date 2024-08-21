@@ -24,21 +24,7 @@ import "@fortawesome/fontawesome-free/js/all";
 // import "./live_reload"
 
 import "./channels"
-import { StreamActions } from "@hotwired/turbo"
-import { Modal } from "bootstrap"
 
 window.bootstrap = bootstrap;
 
-StreamActions.set_unchecked = function() {
-  // console.log('elements length => ', this.targetElements.length )
-  this.targetElements.forEach((element) => {
-    element.checked = false
-    // console.log('element set_unchecked => ', element)
-  });
-}
-StreamActions.open_modal = function() {
-  this.targetElements.forEach((element) => {
-    modal = new Modal(element)
-    modal.show()
-  });
-}
+

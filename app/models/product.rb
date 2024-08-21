@@ -39,6 +39,7 @@ class Product < ApplicationRecord
   after_commit :create_barcode, on: :create
   before_destroy :check_relations_present, prepend: true
   after_create_commit { broadcast_prepend_to "products_list" }
+  after_update_commit { broadcast_prepend_to "products_list" }
   after_destroy_commit { broadcast_remove_to "products_list" }
   # after_commit :update_counter, on: [ :create, :destroy ]
 
@@ -197,8 +198,8 @@ class Product < ApplicationRecord
   end
 
   def check_relations_present
-    if places.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t('places')} with it.")
+    if locations.count > 0
+      errors.add(:base, "Cannot delete product. You have #{I18n.t('locations')} with it.")
     end
     if order_items.count > 0
       errors.add(:base, "Cannot delete product. You have #{I18n.t('order_items')} with it.")

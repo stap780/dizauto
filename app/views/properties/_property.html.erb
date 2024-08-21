@@ -3,8 +3,8 @@
     <td><%= property.title %></td>
     <td>
         <%= link_to eye_icon, property_path(property), class: "px-2" %>
+        <%= property.characteristics.pluck(:title).take(4).join(',')+' ...' if property.characteristics.present? %>
         <%= link_to add_icon, new_property_characteristic_path(property), class: " px-2" %>
-        <%= property.characteristics.pluck(:title).take(10).join(',')+' ...' if  property.characteristics.present? %>
     </td>
     <%= td_index_edit_delete_link(property)%>
 </tr>
