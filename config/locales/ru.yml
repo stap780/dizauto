@@ -134,7 +134,7 @@ ru:
       incase_item: &incase_item
         title: "название позиции"
         quantity: "кол-во"
-        katnumber: "Каталожный номер"
+        katnumber: "каталожный номер"
         price: "цена"
         sum: "сумма"
         status: "статус"
@@ -476,6 +476,8 @@ ru:
     <<: *model_system_flash
     create_from_import:
       success: создали!
+    comments:
+      <<: *model_system_flash
   inventory_statuses:
     <<: *model_system_flash
   invoices:

@@ -34,6 +34,7 @@ class IncasesController < ApplicationController
 
   # GET /incases/1/edit
   def edit
+    @commentable = @incase
   end
 
   # POST /incases or /incases.json

@@ -43,12 +43,12 @@
     <div id="datatables-orders" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
       <div class="row py-2 px-0 justify-content-between align-items-center">
         <%= div_check_box_tag_all %>
-        <%= tag.div( t( 'helpers.label.order.order_status_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.contact'), class: 'col-2 fw-semibold' )%> 
-        <%= tag.div( t( 'helpers.label.order.payment_type_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.delivery_type_id'), class: 'col-2 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.created_at'), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.order_status_id' ), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.contact' ), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.order.payment_type_id' ), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.delivery_type_id' ), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.sum' ), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.order.created_at' ), class: 'col-2 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
       <%= turbo_stream_from "orders" %>

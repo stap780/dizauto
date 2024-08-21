@@ -5,7 +5,10 @@ class Incase < ApplicationRecord
   belongs_to :company
   belongs_to :strah, class_name: "Company", foreign_key: "strah_id"
   has_many :incase_items, dependent: :destroy
-  accepts_nested_attributes_for :incase_items, allow_destroy: true, reject_if: :all_blank 
+  accepts_nested_attributes_for :incase_items, allow_destroy: true, reject_if: :all_blank
+  has_many :comments, as: :commentable, dependent: :destroy
+  accepts_nested_attributes_for :comments, allow_destroy: true
+
   has_associated_audits
 
   before_save :normalize_data_white_space

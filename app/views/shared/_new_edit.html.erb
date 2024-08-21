@@ -1,6 +1,6 @@
 <% tip_text = tip == :new ? 'Создать' : 'Редактировать' %>
 <%= tag.div class: 'fs-3 align-middle mb-3' do %>
-    <%= link_to caret_left_icon, polymorphic_path(object.class.name.constantize), class: "btn btn-outline-success btn-sm" %>
+    <%= link_to caret_left_icon, polymorphic_path(object.class.name.constantize), class: "btn btn-outline-success btn-sm", data: { turbo_prefetch: false } %>
     <%= "#{tip_text} #{object.model_name.human}" %>
 <% end %>
 <%= render "#{object.class.name.underscore.pluralize}/form", "#{object.class.name.underscore}": object %>

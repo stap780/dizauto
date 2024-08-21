@@ -7,7 +7,7 @@
         <%= tag.div( '', class: 'col-2 fw-semibold' ) do %>    
             <%= select_tag "incase_item_status_label", 
                             options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), 
-                            prompt: "Статус", class: 'form-select', 
+                            prompt: "Статус позиции", class: 'form-select', 
                             data: {
                                 action: "change->choose#changeBulkItemStatus", 
                                 choose_target: "itemSelected" 

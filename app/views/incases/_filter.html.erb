@@ -12,6 +12,10 @@
             <%= f.search_field :strah_short_title_or_stoanumber_or_unumber_or_carnumber_cont_all, class: "form-control input-sm"%>
           </div>
           <div class="col-md-6">
+            <%= f.label :incase_status_id_eq %>
+            <%= f.select :incase_status_id_eq, IncaseStatus.pluck(:title, :id), { :prompt => ''}, class: "form-select input-sm" %>
+          </div>
+          <div class="col-md-6">
             <%= f.label :incase_tip_id_eq %>
             <%= f.select :incase_tip_id_eq, IncaseTip.pluck(:title, :id), { :prompt => ''}, class: "form-select input-sm" %>
           </div>

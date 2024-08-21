@@ -4,12 +4,12 @@
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
             <div class="d-flex justify-content-between align-items-center gap-3">
-                <%= f.select :supply_status_id, SupplyStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select"}%>
+                <%= f.select :supply_status_id, SupplyStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select border-primary-subtle"}%>
                 <%= tabs_head('supply', [ ['main', t(:main)] ]) if !f.object.new_record? %>
             </div>
             <div class="d-flex justify-content-between align-items-center gap-3">
-                <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select"}%>
-                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "supply", auditable_id: supply.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
+                <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select border-primary-subtle"}%>
+                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "supply", auditable_id: supply.id), class: 'btn btn-outline-success d-flex', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
             </div>
         </div>
         <div class="card-body">
