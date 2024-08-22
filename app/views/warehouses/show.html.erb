@@ -1,7 +1,5 @@
 
-<%= link_to new_warehouse_place_path(@warehouse), class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(@warehouse, dom_id(Place.new)) } do %>
-    <%= add_icon %>
-<% end %>
+<%= link_to add_icon, new_warehouse_place_path(@warehouse), class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(@warehouse, dom_id(Place.new)), turbo_prefetch: false } %>
 
 <div class="mb-3">
   <%= link_to t('back'), warehouses_path, class: "btn btn-outline-primary" %>
@@ -25,8 +23,8 @@
                 <% end %>
             </div>
           </div>
-          <div class="card-body dataTables_wrapper">
-            <div class="row py-2 px-0 text-center">
+          <div class="card-body w-50">
+            <div class="row py-2 px-0 text-start">
                 <%= tag.div( t('helpers.label.place.sector'), class: 'col-5 fw-semibold')%> 
                 <%= tag.div( t('helpers.label.place.cell'), class: 'col-5 fw-semibold' )%>
                 <%= tag.div('', class: 'col fw-semibold')%>
