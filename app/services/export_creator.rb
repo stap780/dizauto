@@ -13,6 +13,7 @@ class ExportCreator < ApplicationService
 
   def call
     puts "ExportCreator call"
+    @export.update!(link: nil)
     result = create_csv if @export.format == "csv"
     result = create_xlsx if @export.format == "xlsx"
     result = create_xml if @export.format == "xml"
@@ -27,8 +28,8 @@ class ExportCreator < ApplicationService
 
   def create_csv
     puts "create_csv => " + @export.inspect.to_s
-    filename = "#{@export.id}.csv"
-    file_path = "#{Rails.public_path}/#{filename}"
+    file_name = "#{@export.id}.csv"
+    file_path = "#{Rails.public_path}/#{file_name}"
     File.delete(file_path) if File.file?(file_path).present?
     CSV.open(file_path, "w") do |writer|
       col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
@@ -110,4 +111,5 @@ class ExportCreator < ApplicationService
     @export.link = @host + "/" + file_name
     @export.save
   end
+
 end
