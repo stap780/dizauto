@@ -24,7 +24,7 @@ class Export < ApplicationRecord
   end
 
   def products # используется для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
-    (self.test == true) ? Product.all.order(:id).limit(100) : Product.all.order(:id)
+    (self.test == true) ? Product.all.order(:id).limit(1000) : Product.all.order(:id)
   end
 
   def file_data
@@ -36,4 +36,5 @@ class Export < ApplicationRecord
       "Размер: #{size} </br>Дата: #{date}".html_safe
     end
   end
+  
 end

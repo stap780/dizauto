@@ -13,7 +13,7 @@
         <%=tag.span('...wait...') if export.status == 'process' %>
     <% end %>
     <%= tag.div(export.time, class: "col-md-1")%>
-    <%= tag.div(export.file_data, class: "col-md-2") do %>
+    <%= tag.div(class: "col-md-2") do %>
         <%= t( 'helpers.label.export.format')%>: <%= export.format %><br>
         <%= export.file_data if export.status != 'process'%>
     <% end %>
