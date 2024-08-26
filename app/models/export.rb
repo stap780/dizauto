@@ -11,6 +11,14 @@ class Export < ApplicationRecord
   validates :format, presence: true
   validates :title, presence: true
 
+  FORMAT = [['csv','csv'],['xml','xml'],['xlsx','xlsx']]
+  STATUS = ["new","process","finish","error"]
+
+  after_create_commit { broadcast_append_to "exports" }
+  after_update_commit { broadcast_replace_to "exports" }
+  after_destroy_commit { broadcast_remove_to "exports" }
+
+
   def self.ransackable_attributes(auth_object = nil)
     Export.attribute_names
   end

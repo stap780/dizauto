@@ -18,10 +18,11 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-
-      <div id="datatables-exports" class="col-sm-12 list-group list-group-striped">
+      <%= turbo_stream_from :exports %>
+      <div class="col-sm-12 list-group list-group-striped">
         <div class="row py-2 px-4">
           <%= tag.div('#', class: 'col-md-1 fw-semibold')%>
+          <%= tag.div(t( 'helpers.label.export.status'), class: 'col-md-1 fw-semibold')%>
           <%= tag.div( t( 'helpers.label.export.title'), class: 'col-md-3 fw-semibold' )%>
           <%= tag.div( t( 'helpers.label.export.link'), class: 'col-md-3 fw-semibold' )%> 
           <%= tag.div( t( 'helpers.label.export.work_time'), class: 'col-md-1 fw-semibold' )%>

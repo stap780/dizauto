@@ -2,28 +2,22 @@ class ExportsController < ApplicationController
   load_and_authorize_resource
   before_action :set_export, only: %i[show edit update destroy run download]
 
-  # GET /exports or /exports.json
   def index
-    # @exports = Export.all
     @search = Export.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @exports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  # GET /exports/1 or /exports/1.json
   def show
   end
 
-  # GET /exports/new
   def new
     @export = Export.new
   end
 
-  # GET /exports/1/edit
   def edit
   end
 
-  # POST /exports or /exports.json
   def create
     @export = Export.new(export_params)
 
@@ -38,7 +32,6 @@ class ExportsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /exports/1 or /exports/1.json
   def update
     respond_to do |format|
       if @export.update(export_params)
@@ -52,14 +45,18 @@ class ExportsController < ApplicationController
   end
 
   def run
-    ExportJob.perform_later(@export, current_user.id)
+    @export.update(status: 'process')
+    ExportJob.perform_later(@export.id, current_user.id)
     respond_to do |format|
-      format.turbo_stream
+      flash.now[:success] = t(".success")
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
     end
-    # Rails.env.development? ? ExportCreator.call(@export) : ExportJob.perform_later(@export)
   end
 
-  # DELETE /exports/1 or /exports/1.json
   def destroy
     @export.destroy
 
@@ -102,6 +99,6 @@ class ExportsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def export_params
-    params.require(:export).permit(:title, :link, :template, :time, :format, :use_property, :test, excel_attributes: [])
+    params.require(:export).permit(:status,:title, :link, :template, :time, :format, :use_property, :test, excel_attributes: [])
   end
 end

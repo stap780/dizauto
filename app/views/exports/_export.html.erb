@@ -1,22 +1,36 @@
 
 <%= turbo_frame_tag export, class: "d-flex list-group-item py-2 border-start-0 border-end-0 align-items-center row" do %>
     <%= tag.div tag.b(export.id), class: "col-md-1" %>
-    <%= tag.div(class: "col-md-3 d-flex justify-content-between align-items-center") do %>
+    <%= tag.div tag.b(export.status), class: "col-md-1" %>
+    <%= tag.div(class: "col-md-2 d-flex justify-content-between align-items-center") do %>
         <%= export.title %>
-        <% if export.test %>
-            <button class="btn btn-outline-info" disabled="disabled" type="button">Test<i class="bi bi-check-circle ms-1"></i></button>
-        <% end %>
+        <%=tag.button(class: "btn btn-outline-info", disabled: "disabled", type: "button") do %>
+            Test<i class="bi bi-check-circle ms-1"></i>
+        <% end if export.test%>
     <% end %>
-    <%= tag.div(export.link, class: "col-md-3", id: "link-#{export.id}")%>
+    <%= tag.div(export.link, class: "col-md-3", id: "link-#{export.id}") do %>
+        <%=tag.span( export.link ) if export.status == 'new' || export.status == 'finish' %>
+        <%=tag.span('...wait...') if export.status == 'process' %>
+    <% end %>
     <%= tag.div(export.time, class: "col-md-1")%>
     <%= tag.div(export.file_data, class: "col-md-2") do %>
         <%= t( 'helpers.label.export.format')%>: <%= export.format %><br>
-        <%= export.file_data %>
+        <%= export.file_data if export.status != 'process'%>
     <% end %>
-    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=export.id%>">
-        <%= link_to download_icon, download_export_path(export), data: {turbo: :false}, title: 'Скачать' %>
-        <%= link_to play_icon, run_export_path(export), class: 'px-2', data: {turbo_method: :post, turbo_confirm: "Запустить экспорт?"}, title: 'Запустить экспорт' %>
-        <%= render 'shared/edit_delete_link', object: export %>
+    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%= export.id %>">
+         <% if export.status == 'new' || export.status == 'finish' %>
+            <%= link_to download_icon, download_export_path(export), data: { turbo: :false }, title: 'Скачать' %>
+            <%= link_to play_icon, run_export_path(export), class: 'px-2', 
+                                                            data: { turbo_method: :post, turbo_confirm: "Запустить экспорт?" }, 
+                                                            title: 'Запустить экспорт' %>
+            <%= render 'shared/edit_delete_link', object: export %>
+        <% end %>
+        <% if export.status == 'process' %>
+            <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Running...</span>
+            </button>
+        <% end %>
     </div>
 <% end %>
 

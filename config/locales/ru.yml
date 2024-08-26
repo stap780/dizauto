@@ -462,6 +462,10 @@ ru:
     <<: *model_system_flash
   enter_statuses:
     <<: *model_system_flash
+  exports:
+    <<: *model_system_flash
+    run:
+      success: запустили!
   loss_statuses:
     <<: *model_system_flash
   incase_item_statuses:

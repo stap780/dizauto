@@ -4,22 +4,27 @@ require "caxlsx"
 class ExportCreator < ApplicationService
   attr_reader :export
 
-  def initialize(export, options = {})
-    @export = export
+  def initialize(export_id, options = {})
+    @export = Export.find_by_id(export_id)
     @options = options
     @host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
+    @file_name = "#{@export.id}.#{@export.format}"
+    @file_path = "#{Rails.public_path}/#{@file_name}"
+    @link = @host + "/" + @file_name
     @error_message = nil
   end
 
   def call
     puts "ExportCreator call"
-    @export.update!(link: nil)
+    File.delete(@file_path) if File.file?(@file_path).present?
     result = create_csv if @export.format == "csv"
     result = create_xlsx if @export.format == "xlsx"
     result = create_xml if @export.format == "xml"
     if result
+      @export.update(link: @link, status: 'finish')
       [true, @export]
     else
+      @export.update(link: @link, status: 'error')
       [false, @error_message]
     end
   end
@@ -28,10 +33,7 @@ class ExportCreator < ApplicationService
 
   def create_csv
     puts "create_csv => " + @export.inspect.to_s
-    file_name = "#{@export.id}.csv"
-    file_path = "#{Rails.public_path}/#{file_name}"
-    File.delete(file_path) if File.file?(file_path).present?
-    CSV.open(file_path, "w") do |writer|
+    CSV.open(@file_path, "w") do |writer|
       col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
       if @export.use_property == true
         col_names_property = Property.order(:id).pluck(:title)
@@ -55,15 +57,10 @@ class ExportCreator < ApplicationService
         end
       end
     end
-    @export.link = @host + "/" + file_name
-    @export.save
   end
 
   def create_xlsx
     puts "create_xlsx => " + @export.inspect.to_s
-    file_name = "#{@export.id}.xlsx"
-    file_path = "#{Rails.public_path}/#{file_name}"
-    File.delete(file_path) if File.file?(file_path).present?
     p = Axlsx::Package.new
     wb = p.workbook
     wb.add_worksheet(name: "Sheet 1") do |sheet|
@@ -91,25 +88,16 @@ class ExportCreator < ApplicationService
         end
       end
     end
-
     stream = p.to_stream
-    File.binwrite(file_path, stream.read)
-
-    @export.link = @host + "/" + file_name
-    @export.save
+    File.binwrite(@file_path, stream.read)
   end
 
   def create_xml
-    file_name = "#{@export.id}.xml"
-    file_path = "#{Rails.public_path}/#{file_name}"
-    File.delete(file_path) if File.file?(file_path).present?
     puts "create_xml => " + @export.inspect.to_s
     template = Liquid::Template.parse(@export.template)
     export_drop = Drop::Export.new(@export)
     xml = template.render("export" => export_drop)
-    File.write(file_path, xml)
-    @export.link = @host + "/" + file_name
-    @export.save
+    File.write(@file_path, xml)
   end
 
 end
