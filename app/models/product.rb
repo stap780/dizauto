@@ -73,7 +73,7 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["associated_audits", "audits", "images", "places", "properties", "props", "rich_text_description", "warehouses"]
+    ["associated_audits", "audits", "images", "locations", "properties", "props", "rich_text_description", "warehouses","stocks"]
   end
 
   def self.ransackable_scopes(auth_object = nil)

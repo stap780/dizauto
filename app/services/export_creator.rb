@@ -11,6 +11,7 @@ class ExportCreator < ApplicationService
     @file_name = "#{@export.id}.#{@export.format}"
     @file_path = "#{Rails.public_path}/#{@file_name}"
     @link = @host + "/" + @file_name
+    @col_names_property = Property.order(:id).pluck(:title)
     @error_message = nil
   end
 
@@ -36,18 +37,17 @@ class ExportCreator < ApplicationService
     CSV.open(@file_path, "w") do |writer|
       col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
       if @export.use_property == true
-        col_names_property = Property.order(:id).pluck(:title)
-        writer << col_names_product_with_images + col_names_property
+        writer << col_names_product_with_images + @col_names_property
       else
         writer << col_names_product_with_images
       end
-      @export.products.each do |product|
+      @export.products.find_each do |product|
         images = product.images.present? ? product.image_urls.join(" ") : " "
         attr_for_sheet = product.attributes
         attr_for_sheet["images"] = images
         if @export.use_property == true
           prop_values_array = []
-          col_names_property.each do |p_title|
+          @col_names_property.each do |p_title|
             value = product.properties_data.map { |a| a[p_title] }.uniq.join
             value.present? ? prop_values_array.push(value) : prop_values_array.push("")
           end
@@ -66,19 +66,18 @@ class ExportCreator < ApplicationService
     wb.add_worksheet(name: "Sheet 1") do |sheet|
       col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
       if @export.use_property == true
-        col_names_property = Property.order(:id).pluck(:title)
-        sheet.add_row col_names_product_with_images + col_names_property
+        sheet.add_row col_names_product_with_images + @col_names_property
       else
         sheet.add_row col_names_product
       end
-      @export.products.each do |product|
+      @export.products.find_each do |product|
         images = product.images.present? ? product.image_urls.join(" ") : " "
         puts "images => " + images
         attr_for_sheet = product.attributes
         attr_for_sheet["images"] = images
         if @export.use_property == true
           prop_values_array = []
-          col_names_property.each do |p_title|
+          @col_names_property.each do |p_title|
             value = product.properties_data.map { |a| a[p_title] }.uniq.join
             value.present? ? prop_values_array.push(value) : prop_values_array.push("")
           end
