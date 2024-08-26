@@ -31,10 +31,14 @@ class Export < ApplicationRecord
     if link.present?
       filename = link.split("/").last
       file = "#{Rails.public_path}/#{filename}"
-      size = number_to_human_size(File.size(file))
-      date = File.ctime(file).in_time_zone.strftime("%d/%m/%Y %H:%M")
-      "Размер: #{size} </br>Дата: #{date}".html_safe
+      if File.file?(file).present?
+        size = number_to_human_size(File.size(file))
+        date = File.ctime(file).in_time_zone.strftime("%d/%m/%Y %H:%M")
+        "Размер: #{size} </br>Дата: #{date}".html_safe
+      else
+        "nothing"
+      end
     end
   end
-  
+
 end
