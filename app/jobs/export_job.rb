@@ -1,10 +1,9 @@
 class ExportJob < ApplicationJob
   queue_as :export
 
-  def perform(export_id, current_user_id)
+  def perform(export, current_user_id)
     # Do something later
-    success, result = ExportCreator.call(export_id)
-    export = Export.find_by_id(export_id)
+    success, result = ExportCreator.call(export)
 
     if success
       ExportNotifier.with(record: export, message: "ExportJob success").deliver(User.find_by_id(current_user_id))

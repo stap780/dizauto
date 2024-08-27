@@ -46,7 +46,7 @@ class ExportsController < ApplicationController
 
   def run
     @export.update(status: 'process')
-    ExportJob.perform_later(@export.id, current_user.id)
+    ExportJob.perform_later(@export, current_user.id)
     respond_to do |format|
       flash.now[:success] = t(".success")
       format.turbo_stream do

@@ -24,7 +24,7 @@ class Export < ApplicationRecord
   end
 
   def products # используется для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
-    (self.test == true) ? Product.all.order(:id).includes(:images).limit(1000) : Product.all.order(:id).includes(:images)
+    (self.test == true) ? Product.all.order(:id).includes(:images, :props).limit(1000) : Product.all.order(:id).includes(:images, :props)
   end
 
   def file_data

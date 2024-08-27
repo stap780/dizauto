@@ -4,8 +4,8 @@ require "caxlsx"
 class ExportCreator < ApplicationService
   attr_reader :export
 
-  def initialize(export_id, options = {})
-    @export = Export.find_by_id(export_id)
+  def initialize(export, options = {})
+    @export = export
     @options = options
     @host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
     @file_name = "#{@export.id}.#{@export.format}"
