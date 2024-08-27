@@ -9,7 +9,9 @@ class ExportScheduler
   def perform
     exports = Export.where.not(time: nil)
     exports.each do |export|
-      ExportCreator.call(export) if export.time.present? && export.time.to_i == Time.now.strftime("%H").to_i
+      ExportJob.perform_later(export, User.first.id) if export.time.present? && export.time.to_i == Time.now.strftime("%H").to_i
+      # ExportCreator.call(export) if export.time.present? && export.time.to_i == Time.now.strftime("%H").to_i
     end
   end
+
 end
