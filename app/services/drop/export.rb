@@ -10,6 +10,7 @@ class Drop::Export < Liquid::Drop
       b = product.attributes # this is Hash
       b["properties"] = product.props.map { |l| [l.property.title, l.characteristic.title] }
       b["images"] = product.image_urls.present? ? product.image_urls : ""
+      b["description"] = product.file_description
       l_products.push(b)
     end
     # puts "l_products => "+l_products.to_s
