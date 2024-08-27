@@ -9,7 +9,7 @@ class Product < ApplicationRecord
   has_many :props, dependent: :destroy
   has_many :properties, through: :props
   accepts_nested_attributes_for :props, allow_destroy: true
-  
+
   has_many :incase_items
   has_many :incases, through: :incase_items
   has_many :order_items
@@ -24,6 +24,7 @@ class Product < ApplicationRecord
   has_many :placements, through: :locations
 
   has_rich_text :description
+  attr_reader :file_description
   # has_many_attached :images, dependent: :destroy do |attachable|
   #     attachable.variant :thumb, resize_and_pad: [110, 110]
   #     attachable.variant :standart, resize_and_pad: [800, 800]
@@ -48,20 +49,20 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
-  scope :active, -> { where(status: 'active') }
-  scope :draft, -> { where(status: 'draft') }
-  scope :archived, -> { where(status: 'archived') }
+  scope :active, -> { where(status: "active") }
+  scope :draft, -> { where(status: "draft") }
+  scope :archived, -> { where(status: "archived") }
 
-  scope :tip_product, -> { where(tip: 'product') }
-  scope :tip_service, -> { where(tip: 'service') }
-  scope :tip_kit, -> { where(tip: 'kit') }
+  scope :tip_product, -> { where(tip: "product") }
+  scope :tip_service, -> { where(tip: "service") }
+  scope :tip_kit, -> { where(tip: "kit") }
 
   # scopes for slimselect
   scope :first_five, -> { order(:id).limit(5) }
   scope :selected, ->(id) { where(id: id) }
 
-  Status = ["draft","active","archived"]
-  Tip = ["product","service","kit"]
+  Status = ["draft", "active", "archived"]
+  Tip = ["product", "service", "kit"]
 
   def self.collection_for_select(id)
     collection = (selected(id) + first_five).uniq
@@ -73,7 +74,7 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["associated_audits", "audits", "images", "locations", "properties", "props", "rich_text_description", "warehouses","stocks"]
+    ["associated_audits", "audits", "images", "locations", "properties", "props", "rich_text_description", "warehouses", "stocks"]
   end
 
   def self.ransackable_scopes(auth_object = nil)
@@ -102,6 +103,10 @@ class Product < ApplicationRecord
 
   def full_title
     barcode.to_s + " - " + title.to_s + " - " + sku.to_s
+  end
+
+  def file_description
+    description.to_plain_text
   end
 
   def properties_data # this for export cvs/excel
@@ -187,7 +192,7 @@ class Product < ApplicationRecord
   private
 
   def set_default_new
-    self.quantity = self.stocks.present? ? self.stocks.amount : 0
+    self.quantity = stocks.present? ? stocks.amount : 0
     self.price = 0 if price.nil?
   end
 
@@ -199,16 +204,16 @@ class Product < ApplicationRecord
 
   def check_relations_present
     if locations.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t('locations')} with it.")
+      errors.add(:base, "Cannot delete product. You have #{I18n.t("locations")} with it.")
     end
     if order_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t('order_items')} with it.")
+      errors.add(:base, "Cannot delete product. You have #{I18n.t("order_items")} with it.")
     end
     if incase_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t('incase_items')} with it.")
+      errors.add(:base, "Cannot delete product. You have #{I18n.t("incase_items")} with it.")
     end
     if supply_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t('supply_items')} with it.")
+      errors.add(:base, "Cannot delete product. You have #{I18n.t("supply_items")} with it.")
     end
     if errors.present?
       throw(:abort)
@@ -218,5 +223,4 @@ class Product < ApplicationRecord
   # def update_counter
   #   broadcast_update_to('products_list', target: 'count_info', partial: "products/count_info", locals: {products: nil})
   # end
-
 end
