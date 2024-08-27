@@ -44,6 +44,7 @@ class ExportCreator < ApplicationService
       @export.products.find_each(batch_size: 1000) do |product|
         images = product.images.present? ? product.image_urls.join(" ") : " "
         attr_for_sheet = product.attributes
+        attr_for_sheet["description"] = product.file_description
         attr_for_sheet["images"] = images
         if @export.use_property == true
           prop_values_array = []
@@ -74,6 +75,7 @@ class ExportCreator < ApplicationService
         images = product.images.present? ? product.image_urls.join(" ") : " "
         puts "images => " + images
         attr_for_sheet = product.attributes
+        attr_for_sheet["description"] = product.file_description
         attr_for_sheet["images"] = images
         if @export.use_property == true
           prop_values_array = []

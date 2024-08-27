@@ -24,7 +24,6 @@ class Product < ApplicationRecord
   has_many :placements, through: :locations
 
   has_rich_text :description
-  attr_reader :file_description
   # has_many_attached :images, dependent: :destroy do |attachable|
   #     attachable.variant :thumb, resize_and_pad: [110, 110]
   #     attachable.variant :standart, resize_and_pad: [800, 800]
@@ -105,14 +104,14 @@ class Product < ApplicationRecord
     barcode.to_s + " - " + title.to_s + " - " + sku.to_s
   end
 
+  # def file_description
+  #   description.to_plain_text
+  # end
+
   def file_description
-    description.to_plain_text
+    description.to_plain_text if description
   end
 
-  def properties_data # this for export cvs/excel
-    # self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
-    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
-  end
 
   def image_first
     return unless images.present?
