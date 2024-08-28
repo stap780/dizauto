@@ -103,10 +103,11 @@ class Product < ApplicationRecord
   def full_title
     barcode.to_s + " - " + title.to_s + " - " + sku.to_s
   end
-
-  # def file_description
-  #   description.to_plain_text
-  # end
+  
+  def properties_data # this for export cvs/excel
+    # self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
+    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
+  end
 
   def file_description
     description.to_plain_text if description
