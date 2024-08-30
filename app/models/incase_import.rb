@@ -1,9 +1,10 @@
 class IncaseImport < ApplicationRecord
-  has_one_attached :import_file, dependent: :destroy
+  has_one_attached :file, dependent: :destroy
   has_many :incase_import_columns, dependent: :destroy
   accepts_nested_attributes_for :incase_import_columns, allow_destroy: true
 
-  validate :import_file_size
+  validate :file_size
+  after_create_commit { broadcast_prepend_to "incase_imports" }
 
   scope :active, -> { where(active: true) }
 
@@ -31,17 +32,17 @@ class IncaseImport < ApplicationRecord
     our_fields
   end
 
-  def import_file_size
-    return unless import_file.attached?
+  def file_size
+    return unless file.attached?
 
-    unless import_file.blob.byte_size <= 10.megabyte
-      errors.add(:import_file, "is too big")
+    unless file.blob.byte_size <= 10.megabyte
+      errors.add(:file, "is too big")
     end
 
-    acceptable_types = ["text/csv", "text/xls", "text/xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"]
-    puts import_file.content_type
-    unless acceptable_types.include?(import_file.content_type)
-      errors.add(:import_file, "must be a CSV or XLS")
+    acceptable_types = ["text/csv", "text/xls", "text/xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet","application/vnd.ms-excel"]
+    puts file.content_type
+    unless acceptable_types.include?(file.content_type)
+      errors.add(:file, "must be a CSV or XLS")
     end
   end
   

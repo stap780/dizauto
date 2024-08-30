@@ -56,6 +56,8 @@ class Product < ApplicationRecord
   scope :tip_service, -> { where(tip: "service") }
   scope :tip_kit, -> { where(tip: "kit") }
 
+  scope :with_images, -> {order(:id).includes(images: [:file_attachment, :file_blob])}
+
   # scopes for slimselect
   scope :first_five, -> { order(:id).limit(5) }
   scope :selected, ->(id) { where(id: id) }
@@ -105,14 +107,12 @@ class Product < ApplicationRecord
   end
   
   def properties_data # this for export cvs/excel
-    # self.props.map{|prop| { prop.property.title.to_s => prop.property.c_val(prop.characteristic_id).title.to_s } }
     props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
   end
 
   def file_description
     description.to_plain_text if description
   end
-
 
   def image_first
     return unless images.present?

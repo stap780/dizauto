@@ -7,22 +7,36 @@ class ReturnsController < ApplicationController
     @search = Return.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @returns = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "returns.xlsx"
+    # filename = "returns.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @returns
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Return",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "returns/index"})
-        flash[:success] = t ".success"
-        redirect_to orders_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Return",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "returns/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to orders_path
+      # end
     end
   end
 
-  # GET /returns/1 or /returns/1.json
+  def download
+    filename = "returns.xlsx"
+    collection_ids = params[:return_ids].present? ? params[:return_ids] : Return.with_images.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Return",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "returns/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
+
   def show
   end
 

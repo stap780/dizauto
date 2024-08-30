@@ -16,7 +16,7 @@
     <%= tag.div(incase_import.title, class: "col-3")%>
     <%= tag.div(incase_import.report, class: "col-1")%>
     <%= tag.div("", class: "col-1") do %>
-        <%= link_to 'file', rails_blob_path(incase_import.import_file, disposition: 'attachment') %>
+        <%= link_to 'file', rails_blob_path(incase_import.file, disposition: 'attachment') %>
     <% end %>
     <%= tag.div("", class: "col-2") do %>
         <%= incase_import.uniq_field ? t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") : ''%>

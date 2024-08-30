@@ -7,22 +7,35 @@ class LossesController < ApplicationController
     @search = Loss.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @losses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "losses.xlsx"
+    # filename = "losses.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Loss",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "losses/index"})
-        flash[:success] = t ".success"
-        redirect_to losses_url
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Loss",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "losses/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to losses_url
+      # end
     end
   end
 
-  # GET /losses/1 or /losses/1.json
+  def download
+    filename = "losses.xlsx"
+    collection_ids = params[:loss_ids].present? ? params[:loss_ids] : Loss.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Loss",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "losses/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 

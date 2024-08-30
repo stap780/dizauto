@@ -17,6 +17,7 @@ class Templ < ApplicationRecord
   scope :loss_print, -> { where(modelname: "loss", tip: "simple").order(:id) }
   scope :stock_transfer_print, -> { where(modelname: "stock_transfer", tip: "simple").order(:id) }
   scope :stock_print, -> { where(modelname: "stock", tip: "simple").order(:id) }
+  scope :product_print, -> { where(modelname: "product", tip: "simple").order(:id) }
 
 
   Templ::RECEIVER = [["Клиент", "client"], ["Пользователь", "user"]].freeze

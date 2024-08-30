@@ -46,6 +46,10 @@ ru:
   characteristic_one: "значение"
   okrug_one: "округ"
   warehouse_one: "склад"
+  import_info: "Здесь вы можете проверить файл и начать импорт"
+  check: "проверить"
+  edit: "редактировать"
+  cancel: "отменить"
   back: "назад"
   main: 'основные'
   add: 'добавить'
@@ -496,6 +500,8 @@ ru:
     <<: *model_system_flash
   products:
     <<: *model_system_flash
+    index:
+      success: Создали
     print_etiketki:
       success: Создали этикетки!
   props:

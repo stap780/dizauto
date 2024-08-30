@@ -7,22 +7,35 @@ class EntersController < ApplicationController
     @search = Enter.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @enters = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "enters.xlsx"
+    # filename = "enters.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Enter",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "enters/index"})
-        flash[:success] = t ".success"
-        redirect_to losses_url
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Enter",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "enters/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to losses_url
+      # end
     end
   end
 
-  # GET /enters/1 or /enters/1.json
+  def download
+    filename = "enters.xlsx"
+    collection_ids = params[:enter_ids].present? ? params[:enter_ids] : Enter.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Enter",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "enters/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 

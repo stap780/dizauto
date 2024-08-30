@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :stocks do
     collection do
       post :bulk_print
+      post :download
     end
   end
   resources :stock_transfer_items
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :download
+      post :bulk_print
     end
   end
   resources :loss_items
@@ -23,6 +26,8 @@ Rails.application.routes.draw do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :bulk_print
+      post :download
     end
   end
   resources :enter_items
@@ -32,6 +37,7 @@ Rails.application.routes.draw do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :download
     end
   end
   resources :inventory_statuses do
@@ -55,12 +61,13 @@ Rails.application.routes.draw do
     end
   end
   resources :placements do
-    resources :locations do 
+    resources :locations do
       resources :comments, module: :locations
     end
     collection do
       get :new_nested
-      post :remove_nested  
+      post :remove_nested
+      post :download
     end
   end
   resources :return_items
@@ -76,6 +83,7 @@ Rails.application.routes.draw do
       get :new_nested
       post :remove_nested
       post :bulk_print
+      post :download
     end
   end
   resources :invoice_items
@@ -91,6 +99,7 @@ Rails.application.routes.draw do
       get :new_nested
       post :remove_nested
       post :bulk_print
+      post :download
     end
   end
   resources :rent_case_statuses do
@@ -121,6 +130,7 @@ Rails.application.routes.draw do
       get :success_bulk
       get "/:id/start", action: "start", as: "start"
       get "/:id/check", action: "check", as: "check"
+      post :download
     end
   end
   resources :supplies do
@@ -134,6 +144,7 @@ Rails.application.routes.draw do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :download
     end
   end
   resources :incase_item_statuses do
@@ -187,6 +198,7 @@ Rails.application.routes.draw do
       get :new_nested
       post :remove_nested
       post :bulk_print
+      post :download
     end
   end
   resources :client_companies do
@@ -199,6 +211,7 @@ Rails.application.routes.draw do
       post :search
       post :create_turbo
       get :new_turbo
+      post :download
     end
   end
   resources :permissions
@@ -216,6 +229,7 @@ Rails.application.routes.draw do
       get :slimselect_nested_item
       get :new_nested
       post :remove_nested
+      post :download
     end
   end
   resources :warehouses do
@@ -233,6 +247,9 @@ Rails.application.routes.draw do
     resources :comments, module: :company_plan_dates
   end
   resources :companies do
+    collection do
+      post :download
+    end
   end
   resources :detals do
     resources :detal_props do
@@ -269,6 +286,8 @@ Rails.application.routes.draw do
       get :success_etiketki
       post :price_edit
       post :price_update
+      post :download
+      post :bulk_print
     end
     resources :props do
       collection do
@@ -301,5 +320,4 @@ Rails.application.routes.draw do
       post :delete_notification
     end
   end
-
 end

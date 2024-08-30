@@ -37,6 +37,9 @@ application.register("dropzone", DropzoneController)
 import ExportController from "./export_controller"
 application.register("export", ExportController)
 
+import FileUploadController from "./file_upload_controller"
+application.register("file-upload", FileUploadController)
+
 import FilterController from "./filter_controller"
 application.register("filter", FilterController)
 

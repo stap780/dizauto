@@ -9,11 +9,23 @@ class PlacementsController < ApplicationController
     @placements = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  # GET /placements/1 or /placements/1.json
+  def download
+    filename = "placements.xlsx"
+    collection_ids = params[:placement_ids].present? ? params[:placement_ids] : Placement.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Placement",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "placements/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 
-  # GET /placements/new
   def new
     @placement = Placement.new(warehouse_id: params[:warehouse_id])
     # @placement.locations.build

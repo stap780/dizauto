@@ -7,26 +7,39 @@ class InvoicesController < ApplicationController
     @search = Invoice.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @invoices = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "invoices.xlsx"
+    # filename = "invoices.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @invoices
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Invoice",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "invoices/index"})
-        flash[:success] = t ".success"
-        redirect_to orders_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Invoice",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "invoices/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to orders_path
+      # end
     end
   end
 
-  # GET /invoices/1 or /invoices/1.json
+  def download
+    filename = "invoices.xlsx"
+    collection_ids = params[:invoice_ids].present? ? params[:invoice_ids] : Invoice.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Invoice",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "invoices/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
+
   def show
   end
 
-  # GET /invoices/new
   def new
     if params[:order_id].present?
       order = Order.find(params[:order_id])

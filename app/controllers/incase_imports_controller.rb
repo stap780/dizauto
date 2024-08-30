@@ -8,22 +8,35 @@ class IncaseImportsController < ApplicationController
     @search = IncaseImport.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @incase_imports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "incase_imports.xlsx"
+    # filename = "incase_imports.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @incase_imports
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "IncaseImport",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "incase_imports/index"})
-        flash[:success] = t ".success"
-        redirect_to incase_imports_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "IncaseImport",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "incase_imports/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to incase_imports_path
+      # end
     end
   end
 
-  # GET /incase_imports/1 or /incase_imports/1.json
+  def download
+    filename = "incase_imports.xlsx"
+    collection_ids = params[:incase_import_ids].present? ? params[:incase_import_ids] : IncaseImport.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "IncaseImport",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "incase_imports/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 
@@ -52,6 +65,13 @@ class IncaseImportsController < ApplicationController
 
     respond_to do |format|
       if @incase_import.save
+        flash.now[:success] = t(".success")
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(IncaseImport.new, ''),
+            render_turbo_flash
+          ]
+        end
         format.html { redirect_to edit_incase_import_url(@incase_import), notice: "File uploaded" }
         format.json { render :show, status: :created, location: @incase_import }
       else
@@ -114,7 +134,7 @@ class IncaseImportsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def incase_import_params
-    params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :import_file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
+    params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
   end
 
   def validate_params

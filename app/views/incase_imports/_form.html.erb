@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">Incase import</div>
+  <div class="card-header"><%= IncaseImport.model_name.human(count: 2)%></div>
 
   <%= form_with(model: incase_import, data: { turbo: false }) do |f| %>
 
@@ -22,8 +22,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-4 mb-2"><b>Columns from file</b></div>
-      <div class="col-8 mb-2"><b>System fields</b></div>
+      <div class="col-4 mb-2"><b>Колонки из файла</b></div>
+      <div class="col-8 mb-2"><b>Системные поля</b></div>
 
       <%= f.fields_for :incase_import_columns do |ff| %>
         <div class="col-4 mb-1">

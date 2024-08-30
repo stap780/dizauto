@@ -7,32 +7,43 @@ class OrdersController < ApplicationController
     @search = Order.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @orders = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "orders.xlsx"
+    # filename = "orders.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @orders
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Order",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "orders/index"})
-        flash[:success] = t ".success"
-        redirect_to orders_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Order",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "orders/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to orders_path
+      # end
     end
   end
 
-  # GET /orders/1 or /orders/1.json
+  def download
+    filename = "orders.xlsx"
+    collection_ids = params[:order_ids].present? ? params[:order_ids] : Order.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Order",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "orders/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 
-  # GET /orders/new
   def new
     @order = Order.new
     @order.order_items.build
   end
 
-  # GET /orders/1/edit
   def edit
     @commentable = @order
   end

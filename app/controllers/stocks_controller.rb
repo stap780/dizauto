@@ -14,18 +14,31 @@ class StocksController < ApplicationController
     collection = @search.present? ? @search.result(distinct: true) : @stocks
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Stock",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "stocks/index"})
-        flash[:success] = t ".success"
-        redirect_to stocks_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Stock",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "stocks/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to stocks_path
+      # end
     end
   end
 
-  # GET /stocks/1 or /stocks/1.json
+  def download
+    filename = "stocks.xlsx"
+    collection_ids = params[:stock_ids].present? ? params[:stock_ids] : Stock.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Stock",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "stocks/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 

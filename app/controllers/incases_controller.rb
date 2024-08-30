@@ -7,19 +7,33 @@ class IncasesController < ApplicationController
     @search = Incase.includes(:strah, :incase_items).ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @incases = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "incases.xlsx"
+    # filename = "incases.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @incases
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Incase",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "incases/index"})
-        flash[:success] = t ".success"
-        redirect_back fallback_location: incases_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Incase",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "incases/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_back fallback_location: incases_path
+      # end
     end
+  end
+
+  def download
+    filename = "incases.xlsx"
+    collection_ids = params[:incase_ids].present? ? params[:incase_ids] : Incase.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Incase",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "incases/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
   end
 
   # GET /incases/1 or /incases/1.json

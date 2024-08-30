@@ -8,22 +8,36 @@ class SuppliesController < ApplicationController
     @search = Supply.includes(:company, :supply_items).ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @supplies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "supplies.xlsx"
+    # filename = "supplies.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @supplies
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Supply",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "supplies/index"})
-        flash[:success] = t ".success"
-        redirect_to supplies_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Supply",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "supplies/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to supplies_path
+      # end
     end
   end
 
-  # GET /supplies/1 or /supplies/1.json
+  def download
+    filename = "supplies.xlsx"
+    collection_ids = params[:supply_ids].present? ? params[:supply_ids] : Supply.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Supply",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "supplies/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
+
   def show
   end
 

@@ -7,26 +7,40 @@ class ProductsController < ApplicationController
   def index
     @search = Product.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
-    @products = @search.result(distinct: true).includes(images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 50)
+    @products = @search.result(distinct: true).includes(:props, images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 50)
     filename = "products.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {  model: "Product",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "products/index"})
-        flash[:success] = t ".success"
-        redirect_back fallback_location: products_path
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {  model: "Product",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "products/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_back fallback_location: products_path
 
-        # This is first example . don't delete
-        # service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
-        # compressed_filestream = service.call
-        # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
-      end
+      #   # This is first example . don't delete
+      #   # service = ZipXlsx.new(collection, {filename: filename, template: "products/index"} )
+      #   # compressed_filestream = service.call
+      #   # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
+      # end
     end
+  end
+
+  def download
+    filename = "products.xlsx"
+    collection_ids = params[:product_ids].present? ? params[:product_ids] : Product.with_images.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Product",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "products/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
   end
 
   def search
@@ -72,14 +86,29 @@ class ProductsController < ApplicationController
     end
   end
 
-  def print
-    templ = Templ.find(params[:templ_id])
-    success, pdf = CreatePdf.new(@product, {templ: templ}).call
-    if success
-      send_file pdf, type: "application/pdf", disposition: "attachment"
+  # def print
+  #   templ = Templ.find(params[:templ_id])
+  #   success, pdf = CreatePdf.new(@product, {templ: templ}).call
+  #   if success
+  #     send_file pdf, type: "application/pdf", disposition: "attachment"
+  #   else
+  #     alert = "Ошибка в файле печати: " + pdf.to_s
+  #     redirect_to products_url, notice: alert
+  #   end
+  # end
+
+  def bulk_print # post
+    if params[:product_ids]
+      templ_id = params[:button].split("#").last
+      BulkPrintJob.perform_later("Product", params[:product_ids], templ_id, current_user.id)
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
     else
-      alert = "Ошибка в файле печати: " + pdf.to_s
-      redirect_to products_url, notice: alert
+      notice = "Выберите позиции"
+      redirect_to products_url, alert: notice
     end
   end
 
@@ -173,9 +202,9 @@ class ProductsController < ApplicationController
       flash.now[:notice] = @product.errors.full_messages.join(" ")
     end
     respond_to do |format|
+      format.turbo_stream { message }
       format.html { redirect_to products_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
-      format.turbo_stream { message }
     end
   end
 

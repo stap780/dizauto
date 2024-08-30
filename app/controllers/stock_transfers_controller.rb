@@ -7,22 +7,35 @@ class StockTransfersController < ApplicationController
     @search = StockTransfer.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @stock_transfers = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "stock_transfers.xlsx"
+    # filename = "stock_transfers.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "StockTransfer",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "stock_transfers/index"})
-        flash[:success] = t ".success"
-        redirect_to stock_transfers_url
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "StockTransfer",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "stock_transfers/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to stock_transfers_url
+      # end
     end
   end
 
-  # GET /stock_transfers/1 or /stock_transfers/1.json
+  def download
+    filename = "stock_transfers.xlsx"
+    collection_ids = params[:stock_transfer_ids].present? ? params[:stock_transfer_ids] : StockTransfer.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "StockTransfer",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "stock_transfers/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 

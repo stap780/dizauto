@@ -23,8 +23,8 @@ class Export < ApplicationRecord
     Export.attribute_names
   end
 
-  def products # используется для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
-    (self.test == true) ? Product.all.order(:id).includes(:images, :props).limit(1000) : Product.all.order(:id).includes(:images, :props)
+  def products # используется export service для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
+    (self.test == true) ? Product.with_images.includes(:props).limit(1000) : Product.with_images.includes(:props)
   end
 
   def file_data

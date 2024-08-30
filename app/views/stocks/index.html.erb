@@ -3,10 +3,10 @@
     <h1 class="h3 d-inline align-middle"><%= Stock.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-  <% if Templ.product_print.presence %>
+  <%= form_with url: bulk_print_products_path, method: :post, id: :bulk_action_form  do |f| %>
+    <% if Templ.product_print.presence %>
     <%= button_print %>
     <ul class="dropdown-menu">
-    <%= form_with url: bulk_print_products_path, method: :post, id: :bulk_action_form  do |f| %>
       <% Templ.product_print.each do |templ|%>
         <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
           <%= templ.title %>
@@ -14,8 +14,8 @@
       <% end %>
     <% end %>
     </ul>
+    <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel', formaction: download_stocks_path do %>.xlsx<% end%>
   <% end %>
-
 
     <%= render 'shared/index_filter' if lookup_context.find_all("products/_filter").any? %>
     <%= link_to arrow_clockwise_icon, products_path, class: 'btn btn-outline-primary me-2' %>
@@ -33,7 +33,7 @@
           <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%= link_to '.xlsx', stocks_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
+          <%# link_to '.xlsx', stocks_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>

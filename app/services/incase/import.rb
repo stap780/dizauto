@@ -6,15 +6,15 @@ class Incase::Import
   def initialize(incase_import)
     puts "IncaseImport::Import initialize"
     @incase_import = incase_import
-    @columns = @incase_import.incase_import_columns
-    # file = Rails.application.routes.url_helpers.url_for(incase_import.import_file)
-    # file = ActiveStorage::Blob.service.path_for(incase_import.import_file.key)
-    # file = ActiveStorage::Blob.service.send(:path_for, incase_import.import_file.key)
-    # original_filename = incase_import.import_file.blob
-    @content_type = incase_import.import_file.blob.content_type
+    @columns = incase_import.incase_import_columns
+    # file = Rails.application.routes.url_helpers.url_for(incase_import.file)
+    # file = ActiveStorage::Blob.service.path_for(incase_import.file.key)
+    # file = ActiveStorage::Blob.service.send(:path_for, incase_import.file.key)
+    # original_filename = incase_import.file.blob
+    @content_type = incase_import.file.blob.content_type
     # @file = File.new(file)
     host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
-    @file = host+rails_blob_path(incase_import.import_file, only_path: true) if incase_import.import_file.attached? #ActiveStorage::Blob.service.send(:path_for, incase_import.import_file.key)
+    @file = host+rails_blob_path(incase_import.file, only_path: true) if incase_import.file.attached? #ActiveStorage::Blob.service.send(:path_for, incase_import.file.key)
     @file_data = []
     @work_data = []
     @check_message = {success: [], errors: []}
@@ -195,6 +195,8 @@ class Incase::Import
       if @content_type == "text/csv"
         #   Roo::CSV.new(file, csv_options: {col_sep: ";", quote_char: "\x00"})
         Roo::CSV.new(file, csv_options: {encoding: Encoding::UTF_8})
+      elsif @content_type == "application/vnd.ms-excel"
+        Roo::Excel.new(file, file_warning: :ignore)
       else
         Roo::Excelx.new(file, file_warning: :ignore)
       end

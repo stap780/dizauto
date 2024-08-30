@@ -7,22 +7,35 @@ class ClientsController < ApplicationController
     @search = Client.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @clients = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "clients.xlsx"
+    # filename = "clients.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @clients
     respond_to do |format|
       format.html
-      format.zip do
-        CreateZipXlsxJob.perform_later(collection.ids, {model: "Client",
-                                                          current_user_id: current_user.id,
-                                                          filename: filename,
-                                                          template: "clients/index"})
-        flash[:success] = t ".success"
-        redirect_to clients_path
-      end
+      # format.zip do
+      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Client",
+      #                                                     current_user_id: current_user.id,
+      #                                                     filename: filename,
+      #                                                     template: "clients/index"})
+      #   flash[:success] = t ".success"
+      #   redirect_to clients_path
+      # end
     end
   end
 
-  # GET /clients/1 or /clients/1.json
+  def download
+    filename = "clients.xlsx"
+    collection_ids = params[:client_ids].present? ? params[:client_ids] : Client.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Client",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "clients/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 

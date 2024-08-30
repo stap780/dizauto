@@ -10,7 +10,20 @@ class CompaniesController < ApplicationController
     @companies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  # GET /companies/1 or /companies/1.json
+  def download
+    filename = "companies.xlsx"
+    collection_ids = params[:company_ids].present? ? params[:company_ids] : Company.all.pluck(:id)
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Company",
+                                                      current_user_id: current_user.id,
+                                                      filename: filename,
+                                                      template: "companies/index"})
+    render turbo_stream: 
+      turbo_stream.update(
+        'modal',
+        template: "shared/pending_bulk"
+      )
+  end
+
   def show
   end
 
