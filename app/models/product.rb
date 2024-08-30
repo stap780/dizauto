@@ -48,6 +48,8 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   validates :barcode, length: {minimum: 4, maximum: 13}, allow_blank: true
 
+  attribute :image_urls
+
   scope :active, -> { where(status: "active") }
   scope :draft, -> { where(status: "draft") }
   scope :archived, -> { where(status: "archived") }
