@@ -19,8 +19,13 @@ class Image < ApplicationRecord
   validate :validate_image
   before_validation :set_position_if_nil, on: :create
 
+
   def self.ransackable_attributes(auth_object = nil)
     Image.attribute_names
+  end
+
+  def s3_url
+    "https://s3.timeweb.cloud/#{self.file.service.bucket.name}/#{self.file.blob.key}"
   end
 
   private
