@@ -6,7 +6,7 @@ class CreateZipXlsxJob < ApplicationJob
     items = model.camelize.constantize.where(id: collection_ids)
 
     #   Admin::UserMailer.with(user: User.find(current_user_id), zipped_blob: zipped_blob).bulk_export_done.deliver_now
-    success, zipped_blob = ZipXlsx.new(items, {filename: options[:filename], template: options[:template]}).call
+    success, zipped_blob = ZipXlsx.call(items, {filename: options[:filename], template: options[:template]})
     if success
       PrintNotifier.with(
                         record: items.first, 

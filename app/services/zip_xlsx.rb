@@ -1,6 +1,7 @@
 require "caxlsx"
 
 class ZipXlsx < ApplicationService
+  
   def initialize(collection, options = {})
     @collection = collection
     @filename = options[:filename]
@@ -32,4 +33,5 @@ class ZipXlsx < ApplicationService
       )
     end
   end
+
 end

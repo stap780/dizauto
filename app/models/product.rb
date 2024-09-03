@@ -139,6 +139,17 @@ class Product < ApplicationRecord
     end
   end
 
+  def self.test_create_xlsx(collection_for_file = nil)
+    collection = collection_for_file ||= Product.with_images
+    current_user = User.first
+    filename = "products.xlsx"
+    Product::CreateXlsx.call( collection, {  model: "Product",
+                                            current_user_id: current_user.id,
+                                            filename: filename,
+                                            template: "products/index"}
+                                            )
+  end
+
   private
 
   def set_default_new

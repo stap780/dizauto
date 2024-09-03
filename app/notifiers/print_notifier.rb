@@ -22,7 +22,7 @@ class PrintNotifier < ApplicationNotifier
 
     def message
       # recipient.name
-      "#{params[:message]}. Печать #{params[:model]} #{","+params[:error] if !params[:error].nil?}, шаблон #{params[:template]}"
+      "#{params[:message]}. Печать #{params[:model]} #{","+ params[:error].to_s if !params[:error].nil?}, шаблон #{params[:template]}"
     end
 
     def blob
@@ -32,6 +32,7 @@ class PrintNotifier < ApplicationNotifier
     def success?
       params[:error].nil? ? true : false
     end
+
 
   end
 

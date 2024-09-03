@@ -1,7 +1,7 @@
 <%= turbo_frame_tag "notification_#{notification.id}", class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center px-0" do %>
     <div class="col-6" data="<%= notification.to_json%>">
         <%= notification.message %>
-        <%= link_to 'Скачать', rails_blob_path(notification.blob, disposition: 'attachment') if notification.blob %>
+        <%= link_to 'Скачать', rails_blob_path(notification.blob, disposition: 'attachment') if respond_to?(notification.blob) %>
     </div>
     <div class="col-md-3">
         <%= time_ago_in_words(notification.created_at) %> <%= t('ago')%> 

@@ -21,9 +21,10 @@
     <%= render 'shared/index_filter' if lookup_context.find_all("products/_filter").any? %>
     <%= link_to arrow_clockwise_icon, products_path, class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_product_path, class: "btn btn-primary" %>
+    <%# link_to 'Download as .xlsx', products_path(request.parameters.merge(format: :xlsx)), class: "btn btn-primary", data: {turbo: false} %>
   </div>
 </div>
-
+  
 <%= render 'filter', q: @search, title: 'Product filter' if lookup_context.find_all("products/_filter").any?  %>
 
 <div class="card">
