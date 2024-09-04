@@ -39,7 +39,7 @@ class Product::CreateXlsx < ApplicationService
     wb = p.workbook
     wb.add_worksheet(name: @model) do |sheet|
       sheet.add_row @attributes
-      @collection.each do |item|
+      @collection.find_each(batch_size: 1000) do |item|
         puts "Product::CreateXlsx item => #{item.id}"
         sheet.add_row @attributes.map { |attr| item.send(attr) }
       end
