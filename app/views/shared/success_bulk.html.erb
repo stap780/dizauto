@@ -1,8 +1,7 @@
 <%# turbo_frame_tag "modal" do %>
     <%=tag.p "Создали файл" if bulk_print %>
     <%=tag.p "Процесс окончен" if message %>
-    <%#link_to 'Скачать', rails_blob_path(bulk_print, disposition: 'attachment') if bulk_print %>
-    <%= bulk_print %>
+    <%=link_to 'Скачать', rails_blob_path(bulk_print, disposition: 'attachment') if bulk_print %>
     <%=tag.p message if message %>
 <%# end %>
 <%# turbo_stream_action_tag :open_modal, targets: '.modal' %>

@@ -32,6 +32,7 @@ class Product::CreateXlsx < ApplicationService
   private
 
   def create_file
+    puts "Product::CreateXlsx start create_file"
     # renderer = ActionController::Base.new
     # xlsx = renderer.render_to_string(layout: false, handlers: [:axlsx], formats: [:xlsx], template: @template, locals: {collection: @collection})
     p = Axlsx::Package.new
@@ -39,14 +40,18 @@ class Product::CreateXlsx < ApplicationService
     wb.add_worksheet(name: @model) do |sheet|
       sheet.add_row @attributes
       @collection.each do |item|
+        puts "Product::CreateXlsx item => #{item.id}"
         sheet.add_row @attributes.map { |attr| item.send(attr) }
       end
     end
-
-    # p.serialize 'basic_example.xlsx'
+    puts "Product::CreateXlsx start stream = p.to_stream"
     stream = p.to_stream
-    File.binwrite(@temp_file_path, stream.read)
+    puts "Product::CreateXlsx end stream = p.to_stream"
 
+    puts "Product::CreateXlsx start write file"
+    file = File.binwrite(@temp_file_path, stream.read)
+    puts "Product::CreateXlsx end write file"
+    file
   end
 
 end

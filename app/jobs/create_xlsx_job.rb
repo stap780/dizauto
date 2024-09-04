@@ -5,12 +5,12 @@ class CreateXlsxJob < ApplicationJob
     model = options[:model]
     items = model.camelize.constantize.where(id: collection_ids)
 
-    success, blob = Product::CreateXlsx.call(items, {model: "Product"} )
+    success, message = Product::CreateXlsx.call(items, {model: "Product"} )
     if success
       PrintNotifier.with(
                           record: items.first, 
-                          message: "Success",
-                          blob: blob,
+                          message: "Success #{message}",
+                          blob: nil,
                           error: nil,
                           model: model,
                           template: 'xlsx'
@@ -29,7 +29,7 @@ class CreateXlsxJob < ApplicationJob
                           record: items.first, 
                           message: "Error",
                           blob: nil,
-                          error: blob,
+                          error: message,
                           model: model,
                           template: 'xlsx'
                         ).deliver(User.find_by_id(options[:current_user_id]))
@@ -40,7 +40,7 @@ class CreateXlsxJob < ApplicationJob
         target: "modal",
         template: "shared/error_bulk",
         layout: false,
-        locals: {error_message: blob, error_process: "CreateXlsxJob"}
+        locals: {error_message: message, error_process: "CreateXlsxJob"}
       )
     end
   end
