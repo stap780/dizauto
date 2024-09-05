@@ -1,6 +1,7 @@
 class CreateXlsxJob < ApplicationJob
   queue_as :print
-  #retry_on AlwaysRetryException, attempts: :unlimited
+  sidekiq_options retry: 1
+  # retry_on AlwaysRetryException, attempts: :unlimited
   # retry_on AlwaysRetryException, attempts: 1
 
   def perform(collection_ids, options = {})
