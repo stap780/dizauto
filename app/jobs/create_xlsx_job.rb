@@ -1,6 +1,6 @@
 class CreateXlsxJob < ApplicationJob
   queue_as :print
-  sidekiq_options retry: 1
+  sidekiq_options retry: 0
   # retry_on AlwaysRetryException, attempts: :unlimited
   # retry_on AlwaysRetryException, attempts: 1
 
@@ -25,7 +25,7 @@ class CreateXlsxJob < ApplicationJob
         target: "modal",
         template: "shared/success_bulk",
         layout: false,
-        locals: {bulk_print: blob, message: nil}
+        locals: {bulk_print: nil, message: message}
       )
     else
       PrintNotifier.with(
