@@ -8,17 +8,13 @@ class ProductsController < ApplicationController
     @search = Product.ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @products = @search.result(distinct: true).includes(:props, images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
-    collection = @search.present? ? @search.result(distinct: true) : @products
+    # collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
     respond_to do |format|
       format.html
-      format.xlsx do
-        service = Product::CreateXlsx.call(collection, {model: "Product"} )
-        # data = service.call
-        # send_data data.read, filename: filename
-        
-        # render xlsx: 'products', template: 'products/index', locals: {collection: collection}
-      end
+      # format.xlsx do
+      #   render xlsx: 'products', template: 'products/index', locals: {collection: collection}
+      # end
       # format.zip do
       #   CreateZipXlsxJob.perform_later(collection.ids, {  model: "Product",
       #                                                     current_user_id: current_user.id,
@@ -36,14 +32,9 @@ class ProductsController < ApplicationController
   end
 
   def download
-    # filename = "products.xlsx"
-    # collection_ids = params[:product_ids].present? ? params[:product_ids] : Product.with_images.pluck(:id)
-    # CreateZipXlsxJob.perform_later(collection_ids, {  model: "Product",
-    #                                                   current_user_id: current_user.id,
-    #                                                   filename: filename,
-    #                                                   template: "products/index"})
     collection_ids = params[:product_ids].present? ? params[:product_ids] : Product.with_images.pluck(:id)
-    CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
+    # CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
+    CreateZipXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
     render turbo_stream: 
       turbo_stream.update(
         'modal',

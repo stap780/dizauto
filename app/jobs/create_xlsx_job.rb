@@ -1,14 +1,17 @@
+# NOT USE NOW
+# Created for test
+#
+
+
 class CreateXlsxJob < ApplicationJob
   queue_as :print
   sidekiq_options retry: 0
-  # retry_on AlwaysRetryException, attempts: :unlimited
-  # retry_on AlwaysRetryException, attempts: 1
 
   def perform(collection_ids, options = {})
     model = options[:model]
     items = model.camelize.constantize.where(id: collection_ids)
 
-    success, message = Product::CreateXlsx.call(items, {model: "Product"} )
+    success, message = Product::CreateXlsx.call(items, {model: model} )
     if success
       PrintNotifier.with(
                           record: items.first, 

@@ -140,7 +140,7 @@ class UsersController < ApplicationController
 
   def delete_notification
     @notification = @user.notifications.find_by_id(params[:notification_id])
-    if !@notification.blob.nil? && respond_to?(@notification.blob)
+    if !@notification.blob.nil?
       @notification.blob.purge
     end
     @notification.delete

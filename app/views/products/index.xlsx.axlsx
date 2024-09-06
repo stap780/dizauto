@@ -2,7 +2,7 @@ wb = xlsx_package.workbook
 attributes = Product.attribute_names
 wb.add_worksheet(name: "Products") do |sheet|
   sheet.add_row attributes
-  collection.each do |item|
+  collection.find_each(batch_size: 1000) do |item|
     sheet.add_row attributes.map { |attr| item.send(attr) }
   end
 end
