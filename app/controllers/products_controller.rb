@@ -1,11 +1,10 @@
 class ProductsController < ApplicationController
-  # require "image_processing/vips"
-  # include Rails.application.routes.url_helpers
   load_and_authorize_resource
   before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image reorder_image update_image]
+  include SearchQueryRansack
 
   def index
-    @search = Product.ransack(params[:q])
+    @search = Product.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @products = @search.result(distinct: true).includes(:props, images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     # collection = @search.present? ? @search.result(distinct: true) : @products
@@ -32,14 +31,24 @@ class ProductsController < ApplicationController
   end
 
   def download
-    collection_ids = params[:product_ids].present? ? params[:product_ids] : Product.with_images.pluck(:id)
-    # CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
-    CreateZipXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
+    # puts "########### search_params download => #{search_params}"
+    if params[:download_type] == "selected" && !params[:product_ids].present?
+      flash.now[:error] = "Выберите позиции"
+      render turbo_stream: [
+        render_turbo_flash
+      ]
+    else
+      collection_ids = params[:product_ids] if params[:download_type] == "selected" && params[:product_ids].present?
+      collection_ids = Product.with_images.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered"
+      collection_ids = Product.with_images.pluck(:id) if params[:download_type] == "all"
+      ## this is was for test - CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
+      CreateZipXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
+    end
   end
 
   def search
@@ -84,17 +93,6 @@ class ProductsController < ApplicationController
       end
     end
   end
-
-  # def print
-  #   templ = Templ.find(params[:templ_id])
-  #   success, pdf = CreatePdf.new(@product, {templ: templ}).call
-  #   if success
-  #     send_file pdf, type: "application/pdf", disposition: "attachment"
-  #   else
-  #     alert = "Ошибка в файле печати: " + pdf.to_s
-  #     redirect_to products_url, notice: alert
-  #   end
-  # end
 
   def bulk_print # post
     if params[:product_ids]
@@ -214,7 +212,6 @@ class ProductsController < ApplicationController
     # @image.insert_at params[:new_position]
     head :ok
   end
-
 
   private
 

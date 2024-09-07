@@ -15,7 +15,8 @@
         <% end %>
       <% end %>
       </ul>
-      <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel', formaction: download_incases_path do %>.xlsx<% end%>
+      <%# f.button '.xlsx',type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel', formaction: download_incases_path %>
+      <%= render 'shared/download_excel_buttons', f: f, object: Incase.new %>
     <% end %>
 
     <%= render 'shared/index_filter' if lookup_context.find_all("incases/_filter").any? %>

@@ -1,39 +1,35 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource
   before_action :set_order, only: %i[show edit update destroy]
+  include SearchQueryRansack
 
-  # GET /orders or /orders.json
   def index
-    @search = Order.ransack(params[:q])
+    @search = Order.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @orders = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "orders.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @orders
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Order",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "orders/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to orders_path
-      # end
     end
   end
 
   def download
-    filename = "orders.xlsx"
-    collection_ids = params[:order_ids].present? ? params[:order_ids] : Order.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Order",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "orders/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
+    # puts "########### search_params download => #{search_params}"
+    if params[:download_type] == "selected" && !params[:product_ids].present?
+      flash.now[:error] = "Выберите позиции"
+      render turbo_stream: [
+        render_turbo_flash
+      ]
+    else
+      collection_ids = params[:product_ids] if params[:download_type] == "selected" && params[:product_ids].present?
+      collection_ids = Order.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered"
+      collection_ids = Order.all.pluck(:id) if params[:download_type] == "all"
+      CreateZipXlsxJob.perform_later(collection_ids, {model: "Order",current_user_id: current_user.id} )
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
+    end
   end
 
   def show
@@ -48,7 +44,6 @@ class OrdersController < ApplicationController
     @commentable = @order
   end
 
-  # POST /orders or /orders.json
   def create
     @order = Order.new(order_params)
 
@@ -63,7 +58,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /orders/1 or /orders/1.json
   def update
     respond_to do |format|
       if @order.update(order_params)
@@ -76,7 +70,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1 or /orders/1.json
   def destroy
     @order.destroy
 
@@ -105,7 +98,7 @@ class OrdersController < ApplicationController
   def slimselect_nested_item # GET
     target = params[:turboId]
     order_item = OrderItem.find_by(id: target.remove("order_item_"))
-    product = Product.find(params[:selected_id])
+    product = Order.find(params[:selected_id])
     child_index = target.remove("order_item_")
 
     if order_item.present?
@@ -153,15 +146,12 @@ class OrdersController < ApplicationController
   end
 
   private
+  # information - @commentable - as separate folder controllers/orders/comments_controller.rb
 
-  # @commentable - as separate folder controllers/orders/comments_controller.rb
-
-  # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def order_params
     params.require(:order).permit(:company_id,:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
       order_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :_destroy], comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])

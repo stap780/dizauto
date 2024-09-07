@@ -1,57 +1,49 @@
 class IncasesController < ApplicationController
   load_and_authorize_resource
   before_action :set_incase, only: %i[show edit update destroy act new_supply]
+  include SearchQueryRansack
 
-  # GET /incases or /incases.json
   def index
     @search = Incase.includes(:strah, :incase_items).ransack(params[:q])
     @search.sorts = "id desc" if @search.sorts.empty?
     @incases = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "incases.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @incases
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Incase",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "incases/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_back fallback_location: incases_path
-      # end
     end
   end
 
   def download
-    filename = "incases.xlsx"
-    collection_ids = params[:incase_ids].present? ? params[:incase_ids] : Incase.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Incase",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "incases/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
+    # puts "########### search_params download => #{search_params}"
+    if params[:download_type] == "selected" && !params[:product_ids].present?
+      flash.now[:error] = "Выберите позиции"
+      render turbo_stream: [
+        render_turbo_flash
+      ]
+    else
+      collection_ids = params[:product_ids] if params[:download_type] == "selected" && params[:product_ids].present?
+      collection_ids = Incase.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered"
+      collection_ids = Incase.all.pluck(:id) if params[:download_type] == "all"
+      CreateZipXlsxJob.perform_later(collection_ids, {model: "Incase",current_user_id: current_user.id} )
+      render turbo_stream: 
+        turbo_stream.update(
+          'modal',
+          template: "shared/pending_bulk"
+        )
+    end
   end
 
-  # GET /incases/1 or /incases/1.json
   def show
   end
 
-  # GET /incases/new
   def new
     @incase = Incase.new
     @incase.incase_items.build
   end
 
-  # GET /incases/1/edit
   def edit
     @commentable = @incase
   end
 
-  # POST /incases or /incases.json
   def create
     @incase = Incase.new(incase_params)
     respond_to do |format|
@@ -65,7 +57,6 @@ class IncasesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /incases/1 or /incases/1.json
   def update
     respond_to do |format|
       if @incase.update(incase_params)
@@ -78,7 +69,6 @@ class IncasesController < ApplicationController
     end
   end
 
-  # DELETE /incases/1 or /incases/1.json
   def destroy
     @incase.destroy
 
@@ -122,7 +112,7 @@ class IncasesController < ApplicationController
     child_index = target.remove("incase_item_")
 
     if incase_item.present?
-      helpers.fields model: Order.new do |f|
+      helpers.fields model: Incase.new do |f|
         f.fields_for :incase_items, incase_item do |ff|
           render turbo_stream: turbo_stream.replace(
             target,
@@ -173,12 +163,10 @@ class IncasesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_incase
     @incase = Incase.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def incase_params
     params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :incase_status_id, :incase_tip_id,
       incase_items_attributes: [:id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])

@@ -132,6 +132,10 @@ module ApplicationHelper
     '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-printer"></i></button>'.html_safe
   end
 
+  def button_download
+    '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">.xlsx</button>'.html_safe
+  end
+
   def history_icon
     '<i class="bi bi-clock-history"></i>'.html_safe
   end
