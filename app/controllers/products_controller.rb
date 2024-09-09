@@ -2,6 +2,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
   before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image reorder_image update_image]
   include SearchQueryRansack
+  include DownloadExcel
 
   def index
     @search = Product.ransack(search_params)
@@ -27,27 +28,6 @@ class ProductsController < ApplicationController
       #   # compressed_filestream = service.call
       #   # send_data compressed_filestream.read, filename: 'products.zip', type: 'application/zip'
       # end
-    end
-  end
-
-  def download
-    # puts "########### search_params download => #{search_params}"
-    if params[:download_type] == "selected" && !params[:product_ids].present?
-      flash.now[:error] = "Выберите позиции"
-      render turbo_stream: [
-        render_turbo_flash
-      ]
-    else
-      collection_ids = params[:product_ids] if params[:download_type] == "selected" && params[:product_ids].present?
-      collection_ids = Product.with_images.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered"
-      collection_ids = Product.with_images.pluck(:id) if params[:download_type] == "all"
-      ## this is was for test - CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
-      CreateZipXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
-      render turbo_stream: 
-        turbo_stream.update(
-          'modal',
-          template: "shared/pending_bulk"
-        )
     end
   end
 

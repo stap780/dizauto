@@ -4,10 +4,10 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
   <%= form_with url: download_enters_path, method: :post, id: :bulk_action_form  do |f| %>
-    <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel' do %>.xlsx<% end%>
+    <%= render 'shared/download_excel_buttons', f: f, object: Enter.new %>
   <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("enters/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, enters_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, enters_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>
     <%= link_to add_icon, new_enter_path, class: "btn btn-primary" %>
   </div>
 </div>
@@ -23,7 +23,6 @@
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
-          <%# link_to '.xlsx', enters_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>

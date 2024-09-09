@@ -1,57 +1,31 @@
 class StocksController < ApplicationController
   load_and_authorize_resource
   before_action :set_stock, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /stocks or /stocks.json
   def index
     products_with_stocks = Stock.group(:product_id).count
     products_with_stocks_ids = products_with_stocks.keys
     # @search = Stock.includes(:product).ransack(params[:q])
-    @search = Product.where(id: products_with_stocks_ids).ransack(params[:q])
+    @search = Product.where(id: products_with_stocks_ids).ransack(search_params)
     # @search.sorts = "id desc" if @search.sorts.empty?
     @stocks = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    filename = "stocks.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @stocks
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Stock",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "stocks/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to stocks_path
-      # end
     end
-  end
-
-  def download
-    filename = "stocks.xlsx"
-    collection_ids = params[:stock_ids].present? ? params[:stock_ids] : Stock.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Stock",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "stocks/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
   end
 
-  # GET /stocks/new
   def new
     @stock = Stock.new
   end
 
-  # GET /stocks/1/edit
   def edit
   end
 
-  # POST /stocks or /stocks.json
   def create
     @stock = Stock.new(stock_params)
 
@@ -66,7 +40,6 @@ class StocksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stocks/1 or /stocks/1.json
   def update
     respond_to do |format|
       if @stock.update(stock_params)
@@ -79,7 +52,6 @@ class StocksController < ApplicationController
     end
   end
 
-  # DELETE /stocks/1 or /stocks/1.json
   def destroy
     @stock.destroy!
 
@@ -90,12 +62,10 @@ class StocksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_stock
       @stock = Stock.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def stock_params
       params.require(:stock).permit(:product_id, :user_id, :stockable_id, :stockable_type, :move, :value)
     end

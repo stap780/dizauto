@@ -1,54 +1,28 @@
 class StockTransfersController < ApplicationController
   load_and_authorize_resource
   before_action :set_stock_transfer, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /stock_transfers or /stock_transfers.json
   def index
-    @search = StockTransfer.ransack(params[:q])
+    @search = StockTransfer.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @stock_transfers = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "stock_transfers.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "StockTransfer",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "stock_transfers/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to stock_transfers_url
-      # end
     end
-  end
-
-  def download
-    filename = "stock_transfers.xlsx"
-    collection_ids = params[:stock_transfer_ids].present? ? params[:stock_transfer_ids] : StockTransfer.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "StockTransfer",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "stock_transfers/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
   end
 
-  # GET /stock_transfers/new
   def new
     @stock_transfer = StockTransfer.new
   end
 
-  # GET /stock_transfers/1/edit
   def edit
   end
 
-  # POST /stock_transfers or /stock_transfers.json
   def create
     @stock_transfer = StockTransfer.new(stock_transfer_params)
 
@@ -63,7 +37,6 @@ class StockTransfersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /stock_transfers/1 or /stock_transfers/1.json
   def update
     respond_to do |format|
       if @stock_transfer.update(stock_transfer_params)
@@ -76,13 +49,8 @@ class StockTransfersController < ApplicationController
     end
   end
 
-  # DELETE /stock_transfers/1 or /stock_transfers/1.json
   def destroy
     @check_destroy = @stock_transfer.destroy ? true : false
-    # puts '====='
-    # puts @check_destroy
-    # puts @property.errors.messages
-    # puts '====='
     message = if @check_destroy == true
       flash.now[:success] = t(".success")
     else
@@ -148,12 +116,10 @@ class StockTransfersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_stock_transfer
       @stock_transfer = StockTransfer.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def stock_transfer_params
       params.require(:stock_transfer).permit(:stock_transfer_status_id, :origin_warehouse_id, :destination_warehouse_id,
       stock_transfer_items_attributes: [:id, :product_id, :stock_transfer_id, :quantity, :price, :vat, :sum, :_destroy])

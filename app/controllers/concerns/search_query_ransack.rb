@@ -19,6 +19,7 @@ module SearchQueryRansack
   # DELETE SEARCH PARAMETERS FROM THE SESSION
   def clear_search_index
     puts "clear_search_index"
+    puts "controller_name => #{controller_name.singularize}"
     if params[:search_cancel]
       params.delete(:search_cancel)
       if(!search_params.nil?)

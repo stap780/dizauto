@@ -20,7 +20,7 @@
       <%= render 'shared/download_excel_buttons', f: f, object: Product.new %>
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("products/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, products_path(request.parameters.merge(search_cancel: true)), class: 'btn btn-outline-primary me-2', data: {turbo: false} %>
+    <%= link_to arrow_clockwise_icon, products_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false} %>
     <%= link_to add_icon, new_product_path, class: "btn btn-primary", data: {turbo: false} %>
     <%# link_to 'Download as .xlsx', products_path(request.parameters.merge(format: :xlsx)), class: "btn btn-primary", data: {turbo: false} %>
   </div>

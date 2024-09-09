@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
   before_action :set_order, only: %i[show edit update destroy]
   include SearchQueryRansack
+  include DownloadExcel
 
   def index
     @search = Order.ransack(search_params)
@@ -9,26 +10,6 @@ class OrdersController < ApplicationController
     @orders = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     respond_to do |format|
       format.html
-    end
-  end
-
-  def download
-    # puts "########### search_params download => #{search_params}"
-    if params[:download_type] == "selected" && !params[:product_ids].present?
-      flash.now[:error] = "Выберите позиции"
-      render turbo_stream: [
-        render_turbo_flash
-      ]
-    else
-      collection_ids = params[:product_ids] if params[:download_type] == "selected" && params[:product_ids].present?
-      collection_ids = Order.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered"
-      collection_ids = Order.all.pluck(:id) if params[:download_type] == "all"
-      CreateZipXlsxJob.perform_later(collection_ids, {model: "Order",current_user_id: current_user.id} )
-      render turbo_stream: 
-        turbo_stream.update(
-          'modal',
-          template: "shared/pending_bulk"
-        )
     end
   end
 

@@ -1,26 +1,13 @@
 class PlacementsController < ApplicationController
   load_and_authorize_resource
   before_action :set_placement, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /placements or /placements.json
   def index
-    @search = Placement.ransack(params[:q])
+    @search = Placement.ransack(search_params)
     @search.sorts = "id asc" if @search.sorts.empty?
     @placements = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-  end
-
-  def download
-    filename = "placements.xlsx"
-    collection_ids = params[:placement_ids].present? ? params[:placement_ids] : Placement.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Placement",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "placements/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
@@ -28,15 +15,12 @@ class PlacementsController < ApplicationController
 
   def new
     @placement = Placement.new(warehouse_id: params[:warehouse_id])
-    # @placement.locations.build
   end
 
-  # GET /placements/1/edit
   def edit
     # @places = Warehouse.find_by_id(@placement.warehouse_id).places.map{|p| [p.full_title, p.id]}
   end
 
-  # POST /placements or /placements.json
   def create
     @placement = Placement.new(placement_params)
 
@@ -51,7 +35,6 @@ class PlacementsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /placements/1 or /placements/1.json
   def update
     respond_to do |format|
       if @placement.update(placement_params)
@@ -64,7 +47,6 @@ class PlacementsController < ApplicationController
     end
   end
 
-  # DELETE /placements/1 or /placements/1.json
   def destroy
     @placement.destroy!
 
@@ -102,12 +84,10 @@ class PlacementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_placement
       @placement = Placement.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def placement_params
       params.require(:placement).permit(:warehouse_id, locations_attributes: [:id, :product_id, :place_id, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])
     end

@@ -14,11 +14,10 @@
           <% end %>
         <% end %>
       </ul>
-      <%# f.button '.xlsx',type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel', formaction: download_orders_path %>
       <%= render 'shared/download_excel_buttons', f: f, object: Order.new %>
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("orders/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, orders_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, orders_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>
     <%= link_to add_icon, new_order_path, class: "btn btn-primary" %>
   </div>
 </div>

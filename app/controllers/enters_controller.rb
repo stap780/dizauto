@@ -1,45 +1,21 @@
 class EntersController < ApplicationController
   load_and_authorize_resource
   before_action :set_enter, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /enters or /enters.json
   def index
-    @search = Enter.ransack(params[:q])
+    @search = Enter.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @enters = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "enters.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Enter",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "enters/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to losses_url
-      # end
     end
-  end
-
-  def download
-    filename = "enters.xlsx"
-    collection_ids = params[:enter_ids].present? ? params[:enter_ids] : Enter.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Enter",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "enters/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
   end
 
-  # GET /enters/new
   def new
     if params[:stock_transfer_id].present?
       stock_transfer = StockTransfer.find(params[:stock_transfer_id])
@@ -54,11 +30,9 @@ class EntersController < ApplicationController
     end
   end
 
-  # GET /enters/1/edit
   def edit
   end
 
-  # POST /enters or /enters.json
   def create
     @enter = Enter.new(enter_params)
 
@@ -73,7 +47,6 @@ class EntersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /enters/1 or /enters/1.json
   def update
     respond_to do |format|
       if @enter.update(enter_params)
@@ -86,7 +59,6 @@ class EntersController < ApplicationController
     end
   end
 
-  # DELETE /enters/1 or /enters/1.json
   def destroy
     @enter.destroy!
 
@@ -148,12 +120,10 @@ class EntersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_enter
       @enter = Enter.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def enter_params
       params.require(:enter).permit(:enter_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
       enter_items_attributes: [:id, :product_id, :enter_id, :quantity, :price, :vat, :sum, :_destroy])

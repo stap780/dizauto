@@ -14,10 +14,10 @@
       <% end %>
     <% end %>
     </ul>
-    <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel', formaction: download_stock_transfers_path do %>.xlsx<% end%>
+    <%= render 'shared/download_excel_buttons', f: f, object: StockTransfer.new %>
   <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("stock_transfers/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, stock_transfers_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, stock_transfers_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>
     <%= link_to add_icon, new_stock_transfer_path, class: "btn btn-primary" %>
   </div>
 </div>

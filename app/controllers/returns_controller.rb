@@ -1,46 +1,21 @@
 class ReturnsController < ApplicationController
   load_and_authorize_resource
   before_action :set_return, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /returns or /returns.json
   def index
-    @search = Return.ransack(params[:q])
+    @search = Return.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @returns = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "returns.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @returns
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Return",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "returns/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to orders_path
-      # end
     end
   end
-
-  def download
-    filename = "returns.xlsx"
-    collection_ids = params[:return_ids].present? ? params[:return_ids] : Return.with_images.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Return",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "returns/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
-  end
-
 
   def show
   end
 
-  # GET /returns/new
   def new
     if params[:invoice_id].present?
       invoice = Invoice.find(params[:invoice_id])
@@ -55,11 +30,9 @@ class ReturnsController < ApplicationController
     end
   end
 
-  # GET /returns/1/edit
   def edit
   end
 
-  # POST /returns or /returns.json
   def create
     @return = Return.new(return_params)
 
@@ -74,7 +47,6 @@ class ReturnsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /returns/1 or /returns/1.json
   def update
     respond_to do |format|
       if @return.update(return_params)
@@ -87,7 +59,6 @@ class ReturnsController < ApplicationController
     end
   end
 
-  # DELETE /returns/1 or /returns/1.json
   def destroy
     @return.destroy!
 
@@ -164,12 +135,10 @@ class ReturnsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_return
       @return = Return.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def return_params
       params.require(:return).permit(:client_id, :company_id, :number, :return_status_id, :invoice_id, return_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :vat, :_destroy])
     end

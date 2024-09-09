@@ -1,41 +1,18 @@
 class InvoicesController < ApplicationController
   load_and_authorize_resource
   before_action :set_invoice, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /invoices or /invoices.json
   def index
-    @search = Invoice.ransack(params[:q])
+    @search = Invoice.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @invoices = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "invoices.xlsx"
     collection = @search.present? ? @search.result(distinct: true) : @invoices
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Invoice",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "invoices/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to orders_path
-      # end
     end
   end
-
-  def download
-    filename = "invoices.xlsx"
-    collection_ids = params[:invoice_ids].present? ? params[:invoice_ids] : Invoice.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Invoice",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "invoices/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
-  end
-
 
   def show
   end
@@ -54,11 +31,9 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/1/edit
   def edit
   end
 
-  # POST /invoices or /invoices.json
   def create
     @invoice = Invoice.new(invoice_params)
 
@@ -73,7 +48,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /invoices/1 or /invoices/1.json
   def update
     respond_to do |format|
       if @invoice.update(invoice_params)
@@ -86,7 +60,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # DELETE /invoices/1 or /invoices/1.json
   def destroy
     @invoice.destroy!
 
@@ -163,12 +136,10 @@ class InvoicesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_invoice
       @invoice = Invoice.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def invoice_params
       params.require(:invoice).permit(:client_id,:company_id, :number, :invoice_status_id, :order_id, invoice_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :vat, :_destroy])
     end

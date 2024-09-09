@@ -2,50 +2,25 @@ class IncaseImportsController < ApplicationController
   load_and_authorize_resource
   before_action :set_incase_import, only: %i[show edit update import_start check_import destroy]
   before_action :validate_params, only: [:update]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /incase_imports or /incase_imports.json
   def index
-    @search = IncaseImport.ransack(params[:q])
+    @search = IncaseImport.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @incase_imports = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "incase_imports.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @incase_imports
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "IncaseImport",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "incase_imports/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to incase_imports_path
-      # end
     end
-  end
-
-  def download
-    filename = "incase_imports.xlsx"
-    collection_ids = params[:incase_import_ids].present? ? params[:incase_import_ids] : IncaseImport.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "IncaseImport",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "incase_imports/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
   end
 
-  # GET /incase_imports/new
   def new
     @incase_import = IncaseImport.new
   end
 
-  # GET /incase_imports/1/edit
   def edit
     if @incase_import.incase_import_columns.size < 1
       service = Incase::Import.new(@incase_import)
@@ -59,7 +34,6 @@ class IncaseImportsController < ApplicationController
     end
   end
 
-  # POST /incase_imports or /incase_imports.json
   def create
     @incase_import = IncaseImport.new(incase_import_params)
 
@@ -81,7 +55,6 @@ class IncaseImportsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /incase_imports/1 or /incase_imports/1.json
   def update
     success, message = validate_params
     if success
@@ -114,7 +87,6 @@ class IncaseImportsController < ApplicationController
     end
   end
 
-  # DELETE /incase_imports/1 or /incase_imports/1.json
   def destroy
     @incase_import.destroy
 
@@ -127,12 +99,10 @@ class IncaseImportsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_incase_import
     @incase_import = IncaseImport.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def incase_import_params
     params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
   end

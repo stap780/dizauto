@@ -2,46 +2,21 @@ class SuppliesController < ApplicationController
   load_and_authorize_resource
   before_action :set_supply, only: %i[show edit update destroy]
   include ActionView::RecordIdentifier
-
-  # GET /supplies or /supplies.json
+  include SearchQueryRansack
+  include DownloadExcel
+  
   def index
-    @search = Supply.includes(:company, :supply_items).ransack(params[:q])
+    @search = Supply.includes(:company, :supply_items).ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @supplies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "supplies.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @supplies
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Supply",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "supplies/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to supplies_path
-      # end
     end
   end
-
-  def download
-    filename = "supplies.xlsx"
-    collection_ids = params[:supply_ids].present? ? params[:supply_ids] : Supply.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Supply",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "supplies/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
-  end
-
 
   def show
   end
 
-  # GET /supplies/new
   def new
     if params[:incase_id].present?
       incase = Incase.find(params[:incase_id])
@@ -56,12 +31,10 @@ class SuppliesController < ApplicationController
     end
   end
 
-  # GET /supplies/1/edit
   def edit
     # @supply.supply_items.build if @supply.supply_items.count < 1
   end
 
-  # POST /supplies or /supplies.json
   def create
     @supply = Supply.new(supply_params)
 
@@ -76,7 +49,6 @@ class SuppliesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /supplies/1 or /supplies/1.json
   def update
     respond_to do |format|
       if @supply.update(supply_params)
@@ -89,7 +61,6 @@ class SuppliesController < ApplicationController
     end
   end
 
-  # DELETE /supplies/1 or /supplies/1.json
   def destroy
     @supply.destroy
 

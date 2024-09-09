@@ -4,10 +4,11 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
   <%= form_with url: download_placements_path, method: :post, id: :bulk_action_form  do |f| %>
-    <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel' do %>.xlsx<% end%>
+    <%= render 'shared/download_excel_buttons', f: f, object: Placement.new %>
   <% end %>
-    <%= link_to arrow_clockwise_icon, products_path, class: 'btn btn-outline-primary me-2' %>
-    <%# link_to add_icon, new_placement_path, class: "btn btn-primary" %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("placements/_filter").any? %>
+    <%= link_to arrow_clockwise_icon, placements_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>
+
     <div class="btn-group" role="group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <%= add_icon %>
@@ -21,6 +22,7 @@
   </div>
 </div>
 
+<%= render 'filter', q: @search, title: 'Placement filter' if lookup_context.find_all("placements/_filter").any?%>
 
 <div class="card">
   <div class="card-header pb-0">

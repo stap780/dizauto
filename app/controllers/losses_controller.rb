@@ -1,45 +1,21 @@
 class LossesController < ApplicationController
   load_and_authorize_resource
   before_action :set_loss, only: %i[ show edit update destroy ]
+  include SearchQueryRansack
+  include DownloadExcel
 
-  # GET /losses or /losses.json
   def index
-    @search = Loss.ransack(params[:q])
+    @search = Loss.ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @losses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    # filename = "losses.xlsx"
-    collection = @search.present? ? @search.result(distinct: true) : @stock_transfers
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Loss",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "losses/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to losses_url
-      # end
     end
-  end
-
-  def download
-    filename = "losses.xlsx"
-    collection_ids = params[:loss_ids].present? ? params[:loss_ids] : Loss.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Loss",
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: "losses/index"})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: "shared/pending_bulk"
-      )
   end
 
   def show
   end
 
-  # GET /losses/new
   def new
     @loss = Loss.new
     if params[:stock_transfer_id].present?
@@ -55,11 +31,9 @@ class LossesController < ApplicationController
     end
   end
 
-  # GET /losses/1/edit
   def edit
   end
 
-  # POST /losses or /losses.json
   def create
     @loss = Loss.new(loss_params)
 
@@ -74,7 +48,6 @@ class LossesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /losses/1 or /losses/1.json
   def update
     respond_to do |format|
       if @loss.update(loss_params)
@@ -87,7 +60,6 @@ class LossesController < ApplicationController
     end
   end
 
-  # DELETE /losses/1 or /losses/1.json
   def destroy
     @loss.destroy!
 
@@ -150,12 +122,10 @@ class LossesController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_loss
       @loss = Loss.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def loss_params
       params.require(:loss).permit(:loss_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
       loss_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
