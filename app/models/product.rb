@@ -90,7 +90,8 @@ class Product < ApplicationRecord
   end
   
   def properties_data # this for export cvs/excel
-    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
+    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} } # speed test said it is better
+    # props.includes(property: :characteristics).map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
   end
 
   def file_description

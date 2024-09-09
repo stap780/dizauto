@@ -102,13 +102,6 @@ ru:
       enter_status:
         title: "название"
         color: "цвет"
-      export: &export
-        title: "название"
-        link: "ссылка"
-        format: "формат"
-        work_time: "время работы"
-        created_at: "время создания"
-        file_data: "данные по файлу"
       location:
         product_id: "товар"
         place_id: "место"
@@ -186,6 +179,7 @@ ru:
         warehouse_id: "склад"
         items_quantity: "кол-во позиций"
       product: &product
+        id: "код"
         sku: "артикул"
         title: "название"
         barcode: "штрихкод"
@@ -195,6 +189,18 @@ ru:
         price: "ц. п. р"
         video: "видео"
         created_at: "создан"
+        updated_at: "обновлён"
+        images_urls: "изображения"
+        status: "статус"
+        tip: "тип"
+      export: &export
+        title: "название"
+        link: "ссылка"
+        format: "формат"
+        work_time: "время работы"
+        created_at: "время создания"
+        file_data: "данные по файлу"
+        <<: *product
       order: &order
         id: "номер"
         order_status_id: "статус"

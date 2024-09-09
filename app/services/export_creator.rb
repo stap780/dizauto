@@ -1,8 +1,8 @@
-require "csv"
-require "caxlsx"
-
 class ExportCreator < ApplicationService
-  attr_reader :export
+  require "csv"
+  require "caxlsx"
+
+  attr_reader :export, :file_path
 
   def initialize(export, options = {})
     @export = export
@@ -11,7 +11,7 @@ class ExportCreator < ApplicationService
     @file_name = "#{@export.id}.#{@export.format}"
     @file_path = "#{Rails.public_path}/#{@file_name}"
     @link = @host + "/" + @file_name
-    @col_names_property = Property.order(:id).pluck(:title)
+    @property_col_names = Property.order(:id).pluck(:title)
     @error_message = nil
   end
 
@@ -21,7 +21,8 @@ class ExportCreator < ApplicationService
     result = create_csv if @export.format == "csv"
     result = create_xlsx if @export.format == "xlsx"
     result = create_xml if @export.format == "xml"
-    if result
+    puts "result => #{result}"
+    if result == true
       @export.update(link: @link, status: 'finish')
       [true, @export]
     else
@@ -35,29 +36,34 @@ class ExportCreator < ApplicationService
   def create_csv
     puts "create_csv => " + @export.inspect.to_s
     CSV.open(@file_path, "w") do |writer|
-      col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
+      # col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
+      product_col_names = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) : Product.attribute_names
       if @export.use_property == true
-        writer << col_names_product_with_images + @col_names_property
+        # writer << col_names_product_with_images + @property_col_names
+        writer << product_col_names + @property_col_names
       else
-        writer << col_names_product_with_images
+        # writer << col_names_product_with_images
+        writer << product_col_names
       end
       @export.products.find_each(batch_size: 1000) do |product|
-        images = product.images.present? ? product.image_urls.join(" ") : " "
-        attr_for_sheet = product.attributes
-        attr_for_sheet["description"] = product.file_description
-        attr_for_sheet["images"] = images
+        # images = product.images.present? ? product.image_urls.join(" ") : " "
+        # attr_for_sheet = product.attributes
+        # attr_for_sheet["description"] = product.file_description
+        # attr_for_sheet["images"] = images
         if @export.use_property == true
-          prop_values_array = []
-          @col_names_property.each do |p_title|
-            value = product.properties_data.map { |a| a[p_title] }.uniq.join
-            value.present? ? prop_values_array.push(value) : prop_values_array.push("")
-          end
-          writer << attr_for_sheet.values_at(*col_names_product_with_images) + prop_values_array
+          prop_values_array = collect_property_values(product)
+          # writer << attr_for_sheet.values_at(*col_names_product_with_images) + prop_values_array
+          writer << product_col_names.map { |attr| product.send(attr) } + prop_values_array
         else
-          writer << attr_for_sheet.values_at(*col_names_product_with_images)
+          # writer << attr_for_sheet.values_at(*col_names_product_with_images)
+          writer << product_col_names.map { |attr| product.send(attr) }
         end
       end
     end
+    puts "File.file?(@file_path).present? #{File.file?(@file_path).present?}"
+    puts "end create_csv"
+    return true if File.file?(@file_path).present?
+    return false if !File.file?(@file_path).present?
   end
 
   def create_xlsx
@@ -65,32 +71,25 @@ class ExportCreator < ApplicationService
     p = Axlsx::Package.new
     wb = p.workbook
     wb.add_worksheet(name: "Sheet 1") do |sheet|
-      col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
+      product_col_names = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) : Product.attribute_names
       if @export.use_property == true
-        sheet.add_row col_names_product_with_images + @col_names_property
+        sheet.add_row product_col_names + @property_col_names
       else
-        sheet.add_row col_names_product
+        sheet.add_row product_col_names
       end
       @export.products.find_each(batch_size: 1000) do |product|
-        images = product.images.present? ? product.image_urls.join(" ") : " "
-        puts "images => " + images
-        attr_for_sheet = product.attributes
-        attr_for_sheet["description"] = product.file_description
-        attr_for_sheet["images"] = images
         if @export.use_property == true
-          prop_values_array = []
-          @col_names_property.each do |p_title|
-            value = product.properties_data.map { |a| a[p_title] }.uniq.join
-            value.present? ? prop_values_array.push(value) : prop_values_array.push("")
-          end
-          sheet.add_row attr_for_sheet.values_at(*col_names_product_with_images) + prop_values_array
+          prop_values_array = collect_property_values(product)
+          sheet.add_row product_col_names.map { |attr| product.send(attr) } + prop_values_array
         else
-          sheet.add_row attr_for_sheet.values_at(*col_names_product_with_images)
+          sheet.add_row product_col_names.map { |attr| product.send(attr) }
         end
       end
     end
     stream = p.to_stream
     File.binwrite(@file_path, stream.read)
+    return true if File.file?(@file_path).present?
+    return false if !File.file?(@file_path).present?
   end
 
   def create_xml
@@ -99,6 +98,18 @@ class ExportCreator < ApplicationService
     export_drop = Drop::Export.new(@export)
     xml = template.render("export" => export_drop)
     File.write(@file_path, xml)
+    return true if File.file?(@file_path).present?
+    return false if !File.file?(@file_path).present?
+  end
+
+  def collect_property_values(product)
+    prop_values_array = []
+    ppd = product.properties_data
+    @property_col_names.each do |p_title|
+      value = ppd.find { |a| a[p_title] }&.values&.uniq&.join
+      value.present? ? prop_values_array.push(value) : prop_values_array.push("")
+    end
+    prop_values_array
   end
 
 end
