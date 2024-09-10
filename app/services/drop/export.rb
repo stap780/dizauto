@@ -7,7 +7,7 @@ class Drop::Export < Liquid::Drop
   def products
     puts "Drop::Export products start"
     l_products = []
-    @export.products.each do |product|
+    @export.products.find_each(batch_size: 1000) do |product|
       puts "start b"
       b = product.attributes # this is Hash
       b["properties"] = product.props.map { |l| [l.property.title, l.characteristic.title] }
