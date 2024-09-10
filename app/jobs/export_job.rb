@@ -1,5 +1,6 @@
 class ExportJob < ApplicationJob
   queue_as :export
+  sidekiq_options retry: 0
 
   def perform(export, current_user_id)
     # Do something later

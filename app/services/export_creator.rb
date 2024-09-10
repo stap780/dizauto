@@ -34,28 +34,19 @@ class ExportCreator < ApplicationService
   private
 
   def create_csv
-    puts "create_csv => " + @export.inspect.to_s
+    puts "create_csv => #{@export.inspect.to_s}"
     CSV.open(@file_path, "w") do |writer|
-      # col_names_product_with_images = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) + ["images"] : Product.column_names + ["images"]
       product_col_names = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) : Product.attribute_names
       if @export.use_property == true
-        # writer << col_names_product_with_images + @property_col_names
         writer << product_col_names + @property_col_names
       else
-        # writer << col_names_product_with_images
         writer << product_col_names
       end
       @export.products.find_each(batch_size: 1000) do |product|
-        # images = product.images.present? ? product.image_urls.join(" ") : " "
-        # attr_for_sheet = product.attributes
-        # attr_for_sheet["description"] = product.file_description
-        # attr_for_sheet["images"] = images
         if @export.use_property == true
           prop_values_array = collect_property_values(product)
-          # writer << attr_for_sheet.values_at(*col_names_product_with_images) + prop_values_array
           writer << product_col_names.map { |attr| product.send(attr) } + prop_values_array
         else
-          # writer << attr_for_sheet.values_at(*col_names_product_with_images)
           writer << product_col_names.map { |attr| product.send(attr) }
         end
       end
