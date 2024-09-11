@@ -8,6 +8,7 @@
     - attach_image
     - product_content_save
     - incase_import
+    - import_product
 :scheduler:
   :dynamic: true
 
