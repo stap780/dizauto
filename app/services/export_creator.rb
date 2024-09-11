@@ -16,12 +16,12 @@ class ExportCreator < ApplicationService
   end
 
   def call
-    puts "ExportCreator call"
+    # puts "ExportCreator call"
     File.delete(@file_path) if File.file?(@file_path).present?
     result = create_csv if @export.format == "csv"
     result = create_xlsx if @export.format == "xlsx"
     result = create_xml if @export.format == "xml"
-    puts "result => #{result}"
+    # puts "result => #{result}"
     if result == true
       @export.update(link: @link, status: 'finish')
       [true, @export]
@@ -34,7 +34,7 @@ class ExportCreator < ApplicationService
   private
 
   def create_csv
-    puts "create_csv => #{@export.inspect.to_s}"
+    # puts "create_csv => #{@export.inspect.to_s}"
     CSV.open(@file_path, "w") do |writer|
       product_col_names = @export.excel_attributes.present? ? JSON.parse(@export.excel_attributes) : Product.attribute_names
       if @export.use_property == true
@@ -51,14 +51,14 @@ class ExportCreator < ApplicationService
         end
       end
     end
-    puts "File.file?(@file_path).present? #{File.file?(@file_path).present?}"
-    puts "end create_csv"
+    # puts "File.file?(@file_path).present? #{File.file?(@file_path).present?}"
+    # puts "end create_csv"
     return true if File.file?(@file_path).present?
     return false if !File.file?(@file_path).present?
   end
 
   def create_xlsx
-    puts "create_xlsx => " + @export.inspect.to_s
+    # puts "create_xlsx => " + @export.inspect.to_s
     p = Axlsx::Package.new
     wb = p.workbook
     wb.add_worksheet(name: "Sheet 1") do |sheet|
@@ -84,7 +84,7 @@ class ExportCreator < ApplicationService
   end
 
   def create_xml
-    puts "create_xml => " + @export.inspect.to_s
+    # puts "create_xml => " + @export.inspect.to_s
     template = Liquid::Template.parse(@export.template)
     export_drop = Drop::Export.new(@export)
     xml = template.render("export" => export_drop)
