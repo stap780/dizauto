@@ -3,7 +3,7 @@ import { DirectUpload } from "@rails/activestorage";
 
 // Connects to data-controller="file-upload"
 export default class extends Controller {
-  static targets = ["input", "progress"];
+  static targets = ["input", "progress","endbutton"];
 
   connect() {
     console.log('controller file-upload');
@@ -22,6 +22,7 @@ export default class extends Controller {
           console.log(error);
         } else {
           this.createHiddenBlobInput(blob);
+          this.endbuttonTarget.classList.remove('visually-hidden');
           // if you're not submitting the form after upload, you need to attach
           // uploaded blob to some model here and skip hidden input.
         }
@@ -54,4 +55,5 @@ export default class extends Controller {
     // with something like this:
     // document.querySelector("#global-progress").innerHTML = progress;
   }
+
 }

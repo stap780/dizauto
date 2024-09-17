@@ -4,19 +4,19 @@
     <h1 class="h3 d-inline align-middle"><%= IncaseImport.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-  <%= form_with url: bulk_print_incase_imports_path, method: :post, id: :bulk_action_form  do |f| %>
-    <% if Templ.incase_import_print.presence %>
-    <%= button_print %>
-    <ul class="dropdown-menu">
-      <% Templ.incase_import_print.each do |templ|%>
-        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
-          <%= templ.title %>
-        <% end %>
+    <%= form_with url: bulk_print_incase_imports_path, method: :post, id: :bulk_action_form  do |f| %>
+      <% if Templ.incase_import_print.presence %>
+        <%= button_print %>
+        <ul class="dropdown-menu">
+          <% Templ.incase_import_print.each do |templ|%>
+            <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+              <%= templ.title %>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
+      <%= render 'shared/download_excel_buttons', f: f, object: IncaseImport.new %>
     <% end %>
-    </ul>
-    <%= render 'shared/download_excel_buttons', f: f, object: IncaseImport.new %>
-  <% end %>
 
     <%= render 'shared/index_filter' if lookup_context.find_all("incase_imports/_filter").any? %>
     <%= link_to arrow_clockwise_icon, incase_imports_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>

@@ -2,28 +2,22 @@ class SupplyStatusesController < ApplicationController
   load_and_authorize_resource
   before_action :set_supply_status, only: %i[show edit update destroy]
 
-  # GET /supply_statuses or /supply_statuses.json
   def index
-    # @supply_statuses = SupplyStatus.all
     @search = SupplyStatus.ransack(params[:q])
     @search.sorts = "position asc" if @search.sorts.empty?
     @supply_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  # GET /supply_statuses/1 or /supply_statuses/1.json
   def show
   end
 
-  # GET /supply_statuses/new
   def new
     @supply_status = SupplyStatus.new
   end
 
-  # GET /supply_statuses/1/edit
   def edit
   end
 
-  # POST /supply_statuses or /supply_statuses.json
   def create
     @supply_status = SupplyStatus.new(supply_status_params)
 
@@ -45,7 +39,6 @@ class SupplyStatusesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /supply_statuses/1 or /supply_statuses/1.json
   def update
     respond_to do |format|
       if @supply_status.update(supply_status_params)
@@ -64,7 +57,6 @@ class SupplyStatusesController < ApplicationController
     end
   end
 
-  # DELETE /supply_statuses/1 or /supply_statuses/1.json
   def destroy
     # @supply_status.destroy
     @check_destroy = @supply_status.destroy ? true : false

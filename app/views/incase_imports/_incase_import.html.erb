@@ -18,11 +18,11 @@
     <%= tag.div("", class: "col-1") do %>
         <%= link_to 'file', rails_blob_path(incase_import.file, disposition: 'attachment') %>
     <% end %>
-    <%= tag.div("", class: "col-2") do %>
-        <%= incase_import.uniq_field ? t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") : ''%>
+    <%= tag.div("", class: "col-2 #{incase_import.uniq_field}") do %>
+        <%= incase_import.uniq_field.present? ? t("helpers.label.incase.#{incase_import.uniq_field.split('#').last}") : '' %>
     <% end %>
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=incase_import.id%>">
-      <%= link_to '<i class="bi bi-eye"></i>'.html_safe, incase_import, class: "", data: { turbo_frame: :_top } %>
+      <%= link_to eye_icon, incase_import, class: "", data: { turbo_frame: :_top } %>
       <%= render 'shared/edit_delete_link', object: incase_import %>
     </div>
 <% end %>
