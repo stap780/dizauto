@@ -120,7 +120,6 @@ ru:
         stoanumber: "стоа"
         unumber: "номер убытка"
         company_id: "Компания"
-        strah_id: "страховая"
         strah: "страховая"
         carnumber: "номер машины"
         date: "дата"
@@ -466,6 +465,12 @@ ru:
           few: "%{model}: сохранение не удалось из-за %{count} ошибок"
           many: "%{model}: сохранение не удалось из-за %{count} ошибок"
           other: "%{model}: сохранение не удалось из-за %{count} ошибки"
+      models:
+        incase:
+          attributes:
+            strah:
+              format: "%{message}"
+              required: "требуется создать страховую компанию перед импортом"
   companies: &model_system_flash
     create:
       success: создали!
