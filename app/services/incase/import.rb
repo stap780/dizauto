@@ -14,7 +14,7 @@ class Incase::Import
     @content_type = incase_import.file.blob.content_type
     # @file = File.new(file)
     host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
-    @file = host+rails_blob_path(incase_import.file, only_path: true) if incase_import.file.attached? #ActiveStorage::Blob.service.send(:path_for, incase_import.file.key)
+    @file = host + rails_blob_path(incase_import.file, only_path: true) if incase_import.file.attached? # ActiveStorage::Blob.service.send(:path_for, incase_import.file.key)
     @file_data = []
     @work_data = []
     @check_message = {success: [], errors: []}
@@ -27,7 +27,7 @@ class Incase::Import
     @check_import = true
     import # we use it for check data
     check_nested_incase_item_statuses
-    puts "@check_message[:errors] => "+@check_message[:errors].to_s
+    puts "@check_message[:errors] => " + @check_message[:errors].to_s
     if @check_message[:errors].size > 0
       @incase_import.update!(check: false)
       [false, @check_message]
@@ -108,9 +108,8 @@ class Incase::Import
         @incase_import.update!(check: true)
         @check_message[:success].push("Импорт Убытков завершен")
         [true, @check_message]
-      end     
+      end
     end
-
   end
 
   private
@@ -146,7 +145,7 @@ class Incase::Import
         incase_data["incase_items_attributes"].merge!(incase_item_data_hash)
       end
       incase_data.delete("incase_item_data")
-      puts incase_data
+      puts "incase_data => #{incase_data}"
       incase = Incase.create!(incase_data)
       # incase.automation_on_create # пробую callback
     end
@@ -155,16 +154,16 @@ class Incase::Import
   def line_validate_incase(index, incase_data)
     incase = Incase.new(incase_data)
     if incase.validate == false && incase.errors.full_messages.present?
-      puts "line_validate_incase full_messages => "+incase.errors.full_messages.to_s
-      @check_message[:errors].push("Строка #{index} в файле => " + incase.errors.full_messages.join(" "))
+      puts "line_validate_incase full_messages => #{incase.errors.full_messages}"
+      @check_message[:errors].push("Строка #{index} в файле (данные для Заявки) => " + incase.errors.full_messages.join(" "))
     end
   end
 
   def line_validate_incase_items(index, incase_item_data)
     incase_item = IncaseItem.new(incase_item_data)
     if incase_item.validate == false && incase_item.errors.delete(:incase) && incase_item.errors.full_messages.present?
-      puts "line_validate_incase_items full_messages => "+incase_item.errors.full_messages.to_s
-      @check_message[:errors].push("Строка #{index} в файле => " + incase_item.errors.full_messages.join(" "))
+      puts "line_validate_incase_items full_messages => #{incase_item.errors.full_messages}"
+      @check_message[:errors].push("Строка #{index} в файле (данные для Детали заявки) => " + incase_item.errors.full_messages.join(" "))
     end
   end
 
@@ -210,5 +209,4 @@ class Incase::Import
       end
     end
   end
-
 end

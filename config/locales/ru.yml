@@ -129,12 +129,15 @@ ru:
         company_id: "Компания"
         modelauto: "Машина"
       incase_item: &incase_item
+        incase_id: "убыток"
         title: "название позиции"
         quantity: "кол-во"
         katnumber: "каталожный номер"
         price: "цена"
         sum: "сумма"
         status: "статус"
+        incase_item_status_id: "статус позиции"
+        product_id: "товар"
       incase_item_status:
         title: "название"
         color: "цвет"
