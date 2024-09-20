@@ -13,6 +13,7 @@ class Image < ApplicationRecord
     # attachable.variant :def_png, saver: { strip: true, compression: 9 }, format: "png"
     # WEBP not use - only example
     # attachable.variant :def_webp, saver: { strip: true, quality: 75, lossless: false, alpha_q: 85, reduction_effort: 6, smart_subsample: true }, format: "webp"
+    attachable.variant :thumb_webp, resize_to_limit: [200, 200], format: "webp"
   end
   validates :position, uniqueness: {scope: :product}
 

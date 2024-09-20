@@ -36,19 +36,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8 mb-3 px-0">
-
-                        <div class="btn-group" role="group" aria-label="product statuses button group">
-                            <% Product::Status.each do |key| %>
-                                <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
-                                <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
-                            <% end %>
-                        </div>
-
-
+                            <div class="btn-group" role="group" aria-label="product statuses button group">
+                                <% Product::Status.each do |key| %>
+                                    <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" 
+                                            id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
+                                    <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
+                                <% end %>
+                            </div>
                         </div>
 
                         <div class="col-4 mb-3 px-0">
-                            <%# f.label :tip, class: "form-label" %>
                             <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
                         </div>
                         <div class="col-12 d-flex justify-content-center">
