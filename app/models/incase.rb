@@ -12,7 +12,7 @@ class Incase < ApplicationRecord
   has_associated_audits
 
   before_save :normalize_data_white_space
-  
+
   after_create_commit :automation_on_create
   after_create_commit { broadcast_prepend_to "incases_list" }
   after_update_commit :automation_on_update
