@@ -1,4 +1,4 @@
-class BulkPrint < ApplicationService
+class Bulk::Print < ApplicationService
   def initialize(items, options = {})
     @items = items
     @templ = Templ.find(options[:templ_id])
@@ -15,11 +15,7 @@ class BulkPrint < ApplicationService
       @multi_pdf << CombinePDF.load(create(item))
     end
     @multi_pdf.save @result_file_path
-    # if @multi_pdf
-    #     return true, @result_file_path
-    # else
-    #     return false, @error_message
-    # end
+
     blob = ActiveStorage::Blob.create_and_upload!(io: File.open(@result_file_path), filename: @filename)
     if blob
       [true, blob]
@@ -39,5 +35,5 @@ class BulkPrint < ApplicationService
   def clear_dir
     FileUtils.rm_rf(Dir["#{@save_dir}/*"])
   end
-  
+
 end

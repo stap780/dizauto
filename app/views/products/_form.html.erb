@@ -1,10 +1,19 @@
-<%= form_with(model: product, data: { controller: 'product ', 'item-id': product.id.to_s }, class: 'row upload-form') do |f| %>
+<%# hidden form for delete images %>
+<%= form_with url: delete_images_path, method: :post, data: {turbo_stream: true}, id: :bulk_images_form  do |f| %>
+    <%= f.submit "delete imgs", class: "mb-3 visually-hidden", id: 'delete-imgs'%>
+<% end %>
+<%# hidden form for delete images %>
+
+<%= form_with(model: product, data: { controller: 'product ', 'item-id': product.id }, class: 'row upload-form') do |f| %>
     <div class="col-md-8">
         <%= turbo_frame_tag "errors" do %>
             <%= render "shared/errors", object: product%>
         <% end %>
-
         <div class="card">
+            <div class="card-header d-flex justify-content-between pt-1 pb-0">
+                <%= link_to arrow_left_icon, "/products/#{product.id-1}/edit", data: {turbo: false} if Product.find_by_id(product.id-1).present? %>
+                <%= link_to arrow_right_icon, "/products/#{product.id+1}/edit",  data: {turbo: false} if Product.find_by_id(product.id+1).present? %>
+            </div>
             <div class="card-header d-flex justify-content-between align-items-center">
                 <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) if !f.object.new_record? %>
                 <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
@@ -27,36 +36,37 @@
                 <%= link_to t('back'), products_path, class: "btn btn-outline-primary", data: {turbo: false} %>
             </div>
         </div>
-
     </div>
 
     <div class="col-md-4" data-controller="image">
-        <% if f.object.barcode.present? %>
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-8 mb-3 px-0">
-                            <div class="btn-group" role="group" aria-label="product statuses button group">
-                                <% Product::Status.each do |key| %>
-                                    <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" 
-                                            id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
-                                    <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
-                                <% end %>
-                            </div>
+        <%=tag.div class: 'card' do %>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8 mb-3 px-0">
+                        <div class="btn-group" role="group" aria-label="product statuses button group">
+                            <% Product::Status.each do |key| %>
+                                <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" 
+                                        id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
+                                <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
+                            <% end %>
                         </div>
+                    </div>
 
-                        <div class="col-4 mb-3 px-0">
-                            <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
-                        </div>
-                        <div class="col-12 d-flex justify-content-center">
-                            <%= f.object.html_barcode %>
-                        </div>
+                    <div class="col-4 mb-3 px-0">
+                        <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <%= f.object.html_barcode %>
                     </div>
                 </div>
             </div>
-        <% end %>
+        <% end if f.object.barcode.present? %>
         <div class="card">
             <div class="card-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <label for="delete-imgs" class="btn btn-outline-primary"><%= trash_icon%> Все изобр</label>
+                </div>
+                <%= turbo_stream_from "images" %>
                 <div class="row d-flex gap-3" id="images" data-controller="sortable toast">
                     <% if product.images.present? %>
                         <%= f.fields_for :images do |form| %>
@@ -68,7 +78,7 @@
                         <% end %>
                     <% end %>
                 </div>
-                <div class="mt-5" >
+                <div class="mt-5">
                     <input type="file" multiple="multiple" data-direct-upload-url="<%= rails_direct_uploads_url %>" 
                     data-action="change->image#uploadFile" data-image-target="filesInput" accept='image/*' />
                 </div>
@@ -76,4 +86,5 @@
         </div>
     </div>
 <% end %>
+
 

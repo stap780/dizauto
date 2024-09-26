@@ -7,12 +7,12 @@
     <% end %>
     <%= tag.div class: "col-md-1 p-0" do %>
         <%=tag.div(class: "img-ratio img-fit") do %>
-            <div class="img-ratio__inner">
+            <%=tag.div(class: "img-ratio__inner") do %>
                 <%= picture_tag(class: "") do %>
                     <%= tag(:source, srcset: product.image_first.variant(:thumb_webp).processed.url) %>
                     <%= image_tag(product.image_first.variant(:thumb), alt: "", class: "img-fluid img-thumbnail p-0") %>
                 <% end %>
-            </div>
+            <% end %>
         <% end if product.image_first %>
     <% end %>
     <%= tag.div class: "col row" do %>

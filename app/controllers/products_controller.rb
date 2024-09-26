@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image reorder_image update_image]
   include SearchQueryRansack
   include DownloadExcel
+  include BulkDelete
 
   def index
     @search = Product.ransack(search_params)
@@ -78,9 +79,9 @@ class ProductsController < ApplicationController
     if params[:product_ids]
       templ_id = params[:button].split("#").last
       BulkPrintJob.perform_later("Product", params[:product_ids], templ_id, current_user.id)
-      render turbo_stream: 
+      render turbo_stream:
         turbo_stream.update(
-          'modal',
+          "modal",
           template: "shared/pending_bulk"
         )
     else
@@ -92,9 +93,9 @@ class ProductsController < ApplicationController
   def print_etiketki # post
     if params[:product_ids]
       ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
-      render turbo_stream: 
+      render turbo_stream:
         turbo_stream.update(
-          'modal',
+          "modal",
           template: "shared/pending_bulk"
         )
     else
@@ -140,7 +141,7 @@ class ProductsController < ApplicationController
     end
   end
 
-	def price_edit
+  def price_edit
     if params[:product_ids]
       @products = Product.where(id: params[:product_ids])
       respond_to do |format|
@@ -152,24 +153,24 @@ class ProductsController < ApplicationController
     end
   end
 
-	def price_update
+  def price_update
     if params[:product_ids]
       price_type = params[:product_price][:price_type]
       price_move = params[:product_price][:price_move]
       price_shift = params[:product_price][:price_shift]
       price_points = params[:product_price][:price_points]
 
-      ProductPriceUpdateJob.perform_later(params[:product_ids],price_type, price_move, price_shift, price_points, current_user.id)
-      render turbo_stream: 
+      ProductPriceUpdateJob.perform_later(params[:product_ids], price_type, price_move, price_shift, price_points, current_user.id)
+      render turbo_stream:
         turbo_stream.update(
-          'modal',
+          "modal",
           partial: "shared/pending_bulk_text"
         )
     else
       notice = "Выберите товары"
       redirect_to products_url, alert: notice
     end
-	end
+  end
 
   def destroy
     @check_destroy = @product.destroy ? true : false
@@ -202,7 +203,7 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:status, :tip, :sku, :barcode, :title, :description, :quantity, :costprice, :price, :video,
       props_attributes: [:id, :product_id, :property_id, :characteristic_id, :_destroy],
-      images_attributes: [:id, :product_id, :position, :file, :_destroy], 
+      images_attributes: [:id, :product_id, :position, :file, :_destroy],
       location_attributes: [:id, :product_id, :warehouse_id, :place_id, :_destroy])
   end
 
@@ -216,5 +217,4 @@ class ProductsController < ApplicationController
       end
     end
   end
-
 end

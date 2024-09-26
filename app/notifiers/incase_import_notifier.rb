@@ -23,11 +23,6 @@ class IncaseImportNotifier < ApplicationNotifier
     def email_args
       {}
     end
-    #
-    # bulk_deliver_by :slack do |config|
-    #   config.url = -> { Rails.application.credentials.slack_webhook_url }
-    # end
-    #
       
     notification_methods do
       def message

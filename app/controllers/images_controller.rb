@@ -72,18 +72,25 @@ class ImagesController < ApplicationController
   # use only for flash message because delete images from product happend while update form
   def delete
     # Fetch the blob using the signed id
-    @blob_signed_id = params[:blob_signed_id]
-    image = params[:image_id].present? ? Image.find(params[:image_id]) : nil
-    blob = ActiveStorage::Blob.find_signed(@blob_signed_id)
+    # @blob_signed_id = params[:blob_signed_id]
+    # image = params[:image_id].present? ? Image.find(params[:image_id]) : nil
+    # blob = ActiveStorage::Blob.find_signed(@blob_signed_id)
 
-    if image.present?
-      image.destroy
+    # image.present? ? image.destroy : blob.purge
+
+    # respond_to do |format|
+    #   format.turbo_stream { flash.now[:notice] = t(".success") }
+    # end
+    # im = Image.includes(:file_attachment).where(file_attachment: {blob_id: 24148})
+    if params[:blob_signed_ids]
+      DeleteImageByBlobSignedIdJob.perform_now(params[:blob_signed_ids], current_user.id)
+      respond_to do |format|
+        format.turbo_stream{ flash.now[:success] = t(".success") }
+      end
     else
-      blob.purge
-    end
-
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
+      respond_to do |format|
+        format.turbo_stream{ flash.now[:success] = t(".choose_images") }
+      end
     end
   end
 

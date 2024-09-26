@@ -101,7 +101,7 @@ class Product < ApplicationRecord
   def image_first
     return unless images.present?
     image = images.first
-    image.file.attached? ? image.file : nil
+    (image.file.attached? && image.file_blob.service.exist?(image.file_blob.key)) ? image.file : nil
   end
 
   def image_urls
@@ -133,8 +133,8 @@ class Product < ApplicationRecord
     end
   end
 
-  def self.import_product_from_file
-    files = Product::SplitCsvFile.new.call
+  def self.import_from_file
+    files = Product::SplitCsvFile.call
     files.each do |file|
       ProductImportJob.perform_later(file)
     end

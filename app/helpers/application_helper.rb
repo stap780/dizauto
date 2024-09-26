@@ -136,6 +136,10 @@ module ApplicationHelper
     '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">.xlsx</button>'.html_safe
   end
 
+  def button_bulk_delete
+    '<button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-trash3"></i></button>'.html_safe
+  end
+
   def history_icon
     '<i class="bi bi-clock-history"></i>'.html_safe
   end
@@ -151,6 +155,14 @@ module ApplicationHelper
   def barcode_icon
     '<i class="bi bi-upc"></i>'.html_safe
   end
+
+  def arrow_left_icon
+  '<i class="bi bi-arrow-left"></i>'.html_safe  
+  end
+
+  def arrow_right_icon
+    '<i class="bi bi-arrow-right"></i>'.html_safe  
+    end
 
   def caret_left_icon
     '<i class="bi bi-caret-left"></i>'.html_safe

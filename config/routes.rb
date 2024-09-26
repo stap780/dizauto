@@ -280,13 +280,13 @@ Rails.application.routes.draw do
     end
     collection do
       post :search
-      post :delete_selected
       post :print_etiketki
       get :pending_etiketki
       get :success_etiketki
       post :price_edit
       post :price_update
       post :download
+      post :bulk_delete
       post :bulk_print
     end
     resources :props do

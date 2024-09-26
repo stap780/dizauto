@@ -23,11 +23,6 @@ class ExportNotifier < ApplicationNotifier
   def email_args
     {}
   end
-  #
-  # bulk_deliver_by :slack do |config|
-  #   config.url = -> { Rails.application.credentials.slack_webhook_url }
-  # end
-  #
     
   notification_methods do
     def message
@@ -43,10 +38,6 @@ class ExportNotifier < ApplicationNotifier
     end
 
   end
-
-  # deliver_by :custom do |config|
-  #   config.class = "MyDeliveryMethod"
-  # end
 
   # Add required params
   #

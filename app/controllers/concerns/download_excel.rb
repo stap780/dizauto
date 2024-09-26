@@ -10,7 +10,7 @@ module DownloadExcel
       ]
     else
       ## this is was for test - CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
-      CreateZipXlsxJob.perform_later(collection_ids, {model: model.to_s, current_user_id: current_user.id} )
+      CreateZipXlsxJob.perform_later(excel_collection_ids, {model: model.to_s, current_user_id: current_user.id} )
       render turbo_stream: 
         turbo_stream.update(
           'modal',
@@ -20,7 +20,7 @@ module DownloadExcel
   end
 
   protected
-  
+
   def items
     "#{controller_name.singularize}_ids".to_sym
   end
@@ -29,13 +29,20 @@ module DownloadExcel
     controller_name.singularize.camelize.constantize
   end
 
-  def collection_ids
+  def excel_collection_ids
     puts "search_params => #{search_params}"
-    collection_ids = params[items] if params[:download_type] == "selected" && params[items].present?
-    collection_ids = model.with_images.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered" && model == 'Product'
-    collection_ids = model.with_images.pluck(:id) if params[:download_type] == "all" && model == 'product'
-    collection_ids = model.all.ransack(search_params).result(distinct: true).pluck(:id) if params[:download_type] == "filtered" && model != 'Product'
-    collection_ids = model.all.pluck(:id) if params[:download_type] == "all" && model != 'product'
+    if params[:download_type] == "selected"
+      collection_ids = model.with_images.where(id: params[items]).pluck(:id) if model == 'Product'
+      collection_ids = model.where(id: params[items]).pluck(:id) if model != 'Product'
+    end
+    if params[:download_type] == "filtered"
+      collection_ids = model.with_images.ransack(search_params).result(distinct: true).pluck(:id) if model == 'Product'
+      collection_ids = model.all.ransack(search_params).result(distinct: true).pluck(:id) if model != 'Product'
+    end
+    if params[:download_type] == "all"
+      collection_ids = model.with_images.pluck(:id) if model == 'Product'
+      collection_ids = model.all.pluck(:id) if model != 'Product'
+    end
     collection_ids
   end
 

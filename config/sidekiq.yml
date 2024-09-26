@@ -9,6 +9,7 @@
     - product_content_save
     - incase_import
     - import_product
+    - bulk_delete
 :scheduler:
   :dynamic: true
 

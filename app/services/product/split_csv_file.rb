@@ -1,4 +1,4 @@
-class Product::SplitCsvFile
+class Product::SplitCsvFile < ApplicationService
   require "open-uri"
   require "addressable/uri"
 

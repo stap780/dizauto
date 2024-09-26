@@ -4,7 +4,7 @@ class BulkPrintJob < ApplicationJob
   def perform(model, ids, templ_id, current_user_id)
     items = model.camelize.constantize.where(id: ids)
 
-    success, blob = BulkPrint.new(items, {templ_id: templ_id}).call
+    success, blob = Bulk::Print.new(items, {templ_id: templ_id}).call
     if success
       PrintNotifier.with(
                         record: items.first, 

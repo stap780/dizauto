@@ -20,20 +20,24 @@
       <span class="badge bg-info float-end mt-1" data-sortable-target="position"><%= image_position%></span>
     </div>
     <div class="col p-0" data-original-image-url="<%= img_def_url %>">
-      <% img = image_id.present? ? blob.variant(:thumb_webp) : url_for(blob) %>
+      <% not_uploaded_img = image_id.present? && blob.service.exist?(blob.key) ? blob : nil %>
+      <% img = not_uploaded_img.present? ? blob.variant(:thumb_webp).processed.url : url_for(blob) %>
       <%# image_tag img, class: 'mw-100' if blob.present? %>
         <%=tag.div(class: "img-ratio img-fit") do %>
             <div class="img-ratio__inner">
                 <%= picture_tag(class: "") do %>
-                    <%= tag(:source, srcset: image_id.present? ? img.processed.url : img) %>
+                    <%= tag(:source, srcset: img) %>
                     <%= image_tag(img, alt: "", class: "img-fluid img-thumbnail p-0") %>
                 <% end %>
             </div>
-        <% end if blob.present? %>
+        <% end if blob.service.exist?(blob.key)%>
     </div>
-    <div class="col p-0 text-center"><%# display_name %></div>
+    <div class="col p-0 text-center"><%# display_name %>
+      <input type="checkbox" name="blob_signed_ids[]" checked value="<%=signed_id%>" class="visually-hidden" form="bulk_images_form">
+    </div>
     <div class="col p-0 mt-2 d-flex justify-content-between">
       <a href="<%= img_def_url %>" data-fancybox="gallery"><i class="bi bi-eye"></i></a>
-      <%= link_to trash_icon, delete_images_path(blob_signed_id: signed_id, image_id: image_id), data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+      <%# link_to trash_icon, delete_images_path(blob_signed_id: signed_id, image_id: image_id), data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
+      <%= link_to trash_icon, delete_images_path(blob_signed_ids: [signed_id]), data: {  turbo_method: :post,  turbo_confirm: "Are you sure?"}  %>
     </div>
 </div>

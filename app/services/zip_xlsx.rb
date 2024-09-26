@@ -1,11 +1,11 @@
 class ZipXlsx < ApplicationService
   require "caxlsx"
-  
+
   def initialize(collection, options = {})
     @collection = collection
     @model = options[:model]
-    @filename = @model.downcase+".xlsx"
-    @template = @model.downcase.pluralize+"/index"
+    @filename = @model.downcase + ".xlsx"
+    @template = @model.downcase.pluralize + "/index"
     @error_message = "We have error while zip create"
   end
 
@@ -33,5 +33,4 @@ class ZipXlsx < ApplicationService
       )
     end
   end
-
 end

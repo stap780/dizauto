@@ -25,7 +25,7 @@ class PrintNotifier < ApplicationNotifier
       "#{params[:message]}. Печать #{params[:model]} #{","+ params[:error].to_s if !params[:error].nil?}, шаблон #{params[:template]}"
     end
 
-    def blob
+    def blob #we need this for view notification text
       params[:blob].nil? ? nil : params[:blob]
     end
 

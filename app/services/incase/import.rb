@@ -155,7 +155,7 @@ class Incase::Import
     incase = Incase.new(incase_data)
     if incase.validate == false && incase.errors.full_messages.present?
       puts "line_validate_incase full_messages => #{incase.errors.full_messages}"
-      @check_message[:errors].push("[данные для Заявки] Строка #{index} в файле => " + incase.errors.full_messages.join(" "))
+      @check_message[:errors].push("[данные для Заявки] Строка #{index} в файле => " + incase.errors.full_messages.join(", "))
     end
   end
 
@@ -163,7 +163,7 @@ class Incase::Import
     incase_item = IncaseItem.new(incase_item_data)
     if incase_item.validate == false && incase_item.errors.delete(:incase) && incase_item.errors.full_messages.present?
       puts "line_validate_incase_items full_messages => #{incase_item.errors.full_messages}"
-      @check_message[:errors].push("[данные для Детали заявки] Строка #{index} в файле => " + incase_item.errors.full_messages.join(" "))
+      @check_message[:errors].push("[данные для Детали заявки] Строка #{index} в файле => " + incase_item.errors.full_messages.join(", "))
     end
   end
 

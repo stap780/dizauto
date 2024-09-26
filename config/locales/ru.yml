@@ -470,7 +470,7 @@ ru:
           attributes:
             strah:
               format: "%{message}"
-              required: "требуется создать страховую компанию перед импортом"
+              required: "требуется создать компанию перед импортом"
   companies: &model_system_flash
     create:
       success: создали!
