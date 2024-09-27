@@ -1,6 +1,11 @@
 <% tip_text = tip == :new ? 'Создать' : 'Редактировать' %>
-<%= tag.div class: 'fs-3 align-middle mb-3' do %>
-    <%= link_to caret_left_icon, polymorphic_path(object.class.name.constantize), class: "btn btn-outline-success btn-sm", data: { turbo_prefetch: false } %>
-    <%= "#{tip_text} #{object.model_name.human}" %>
+<%= tag.div class: 'd-flex fs-3 align-middle mb-3' do %>
+    <%# link_to caret_left_icon, polymorphic_path(object.class.name.constantize), class: "btn btn-outline-success btn-sm", data: { turbo_prefetch: false } %>
+    <%= link_to caret_left_icon, :back, class: "btn btn-outline-success btn-sm", data: { turbo_prefetch: false } %>
+    <%=tag.span "#{tip_text} #{object.model_name.human}" %>
+    <%=tag.div class: "d-flex justify-content-between ms-auto" do %>
+        <%= link_to arrow_left_icon, "/products/#{object.id-1}/edit", data: {turbo: false} if Product.find_by_id(object.id-1).present? %>
+        <%= link_to arrow_right_icon, "/products/#{object.id+1}/edit",  data: {turbo: false} if Product.find_by_id(object.id+1).present? %>
+    <% end if object.class.name == 'Product' %>
 <% end %>
 <%= render "#{object.class.name.underscore.pluralize}/form", "#{object.class.name.underscore}": object %>

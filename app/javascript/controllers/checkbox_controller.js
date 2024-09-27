@@ -5,23 +5,25 @@ import { Checkbox } from 'stimulus-checkbox';
 export default class extends Controller {
   static targets = [ "btn", "box" ]
   connect() {
-    console.log('connected Checkbox');
+    // console.log('connected Checkbox');
   }
 
   toggle(e) {
   }
   toggleOne(e) {
-    //console.log(e);
+    // console.log(e);
     var chks = this.btnTargets;
-    for (var i = 0; i < chks.length; i++) {
-      chks[i].onclick = function () {
-          for (var i = 0; i < chks.length; i++) {
-              if (chks[i] != this && this.checked) {
-                  chks[i].checked = false;
-              }
-          }
-      };
-    }
+    // console.log('chks => ', chks);
+    // chks.forEach(checkbox => checkbox.checked = false)
+    if ( e.target.checked == true){
+      chks.forEach((chk, index) => {
+        if (chk != e.target ) {
+          chk.checked = false;
+        }
+      });
+    } else {
+      e.target.checked == false
+    };
   }
 
 }
