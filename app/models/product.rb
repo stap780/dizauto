@@ -53,13 +53,16 @@ class Product < ApplicationRecord
   scope :tip_service, -> { where(tip: "service") }
   scope :tip_kit, -> { where(tip: "kit") }
 
-  scope :with_images, -> { order(:id).includes(images: [:file_attachment, :file_blob]) }
+  scope :include_images, -> { includes(images: [:file_attachment, :file_blob]) }
+  scope :include_props, -> { includes(:props) }
 
   scope :all_quantity, -> { ransack(quantity_gteq: 0).result }
   scope :no_quantity, -> { ransack(quantity_lt: 1).result }
   scope :yes_quantity, -> { ransack(quantity_gt: 0).result }
   scope :no_price, -> { ransack(price_lt: 1).result }
   scope :yes_price, -> { ransack(price_gt: 0).result }
+  scope :with_images, -> { include_images.where.not(images: {product_id: nil}) }
+  scope :without_images, -> { include_images.where(images: {product_id: nil}) }
 
   # scopes for slimselect
   scope :first_five, -> { order(:id).limit(5) }
@@ -82,7 +85,7 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_scopes(auth_object = nil)
-    [:no_quantity, :yes_quantity, :all_quantity, :no_price, :yes_price]
+    [:no_quantity, :yes_quantity, :all_quantity, :no_price, :yes_price, :with_images, :without_images]
   end
 
   def full_title
@@ -141,7 +144,7 @@ class Product < ApplicationRecord
   end
 
   # def self.test_create_xlsx(collection_for_file = nil)
-  #   collection = collection_for_file ||= Product.with_images
+  #   collection = collection_for_file ||= Product.include_images
   #   current_user = User.first
   #   filename = "products.xlsx"
   #   Product::CreateXlsx.call( collection, {  model: "Product",

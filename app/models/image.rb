@@ -25,6 +25,10 @@ class Image < ApplicationRecord
     Image.attribute_names
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    ["file_attachment", "file_blob", "product"]
+  end
+
   def s3_url
     "https://s3.timeweb.cloud/#{self.file.service.bucket.name}/#{self.file.blob.key}"
   end

@@ -24,7 +24,7 @@ class Export < ApplicationRecord
   end
 
   def products # используется export service для liquid (но далее здесь можно переопределять товары которые надо выгрузить в экспорт)
-    (self.test == true) ? Product.with_images.includes(:props).limit(1000) : Product.with_images.includes(:props)
+    (self.test == true) ? Product.include_images.include_props.limit(1000) : Product.include_images.include_props
   end
 
   def file_data

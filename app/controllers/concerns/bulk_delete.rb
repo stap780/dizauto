@@ -36,15 +36,15 @@ module BulkDelete
   def delete_collection_ids
     puts "search_params => #{search_params}"
     if params[:delete_type] == "selected"
-      collection_ids = model.with_images.where(id: params[items]).pluck(:id) if model == "Product"
+      collection_ids = model.include_images.where(id: params[items]).pluck(:id) if model == "Product"
       collection_ids = model.where(id: params[items]).pluck(:id) if model != "Product"
     end
     if params[:delete_type] == "filtered"
-      collection_ids = model.with_images.ransack(search_params).result(distinct: true).pluck(:id) if model == "Product"
+      collection_ids = model.include_images.ransack(search_params).result(distinct: true).pluck(:id) if model == "Product"
       collection_ids = model.all.ransack(search_params).result(distinct: true).pluck(:id) if model != "Product"
     end
     if params[:delete_type] == "all"
-      collection_ids = model.with_images.pluck(:id) if model == "Product"
+      collection_ids = model.include_images.pluck(:id) if model == "Product"
       collection_ids = model.all.pluck(:id) if model != "Product"
     end
     collection_ids

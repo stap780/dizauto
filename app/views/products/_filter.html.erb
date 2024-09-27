@@ -4,14 +4,14 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
+   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr checkbox", "data-turbo-frame": "table" } do |f|%> 
 		<div class="form-group">
         <div class="row g-1 mb-2">
           <div class="col-md-12">
             <%= f.label :sku_or_barcode_or_title_cont_all %>
             <%= f.search_field :sku_or_barcode_or_title_cont_all, class: "form-control input-sm"%>
           </div>
-          <div class="col-md-6" data-controller="checkbox">
+          <div class="col-md-6">
             <div class="label"><%= t('quantity') %></div>
             <div class="form-check form-check-inline">
               <%= f.label :all_quantity, class: 'form-check-label' do %>
@@ -26,13 +26,13 @@
               <%= f.check_box :yes_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> > 0<% end %>
             </div>
           </div>
-          <div class="col-md-6" data-controller="checkbox">
+          <div class="col-md-6">
             <div class="label"><%= t('price') %></div>
             <div class="form-check form-check-inline"> 
               <%= f.label :no_price, class: 'form-check-label' do %>
               <%= f.check_box :no_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> = 0<% end %>
-              </div>
-              <div class="form-check form-check-inline">
+            </div>
+            <div class="form-check form-check-inline">
               <%= f.label :yes_price, class: 'form-check-label' do %>
               <%= f.check_box :yes_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> > 0<% end %>
             </div>
@@ -46,7 +46,17 @@
             <%= f.label :status_eq %>
             <%= f.select :status_eq, Product::Status, { :prompt => ''}, class: "form-select input-sm" %>
           </div>
-
+          <div class="col-md-6">
+            <div class="label"><%= t('images') %></div>
+            <div class="form-check form-check-inline">
+              <%= f.label :with_images, class: 'form-check-label' do %>
+              <%= f.check_box :with_images, class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> есть<% end %>
+            </div>
+            <div class="form-check form-check-inline"> 
+              <%= f.label :without_images, class: 'form-check-label' do %>
+              <%= f.check_box :without_images, class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%> нет<% end %>
+            </div>
+          </div>
 
         </div>
 
