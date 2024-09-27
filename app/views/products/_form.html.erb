@@ -10,10 +10,6 @@
             <%= render "shared/errors", object: product%>
         <% end %>
         <div class="card">
-            <div class="card-header d-flex justify-content-between pt-1 pb-0">
-                <%= link_to arrow_left_icon, "/products/#{product.id-1}/edit", data: {turbo: false} if Product.find_by_id(product.id-1).present? %>
-                <%= link_to arrow_right_icon, "/products/#{product.id+1}/edit",  data: {turbo: false} if Product.find_by_id(product.id+1).present? %>
-            </div>
             <div class="card-header d-flex justify-content-between align-items-center">
                 <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) if !f.object.new_record? %>
                 <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
@@ -33,7 +29,7 @@
             </div>
             <div class="card-footer">
                 <%= f.submit t('save'), class: "btn btn-primary" %>
-                <%= link_to t('back'), products_path, class: "btn btn-outline-primary", data: {turbo: false} %>
+                <%= link_to t('back'), products_path(search_cancel: true), class: "btn btn-outline-primary", data: {turbo: false} %>
             </div>
         </div>
     </div>
