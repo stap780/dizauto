@@ -24,10 +24,10 @@ class IncaseImport < ApplicationRecord
     # products = Spree::Product.attribute_names.map{|fi| [fi,'product#'+fi] if !not_use_product_attr.include?(fi)}+[['barcode','product#barcode'],['sku','product#sku'],['price','product#price'],['cat1','product#cat1'],['cat2','product#cat2'],['cat3','product#cat3'],['quantity','product#quantity'],['images','product#images'],['weight','product#weight'],['height','product#height'],['width','product#width'],['depth','product#depth']]
     # our_fields['product'] = products.reject(&:blank?)
 
-    incases = Incase.attribute_names.map { |ot| [I18n.t("helpers.label.incase.#{ot}"), "incase#" + ot] if !not_use_incase_attr.include?(ot) }
-    incase_items = IncaseItem.attribute_names.map { |ot| [I18n.t("helpers.label.incase_item.#{ot}"), "incase_item#" + ot] if !not_use_incase_item_attr.include?(ot) }
-    our_fields["incases"] = incases.reject(&:blank?)
-    our_fields["incase_items"] = incase_items.reject(&:blank?)
+    incase_attr = Incase.attribute_names.map { |ot| [I18n.t("helpers.label.incase.#{ot}"), "incase#" + ot] if !not_use_incase_attr.include?(ot) }
+    incase_item_attr = IncaseItem.attribute_names.map { |ot| [I18n.t("helpers.label.incase_item.#{ot}"), "incase_item#" + ot] if !not_use_incase_item_attr.include?(ot) }
+    our_fields[I18n.t("helpers.label.incase_import.incase")] = incase_attr.reject(&:blank?)
+    our_fields[I18n.t("helpers.label.incase_import.incase_item")] = incase_item_attr.reject(&:blank?)
     # puts our_fields.to_s
     our_fields
   end

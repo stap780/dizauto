@@ -1,6 +1,5 @@
-<%= link_to new_enter_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(EnterStatus.new) } do %>
-    <%= add_icon %>
-<% end %>
+<%= link_to add_icon, new_enter_status_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(EnterStatus.new) } %>
+
 <div class="mb-3">
   <h1 class="h3 d-inline align-middle"><%= EnterStatus.model_name.human(count: 2)%></h1>
 </div>

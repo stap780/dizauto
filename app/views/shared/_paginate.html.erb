@@ -3,6 +3,7 @@
         <div class="dataTables_info" role="status" aria-live="polite"> <%= page_entries_info f if f.size > 0 %></div>
     </div>
     <div class="col-12 col-md-9 d-flex justify-content-end align-items-center">
-        <%= bs_will_paginate f if f.size > 0 %>
+        <%# bs_will_paginate f if f.size > 0 %>
+        <%= will_paginate f, renderer: WillPaginate::ActionView::BootstrapLinkRenderer, list_classes: %w(pagination justify-content-end my-4) if f.size > 0%>
     </div>
 </div>

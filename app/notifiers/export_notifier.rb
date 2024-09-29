@@ -26,7 +26,7 @@ class ExportNotifier < ApplicationNotifier
     
   notification_methods do
     def message
-      "This is  #{recipient.name} from ExportNotifier #{params[:message]}"
+      "[ExportNotifier] User #{recipient.name} #{params[:message]}"
     end
     
     def blob

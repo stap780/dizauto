@@ -158,10 +158,11 @@
 				</a>
 				<ul id="settings" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('users') || 
 																								current_page_active?('email_setups') || 
-																								current_page_active?('exports') %>" data-bs-parent="#sidebar">
+																								current_page_active?('exports') || 
+																								current_page_active?('insales') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to User.model_name.human(count: 2), users_path, class: "sidebar-link" %>
 					<%= li_menu_link_to EmailSetup.model_name.human(count: 2), email_setups_path, class: "sidebar-link" %>
-					<li class="sidebar-item"><a class="sidebar-link" href="">InSales API</a></li>
+					<%= li_menu_link_to Insale.model_name.human(count: 2), insales_path, class: "sidebar-link" %>
 					<li class="sidebar-item"><a class="sidebar-link" href="">Avito API</a></li>
 					<%= li_menu_link_to Export.model_name.human(count: 2), exports_path, class: "sidebar-link" %>
 				</ul>

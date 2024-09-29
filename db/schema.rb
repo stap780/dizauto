@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_26_082840) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_29_103843) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -305,6 +305,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_26_082840) do
     t.decimal "totalsum", precision: 12, scale: 2, default: "0.0"
     t.string "incase_status_id"
     t.string "incase_tip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "insales", force: :cascade do |t|
+    t.string "api_key"
+    t.string "api_password"
+    t.string "api_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

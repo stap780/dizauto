@@ -119,11 +119,12 @@ ru:
         region: "регион"
         stoanumber: "стоа"
         unumber: "номер убытка"
-        company_id: "Компания"
+        company_id: "компания"
         strah: "страховая"
+        strah_id: "страховая"
         carnumber: "номер машины"
         date: "дата"
-        modelauto: "Машина"
+        modelauto: "машина"
         totalsum: "сумма"
         incase_status_id: "статус"
         incase_tip_id: "тип"
@@ -147,12 +148,18 @@ ru:
       incase_tip:
         title: "название"
         color: "цвет"
-      incase_import:
+      incase_import: &incase_import
         title: "название"
         active: "вкл/выкл"
         report: "отчет"
         file: "файл"
         uniq_field: "уник поле"
+        incase: "убыток"
+        incase_item: "позиция убытка"
+      insale: &insale
+        api_key: "ключ"
+        api_password: "пароль"
+        api_link: "ссылка" 
       inventory_status:
         title: "название"
         color: "цвет"
@@ -340,6 +347,9 @@ ru:
       incase_import:
         one: "импорт убытка"
         other: "импорт убытка"
+      insale:
+        one: "Insales API"
+        other: "Insales API"  
       inventory:
         one: "инвенторизация"
         other: "инвенторизации"
@@ -591,11 +601,7 @@ ru:
         title: "название"
         color: "цвет"
       incase_import:
-        title: "название"
-        active: "вкл/выкл"
-        report: "отчет"
-        file: "файл"
-        uniq_field: "уник поле"
+        <<: *incase_import
       invoice:
         invoice_status_id: "статус"
         number: "номер"
@@ -608,6 +614,8 @@ ru:
         color: "цвет"
       invoice_item:
         <<: *nested_item
+      insale:
+        <<: *insale
       location:
         product_id: "товар"
         place_id: "место"

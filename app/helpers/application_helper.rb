@@ -36,15 +36,15 @@ module ApplicationHelper
     end
   end
 
-  def bs_will_paginate(collection = nil, options = {})
-    options, collection = collection, nil if collection.is_a? Hash
-    options = options.merge(
-      renderer: BootstrapPaginateRenderer, # ApplicationHelper::LinkRenderer,
-      previous_label: "&laquo;",
-      next_label: "&raquo;"
-    )
-    will_paginate(collection, options)
-  end
+  # def bs_will_paginate(collection = nil, options = {})
+  #   options, collection = collection, nil if collection.is_a? Hash
+  #   options = options.merge(
+  #     renderer: BootstrapPaginateRenderer, # ApplicationHelper::LinkRenderer,
+  #     previous_label: "&laquo;",
+  #     next_label: "&raquo;"
+  #   )
+  #   will_paginate(collection, options)
+  # end
 
   def prepend_flash
     turbo_stream.prepend "our_flash", partial: "shared/flash"
@@ -157,12 +157,12 @@ module ApplicationHelper
   end
 
   def arrow_left_icon
-  '<i class="bi bi-arrow-left"></i>'.html_safe  
+    '<i class="bi bi-arrow-left"></i>'.html_safe
   end
 
   def arrow_right_icon
-    '<i class="bi bi-arrow-right"></i>'.html_safe  
-    end
+    '<i class="bi bi-arrow-right"></i>'.html_safe
+  end
 
   def caret_left_icon
     '<i class="bi bi-caret-left"></i>'.html_safe
@@ -175,11 +175,11 @@ module ApplicationHelper
   def arrow_clockwise_icon
     "<i class='bi bi-arrow-clockwise'></i>".html_safe
   end
-  
+
   def false_icon
-  '<i class="bi bi-x-circle"></i>'.html_safe
+    '<i class="bi bi-x-circle"></i>'.html_safe
   end
-  
+
   def more_icon
     '<i class="bi bi-three-dots"></i>'.html_safe
   end
@@ -211,11 +211,11 @@ module ApplicationHelper
   def history_value(key, value)
     # puts "history_value => key #{key.to_s} // value #{value.to_s}"
     if key.include?("_id")
-      search_key = 'company' if key == 'strah_id'
-      search_key = 'user' if key == 'manager_id'
-      search_key = 'warehouse' if key == 'origin_warehouse_id'
-      search_key = 'warehouse' if key == 'destination_warehouse_id'
-      search_key = key.split("_id").first if key != 'strah_id' && key != 'manager_id' && key != 'origin_warehouse_id' && key != 'destination_warehouse_id'
+      search_key = "company" if key == "strah_id"
+      search_key = "user" if key == "manager_id"
+      search_key = "warehouse" if key == "origin_warehouse_id"
+      search_key = "warehouse" if key == "destination_warehouse_id"
+      search_key = key.split("_id").first if key != "strah_id" && key != "manager_id" && key != "origin_warehouse_id" && key != "destination_warehouse_id"
 
       val = search_key.classify.safe_constantize.where(id: value).present? ? search_key.classify.safe_constantize.find_by_id(value.to_i) : nil
       return_value = val.title if val.present? && val.respond_to?(:title)
@@ -246,7 +246,6 @@ module ApplicationHelper
       end
     end
   end
-
 
   def tabs_head(collection, tabs)
     items = tabs.map.with_index { |tab, index| tab_a_tag(tab, index.zero?) }
@@ -283,5 +282,4 @@ module ApplicationHelper
   def current_page_active?(page)
     request.path.start_with?("/#{page}")
   end
-
 end
