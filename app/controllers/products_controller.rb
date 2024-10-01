@@ -6,9 +6,9 @@ class ProductsController < ApplicationController
   include BulkDelete
 
   def index
-    @search = Product.ransack(search_params)
+    @search = Product.includes(:props, images: [:file_attachment, :file_blob]).ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
-    @products = @search.result(distinct: true).includes(:props, images: [:file_attachment, :file_blob]).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
+    @products = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     # collection = @search.present? ? @search.result(distinct: true) : @products
     # puts 'collection.count '+collection.count.to_s
     respond_to do |format|
