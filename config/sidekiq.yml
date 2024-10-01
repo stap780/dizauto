@@ -10,6 +10,8 @@
     - incase_import
     - import_product
     - bulk_delete
+    - active_storage_analysis
+    - active_storage_purge
 :scheduler:
   :dynamic: true
 

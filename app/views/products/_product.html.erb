@@ -8,12 +8,12 @@
     <%= tag.div class: "col-md-1 p-0" do %>
         <%=tag.div(class: "img-ratio img-fit") do %>
             <%=tag.div(class: "img-ratio__inner") do %>
-                <%= picture_tag(class: "") do %>
-                    <%= tag(:source, srcset: product.image_first.variant(:thumb_webp).processed.url) %>
-                    <%= image_tag(product.image_first.variant(:thumb), alt: "", class: "img-fluid img-thumbnail p-0") %>
-                <% end %>
+                <%= turbo_frame_tag dom_id(product, :index_image), src: product_path(product), loading: :lazy, turbo_frame: "_top" do %>
+                ...
+                <% end if product.image_first %>
             <% end %>
-        <% end if product.image_first %>
+        <% end %>
+        <%# render partial: 'products/index_image', locals: { product: } if product.image_first%>
     <% end %>
     <%= tag.div class: "col row" do %>
         <div class="col-12 text-break fw-semibold"><%= product.title %></div>

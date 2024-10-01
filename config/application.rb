@@ -32,6 +32,5 @@ module Dizauto
       Noticed::Event.include Noticed::EventExtensions
       Noticed::Notification.include Noticed::NotificationExtensions
     end
-    
   end
 end

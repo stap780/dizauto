@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   include BulkDelete
 
   def index
-    @search = Product.includes(:props, images: [:file_attachment, :file_blob]).ransack(search_params)
+    @search = Product.includes(:props, :stocks, images: [:file_attachment, :file_blob]).ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @products = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     # collection = @search.present? ? @search.result(distinct: true) : @products
@@ -44,9 +44,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html { redirect_to edit_product_path(@product) }
-    end
+    # respond_to do |format|
+    #   format.html { redirect_to edit_product_path(@product) }
+    # end
+    product = Product.find(params[:id])
+    render partial: "products/index_image", locals: {product:}
+    # render partial: 'products/product', locals: { product: }
   end
 
   def new
