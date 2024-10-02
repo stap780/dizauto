@@ -1,6 +1,6 @@
 <div class="row mb-2 mb-xl-3">
 	<div class="col-auto d-none d-sm-block">
-		<h3><strong>Аналитика</strong> Главная</h3>
+		<div class="h3"><strong>Аналитика</strong> Главная</div>
 	</div>
 
 	<div class="col-auto ms-auto text-end mt-n1">
@@ -119,11 +119,11 @@
 						</div>
 					</form>
 				</div>
-				<h5 class="card-title mb-0">Recent Movement</h5>
+				<h5 class="card-title mb-0">Появление товаров</h5>
 			</div>
 			<div class="card-body pt-2 pb-3">
 				<div class="chart chart-sm">
-					<canvas id="chartjs-dashboard-line"></canvas>
+					<canvas data-controller="chart" data-chart-data-value="<%= @chart_data.to_json %>" ></canvas>
 				</div>
 			</div>
 		</div>

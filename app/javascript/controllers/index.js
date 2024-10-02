@@ -16,6 +16,9 @@ application.register("badge", BadgeController)
 import CalculateController from "./calculate_controller"
 application.register("calculate", CalculateController)
 
+import ChartController from "./chart_controller"
+application.register("chart", ChartController)
+
 import CheckboxController from "./checkbox_controller"
 application.register("checkbox", CheckboxController)
 
