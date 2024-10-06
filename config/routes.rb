@@ -115,6 +115,7 @@ Rails.application.routes.draw do
   resources :dashboards do
     collection do
       post :fullsearch
+      post :product_created_at_count_chart
     end
   end
   resources :images do

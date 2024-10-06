@@ -101,32 +101,7 @@
 	</div>
 
 	<div class="col-xl-6 col-xxl-7">
-		<div class="card flex-fill w-100">
-			<div class="card-header">
-				<div class="float-end">
-					<form class="row g-2">
-						<div class="col-auto">
-							<select class="form-select form-select-sm bg-light border-0">
-								<option>Jan</option>
-								<option value="1">Feb</option>
-								<option value="2">Mar</option>
-								<option value="3">Apr</option>
-							</select>
-						</div>
-						<div class="col-auto">
-							<input type="text" class="form-control form-control-sm bg-light rounded-2 border-0" style="width: 100px;"
-								placeholder="Search..">
-						</div>
-					</form>
-				</div>
-				<h5 class="card-title mb-0">Появление товаров</h5>
-			</div>
-			<div class="card-body pt-2 pb-3">
-				<div class="chart chart-sm">
-					<canvas data-controller="chart" data-chart-data-value="<%= @chart_data.to_json %>" ></canvas>
-				</div>
-			</div>
-		</div>
+		<%= render partial: '/dashboards/charts/product/created_at_count' %>
 	</div>
 </div>
 

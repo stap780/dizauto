@@ -22,7 +22,7 @@
     <% end %>
     <%= tag.div( product.stocks.amount, class: "col-md-1" ) %>
     <%= tag.div( product.price, class: "col-md-1" ) %>
-    <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1" ) %>
+    <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1 px-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=product.id%>">
         <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: I18n.t("print_barcode")}, title: I18n.t("print_barcode") %>

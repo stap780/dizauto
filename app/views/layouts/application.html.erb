@@ -36,7 +36,7 @@
 <body data-theme="<% if user_signed_in? %>default<% else %>default<% end %>" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
 	<div class="wrapper">
     <% if user_signed_in? %>
-    <%= render partial: "/layouts/sidebar"%>
+    <%= render partial: '/layouts/sidebar'%>
 
 		<div class="main <%= current_page_path_as_class %>">
       <%= render partial: "/layouts/navbar"%>

@@ -40,6 +40,9 @@ application.register("dropzone", DropzoneController)
 import ExportController from "./export_controller"
 application.register("export", ExportController)
 
+import FancyboxController from "./fancybox_controller"
+application.register("fancybox", FancyboxController)
+
 import FileUploadController from "./file_upload_controller"
 application.register("file-upload", FileUploadController)
 

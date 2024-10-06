@@ -1,29 +1,14 @@
-import { Controller } from "@hotwired/stimulus";
-import flatpickr from "flatpickr";
+// https://github.com/adrienpoly/stimulus-flatpickr
+import Flatpickr from 'stimulus-flatpickr';
 
 // Connects to data-controller="flatpickr"
-export default class extends Controller {
+export default class extends Flatpickr {
 
   connect() {
-    console.log("connected flatpikr")
-    //console.log("connected flatpikr", this.element)
+    console.log("connected flatpickr")
+    // console.log("connected flatpickr", this.element)
  
-     flatpickr(".flatpickr", {
-      enableTime: true,
-      time_24hr: true,
-      defaultHour: '09',
-      // human friendly date with time (EG: April 24, 2021 12:00 PM)
-      dateFormat: "d-m-Y H:i",
-      disable: [
-        // function (date) {
-        //   // return true to disable
-        //   return date.getDay() === 0 || date.getDay() === 6;
-        // },
-      ],
-      locale: {
-        firstDayOfWeek: 1, // start week on Monday
-      },
-    });
+    super.connect();
 
    }
 

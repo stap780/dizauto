@@ -1,5 +1,7 @@
-// @import 'bootstrap/scss/bootstrap'; // all bootstrap inside adminkit
+// we init bootstrap inside adminkit file
+// @import 'bootstrap/scss/bootstrap'; 
 // @import 'bootstrap-icons/font/bootstrap-icons';
+//
 
 @import "adminkit/light.scss";
 @import "adminkit/dark.scss";
@@ -10,7 +12,6 @@
 @import "our_style/filter.scss";
 @import "our_style/color_picker_nano.scss";
 @import "our_style/img.scss";
-@import '@fancyapps/ui/dist/fancybox/fancybox';
 
 .table-white {
   --bs-table-color: #000;
@@ -50,7 +51,7 @@
     cursor: pointer;
 }
 
-/* Стили штрихкода*/
+/* Стили штрихкода */
 table.barby-barcode { border-spacing: 0; }
 tr.barby-row {}
 td.barby-cell { width: 3px; height: 60px; }
@@ -68,57 +69,57 @@ td.barby-cell.on { background: #000; }
     border-radius: 3px;
     font-size: 11px;
     line-height: 13px;
-  }
+}
   
-  .direct-upload--pending {
-    opacity: 0.6;
-  }
-  
-  .direct-upload__progress {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    opacity: 0.2;
-    background: #0076ff;
-    transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
-    transform: translate3d(0, 0, 0);
-  }
-  
-  .direct-upload--complete .direct-upload__progress {
-    opacity: 0.4;
-  }
-  
-  .direct-upload--error {
-    border-color: red;
-  }
-  
-  input[type=file][data-direct-upload-url][disabled] {
-    display: none;
-  }
-  
+.direct-upload--pending {
+  opacity: 0.6;
+}
 
-  .form-label.required:after {
-    content:"*";
-    color:red;
-  }
-  .form-control.disabled {
-    background-color: #e9ecef;
-    opacity: 1;
-  }
+.direct-upload__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  opacity: 0.2;
+  background: #0076ff;
+  transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+
+.direct-upload--complete .direct-upload__progress {
+  opacity: 0.4;
+}
+
+.direct-upload--error {
+  border-color: red;
+}
+
+input[type=file][data-direct-upload-url][disabled] {
+  display: none;
+}
+
+
+.form-label.required:after {
+  content:"*";
+  color:red;
+}
+.form-control.disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+}
 
 .w-col-1 {
   width: 8.33333333%!important;
 }
-  .w-col-2 {
-    width: 16.66666667%!important;
-  }
-  .w-col-3 {
-    width: 25%!important;
-  }
-  .w-col-4 {
-    width: 33.33333333%!important;
-  }
-  .w-col-5 {
-    width: 41.66666667%!important;
-  }
+.w-col-2 {
+  width: 16.66666667%!important;
+}
+.w-col-3 {
+  width: 25%!important;
+}
+.w-col-4 {
+  width: 33.33333333%!important;
+}
+.w-col-5 {
+  width: 41.66666667%!important;
+}

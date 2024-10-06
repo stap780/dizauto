@@ -1,5 +1,11 @@
+import { Controller } from "@hotwired/stimulus"
 import { Fancybox } from '@fancyapps/ui';
-// import '@fancyapps/ui/dist/fancybox/fancybox.css'; initialize in style 
+
+// Connects to data-controller="fancybox"
+export default class extends Controller {
+  connect() {
+  }
+}
 
 
 document.addEventListener('turbo:load', () => {
@@ -8,5 +14,3 @@ document.addEventListener('turbo:load', () => {
       });
     }
 );
-
-

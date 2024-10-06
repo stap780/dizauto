@@ -1,28 +1,11 @@
 class DashboardsController < ApplicationController
   load_and_authorize_resource
   before_action :set_dashboard, only: %i[show edit update destroy]
+  before_action :product_created_at_count_chart_data
 
   # GET /dashboards or /dashboards.json
   def index
-    # @dashboards = Dashboard.all
-    @chart_data = {
-      labels: %w[January February March April May June July],
-      datasets: [{
-        label: 'My test First dataset',
-        backgroundColor: 'transparent',
-        borderColor: '#3B82F6',
-        data: [37, 83, 78, 54, 12, 5, 99]
-      }]
-    }
-    @chart_options = {
-      scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
-    }
+    @chart_data, @chart_options = product_created_at_count_chart_data
   end
 
   def fullsearch
@@ -33,56 +16,18 @@ class DashboardsController < ApplicationController
       render turbo_stream: turbo_stream.replace("fullsearch_result", partial: "dashboards/search/result_empty")
     end
   end
-  #   # GET /dashboards/1 or /dashboards/1.json
-  #   def show
-  #   end
 
-  #   GET /dashboards/new
-  #   def new
-  #     @dashboard = Dashboard.new
-  #   end
-
-  #   # GET /dashboards/1/edit
-  #   def edit
-  #   end
-
-  #   # POST /dashboards or /dashboards.json
-  #   def create
-  #     @dashboard = Dashboard.new(dashboard_params)
-
-  #     respond_to do |format|
-  #       if @dashboard.save
-  #         format.html { redirect_to dashboard_url(@dashboard), notice: "Dashboard was successfully created." }
-  #         format.json { render :show, status: :created, location: @dashboard }
-  #       else
-  #         format.html { render :new, status: :unprocessable_entity }
-  #         format.json { render json: @dashboard.errors, status: :unprocessable_entity }
-  #       end
-  #     end
-  #   end
-
-  #   # PATCH/PUT /dashboards/1 or /dashboards/1.json
-  #   def update
-  #     respond_to do |format|
-  #       if @dashboard.update(dashboard_params)
-  #         format.html { redirect_to dashboard_url(@dashboard), notice: "Dashboard was successfully updated." }
-  #         format.json { render :show, status: :ok, location: @dashboard }
-  #       else
-  #         format.html { render :edit, status: :unprocessable_entity }
-  #         format.json { render json: @dashboard.errors, status: :unprocessable_entity }
-  #       end
-  #     end
-  #   end
-
-  #   # DELETE /dashboards/1 or /dashboards/1.json
-  #   def destroy
-  #     @dashboard.destroy
-
-  #     respond_to do |format|
-  #       format.html { redirect_to dashboards_url, notice: "Dashboard was successfully destroyed." }
-  #       format.json { head :no_content }
-  #     end
-  #   end
+  def product_created_at_count_chart
+    @chart_data, @chart_options = product_created_at_count_chart_data
+    respond_to do |format|
+      # flash.now[:success] = t(".success")
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace('product_created_at_count_chart_canvas', partial: '/dashboards/charts/product/created_at_count_canvas' )
+        ]
+      end
+    end
+  end
 
   private
 
@@ -95,4 +40,35 @@ class DashboardsController < ApplicationController
   # def dashboard_params
   #   params.fetch(:dashboard, {})
   # end
+  def product_created_at_count_chart_data
+    start_param = params[:product_created_at_count_chart_start_at]
+    end_param = params[:product_created_at_count_chart_end_at]
+    start_day = start_param.present? ? start_param.to_date : 1.month.ago.to_date
+    end_day = end_param.present? ? end_param.to_date : Date.today
+
+    period = (start_day..end_day)
+    month_dates = period.map(&:to_s)
+    month_days = period.map { |d| d.day }
+    created_at_products_count_per_day = month_dates.map { |d| Product.where(created_at: (Time.new(d).beginning_of_day..Time.new(d).end_of_day)).count }
+    chart_data = {
+      labels: month_days,  # %w[January February March April May June July],
+      datasets: [{
+        label: "\u041F\u043E\u044F\u0432\u043B\u0435\u043D\u0438\u0435 \u0442\u043E\u0432\u0430\u0440\u043E\u0432",
+        backgroundColor: "transparent",
+        borderColor: "#3B82F6",
+        data: created_at_products_count_per_day
+      }]
+    }
+    chart_options = {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+    [chart_data, chart_options]
+  end
+
 end

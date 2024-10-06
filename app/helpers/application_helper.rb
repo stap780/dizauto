@@ -208,6 +208,10 @@ module ApplicationHelper
     '<i class="bi bi-eye"></i>'.html_safe
   end
 
+  def search_icon
+    '<i class="bi bi-search"></i>'.html_safe
+  end
+
   def history_value(key, value)
     # puts "history_value => key #{key.to_s} // value #{value.to_s}"
     if key.include?("_id")

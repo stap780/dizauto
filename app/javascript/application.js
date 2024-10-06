@@ -5,23 +5,11 @@ import "./controllers"
 import * as bootstrap from "bootstrap"
 
 import "./modules/sidebar"
-
 import "./modules/theme"
-import "./modules/feather"
-import "./modules/fancybox"
-// Charts
-//import "./modules/chartjs"
-
-// Forms
-// import "./modules/flatpickr"
- 
-// // Maps
-// import "./modules/vector-maps"
 
 import "trix"
 import "@rails/actiontext"
 import "@fortawesome/fontawesome-free/js/all";
-// import "./live_reload"
 
 import "./channels"
 

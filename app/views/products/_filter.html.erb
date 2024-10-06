@@ -4,7 +4,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
+   	<%= search_form_for q, html: {class: '', "data-controller": "filter", "data-turbo-frame": "table" } do |f|%> 
 		<div class="form-group">
         <div class="row g-1 mb-2">
           <div class="col-md-12">
@@ -40,7 +40,7 @@
             
           <div class="col-md-6">
             <div class="label"><%= t('created_at') %></div>
-            <%= f.search_field :created_at_datebegin, type: :date , placeholder: 'создан от', class: "form-control", autocomplete: "off" %>
+            <%= f.search_field :created_at_datebegin, placeholder: 'создан от', class: "form-control", autocomplete: "off", data: { controller: 'flatpickr' } %>
           </div>
           <div class="col-md-6">
             <%= f.label :status_eq %>
@@ -61,7 +61,7 @@
         </div>
 
   			<div class="btn-group btn-group-sm" role="group"> 
-          <%= f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search", "bs-toggle":"offcanvas"}  %>
+          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search", "bs-toggle": "offcanvas" }  %>
   			</div>
 		</div>	
     <% end %>

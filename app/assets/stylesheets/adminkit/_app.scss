@@ -10,8 +10,11 @@
 // Bootstrap
 @import "bootstrap/scss/bootstrap";
 @import 'bootstrap-icons/font/bootstrap-icons';
+@import '@fancyapps/ui/dist/fancybox/fancybox';
+@import 'flatpickr/dist/flatpickr';
 
-// Theme mixins
+
+// // Theme mixins
 @import "2-mixins/badge";
 @import "2-mixins/button";
 @import "2-mixins/modal";
@@ -19,7 +22,7 @@
 @import "2-mixins/tabs";
 @import "2-mixins/theme";
 
-// Theme components
+// // Theme components
 @import "3-components/accordion";
 @import "3-components/alert";
 @import "3-components/avatar";
@@ -51,38 +54,38 @@
 @import "3-components/type";
 @import "3-components/wrapper";
 
-// Theme utilities
-@import "4-utilities/background";
-@import "4-utilities/cursors";
-@import "4-utilities/overflow";
+// // Theme utilities
+// @import "4-utilities/background";
+// @import "4-utilities/cursors";
+// @import "4-utilities/overflow";
 
-// 3rd party plugins
-// @import "@fortawesome/fontawesome-free/scss/brands";
-// @import "@fortawesome/fontawesome-free/scss/fontawesome";
-// @import "@fortawesome/fontawesome-free/scss/regular";
-// @import "@fortawesome/fontawesome-free/scss/solid";
-// @import "apexcharts/src/assets/apexcharts";
-// @import "choices.js/src/styles/choices";
-// @import "datatables.net-bs5/css/dataTables.bootstrap5";
-// @import "datatables.net-buttons-bs5/css/buttons.bootstrap5";
-// @import "datatables.net-responsive-bs5/css/responsive.bootstrap5";
-// @import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
-// @import "dragula/dist/dragula";
-// @import "flatpickr/dist/flatpickr";
-// @import "fullcalendar/main";
-// @import "jsvectormap/dist/css/jsvectormap";
-// @import "quill/dist/quill.bubble";
-// @import "quill/dist/quill.snow";
-// @import "simplebar/dist/simplebar";
-// @import "notyf/notyf.min";
+// // 3rd party plugins
+// // @import "@fortawesome/fontawesome-free/scss/brands";
+// // @import "@fortawesome/fontawesome-free/scss/fontawesome";
+// // @import "@fortawesome/fontawesome-free/scss/regular";
+// // @import "@fortawesome/fontawesome-free/scss/solid";
+// // @import "apexcharts/src/assets/apexcharts";
+// // @import "choices.js/src/styles/choices";
+// // @import "datatables.net-bs5/css/dataTables.bootstrap5";
+// // @import "datatables.net-buttons-bs5/css/buttons.bootstrap5";
+// // @import "datatables.net-responsive-bs5/css/responsive.bootstrap5";
+// // @import "datatables.net-fixedheader-bs5/css/fixedHeader.bootstrap5";
+// // @import "dragula/dist/dragula";
+// // @import "flatpickr/dist/flatpickr";
+// // @import "fullcalendar/main";
+// // @import "jsvectormap/dist/css/jsvectormap";
+// // @import "quill/dist/quill.bubble";
+// // @import "quill/dist/quill.snow";
+// // @import "simplebar/dist/simplebar";
+// // @import "notyf/notyf.min";
 
-// 3rd party plugin styles
-@import "5-vendor/datatables-select";
-@import "5-vendor/datatables-fixedHeader";
-@import "5-vendor/choices";
-@import "5-vendor/flatpickr";
-@import "5-vendor/fullcalendar";
-@import "5-vendor/highlight";
-@import "5-vendor/jsvectormap";
-@import "5-vendor/quill";
-@import "5-vendor/simplebar";
+// // 3rd party plugin styles
+// @import "5-vendor/datatables-select";
+// @import "5-vendor/datatables-fixedHeader";
+// @import "5-vendor/choices";
+// @import "5-vendor/flatpickr";
+// @import "5-vendor/fullcalendar";
+// @import "5-vendor/highlight";
+// @import "5-vendor/jsvectormap";
+// @import "5-vendor/quill";
+// @import "5-vendor/simplebar";
