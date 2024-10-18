@@ -11,14 +11,6 @@ class ClientsController < ApplicationController
     collection = @search.present? ? @search.result(distinct: true) : @clients
     respond_to do |format|
       format.html
-      # format.zip do
-      #   CreateZipXlsxJob.perform_later(collection.ids, {model: "Client",
-      #                                                     current_user_id: current_user.id,
-      #                                                     filename: filename,
-      #                                                     template: "clients/index"})
-      #   flash[:success] = t ".success"
-      #   redirect_to clients_path
-      # end
     end
   end
 
