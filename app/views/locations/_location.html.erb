@@ -1,5 +1,5 @@
 <%= turbo_frame_tag location do %>
-    <%= location.product_id %>
+    <%= location.variant_id %>
     <%= location.place.full_title %>
     <%= link_to edit_icon, edit_location_path(location), class: '', data: {turbo_stream: true} %>
 <% end %>

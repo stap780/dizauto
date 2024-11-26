@@ -7,7 +7,8 @@ class Return < ApplicationRecord
   has_many :return_items, dependent: :destroy
   accepts_nested_attributes_for :return_items, allow_destroy: true
   after_destroy_commit { broadcast_remove_to "returns" }
-
+  validates :return_items, presence: true
+  
   def self.ransackable_attributes(auth_object = nil)
     Return.attribute_names
   end

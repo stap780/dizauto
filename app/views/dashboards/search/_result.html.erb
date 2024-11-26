@@ -9,10 +9,11 @@
                 <div class="list-group-item">
                     <div class="row g-0 align-items-center">
                         <div class="col-12 ps-2">
-                            <div class="text-dark"><%= model_name %></div>
+                            <div class="text-dark"><%= I18n.t("helpers.label.dashboard.#{model_name.downcase}") %></div>
                             <% model_results.each do |result| %>
                                 <div class="text-muted small mt-1">
-                                    <a href="<%="/#{model_name.downcase.pluralize}/#{result[0]}/edit"%>" class=""><%=highlight result.drop(1).join(' '), params.dig(:query)%></a>
+                                    <% real_model = model_name == 'Variant' ? 'products' : model_name.downcase.pluralize %>
+                                    <a href="<%="/#{real_model}/#{result[0]}/edit"%>" class="" data-turbo="false"><%=highlight result.drop(1).join(' '), params.dig(:query)%></a>
                                 </div>
                             <% end %>
                         </div>

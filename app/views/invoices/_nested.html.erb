@@ -1,10 +1,10 @@
-<div class="col-2 my-3">
+<div class="col-2 my-3 ps-0">
     <%= link_to add_icon, new_nested_invoices_path, class: "btn btn-primary", data: { turbo_stream: true } %>
 </div>
 
 <div class="col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
     <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.invoice_item.product_id'), class: 'col-6 fw-semibold')%> 
+        <%= tag.div( t('helpers.label.invoice_item.variant_id'), class: 'col-6 fw-semibold')%> 
         <%= tag.div( t('helpers.label.invoice_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.invoice_item.price'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.invoice_item.nds'), class: 'col-1 fw-semibold' )%>
@@ -12,9 +12,16 @@
         <%= tag.div( t('helpers.label.invoice_item.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col fw-semibold')%>
     </div>
-    <%= turbo_frame_tag :invoice_items, :invoice, class: "container" do %>
-        <%= f.fields_for :invoice_items do |item| %>
-            <%= render "invoice_items/form_data", f: item, product: nil%>
+    <%= turbo_frame_tag :invoice_items, class: "container" do %>
+        <%= f.fields_for :invoice_items do |ff| %>
+            <%= render  partial: "shared/items_form_data", 
+                        locals: {   f: ff,
+                                    variant: nil,
+                                    nested_url: "/invoices/slimselect_nested_item",
+                                    object_turbo_frame_tag: "invoice_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
+                                    remove_element_path: "/invoices/remove_nested?invoice_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                    discount_field: true
+                                } %>
         <% end %>
     <% end %>
     <div class="row">

@@ -3,6 +3,7 @@ class IncasesController < ApplicationController
   before_action :set_incase, only: %i[show edit update destroy act new_supply]
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
 
   def index
     @search = Incase.includes(:strah, :incase_items).ransack(search_params)
@@ -86,56 +87,6 @@ class IncasesController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    incase_item = IncaseItem.find_by(id: target.remove("incase_item_"))
-    product = Product.find(params[:selected_id])
-    child_index = target.remove("incase_item_")
-
-    if incase_item.present?
-      helpers.fields model: Incase.new do |f|
-        f.fields_for :incase_items, incase_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "incase_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    else
-      helpers.fields model: Incase.new do |f|
-        f.fields_for :incase_items, IncaseItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "incase_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Incase.new do |f|
-      f.fields_for :incase_items, IncaseItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "incase_items",
-          partial: "incase_items/form_data",
-          locals: {f: ff, product: nil, child_index: child_index}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    IncaseItem.find_by(id: params[:incase_item_id]).delete if params[:incase_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
   def new_supply
     respond_to do |format|
       format.turbo_stream
@@ -150,6 +101,6 @@ class IncasesController < ApplicationController
 
   def incase_params
     params.require(:incase).permit(:region, :strah_id, :stoanumber, :unumber, :company_id, :carnumber, :date, :modelauto, :totalsum, :incase_status_id, :incase_tip_id,
-      incase_items_attributes: [:id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])
+      incase_items_attributes: [:id, :variant_id, :title, :quantity, :katnumber, :price, :sum, :incase_item_status_id, :_destroy])
   end
 end

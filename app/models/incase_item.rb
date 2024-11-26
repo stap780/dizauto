@@ -1,7 +1,7 @@
 class IncaseItem < ApplicationRecord
   belongs_to :incase
   belongs_to :incase_item_status, optional: true # это убирает проверку presence: true , которая стоит по дефолту
-  belongs_to :product, optional: true
+  belongs_to :variant#, optional: true
   audited associated_with: :incase
 
   validates :title, presence: true
@@ -10,7 +10,7 @@ class IncaseItem < ApplicationRecord
   
   after_initialize :set_default_new
   before_save :normalize_data_white_space
-  before_create :create_product
+  before_create :create_product_variant
   after_create_commit :automation_on_create
   after_update_commit :automation_on_update
 
@@ -33,15 +33,17 @@ class IncaseItem < ApplicationRecord
     self.quantity = 0 if quantity.nil?
   end
   
-  def create_product
+  def create_product_variant
     product = Product.create!(
-      title: self.title || 'Incase product',
-      quantity: self.quantity || 0,
-      price: self.price || 0,
+      title: self.title ||= 'Incase product',
       status: "draft",
       type: "product"
     )
-    self.product_id = product.id
+    variant = product.variants.create!(
+      quantity: self.quantity ||= 0,
+      price: self.price ||= 0
+      )
+    self.variant_id = variant.id
   end
 
   def normalize_data_white_space

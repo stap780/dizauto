@@ -10,6 +10,7 @@ class Loss < ApplicationRecord
   after_initialize :add_default
   before_save :normalize_data_white_space
 
+  validates :loss_items, presence: true
   validates :title, presence: true
   validates :date, presence: true
 

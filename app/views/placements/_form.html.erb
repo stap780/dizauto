@@ -1,6 +1,6 @@
 <%= turbo_frame_tag placement do %>
   <%= form_with(  model: placement) do |f| %>
-    <%= render 'shared/errors', object: placement%>
+    <%= render 'shared/errors', object: placement %>
 
     <div class="row">
       <div class="col-md-12">
@@ -32,13 +32,13 @@
             </div>
               <%= turbo_frame_tag :locations, :placement, class: "container" do %>
                 <%= f.fields_for :locations do |ff| %>
-                  <%= render "locations/form_data", f: ff, product: nil, warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id %>
+                  <%= render "locations/form_data", f: ff, variant: nil, warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id %>
                 <% end %>
               <% end %>
           </div>
           <div class="card-footer">
             <%= f.submit t('save'),class: "btn btn-primary", data: {turbo_frame: "_top"} %>
-            <%= link_to t('back'), :back, class: "btn btn-outline-primary", data: {turbo_frame: "_top"} %>
+            <%= link_to t('back'), placements_path, class: "btn btn-outline-primary", data: {turbo_frame: "_top"} %>
           </div>
         </div>
       </div>

@@ -1,17 +1,21 @@
 
-<%= f.hidden_field :invoice_id, value: params[:invoice_id].present? ? params[:invoice_id] : f.object.invoice_id %>
-
-<div class="mb-3 col-2">
+<%# f.hidden_field :invoice_id, value: params[:invoice_id].present? ? params[:invoice_id] : f.object.invoice_id %>
+<div class="mb-3 col-2 ps-0 pe-1 ">
+    <%= f.label :invoice_id, class: "form-label" %>
+    <%= f.select :invoice_id, Invoice.all.pluck(:number, :id), { include_blank: false }, 
+                            { class: "form-select", data: {controller: 'slimselect'} }%>
+</div>
+<div class="mb-3 col-2 ps-0 pe-1 ">
     <%= f.label :number, class: "form-label" %>
     <%= f.text_field :number, class: "form-control" %>
 </div>
-<div class="mb-3 col-4">
+<div class="mb-3 col-4 ps-0 pe-1 ">
     <%= f.label :client_id, class: "form-label" %>
-    <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
-                            { data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
+    <%= f.select :client_id, Client.collection_for_select(f.object.client_id), { include_blank: false }, 
+                            { class: "form-select", data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
 </div>
-<div class="mb-3 col-4">
+<div class="mb-3 col-4 ps-0 pe-1 ">
     <%= f.label :company_id, class: "form-label" %>
-    <%= f.select :company_id, Company.all.pluck(:short_title, :id), {include_blank: true}, 
-                            { data: {controller: 'slimselect'} } %>
+    <%= f.select :company_id, Company.all.pluck(:short_title, :id), { include_blank: true }, 
+                            { class: "form-select", data: {controller: 'slimselect'} } %>
 </div>

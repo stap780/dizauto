@@ -5,10 +5,10 @@ class StocksController < ApplicationController
   include DownloadExcel
 
   def index
-    products_with_stocks = Stock.group(:product_id).count
-    products_with_stocks_ids = products_with_stocks.keys
-    # @search = Stock.includes(:product).ransack(params[:q])
-    @search = Product.where(id: products_with_stocks_ids).ransack(search_params)
+    variants_with_stocks = Stock.group(:variant_id).count
+    variants_with_stocks_ids = variants_with_stocks.keys
+    @search = Variant.where(id: variants_with_stocks_ids).ransack(search_params)
+    # @search = Stock.includes(:variant).ransack(search_params)
     # @search.sorts = "id desc" if @search.sorts.empty?
     @stocks = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     respond_to do |format|
@@ -67,6 +67,6 @@ class StocksController < ApplicationController
     end
 
     def stock_params
-      params.require(:stock).permit(:product_id, :user_id, :stockable_id, :stockable_type, :move, :value)
+      params.require(:stock).permit(:variant_id, :user_id, :stockable_id, :stockable_type, :move, :value)
     end
 end

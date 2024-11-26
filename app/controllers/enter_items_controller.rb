@@ -66,6 +66,6 @@ class EnterItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def enter_item_params
-      params.require(:enter_item).permit(:enter_id, :product_id, :quantity, :price, :vat, :sum)
+      params.require(:enter_item).permit(:enter_id, :variant_id, :quantity, :price, :vat, :sum)
     end
 end

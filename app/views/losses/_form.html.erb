@@ -4,12 +4,12 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-          <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="card-header d-flex align-items-center gap-3 px-2">
               <div class="d-flex justify-content-between align-items-center gap-3">
                   <%= f.select :loss_status_id, LossStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select border-primary-subtle"}%>
                   <%= tabs_head('loss', [ ['main', t(:main)] ]) if !f.object.new_record? %>
               </div>
-              <div class="d-flex justify-content-between align-items-center gap-3">
+              <div class="d-flex ms-auto justify-content-between align-items-center gap-3">
                   <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false}, {class: "form-select border-primary-subtle"}%>
                   <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "loss", auditable_id: loss.id), class: 'btn btn-outline-success d-flex', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
               </div>

@@ -15,6 +15,7 @@ class PlacementsController < ApplicationController
 
   def new
     @placement = Placement.new(warehouse_id: params[:warehouse_id])
+    @placement.locations.build
   end
 
   def edit
@@ -64,7 +65,7 @@ class PlacementsController < ApplicationController
         render turbo_stream: turbo_stream.append(
           "locations_placement",
           partial: "locations/form_data",
-          locals: {f: ff, product: nil, our_dom_id: "location_#{child_index}_placement", warehouse_id: params[:warehouse_id] }
+          locals: {f: ff, variant: nil, our_dom_id: "location_#{child_index}_placement", warehouse_id: params[:warehouse_id] }
         )
       end
     end
@@ -89,6 +90,6 @@ class PlacementsController < ApplicationController
     end
 
     def placement_params
-      params.require(:placement).permit(:warehouse_id, locations_attributes: [:id, :product_id, :place_id, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])
+      params.require(:placement).permit(:warehouse_id, locations_attributes: [:id, :variant_id, :place_id, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])
     end
 end

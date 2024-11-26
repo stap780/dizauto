@@ -3,6 +3,7 @@ class LossesController < ApplicationController
   before_action :set_loss, only: %i[ show edit update destroy ]
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
 
   def index
     @search = Loss.ransack(search_params)
@@ -23,7 +24,7 @@ class LossesController < ApplicationController
       @loss = Loss.new( manager_id: current_user.id, warehouse_id: stock_transfer.origin_warehouse_id, stock_transfer_id: params[:stock_transfer_id])
       items = stock_transfer.stock_transfer_items
       items.each do |inc|
-        @loss.loss_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+        @loss.loss_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price)
       end
     else
       @loss = Loss.new
@@ -69,58 +70,6 @@ class LossesController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    loss_item = LossItem.find_by(id: target.remove("loss_item_"))
-    product = Product.find(params[:selected_id])
-    child_index = target.remove("loss_item_")
-    warehouse_id = params[:warehouse_id]
-
-    if loss_item.present?
-      helpers.fields model: Loss.new do |f|
-        f.fields_for :loss_items, loss_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "loss_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    else
-      helpers.fields model: Loss.new do |f|
-        f.fields_for :loss_items, LossItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "loss_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Loss.new do |f|
-      f.fields_for :loss_items, LossItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "loss_items",
-          partial: "loss_items/form_data",
-          locals: {f: ff, product: nil, our_dom_id: "loss_item_#{child_index}_loss", warehouse_id: nil}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    LossItem.find_by(id: params[:loss_item_id]).delete if params[:loss_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
-
   private
     def set_loss
       @loss = Loss.find(params[:id])
@@ -128,6 +77,6 @@ class LossesController < ApplicationController
 
     def loss_params
       params.require(:loss).permit(:loss_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
-      loss_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
+      loss_items_attributes: [:id, :variant_id, :quantity, :price, :vat, :sum, :_destroy])
     end
 end

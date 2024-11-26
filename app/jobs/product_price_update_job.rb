@@ -1,13 +1,18 @@
 class ProductPriceUpdateJob < ApplicationJob
   queue_as :default
+  sidekiq_options retry: 0
 
-  def perform(product_ids, price_type, price_move, price_shift, price_points, current_user_id)
+  def perform(product_ids, field_type, move, shift, points, round, current_user_id)
     products = Product.where(id: product_ids)
 
-    success, message = Product::PriceUpdate.new( products, {price_type: price_type, price_move: price_move, price_shift: price_shift, price_points: price_points} ).call
+    success, message = Product::PriceUpdate.call( products, { field_type: field_type, 
+                                                              move: move, 
+                                                              shift: shift, 
+                                                              points: points,
+                                                              round: round } )
     if success
       PriceUpdateNotifier.with(
-                        record: products.first, 
+                        # record: products.first, 
                         message: "Success",
                         blob: nil,
                         error: nil,
@@ -24,7 +29,7 @@ class ProductPriceUpdateJob < ApplicationJob
       )
     else
       PriceUpdateNotifier.with(
-                        record: products.first, 
+                        # record: products.first, 
                         message: "Error",
                         blob: nil,
                         error: message,

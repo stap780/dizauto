@@ -14,9 +14,14 @@ class Order < ApplicationRecord
   after_destroy_commit { broadcast_remove_to "orders" }
 
   before_save :normalize_data_white_space
+  validates :order_items, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     Order.attribute_names
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[associated_audits audits order_items]
   end
 
   private

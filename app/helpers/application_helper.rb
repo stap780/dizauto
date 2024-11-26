@@ -156,6 +156,10 @@ module ApplicationHelper
     '<i class="bi bi-upc"></i>'.html_safe
   end
 
+  def plus_square_icon
+    '<i class="bi bi-plus-square"></i>'.html_safe
+  end
+
   def arrow_left_icon
     '<i class="bi bi-arrow-left"></i>'.html_safe
   end

@@ -7,13 +7,13 @@
 <%= form_with(model: product, data: { controller: 'product ', 'item-id': product.id }, class: 'row upload-form') do |f| %>
     <div class="col-md-8">
         <%= turbo_frame_tag "errors" do %>
-            <%= render "shared/errors", object: product%>
+            <%= render "shared/errors", object: product %>
         <% end %>
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) if !f.object.new_record? %>
-                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
-            </div>
+            <%= tag.div class:"card-header d-flex justify-content-between align-items-center" do %>
+                <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) %>
+                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} %>
+            <% end if !f.object.new_record? %>
             <div class="card-body">
                 <div class="tab-content">
                     <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
@@ -36,27 +36,25 @@
 
     <div class="col-md-4" data-controller="image">
         <%=tag.div class: 'card' do %>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-8 mb-3 px-0">
-                        <div class="btn-group" role="group" aria-label="product statuses button group">
-                            <% Product::Status.each do |key| %>
-                                <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" 
-                                        id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
-                                <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
-                            <% end %>
-                        </div>
-                    </div>
-
-                    <div class="col-4 mb-3 px-0">
-                        <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
-                    </div>
-                    <div class="col-8 d-flex justify-content-center">
-                        <%= f.object.html_barcode %>
+            <div class="card-body row">
+                <div class="col-8 mb-3 px-0">
+                    <div class="btn-group" role="group" aria-label="product statuses button group">
+                        <% Product::Status.each do |key| %>
+                            <input type="radio" class="btn-check" name="product[status]" value="<%=key%>" 
+                                    id="product_status_<%=key%>" autocomplete="off" <% if f.object.status&.include?(key.to_s) %>checked<%end%> >
+                            <label class="btn btn-outline-light" for="product_status_<%=key%>"><%=key%></label>
+                        <% end %>
                     </div>
                 </div>
+
+                <div class="col-4 mb-3 px-0">
+                    <%= f.select :tip, Product::Tip, {include_blank: false},{ class: "form-select" } %>
+                </div>
+                <%=tag.div class: "col-8 d-flex justify-content-center" do %>
+                    <%= f.object.variants.first.html_barcode %>
+                <% end if f.object.var_barcode.present? %>
             </div>
-        <% end if f.object.barcode.present? %>
+        <% end %>
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-end mb-3">

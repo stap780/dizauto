@@ -1,6 +1,8 @@
 class OrderItemsController < ApplicationController
   load_and_authorize_resource
+  before_action :check_params, only: [:destroy]
   before_action :set_order_item, only: %i[show edit update destroy]
+  include ActionView::RecordIdentifier
 
   # GET /order_items or /order_items.json
   def index
@@ -50,23 +52,43 @@ class OrderItemsController < ApplicationController
 
   # DELETE /order_items/1 or /order_items/1.json
   def destroy
-    @order_item.destroy
-
-    respond_to do |format|
-      format.html { redirect_to order_items_url, notice: "Order item was successfully destroyed." }
-      format.json { head :no_content }
+    puts params
+    begin
+      @order_item = OrderItem.find_by(id: params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      @order_item = nil
     end
+    remove_element = @order_item.present? ? dom_id(@order_item) : "order_item_#{params[:id]}"
+    @order_item.destroy if @order_item.present?
+    respond_to do |format|
+      flash.now[:success] = t(".success")
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(remove_element),
+          render_turbo_flash,
+          turbo_stream.append("order_items", partial: 'shared/recalculate_after_remove')
+        ]
+      end
+    end
+
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_order_item
-    @order_item = OrderItem.find(params[:id])
+  def check_params
+    puts 'check_params'
   end
 
-  # Only allow a list of trusted parameters through.
+  def set_order_item
+    check_params
+    # begin
+    #   @order_item = OrderItem.find_by(id: params[:id])
+    # rescue ActiveRecord::RecordNotFound => e
+    #   @order_item = nil
+    # end
+  end
+
   def order_item_params
-    params.require(:order_item).permit(:product_id, :price, :discount, :sum, :order_id, :quantity)
+    params.require(:order_item).permit(:variant_id, :price, :discount, :sum, :order_id, :quantity)
   end
 end

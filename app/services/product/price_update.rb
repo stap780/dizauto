@@ -1,16 +1,17 @@
-class Product::PriceUpdate
+class Product::PriceUpdate < ApplicationService
 
     def initialize(products, options = {})
       @products = products
-      @price_type = options[:price_type]
-      @price_move = options[:price_move]
-      @price_shift = options[:price_shift]
-      @price_points = options[:price_points]
+      @field_type = options[:field_type]
+      @move = options[:move]
+      @shift = options[:shift]
+      @points = options[:points]
+      @round = options[:round]
       @error_message = []
     end
 
     def call
-      price_update
+      update
       if @error_message.size > 0
         [false, @error_message]
       else
@@ -20,24 +21,29 @@ class Product::PriceUpdate
 
   private
 
-    def price_update
+    def update
       @products.each do |product|
-        salePrice = product.price.present? ? product.price : nil
-        if @price_points == "fixed"
-          if @price_move == "plus"
-            new_price = (salePrice + @price_shift.to_f).round(-2)
+        product.variants.each do |variant|
+          salePrice = variant.price.present? ? variant.price : nil
+          puts "salePrice => #{salePrice}"
+          puts "@shift => #{@shift}"
+          if @points == "fixed"
+            if @move == "plus"
+              new_price = (salePrice + @shift.to_f).round(@round.to_i)
+            else
+              new_price = (salePrice - @shift.to_f).round(@round.to_i)
+            end
           else
-            new_price = (salePrice - @price_shift.to_f).round(-2)
+            if @move == "plus"
+              new_price = (salePrice + @shift.to_f*0.01*salePrice).round(@round.to_i)
+            else
+              new_price = (salePrice - @shift.to_f*0.01*salePrice).round(@round.to_i)
+            end
           end
-        else
-          if @price_move == "plus"
-            new_price = (salePrice + @price_shift.to_f*0.01*salePrice).round(-2)
-          else
-            new_price = (salePrice - @price_shift.to_f*0.01*salePrice).round(-2)
-          end
+          puts "new_price => #{new_price}"
+          variant.update!(price: new_price) if new_price != nil
+          @error_message << variant.errors.full_messages if variant.errors.present?
         end
-        product.update!(price: new_price) if new_price != nil
-        @error_message << product.errors.full_messages if product.errors.present?
       end
     end
 

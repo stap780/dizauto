@@ -17,11 +17,11 @@
     <% end %>
     <%= tag.div class: "col row" do %>
         <div class="col-12 text-break fw-semibold"><%= product.title %></div>
-        <div class="col-6 fst-italic">Sku: <%= product.sku %></div>
-        <div class="col-6 fst-italic">barcode: <%= product.barcode %></div>
+        <div class="col-6 fst-italic">Sku: <%= product.var_sku %></div>
+        <div class="col-6 fst-italic">barcode: <%= product.var_barcode %></div>
     <% end %>
-    <%= tag.div( product.stocks.amount, class: "col-md-1" ) %>
-    <%= tag.div( product.price, class: "col-md-1" ) %>
+    <%= tag.div( '', class: "col-md-1" ) %> <%# product.stocks.amount%>
+    <%= tag.div( product.var_price, class: "col-md-1" ) %>
     <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1 px-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=product.id%>">

@@ -1,0 +1,17 @@
+<%# turbo_frame_tag dom_id(@product, dom_id(variant)) do %>
+<div class="card">
+  <div class="card-body">
+    <%= form_with(model: [@product, variant]) do |f| %>
+      <%= render 'shared/errors', object: variant %>
+
+
+      <%= render 'form_data', f: f %>
+
+      <div class="my-3 col-12 d-flex justify-content-end gap-2 align-items-center">
+        <%= f.submit t('save'), class: "btn btn-primary" %>
+        <%# link_to close_icon, :back, class: "btn btn-outline-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%# end %>

@@ -4,7 +4,7 @@
 
 <div class="col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
     <div class="row py-2 px-0">
-        <%= tag.div(t('helpers.label.supply_item.product_id'), class: 'col-7 fw-semibold')%> 
+        <%= tag.div(t('helpers.label.supply_item.variant_id'), class: 'col-6 fw-semibold')%> 
         <%= tag.div( t('helpers.label.supply_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.supply_item.price'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.supply_item.nds'), class: 'col-1 fw-semibold' )%>
@@ -13,26 +13,33 @@
     </div>
     <%= turbo_frame_tag supply, :supply_items, class: "container" do %>
         <%= f.fields_for :supply_items do |ff| %>
-            <%= render "supply_items/form_data", f: ff, product: nil, warehouse_id: supply.warehouse_id %>
+            <%= render  partial: "shared/items_form_data", 
+                        locals: {   f: ff,
+                                    variant: nil,
+                                    nested_url: "/supplies/slimselect_nested_item",
+                                    object_turbo_frame_tag: "supply_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
+                                    remove_element_path: "/supplies/remove_nested?supply_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                    discount_field: false
+                                } %>
         <% end %>
     <% end %>
 
     <div class="row">
-        <div class="col-9"></div> 
+        <div class="col-8"></div> 
         <div class="col-1">Subtotal:</div>
-        <div class="col-1" data-calculate-target="subtotal"><%= @supply.supply_items.sum(:sum)%></div>
+        <div class="col-1 p-0" data-calculate-target="subtotal"><%= @supply.supply_items.sum(:sum)%></div>
         <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col-9"></div>
+        <div class="col-8"></div>
         <div class="col-1">NDS:</div>
-        <div class="col-1" data-calculate-target="vattotal"></div>
+        <div class="col-1 p-0" data-calculate-target="vattotal"></div>
         <div class="col"></div>
     </div>
     <div class="row">
-        <div class="col-9"></div>
+        <div class="col-8"></div>
         <div class="col-1">Total:</div>
-        <div class="col-1" data-calculate-target="total"><%= @supply.supply_items.sum(:sum)%></div>
+        <div class="col-1 p-0" data-calculate-target="total"><%= @supply.supply_items.sum(:sum)%></div>
         <div class="col"></div>
     </div>
 

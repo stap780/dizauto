@@ -1,11 +1,13 @@
 <% tip_text = tip == :new ? 'Создать' : 'Редактировать' %>
-<%= tag.div class: 'd-flex fs-3 align-middle mb-3' do %>
+<%= tag.div class: 'd-flex fs-3 align-middle mb-3 align-items-center gap-3' do %>
     <%# link_to caret_left_icon, polymorphic_path(object.class.name.constantize), class: "btn btn-outline-success btn-sm", data: { turbo_prefetch: false } %>
-    <%= link_to caret_left_icon, :back, class: "btn btn-outline-success btn-sm me-2", data: { turbo_prefetch: false } %>
-    <%=tag.span "#{tip_text} #{object.model_name.human}"%>
-    <%=tag.div class: "d-flex justify-content-between ms-auto gap-3" do %>
-        <%= link_to arrow_left_icon, "/products/#{object.id-1}/edit", data: {turbo: false} if !object.new_record? && Product.find_by_id(object.id-1).present? %>
-        <%= link_to arrow_right_icon, "/products/#{object.id+1}/edit",  data: {turbo: false} if !object.new_record? && Product.find_by_id(object.id+1).present? %>
-    <% end if object.class.name == 'Product' %>
+    <%= link_to caret_left_icon, :back, class: "btn btn-outline-success", data: { turbo_prefetch: false } %>
+    <%= tag.span "#{tip_text} #{object.model_name.human}"%>
+    <%= tag.div class: "d-flex justify-content-between ms-auto gap-3" do %>
+        <% prev_id = object.previous.present? ? object.previous.id : nil %>
+        <% next_id = object.next.present? ? object.next.id : nil %>
+        <%= link_to arrow_left_icon, "/products/#{prev_id.to_s}/edit", class: "previous", data: {turbo: false} if prev_id %>
+        <%= link_to arrow_right_icon, "/products/#{next_id.to_s}/edit", class: "next",  data: {turbo: false} if next_id %>
+    <% end if object.class.name == 'Product' && !object.new_record? %>
 <% end %>
 <%= render "#{object.class.name.underscore.pluralize}/form", "#{object.class.name.underscore}": object %>

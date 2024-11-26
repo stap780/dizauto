@@ -19,7 +19,6 @@
           <h4 class="card-title mb-0">Photo</h4>
         </div>
         <div class="card-body">
-        <%= render '/shared/image_form', :f => @product %>
         <%= form_with(model: @product) do |form| %>
             <%= form.file_field :images, multiple: true %>
             <%= form.submit class: "btn btn-primary mt-4" %>

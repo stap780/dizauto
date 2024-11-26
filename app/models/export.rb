@@ -12,11 +12,11 @@ class Export < ApplicationRecord
   validates :title, presence: true
 
   FORMAT = [['csv','csv'],['xml','xml'],['xlsx','xlsx']]
-  STATUS = ["new","process","finish","error"]
+  STATUS = ['new','process','finish','error']
 
-  after_create_commit { broadcast_append_to "exports" }
-  after_update_commit { broadcast_replace_to "exports" }
-  after_destroy_commit { broadcast_remove_to "exports" }
+  after_create_commit { broadcast_append_to 'exports' }
+  after_update_commit { broadcast_replace_to 'exports' }
+  after_destroy_commit { broadcast_remove_to 'exports' }
 
 
   def self.ransackable_attributes(auth_object = nil)
@@ -27,18 +27,28 @@ class Export < ApplicationRecord
     (self.test == true) ? Product.include_images.include_props.limit(1000) : Product.include_images.include_props
   end
 
+  def self.file_attributes
+    pr_attributes = Product.attribute_names - %w[description]
+    var_attributes = Variant.attribute_names - %w[id product_id created_at updated_at title]
+    pr_attributes + var_attributes
+  end
+
   def file_data
     if link.present?
-      filename = link.split("/").last
+      filename = link.split('/').last
       file = "#{Rails.public_path}/#{filename}"
       if File.file?(file).present?
         size = number_to_human_size(File.size(file))
-        date = File.ctime(file).in_time_zone.strftime("%d/%m/%Y %H:%M")
+        date = File.ctime(file).in_time_zone.strftime('%d/%m/%Y %H:%M')
         "Размер: #{size} </br>Дата: #{date}".html_safe
       else
-        "nothing"
+        'nothing'
       end
     end
+  end
+
+  def to_liquid
+    @drop ||= Drop::Export.new(self)
   end
 
 end

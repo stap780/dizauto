@@ -9,20 +9,16 @@ class OrderStatusesController < ApplicationController
     @order_statuses = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  # GET /order_statuses/1 or /order_statuses/1.json
   def show
   end
 
-  # GET /order_statuses/new
   def new
     @order_status = OrderStatus.new
   end
 
-  # GET /order_statuses/1/edit
   def edit
   end
 
-  # POST /order_statuses or /order_statuses.json
   def create
     @order_status = OrderStatus.new(order_status_params)
 
@@ -44,7 +40,6 @@ class OrderStatusesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /order_statuses/1 or /order_statuses/1.json
   def update
     respond_to do |format|
       if @order_status.update(order_status_params)

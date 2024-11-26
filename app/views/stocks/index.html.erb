@@ -4,16 +4,16 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
   <%= form_with url: bulk_print_products_path, method: :post, id: :bulk_action_form  do |f| %>
-    <% if Templ.product_print.presence %>
-    <%= button_print %>
-    <ul class="dropdown-menu">
-      <% Templ.product_print.each do |templ|%>
-        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
-          <%= templ.title %>
-        <% end %>
-      <% end %>
-    <% end %>
-    </ul>
+    <%# if Templ.product_print.presence %>
+      <%# button_print %>
+      <%#tag.ul class: "dropdown-menu" do %>
+        <%# Templ.product_print.each do |templ|%>
+          <%# f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+            <%# templ.title %>
+          <%# end %>
+        <%# end %>
+      <%# end %>
+    <%# end %>
     <%= render 'shared/download_excel_buttons', f: f, object: Stock.new %>
   <% end %>
 
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'products filter' if lookup_context.find_all("products/_filter").any?%>
+<%= render 'filter', q: @search, title: 'stocks filter' if lookup_context.find_all("stocks/_filter").any?%>
 
 <div class="card">
   <div class="card-header pb-0">
@@ -40,31 +40,31 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-stocks_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12 table-responsive">
-          <table id="datatables-stocks" class="table table-striped" data-controller="selectall">
-            <thead>
-              <tr>
-                <%= th_check_box_tag_all %>
-                <%= tag.th('#')%>
-                <%= tag.th(t('helpers.label.stock.title'))%>
-                <%= tag.th(t('helpers.label.stock.plus'))%>
-                <%= tag.th(t('helpers.label.stock.minus'))%>
-                <%= tag.th(t('helpers.label.stock.amount'))%>
-              </tr>
-            </thead>
-            <tbody>
-              <%# render @stocks %>
-              <% @stocks.each do |product| %>
-                <%= render partial: "stocks/stock", locals: {product: product} %>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      
-      <%= render "shared/paginate", f: @stocks %>
-    </div>
+    <%= turbo_frame_tag :stocks, data: { }, class: "table d-table" do %>
+      <%= tag.div class:"d-table-row" do %>
+        <%= tag.div("", class: "d-table-cell fw-bold")%>
+        <%= tag.div(class: "d-table-cell") do %>
+          <%=tag.div(t('#'), class: "fw-bold d-flex justify-content-center")%>
+        <%end%>
+        <%= tag.div(class: "d-table-cell")  do %>
+          <%=tag.div(t('helpers.label.stock.title'), class: "fw-bold d-flex justify-content-center")%>
+        <%end%>
+        <%= tag.div(class: "d-table-cell")  do %>
+          <%=tag.div(t('helpers.label.stock.plus'), class: "fw-bold d-flex justify-content-center")%>
+        <%end%>
+        <%= tag.div(class: "d-table-cell")  do %>
+          <%=tag.div(t('helpers.label.stock.minus'), class: "fw-bold d-flex justify-content-center")%>
+        <%end%>
+        <%= tag.div(class: "d-table-cell")  do %>
+          <%=tag.div(t('helpers.label.stock.amount'), class: "fw-bold d-flex justify-content-center")%>
+        <%end%>
+      <% end %>
+      <% @stocks.each do |variant| %>
+        <%= render partial: "stocks/stock", locals: {variant: variant} %>
+      <% end %>
+    <% end %>
+
+    <%= render "shared/paginate", f: @stocks %>
+
   </div>
 </div>

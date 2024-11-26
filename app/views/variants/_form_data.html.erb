@@ -1,0 +1,23 @@
+<%= f.text_field :product_id, class: "d-none", placeholder: :product_id %>
+<%= tag.div(class: 'row') do %>
+  <%= tag.div class: "mb-3 col-md-6" do %>
+    <%= f.label :sku, class: "form-label" %>
+    <%= f.text_field :sku, class: 'form-control' %>
+  <% end %>
+  <%= tag.div class: "mb-3 col-md-6" do %>
+    <%= f.label :barcode, class: "form-label" %>
+    <%= f.text_field :barcode, class: 'form-control' %>
+  <% end %>
+  <%= tag.div class: "mb-3 col-md-4" do %>
+    <%= f.label :quantity, class: "form-label" %>
+    <%= f.number_field :quantity, class: 'form-control' %>
+  <% end %>
+  <%= tag.div class: "mb-3 col-md-4" do %>
+    <%= f.label :cost_price, class: "form-label" %> 
+    <%= f.text_field :cost_price, class: 'form-control' %>
+  <% end %>
+  <%= tag.div class: "mb-3 col-md-4" do %>
+    <%= f.label :price, class: "form-label" %> 
+    <%= f.text_field :price, class: 'form-control' %>
+  <% end %>
+<% end %>

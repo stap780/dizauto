@@ -2,25 +2,20 @@ class InvoiceItemsController < ApplicationController
   load_and_authorize_resource
   before_action :set_invoice_item, only: %i[ show edit update destroy ]
 
-  # GET /invoice_items or /invoice_items.json
   def index
     @invoice_items = InvoiceItem.all
   end
 
-  # GET /invoice_items/1 or /invoice_items/1.json
   def show
   end
 
-  # GET /invoice_items/new
   def new
     @invoice_item = InvoiceItem.new
   end
 
-  # GET /invoice_items/1/edit
   def edit
   end
 
-  # POST /invoice_items or /invoice_items.json
   def create
     @invoice_item = InvoiceItem.new(invoice_item_params)
 
@@ -35,7 +30,6 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /invoice_items/1 or /invoice_items/1.json
   def update
     respond_to do |format|
       if @invoice_item.update(invoice_item_params)
@@ -48,7 +42,6 @@ class InvoiceItemsController < ApplicationController
     end
   end
 
-  # DELETE /invoice_items/1 or /invoice_items/1.json
   def destroy
     @invoice_item.destroy!
 
@@ -66,6 +59,6 @@ class InvoiceItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def invoice_item_params
-      params.require(:invoice_item).permit(:product_id, :price, :discount, :sum, :quantity, :vat, :invoice_id)
+      params.require(:invoice_item).permit(:variant_id, :price, :discount, :sum, :quantity, :vat, :invoice_id)
     end
 end

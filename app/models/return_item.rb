@@ -1,7 +1,7 @@
 class ReturnItem < ApplicationRecord
   include Stockable
 
-  belongs_to :product
+  belongs_to :variant
   belongs_to :return
   after_commit :set_stock
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
@@ -13,7 +13,7 @@ class ReturnItem < ApplicationRecord
     if self.stock
       self.stock.update!(move: "+",value: self.quantity, user_id: User.current.id)
     else
-      self.create_stock!(move: "+",value: self.quantity, user_id: User.current.id, product_id: self.product_id)
+      self.create_stock!(move: "+",value: self.quantity, user_id: User.current.id, variant_id: self.variant_id)
     end
   end
   

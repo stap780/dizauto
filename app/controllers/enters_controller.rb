@@ -3,6 +3,7 @@ class EntersController < ApplicationController
   before_action :set_enter, only: %i[ show edit update destroy ]
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
 
   def index
     @search = Enter.ransack(search_params)
@@ -22,7 +23,7 @@ class EntersController < ApplicationController
       @enter = Enter.new(manager_id: current_user.id, warehouse_id: stock_transfer.destination_warehouse_id, stock_transfer_id: params[:stock_transfer_id])
       items = stock_transfer.stock_transfer_items
       items.each do |inc|
-        @enter.enter_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+        @enter.enter_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price)
       end
     else
       @enter = Enter.new
@@ -68,57 +69,6 @@ class EntersController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    enter_item = EnterItem.find_by(id: target.remove("enter_item_"))
-    product = Product.find(params[:selected_id])
-    child_index = target.remove("enter_item_")
-    warehouse_id = params[:warehouse_id]
-
-    if enter_item.present?
-      helpers.fields model: Enter.new do |f|
-        f.fields_for :enter_items, enter_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "enter_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    else
-      helpers.fields model: Enter.new do |f|
-        f.fields_for :enter_items, EnterItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "enter_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Enter.new do |f|
-      f.fields_for :enter_items, EnterItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "enter_items",
-          partial: "enter_items/form_data",
-          locals: {f: ff, product: nil, our_dom_id: "enter_item_#{child_index}_enter", warehouse_id: nil}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    EnterItem.find_by(id: params[:enter_item_id]).delete if params[:enter_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
   private
     def set_enter
       @enter = Enter.find(params[:id])
@@ -126,7 +76,7 @@ class EntersController < ApplicationController
 
     def enter_params
       params.require(:enter).permit(:enter_status_id, :title, :date, :warehouse_id, :manager_id, :stock_transfer_id,
-      enter_items_attributes: [:id, :product_id, :enter_id, :quantity, :price, :vat, :sum, :_destroy])
+      enter_items_attributes: [:id, :variant_id, :enter_id, :quantity, :price, :vat, :sum, :_destroy])
     end
     
 end

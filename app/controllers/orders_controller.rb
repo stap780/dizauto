@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[show edit update destroy]
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
 
   def index
     @search = Order.ransack(search_params)
@@ -13,8 +14,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @order = Order.new
@@ -76,56 +76,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    order_item = OrderItem.find_by(id: target.remove("order_item_"))
-    product = Order.find(params[:selected_id])
-    child_index = target.remove("order_item_")
-
-    if order_item.present?
-      helpers.fields model: Order.new do |f|
-        f.fields_for :order_items, order_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "order_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    else
-      helpers.fields model: Order.new do |f|
-        f.fields_for :order_items, OrderItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "order_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Order.new do |f|
-      f.fields_for :order_items, OrderItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "order_items",
-          partial: "order_items/form_data",
-          locals: {f: ff, product: nil, child_index: child_index}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    OrderItem.find_by(id: params[:order_item_id]).delete if params[:order_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
   private
   # information - @commentable - as separate folder controllers/orders/comments_controller.rb
 
@@ -135,7 +85,8 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:company_id,:order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id,
-      order_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :_destroy], comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])
+      order_items_attributes: [:id, :variant_id, :price, :discount, :sum, :quantity, :_destroy], 
+      comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy])
   end
 
 end

@@ -4,12 +4,12 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter", "data-turbo-frame": "table" } do |f|%> 
+   	<%= search_form_for q, html: {class: '', "data-controller": "filter", "data-turbo-frame": "table" } do |f| %> 
 		<div class="form-group">
         <div class="row g-1 mb-2">
           <div class="col-md-12">
-            <%= f.label :sku_or_barcode_or_title_cont_all %>
-            <%= f.search_field :sku_or_barcode_or_title_cont_all, class: "form-control input-sm"%>
+            <%= f.label :variants_sku_or_variants_barcode_or_title_cont_all %>
+            <%= f.search_field :variants_sku_or_variants_barcode_or_title_cont_all, class: "form-control input-sm" %>
           </div>
           <div class="col-md-6" data-controller="checkbox">
             <div class="label"><%= t('quantity') %></div>
@@ -60,8 +60,9 @@
 
         </div>
 
-  			<div class="btn-group btn-group-sm" role="group"> 
-          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search", "bs-toggle": "offcanvas" }  %>
+  			<div class="btn-group btn-group-sm gap-1" role="group"> 
+          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search"}  %>
+          <%= link_to 'сбросить', products_path(search_cancel: true), class: 'btn btn-outline-primary me-1', data: { turbo: false } %>
   			</div>
 		</div>	
     <% end %>

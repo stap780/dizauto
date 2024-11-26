@@ -21,7 +21,7 @@
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("products/_filter").any? %>
     <%= link_to arrow_clockwise_icon, products_path(search_cancel: true), class: 'btn btn-outline-primary me-1', data: {turbo: false} %>
-    <%= link_to add_icon, new_product_path, class: "btn btn-primary", data: {turbo: false} %>
+    <%= link_to add_icon, new_product_path, class: "btn btn-primary", data: { turbo: false } %>
   </div>
 </div>
   
@@ -56,7 +56,7 @@
       </div>
       <%= turbo_stream_from "products_list" %>
       <%= turbo_frame_tag 'products' do %>
-          <%= render @products %>
+        <%= render @products %>
       <% end %>
     </div>
     

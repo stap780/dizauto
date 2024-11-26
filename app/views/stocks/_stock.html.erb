@@ -1,9 +1,21 @@
-<tr id="<%= dom_id product %>">
-  <td><%= check_box_tag "product_ids[]", product.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %></td>
-  <%= tag.td tag.b(product.id) %>
-  <%= tag.td(product.title) %>
-  <%= tag.td(product.stocks.plus) %>
-  <%= tag.td(product.stocks.minus) %>
-  <%= tag.td(product.stocks.amount) %>
-  <%# td_index_edit_delete_link(product)%>
-</tr>
+
+<%= turbo_frame_tag dom_id(variant), class: "d-table-row", data: { }  do %>
+  <%= tag.div( variant.id, class: "d-table-cell") do %>
+    <%=tag.div class: "d-flex align-content-center form-check ps-0" do %>
+      <%= check_box_tag "variant_ids[]", variant.id, false, {class: 'm-0 form-check-input', form: :bulk_action_form, 
+                                                            data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}} %>
+    <% end %>
+  <% end %>
+
+  <%= tag.div( tag.b(variant.id), class: "d-table-cell") %>
+  <%= tag.div( variant.full_title, class: "d-table-cell") %>
+  <%=tag.div(class: "d-table-cell")  do %>
+    <%=tag.div(variant.stocks.plus, class: "d-flex justify-content-center")%>
+  <%end%>
+  <%=tag.div(class: "d-table-cell")  do %>
+    <%=tag.div(variant.stocks.minus, class: "d-flex justify-content-center")%>
+  <%end%>
+  <%=tag.div(class: "d-table-cell")  do %>
+    <%=tag.div(variant.stocks.amount, class: "d-flex justify-content-center")%>
+  <%end%>
+<% end %>

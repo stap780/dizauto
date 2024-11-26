@@ -123,3 +123,13 @@ input[type=file][data-direct-upload-url][disabled] {
 .w-col-5 {
   width: 41.66666667%!important;
 }
+
+trix-editor {
+  min-height: 15em;
+}
+
+.form-select {
+  padding: 0.3rem 1.45rem 0.3rem 0.85rem;
+  background-position: right 0.35rem center;
+  background-size: 12px 12px;
+}

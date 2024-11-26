@@ -65,6 +65,6 @@ class StockTransferItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def stock_transfer_item_params
-      params.require(:stock_transfer_item).permit(:product_id, :quantity, :price, :vat, :sum)
+      params.require(:stock_transfer_item).permit(:variant_id, :quantity, :price, :vat, :sum)
     end
 end

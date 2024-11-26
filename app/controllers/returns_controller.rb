@@ -3,6 +3,7 @@ class ReturnsController < ApplicationController
   before_action :set_return, only: %i[ show edit update destroy ]
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
 
   def index
     @search = Return.ransack(search_params)
@@ -22,7 +23,7 @@ class ReturnsController < ApplicationController
       @return = Return.new(company_id: invoice.company_id, client_id: invoice.client_id)
       items = invoice.invoice_items
       items.each do |inc|
-        @return.return_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price, sum: (inc.quantity*inc.price))
+        @return.return_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price, sum: (inc.quantity*inc.price))
       end
     else
       @return = Return.new
@@ -84,62 +85,14 @@ class ReturnsController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    return_item = ReturnItem.find_by(id: target.remove("return_item_"))
-    product = Product.find(params[:selected_id])
-    child_index = target.remove("return_item_")
-
-    if return_item.present?
-      helpers.fields model: Return.new do |f|
-        f.fields_for :return_items, return_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "return_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    else
-      helpers.fields model: Return.new do |f|
-        f.fields_for :return_items, ReturnItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "return_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Return.new do |f|
-      f.fields_for :return_items, ReturnItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "return_items",
-          partial: "return_items/form_data",
-          locals: {f: ff, product: nil, child_index: child_index}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    ReturnItem.find_by(id: params[:return_item_id]).delete if params[:return_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
   private
-    def set_return
-      @return = Return.find(params[:id])
-    end
 
-    def return_params
-      params.require(:return).permit(:client_id, :company_id, :number, :return_status_id, :invoice_id, return_items_attributes: [:id, :product_id, :price, :discount, :sum, :quantity, :vat, :_destroy])
-    end
+  def set_return
+    @return = Return.find(params[:id])
+  end
+
+  def return_params
+    params.require(:return).permit(:client_id, :company_id, :number, :return_status_id, :invoice_id, return_items_attributes: [:id, :variant_id, :price, :discount, :sum, :quantity, :vat, :_destroy])
+  end
+  
 end

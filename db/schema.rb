@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_22_110420) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -183,15 +183,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
 
   create_table "enter_items", force: :cascade do |t|
     t.bigint "enter_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity"
     t.decimal "price"
     t.integer "vat"
     t.decimal "sum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_id"
     t.index ["enter_id"], name: "index_enter_items_on_enter_id"
-    t.index ["product_id"], name: "index_enter_items_on_product_id"
+    t.index ["variant_id"], name: "index_enter_items_on_variant_id"
   end
 
   create_table "enter_statuses", force: :cascade do |t|
@@ -275,7 +275,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "incase_item_status_id"
-    t.integer "product_id"
+    t.integer "variant_id"
+    t.integer "vat"
+    t.index ["variant_id"], name: "index_incase_items_on_variant_id"
   end
 
   create_table "incase_statuses", force: :cascade do |t|
@@ -327,7 +329,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "invoice_items", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.decimal "price", precision: 12, scale: 2
     t.integer "discount"
     t.decimal "sum", precision: 12, scale: 2
@@ -336,8 +337,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.bigint "invoice_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_id"
     t.index ["invoice_id"], name: "index_invoice_items_on_invoice_id"
-    t.index ["product_id"], name: "index_invoice_items_on_product_id"
+    t.index ["variant_id"], name: "index_invoice_items_on_variant_id"
   end
 
   create_table "invoice_statuses", force: :cascade do |t|
@@ -360,27 +362,27 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "locations", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.bigint "place_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_id"
     t.bigint "placement_id"
     t.index ["place_id"], name: "index_locations_on_place_id"
     t.index ["placement_id"], name: "index_locations_on_placement_id"
-    t.index ["product_id"], name: "index_locations_on_product_id"
+    t.index ["variant_id"], name: "index_locations_on_variant_id"
   end
 
   create_table "loss_items", force: :cascade do |t|
     t.bigint "loss_id", null: false
-    t.bigint "product_id", null: false
     t.integer "quantity"
     t.decimal "price", precision: 12, scale: 2
     t.integer "vat"
     t.decimal "sum", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "variant_id"
     t.index ["loss_id"], name: "index_loss_items_on_loss_id"
-    t.index ["product_id"], name: "index_loss_items_on_product_id"
+    t.index ["variant_id"], name: "index_loss_items_on_variant_id"
   end
 
   create_table "loss_statuses", force: :cascade do |t|
@@ -436,7 +438,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.integer "product_id"
+    t.integer "variant_id"
     t.decimal "price", precision: 12, scale: 2
     t.integer "discount"
     t.decimal "sum", precision: 12, scale: 2
@@ -445,6 +447,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.datetime "updated_at", null: false
     t.integer "quantity"
     t.integer "vat", default: 0, null: false
+    t.index ["variant_id"], name: "index_order_items_on_variant_id"
   end
 
   create_table "order_statuses", force: :cascade do |t|
@@ -500,13 +503,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string "sku"
-    t.string "barcode"
     t.string "title"
     t.string "description"
-    t.integer "quantity"
-    t.decimal "costprice", precision: 12, scale: 2
-    t.decimal "price", precision: 12, scale: 2
     t.string "video"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -541,7 +539,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "return_items", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.decimal "price", precision: 12, scale: 2
     t.integer "discount"
     t.decimal "sum", precision: 12, scale: 2
@@ -550,8 +547,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.bigint "return_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_return_items_on_product_id"
+    t.bigint "variant_id"
     t.index ["return_id"], name: "index_return_items_on_return_id"
+    t.index ["variant_id"], name: "index_return_items_on_variant_id"
   end
 
   create_table "return_statuses", force: :cascade do |t|
@@ -577,7 +575,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "stock_transfer_items", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.bigint "stock_transfer_id", null: false
     t.integer "quantity"
     t.decimal "price"
@@ -585,8 +582,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.decimal "sum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_stock_transfer_items_on_product_id"
+    t.bigint "variant_id"
     t.index ["stock_transfer_id"], name: "index_stock_transfer_items_on_stock_transfer_id"
+    t.index ["variant_id"], name: "index_stock_transfer_items_on_variant_id"
   end
 
   create_table "stock_transfer_statuses", force: :cascade do |t|
@@ -607,7 +605,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   end
 
   create_table "stocks", force: :cascade do |t|
-    t.bigint "product_id", null: false
     t.bigint "user_id", null: false
     t.string "stockable_type", null: false
     t.bigint "stockable_id", null: false
@@ -615,9 +612,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.integer "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_stocks_on_product_id"
+    t.bigint "variant_id"
     t.index ["stockable_type", "stockable_id"], name: "index_stocks_on_stockable"
     t.index ["user_id"], name: "index_stocks_on_user_id"
+    t.index ["variant_id"], name: "index_stocks_on_variant_id"
   end
 
   create_table "supplies", force: :cascade do |t|
@@ -634,13 +632,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
 
   create_table "supply_items", force: :cascade do |t|
     t.integer "supply_id"
-    t.integer "product_id"
+    t.integer "variant_id"
     t.integer "quantity", default: 0
     t.decimal "price", precision: 12, scale: 2
     t.decimal "sum", precision: 12, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "vat", default: 0, null: false
+    t.index ["variant_id"], name: "index_supply_items_on_variant_id"
   end
 
   create_table "supply_statuses", force: :cascade do |t|
@@ -696,6 +695,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.string "sku"
+    t.string "barcode"
+    t.integer "quantity"
+    t.decimal "cost_price"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_variants_on_product_id"
+  end
+
   create_table "warehouses", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -709,31 +720,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_01_133926) do
   add_foreign_key "detal_props", "detals"
   add_foreign_key "detal_props", "properties"
   add_foreign_key "enter_items", "enters"
-  add_foreign_key "enter_items", "products"
   add_foreign_key "enters", "enter_statuses"
   add_foreign_key "enters", "warehouses"
   add_foreign_key "invoice_items", "invoices"
-  add_foreign_key "invoice_items", "products"
   add_foreign_key "invoices", "clients"
-  add_foreign_key "locations", "placements"
   add_foreign_key "locations", "places"
-  add_foreign_key "locations", "products"
   add_foreign_key "loss_items", "losses"
-  add_foreign_key "loss_items", "products"
   add_foreign_key "losses", "loss_statuses"
   add_foreign_key "losses", "warehouses"
   add_foreign_key "orders", "companies"
   add_foreign_key "placements", "warehouses"
   add_foreign_key "props", "products"
-  add_foreign_key "return_items", "products"
   add_foreign_key "return_items", "returns"
   add_foreign_key "returns", "clients"
   add_foreign_key "returns", "companies"
   add_foreign_key "returns", "invoices"
   add_foreign_key "returns", "return_statuses"
-  add_foreign_key "stock_transfer_items", "products"
   add_foreign_key "stock_transfer_items", "stock_transfers"
   add_foreign_key "stock_transfers", "stock_transfer_statuses"
-  add_foreign_key "stocks", "products"
   add_foreign_key "stocks", "users"
+  add_foreign_key "variants", "products"
 end

@@ -2,6 +2,7 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
+
   resources :insales do
     collection do
       get :check
@@ -279,6 +280,7 @@ Rails.application.routes.draw do
   end
   resources :notifications, only: [:index]
   resources :products do
+    resources :variants
     member do
       get :print
       patch :sort_image

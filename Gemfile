@@ -62,6 +62,7 @@ gem "aws-sdk-s3"
 gem "rack-cors"
 gem "noticed", "~> 2.1"
 gem 'insales_api', github: "stap780/insales_api"
+gem 'rest-client'
 
 
 group :development, :test do

@@ -65,6 +65,6 @@ class ReturnItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def return_item_params
-      params.require(:return_item).permit(:product_id, :price, :discount, :sum, :quantity, :vat, :return_id)
+      params.require(:return_item).permit(:variant_id, :price, :discount, :sum, :quantity, :vat, :return_id)
     end
 end

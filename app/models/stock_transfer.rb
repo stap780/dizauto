@@ -9,7 +9,7 @@ class StockTransfer < ApplicationRecord
   has_many :enters, dependent: :destroy
   has_many :losses, dependent: :destroy
   before_destroy :check_associations, prepend: true
-
+  validates :stock_transfer_items, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     StockTransfer.attribute_names

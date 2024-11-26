@@ -6,6 +6,11 @@ export default class extends Controller {
 
   connect() {
     this.offcanvas = new Offcanvas(this.element)
+    console.log('connect Offcanvas')
+    console.log('this.offcanvas', this.offcanvas)
+    // if (!this.offcanvas.isOpened) {
+    //   this.offcanvas.show()
+    // }    
   }
 
   show() {

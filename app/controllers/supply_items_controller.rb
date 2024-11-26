@@ -18,7 +18,7 @@ class SupplyItemsController < ApplicationController
     #     render turbo_stream: turbo_stream.append(
     #       dom_id(@supply, :supply_items),
     #       partial: "supply_items/form_data",
-    #       locals: {f: ff, product: nil, our_dom_id: dom_id(@supply, "supply_item_#{child_index}"), warehouse_id: @supply.warehouse_id}
+    #       locals: {f: ff, variant: nil, our_dom_id: dom_id(@supply, "supply_item_#{child_index}"), warehouse_id: @supply.warehouse_id}
     #     )
     #   end
     # end
@@ -86,7 +86,7 @@ class SupplyItemsController < ApplicationController
   end
 
   def supply_params
-    params.require(:supply_item).permit(:product_id, :location_id, :quantity, :price, :sum)
+    params.require(:supply_item).permit(:variant_id, :location_id, :quantity, :price, :sum)
   end
 
 end

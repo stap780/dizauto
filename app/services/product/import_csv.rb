@@ -50,7 +50,7 @@ class Product::ImportCsv
                   title: data["Название товара"],
                   description: data["Краткое описание"],
                   quantity: data["Остаток"],
-                  costprice: data["costprice"],
+                  cost_price: data["costprice"],
                   price: data["Цена продажи"],
                   video: data["video"],
                   props_attributes: props_data,

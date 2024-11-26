@@ -7,36 +7,16 @@ class Drop::Product < Liquid::Drop
     @product.id
   end
 
-  def sku
-    @product.sku
-  end
-
-  def barcode
-    @product.barcode
-  end
-
-  def barcode_as_img
-    @product.html_barcode
-  end
-
   def title
     @product.title
   end
 
   def description
-    @product.description
+    @product.file_description
   end
 
   def quantity
     @product.quantity
-  end
-
-  def costprice
-    @product.costprice
-  end
-
-  def price
-    @product.price
   end
 
   def video
@@ -53,11 +33,18 @@ class Drop::Product < Liquid::Drop
 
   def images
     # ['http://test.com/test.jpg','http://test.com/test1.jpg']
-    @product.image_urls
+    @product.images_urls.split(',')
   end
 
   def properties
     # [{title: 'test title', value: 'test value'}]
-    @product.properties.map { |pr| pr.attributes }
+    @product.props_to_h.to_a
   end
+
+  def variants
+    @product.variants.map{ |var| var.attributes }
+  end
+
 end
+
+#all methods above =  Drop::Product.public_instance_methods - Liquid::Drop.public_instance_methods

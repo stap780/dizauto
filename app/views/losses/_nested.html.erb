@@ -4,7 +4,7 @@
 
 <div class="col-12 text-primary-emphasis bg-primary-subtle bloss bloss-primary-subtle rounded-3">
     <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.loss_item.product_id'), class: 'col-7 fw-semibold')%> 
+        <%= tag.div( t('helpers.label.loss_item.variant_id'), class: 'col-7 fw-semibold')%> 
         <%= tag.div( t('helpers.label.loss_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.loss_item.price'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.loss_item.nds'), class: 'col-1 fw-semibold' )%>
@@ -12,9 +12,16 @@
         <%= tag.div( t('helpers.label.loss_item.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col fw-semibold')%>
     </div>
-    <%= turbo_frame_tag :loss_items, :loss, class: "container" do %>
-        <%= f.fields_for :loss_items do |item| %>
-            <%= render "loss_items/form_data", f: item, product: nil%>
+    <%= turbo_frame_tag :loss_items, class: "container" do %>
+        <%= f.fields_for :loss_items do |ff| %>
+            <%= render  partial: "shared/items_form_data", 
+                        locals: {   f: ff,
+                                    variant: nil,
+                                    nested_url: "/losses/slimselect_nested_item",
+                                    object_turbo_frame_tag: "loss_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
+                                    remove_element_path: "/losses/remove_nested?loss_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                    discount_field: false
+                                } %>
         <% end %>
     <% end %>
     <div class="row">

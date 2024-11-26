@@ -12,12 +12,13 @@ class Incase < ApplicationRecord
   has_associated_audits
 
   before_save :normalize_data_white_space
-
+  
   after_create_commit :automation_on_create
   after_create_commit { broadcast_prepend_to "incases_list" }
   after_update_commit :automation_on_update
   # after_commit :update_counter, on: [ :create, :destroy ]
-
+  
+  validates :incase_items, presence: true
   validates :date, presence: true
   validates :unumber, presence: true
 

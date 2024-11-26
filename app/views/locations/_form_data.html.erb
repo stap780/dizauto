@@ -5,11 +5,11 @@
       <%= f.text_field :id, class: "form-control disabled", readonly: true %>
     </div>
     <div class = "col-4">
-        <% start_product_id = f.object.product_id if f.object.present? %>
-        <% product_id = product.present? ? product.id : start_product_id %>
-        <% selected = Product.collection_for_select(product_id).first if product_id %>
-        <%= f.select :product_id, options_for_select(Product.collection_for_select(product_id), selected: selected ),
-                                    {include_blank: true}, { class: "rounded-0", data: { controller: 'slimselect', 
+        <% start_variant_id = f.object.variant_id if f.object.present? %>
+        <% variant_id = variant.present? ? variant.id : start_variant_id %>
+        <% selected = Variant.collection_for_select(variant_id).first if variant_id %>
+        <%= f.select :variant_id, options_for_select(Variant.collection_for_select(variant_id), selected: selected ),
+                                    {include_blank: true}, { class: "rounded-0 form-select", data: { controller: 'slimselect', 
                                                             search_url:  "/products/search",
                                                             warehouse_id: warehouse_id } } %>
 

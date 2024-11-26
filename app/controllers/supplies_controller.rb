@@ -4,6 +4,7 @@ class SuppliesController < ApplicationController
   include ActionView::RecordIdentifier
   include SearchQueryRansack
   include DownloadExcel
+  include NestedItem
   
   def index
     @search = Supply.includes(:company, :supply_items).ransack(search_params)
@@ -23,7 +24,7 @@ class SuppliesController < ApplicationController
       @supply = Supply.new(company_id: incase.company_id, manager_id: current_user.id)
       items = params[:incase_item_status_id].present? ? incase.incase_items.where(incase_item_status_id: params[:incase_item_status_id]) : incase.incase_items
       items.each do |inc|
-        @supply.supply_items.build(product_id: inc.product.id, quantity: inc.quantity, price: inc.price)
+        @supply.supply_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price)
       end
     else
       @supply = Supply.new
@@ -70,57 +71,6 @@ class SuppliesController < ApplicationController
     end
   end
 
-  def slimselect_nested_item # GET
-    target = params[:turboId]
-    supply_item = SupplyItem.find_by(id: target.remove("supply_item_"))
-    product = Product.find(params[:selected_id])
-    child_index = target.remove("supply_item_")
-    warehouse_id = params[:warehouse_id]
-
-    if supply_item.present?
-      helpers.fields model: Supply.new do |f|
-        f.fields_for :supply_items, supply_item do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "supply_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    else
-      helpers.fields model: Supply.new do |f|
-        f.fields_for :supply_items, SupplyItem.new, child_index: child_index do |ff|
-          render turbo_stream: turbo_stream.replace(
-            target,
-            partial: "supply_items/form_data",
-            locals: {f: ff, product: product, child_index: child_index, our_dom_id: target, warehouse_id: warehouse_id}
-          )
-        end
-      end
-    end
-  end
-
-  def new_nested # GET
-    child_index = Time.now.to_i
-    helpers.fields model: Supply.new do |f|
-      f.fields_for :supply_items, SupplyItem.new, child_index: child_index do |ff|
-        render turbo_stream: turbo_stream.append(
-          "supply_items_supply",
-          partial: "supply_items/form_data",
-          locals: {f: ff, product: nil, our_dom_id: "supply_item_#{child_index}_supply", warehouse_id: nil}
-        )
-      end
-    end
-  end
-
-  def remove_nested # POST
-    SupplyItem.find_by(id: params[:supply_item_id]).delete if params[:supply_item_id].present?
-    @remove_element = params[:remove_element]
-    respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
-    end
-  end
-
   private
 
   def set_supply
@@ -129,6 +79,6 @@ class SuppliesController < ApplicationController
 
   def supply_params
     params.require(:supply).permit(:company_id, :title, :in_number, :in_date, :supply_status_id, :manager_id, :warehouse_id, 
-    supply_items_attributes: [:id, :product_id, :quantity, :price, :vat, :sum, :_destroy])
+    supply_items_attributes: [:id, :variant_id, :quantity, :price, :vat, :sum, :_destroy])
   end
 end

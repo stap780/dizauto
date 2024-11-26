@@ -1,16 +1,16 @@
 
 <%= f.hidden_field :order_id, value: params[:order_id].present? ? params[:order_id] : f.object.order_id %>
-<div class="mb-3 col-2">
+<div class="mb-3 col-2 ps-0 pe-1">
     <%= f.label :number, class: "form-label" %>
     <%= f.text_field :number, class: "form-control" %>
 </div>
-<div class="mb-3 col-4">
+<div class="mb-3 col-4 ps-0 pe-1">
     <%= f.label :client_id, class: "form-label" %>
     <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
-                            { data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
+                            {  class: "form-select", data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
 </div>
-<div class="mb-3 col-4">
+<div class="mb-3 col-4 ps-0 pe-1">
     <%= f.label :company_id, class: "form-label" %>
     <%= f.select :company_id, Company.all.pluck(:short_title, :id), {include_blank: true}, 
-                            { data: {controller: 'slimselect'} } %>
+                            {  class: "form-select", data: {controller: 'slimselect'} } %>
 </div>

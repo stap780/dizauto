@@ -66,6 +66,6 @@ class LossItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def loss_item_params
-      params.require(:loss_item).permit(:loss_id, :product_id, :quantity, :price, :vat, :sum)
+      params.require(:loss_item).permit(:loss_id, :variant_id, :quantity, :price, :vat, :sum)
     end
 end

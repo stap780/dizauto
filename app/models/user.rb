@@ -22,6 +22,10 @@ class User < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     User.attribute_names
   end
+  
+  def self.ransackable_associations(auth_object = nil)
+    ["avatar_attachment", "avatar_blob", "notifications", "permissions"]
+  end
 
   def set_default_role
     self.role ||= "user"

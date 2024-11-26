@@ -189,14 +189,15 @@ ru:
         warehouse_id: "склад"
         items_quantity: "кол-во позиций"
       product: &product
-        id: "код"
+        id: "id"
         sku: "артикул"
         title: "название"
         barcode: "штрихкод"
         description: "описание"
+        file_description: "описание"
         quantity: "кол-во"
-        costprice: "цена закупки"
-        price: "ц. п. р"
+        cost_price: "цена закупки"
+        price: "цена"
         video: "видео"
         created_at: "создан"
         updated_at: "обновлён"
@@ -224,7 +225,7 @@ ru:
         created_at: "дата создания"
         sum: "сумма"
       order_item: &nested_item
-        product_id: "товар"
+        variant_id: "позиция"
         quantity: "кол-во"
         price: "цена" 
         discount: "скидка"
@@ -234,7 +235,7 @@ ru:
         nds: "ндс"
       okrug:
         title: "название"
-      supply:
+      supply: &supply
         title: "название"
         company_id: "компания"
         in_number: "вх номер"
@@ -242,6 +243,8 @@ ru:
         manager_id: "менеджер"
         created_at: "дата"
         supply_status_id: "статус"
+        warehouse_id: "склад"
+        sum: "сумма"
       supply_items:
         product_id: "товар"
         warehouse_id: "склад"
@@ -351,11 +354,11 @@ ru:
         one: "Insales API"
         other: "Insales API"  
       inventory:
-        one: "инвенторизация"
-        other: "инвенторизации"
+        one: "инвентаризация"
+        other: "инвентаризации"
       inventory_status:
-        one: "статус инвенторизации"
-        other: "статусы инвенторизации"
+        one: "статус инвентаризации"
+        other: "статусы инвентаризации"
       property:
         one: "параметр"
         other: "параметры"
@@ -574,6 +577,8 @@ ru:
         <<: *company
       characteristic:
         title: "название значения"
+      dashboard:
+        variant: "товары"
       enter:
         enter_status_id: "статус"
         date: "дата"
@@ -654,20 +659,26 @@ ru:
         created_at: "дата создания"
         warehouse_id: "склад"
         items_quantity: "кол-во позиций"
+      return:
+        return_status_id: "статус"
+        number: "номер"
+        contact: "контакт"
+        sum: "сумма"
+        created_at: "создан"
+        invoice_id:  "накладная"
       return_item:
         <<: *nested_item
+      stock:
+        title: "позиция"
+        plus: "+"
+        minus: "-"
+        amount: "итого"
       stock_transfer:
         <<: *stock_transfer
       stock_transfer_item:
         <<: *nested_item
       supply:
-        title: "название"
-        company_id: "компания"
-        in_number: "вх номер"
-        in_date: "вх дата"
-        manager_id: "менеджер"
-        created_at: "дата"
-        supply_status_id: "статус"
+        <<: *supply
       supply_item:
         <<: *nested_item
       templ:

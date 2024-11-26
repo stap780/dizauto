@@ -4,7 +4,7 @@
   <div class="row">
       <div class="col-md-12">
           <div class="card">
-              <div class="card-header"></div>
+              <div class="card-header p-0"></div>
               <div class="card-body">
                   <div class="row">
                       <div class="mb-3 col-md-2 d-flex align-items-center">
@@ -40,7 +40,7 @@
                       </div>
                         <div class="mb-3 col-md-12 <% if f.object.format == 'xml'%>d-none<%end%>" data-export-target= "attributes">
                         <label class="form-label" for="excel_attributes">Поля для выгрузки в эксель</label>
-                        <% Product.attribute_names.each do |key| %>
+                        <% Export.file_attributes.each do |key| %>
                         <div class="form-check">
                             <%= f.check_box :excel_attributes, { multiple: true, class: "form-check-input", checked: f.object.excel_attributes&.include?(key.to_s) }, key, nil %>
                             <%= f.label key , class: "form-check-label"%>

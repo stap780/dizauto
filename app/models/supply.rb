@@ -9,6 +9,7 @@ class Supply < ApplicationRecord
   after_initialize :add_title
   before_save :normalize_data_white_space
 
+  validates :supply_items, presence: true
   validates :title, presence: true
 
   def self.ransackable_attributes(auth_object = nil)

@@ -21,7 +21,15 @@ class BulkDeleteJob < ApplicationJob
         error: true,
         model: model
       ).deliver(User.find_by_id(options[:current_user_id]))
+      Turbo::StreamsChannel.broadcast_update_to(
+        User.find(options[:current_user_id]),
+        "bulk_actions",
+        target: "modal",
+        template: "shared/show_modal",
+        layout: false,
+        locals: {message: message}
+      )
     end
-
+    
   end
 end

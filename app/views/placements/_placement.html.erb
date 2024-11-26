@@ -1,8 +1,8 @@
 <%= turbo_frame_tag placement, class: "row justify-content-between align-items-center mb-3" do %>
   <%= tag.div class: "col-1" do %>
-    <%=tag.div class: 'form-check' do %>
-      <%= check_box_tag "placement_ids[]", placement.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
-      <%= tag.label class: 'form-check-label' do %><%= tag.b( placement.id ) %><% end %>
+    <%=tag.label class: 'form-check' do %>
+      <%= check_box_tag "placement_ids[]", placement.id, false, {class: 'form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
+      <%= tag.span class: 'form-check-label' do %><%= tag.b( placement.id ) %><% end %>
     <% end %>
   <% end %>
   <%= tag.div( placement.created_at.strftime("%d/%m/%Y"), class: "col-3 p-0" ) %>
@@ -12,3 +12,4 @@
     <%= render 'shared/edit_delete_link', object: placement %>
   </div>
 <% end %>
+

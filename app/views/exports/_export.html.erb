@@ -6,7 +6,7 @@
         <%= export.title %>
         <%=tag.button(class: "btn btn-outline-info", disabled: "disabled", type: "button") do %>
             Test<i class="bi bi-check-circle ms-1"></i>
-        <% end if export.test%>
+        <% end if export.test %>
     <% end %>
     <%= tag.div(export.link, class: "col-md-3", id: "link-#{export.id}") do %>
         <%=tag.span( export.link ) if export.status == 'new' || export.status == 'finish' %>

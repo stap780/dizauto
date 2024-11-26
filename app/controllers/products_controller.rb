@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   include BulkDelete
 
   def index
-    @search = Product.includes(:props, :stocks, images: [:file_attachment, :file_blob]).ransack(search_params)
+    @search = Product.includes(:props, :variants, images: [:file_attachment, :file_blob]).ransack(search_params)
     @search.sorts = "id desc" if @search.sorts.empty?
     @products = @search.result(distinct: true).paginate(page: params[:page], per_page: Rails.env.development? ? 30 : 100)
     # collection = @search.present? ? @search.result(distinct: true) : @products
@@ -34,7 +34,8 @@ class ProductsController < ApplicationController
 
   def search
     if params[:title].present?
-      @search_results = Product.all.where("title ILIKE ?", "%#{params[:title]}%").map { |p| {title: p.full_title, id: p.id} }.reject(&:blank?)
+      # @search_results = Product.where("title ILIKE ?", "%#{params[:title]}%").map { |p| {title: p.full_title, id: p.id} }.reject(&:blank?)
+      @search_results = Variant.ransack(sku_or_barcode_or_product_title_matches_all: "%#{params[:title]}%").result.map { |var| {title: var.full_title, id: var.id} }.reject(&:blank?)
       # puts '==='
       # puts @search_results.to_json.to_s
       render json: @search_results, status: :ok
@@ -44,21 +45,19 @@ class ProductsController < ApplicationController
   end
 
   def show
-    # respond_to do |format|
-    #   format.html { redirect_to edit_product_path(@product) }
-    # end
     product = Product.find(params[:id])
-    render partial: "products/index_image", locals: {product:}
-    # render partial: 'products/product', locals: { product: }
+    render partial: "products/index_image", locals: { product: }
   end
 
   def new
     @product = Product.new
+    @product.variants.build
   end
 
   def edit
     @product.images.includes([:file_attachment, :file_blob])
     @props = @product.props
+    @variants = @product.variants.order(id: :asc)
   end
 
   def create
@@ -66,7 +65,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     respond_to do |format|
       if @product.save
-        format.html { redirect_to products_path, notice: t(".success") }
+        format.html { redirect_to edit_product_path(@product), notice: t(".success") }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -108,7 +107,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # @product.images.update_all(position: 0)
     check_positions(params[:product][:images_attributes])
     respond_to do |format|
       if @product.update(product_params)
@@ -126,11 +124,13 @@ class ProductsController < ApplicationController
 
   def copy
     @new_product = @product.dup
-    @new_product.props = @product.props.dup
     @new_product.title = "(COPY) " + @new_product.title + " - " + Time.now.to_s
-    @new_product.barcode = nil
+    new_props = @product.props.select(:property_id, :characteristic_id).map(&:attributes)
+    @new_product.props_attributes = new_props
+    new_vars = @product.variants.select(:sku, :price).map(&:attributes)
+    @new_product.variants_attributes = new_vars
     respond_to do |format|
-      if @new_product.save
+      if @new_product.save!
         format.turbo_stream { flash.now[:success] = t(".success") }
         format.html { redirect_to products_path, notice: "Product was successfully created." }
         format.json { render :show, status: :created, location: @new_product }
@@ -158,12 +158,13 @@ class ProductsController < ApplicationController
 
   def price_update
     if params[:product_ids]
-      price_type = params[:product_price][:price_type]
-      price_move = params[:product_price][:price_move]
-      price_shift = params[:product_price][:price_shift]
-      price_points = params[:product_price][:price_points]
+      field_type = params[:product_price][:field_type]
+      move = params[:product_price][:move]
+      shift = params[:product_price][:shift]
+      points = params[:product_price][:points]
+      round = params[:product_price][:round]
 
-      ProductPriceUpdateJob.perform_later(params[:product_ids], price_type, price_move, price_shift, price_points, current_user.id)
+      ProductPriceUpdateJob.perform_later(params[:product_ids], field_type, move, shift, points, round, current_user.id)
       render turbo_stream:
         turbo_stream.update(
           "modal",
@@ -176,15 +177,15 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @check_destroy = @product.destroy ? true : false
-    message = if @check_destroy == true
-      flash.now[:success] = t(".success")
-    else
-      flash.now[:notice] = @product.errors.full_messages.join(" ")
-    end
+    @product.destroy!
     respond_to do |format|
-      format.turbo_stream { message }
-      format.html { redirect_to products_url, notice: "Property was successfully destroyed." }
+      flash.now[:success] = t(".success")
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to variants_path, status: :see_other, notice: "Variant was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -207,7 +208,8 @@ class ProductsController < ApplicationController
     params.require(:product).permit(:status, :tip, :sku, :barcode, :title, :description, :quantity, :costprice, :price, :video,
       props_attributes: [:id, :product_id, :property_id, :characteristic_id, :_destroy],
       images_attributes: [:id, :product_id, :position, :file, :_destroy],
-      location_attributes: [:id, :product_id, :warehouse_id, :place_id, :_destroy])
+      location_attributes: [:id, :product_id, :warehouse_id, :place_id, :_destroy],
+      variants_attributes: [:id, :product_id, :sku, :barcode, :quantity, :cost_price, :price, :_destroy])
   end
 
   def check_positions(images)
@@ -220,4 +222,5 @@ class ProductsController < ApplicationController
       end
     end
   end
+
 end

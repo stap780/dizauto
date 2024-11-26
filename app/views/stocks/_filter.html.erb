@@ -4,20 +4,19 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
+   	<%# search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
 		<div class="form-group">
         <div class="row g-1 mb-2">
           <div class="col-md-12">
-            <%= f.label :title_cont_all %>
-            <%= f.search_field :title_cont_all, class: "form-control input-sm"%>
+            <%# f.label :variant_title_or_variant_barcode_or_variant_sku_cont_all %>
+            <%# f.search_field :variant_title_or_variant_barcode_or_variant_sku_cont_all, class: "form-control input-sm"%>
           </div>
         </div>
 
   			<div class="btn-group btn-group-sm" role="group"> 
-            <%= f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search"}  %>
+            <%# f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search"}  %>
   			</div>
 		</div>	
-  <% end %>
-
+    <%# end %>
   </div>
 </div>
