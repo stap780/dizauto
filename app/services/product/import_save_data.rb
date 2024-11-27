@@ -20,17 +20,18 @@ class Product::ImportSaveData
 
   def create_update_product
     # s_product = Product.find_by_barcode(@pr_data[:barcode])
-    s_product = Variant.find_by_barcode(@var_data[:barcode]).product
+    s_product = Variant.find_by_barcode(@var_data[:barcode]).present? ? Variant.find_by_barcode(@var_data[:barcode]).product : nil
     if s_product.present?
       # puts "we find s_product"
       # s_product.update!(@pr_data.except!(:props_attributes)) if s_product.props.present? # for future we need prop update
       # s_product.update!(@pr_data) if !s_product.props.present?
       s_product.props.size == 0 ? s_product.update!(@pr_data) : s_product.update!(@pr_data.except!(:props_attributes))
-# for future we need prop update
+      
+      # for future we need prop update
+      
       s_product.variants.create!(@var_data) if s_product.variants.size == 0
       @product = s_product
     else
-      # puts "create product"
       @product = Product.create!(@pr_data)
       @product.variants.create!(@var_data)
     end

@@ -10,7 +10,7 @@ class Product::SplitCsvFile < ApplicationService
     @extention = File.extname(@url)
     @download_path = Rails.env.development? ? "#{Rails.public_path}/csv/" : "/var/www/dizauto/shared/public/csv/"
     @main_file = @download_path + @filename + @extention
-    @file_count = 4
+    @file_count = 6
     @split_files = []
   end
 
