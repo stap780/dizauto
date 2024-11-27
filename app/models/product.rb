@@ -137,7 +137,7 @@ class Product < ApplicationRecord
   def self.import_from_file
     files = Product::SplitCsvFile.call
     files.each do |file|
-      ProductImportJob.perform_later(file)
+      ProductImportCsvJob.perform_later(file)
     end
   end
 

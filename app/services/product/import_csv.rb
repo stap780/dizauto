@@ -1,4 +1,4 @@
-class Product::ImportCsv
+class Product::ImportCsv < ApplicationService
   require "open-uri"
   require "addressable/uri"
 

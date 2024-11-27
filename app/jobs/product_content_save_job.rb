@@ -2,8 +2,8 @@ class ProductContentSaveJob < ApplicationJob
   queue_as :product_content_save
   sidekiq_options retry: 0
 
-  def perform(pr_data)
-    Product::ImportSaveData.call(pr_data)
+  def perform(data)
+    Product::ImportSaveData.call(data)
   end
 
 end
