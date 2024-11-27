@@ -1,11 +1,11 @@
-class Product::ImportSaveData
+class Product::ImportSaveData < ApplicationService
   
   def initialize(data)
     # puts "Product::ImportSaveData ======"
     # p data
     # puts "======"
     @data = data
-    @images = @data[:images].to_s.present? ? @data[:images] : nil
+    @images = @data['images'].nil? ? nil : @data['images']
     @pr_data = @data.except('barcode', 'images', 'sku', 'quantity', 'cost_price', 'price')
     @var_data = @data.except('title', 'description', 'video', 'props_attributes', 'images')
     @product = nil

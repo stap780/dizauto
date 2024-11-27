@@ -3,8 +3,7 @@ class ProductContentSaveJob < ApplicationJob
   sidekiq_options retry: 0
 
   def perform(pr_data)
-    import_save = Product::ImportSaveData.new(pr_data)
-    import_save.call
+    Product::ImportSaveData.call(pr_data)
   end
 
 end
