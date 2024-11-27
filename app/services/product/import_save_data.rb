@@ -6,8 +6,8 @@ class Product::ImportSaveData
     # puts "======"
     @data = data
     @images = @data[:images].to_s.present? ? @data[:images] : nil
-    @pr_data = @data.except!(:barcode, :images, :sku, :quantity, :cost_price, :price)
-    @var_data = @data.except!(:title, :description, :video, :props_attributes, :images)
+    @pr_data = @data.except!('barcode', 'images', 'sku', 'quantity', 'cost_price', 'price')
+    @var_data = @data.except!('title', 'description', 'video', 'props_attributes', 'images')
     @product = nil
   end
 
