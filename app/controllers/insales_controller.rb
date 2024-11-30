@@ -1,5 +1,5 @@
 class InsalesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[order]
   before_action :set_insale, only: %i[ show edit update destroy ]
 
   def index
@@ -103,6 +103,11 @@ class InsalesController < ApplicationController
         end
       end
     end
+  end
+
+  def order
+    InsaleOrderJob.perform_later(params.permit!)
+    head :ok
   end
 
   private

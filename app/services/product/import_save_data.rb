@@ -19,12 +19,12 @@ class Product::ImportSaveData < ApplicationService
 	  puts "@pr_data => #{@pr_data}"
 	  puts "@var_data => #{@var_data}"
     # s_product = Product.find_by_barcode(@pr_data[:barcode])
-    s_product = Variant.find_by_barcode(@var_data['barcode']).present? ? Variant.find_by_barcode(@var_data['barcode']).product : nil
+    s_product = Variant.find_by_barcode(@var_data[:barcode]).present? ? Variant.find_by_barcode(@var_data[:barcode]).product : nil
     if s_product.present?
-      s_product.props.size.zero? ? s_product.update!(@pr_data) : s_product.update!(@pr_data.except!('props_attributes'))
-      
+      s_product.props.size.zero? ? s_product.update!(@pr_data) : s_product.update!(@pr_data.except!(:props_attributes))
+
       # for future we need prop update
-      
+
       s_product.variants.create!(@var_data) if s_product.variants.size.zero?
       @product = s_product
     else

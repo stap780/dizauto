@@ -91,7 +91,7 @@ class Product < ApplicationRecord
   end
 
   def image_first
-    return '' unless images.present?
+    return nil unless images.present?
 
     image = images.first
     (image.file.attached? && image.file_blob.service.exist?(image.file_blob.key)) ? image.file : nil
