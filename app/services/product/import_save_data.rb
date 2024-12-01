@@ -2,7 +2,7 @@ class Product::ImportSaveData < ApplicationService
   
   def initialize(data)
     @data = data
-    @images = @data[:images].nil? ? nil : @data[:images]
+    @images = @data[:images]
     @pr_data = @data.except(:barcode, :images, :sku, :quantity, :cost_price, :price)
     @var_data = @data.except(:title, :description, :video, :props_attributes, :images)
     @product = nil
@@ -35,7 +35,7 @@ class Product::ImportSaveData < ApplicationService
   end
 
   def create_update_image
-    ProductImageJob.perform_later(@product.id, @images)
+    ProductImageJob.perform_later(@product.id, @images) if @data[:images].present?
   end
 
 end

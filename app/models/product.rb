@@ -58,7 +58,7 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[associated_audits audits variants images locations properties props rich_text_description warehouses stocks]
+    %w[associated_audits audits variants images locations properties props rich_text_description warehouses]
   end
 
   def self.ransackable_scopes(auth_object = nil)

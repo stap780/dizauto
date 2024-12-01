@@ -54,7 +54,7 @@ class Variant < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["incase_items", "incases", "locations", "order_items", "orders", "placements", "product", "stocks", "supplies", "supply_items"]
+    %w[incase_items incases locations order_items orders placements product stocks supplies supply_items]
   end
 
   def self.collection_for_select(id)
@@ -85,6 +85,15 @@ class Variant < ApplicationRecord
 
   def title
     self.product.title.to_s
+  end
+
+  def self.stocks_amount #(lifehack) if we call from relation than we will get only relation data
+    variants = Variant.all.order(created_at: :asc)
+    qt = [0]
+    variants.each do |variant|
+      qt << variant.stocks.amount
+    end
+    qt.sum
   end
 
 

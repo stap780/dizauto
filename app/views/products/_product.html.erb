@@ -13,14 +13,13 @@
                 <% end if product.image_first %>
             <% end %>
         <% end %>
-        <%# render partial: 'products/index_image', locals: { product: } if product.image_first%>
     <% end %>
     <%= tag.div class: "col row" do %>
-        <div class="col-12 text-break fw-semibold"><%= product.title %></div>
-        <div class="col-6 fst-italic">Sku: <%= product.var_sku %></div>
-        <div class="col-6 fst-italic">barcode: <%= product.var_barcode %></div>
+        <div class="col-12 text-break fw-semibold"><%=product.title %></div>
+        <div class="col-6 fst-italic">Sku: <%=product.var_sku %></div>
+        <div class="col-6 fst-italic">barcode: <%=product.var_barcode %></div>
     <% end %>
-    <%= tag.div( '', class: "col-md-1" ) %> <%# product.stocks.amount%>
+    <%= tag.div( product.variants.stocks_amount, class: "col-md-1" ) %>
     <%= tag.div( product.var_price, class: "col-md-1" ) %>
     <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1 px-1" ) %>
 

@@ -28,7 +28,7 @@ class Product::ImportCsv < ApplicationService
     @file_data = if Rails.env.development?
       CSV.foreach(@download_path, headers: true).take(10).map(&:to_h)
     else
-      CSV.foreach(@download_path, headers: true).take(10000).map(&:to_h)
+      CSV.foreach(@download_path, headers: true).take(9000).map(&:to_h) # we have 50000pcs and 6 files
     end
     # @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
   end
@@ -49,14 +49,14 @@ class Product::ImportCsv < ApplicationService
                   sku: data["Параметр: Артикул производителя"],
                   title: data["Название товара"],
                   description: data["Краткое описание"],
-                  quantity: data["Остаток"],
+                  # quantity: data["Остаток"].to_i, # кол-во это отдельный бизнес процесс (оприходование) поэтому здесь выключено
                   cost_price: data["costprice"],
                   price: data["Цена продажи"],
                   video: data["video"],
                   props_attributes: props_data,
                   images: images
                 }
-      # puts pr_data
+      puts "pr_data => #{pr_data}"
       ProductContentSaveJob.perform_later(pr_data)
     end
   end
@@ -83,4 +83,5 @@ class Product::ImportCsv < ApplicationService
     ActiveStorage::Blob.unattached.each(&:purge_later)
     # ActiveStorage::Blob.unattached.each(&:purge)
   end
+
 end
