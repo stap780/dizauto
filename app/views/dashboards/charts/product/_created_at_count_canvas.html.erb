@@ -1,5 +1,5 @@
 <%= turbo_frame_tag 'product_created_at_count_chart_canvas' do %>
     <div class="chart chart-sm">
-        <canvas data-controller="chart" data-chart-data-value="<%= @chart_data.to_json %>" ></canvas>
+        <canvas data-controller="chart" data-chart-data-value="<%= @chart_data.to_json %>" data-chart-options-value='<%=@chart_options.to_json%>' data-chart-type-value='line'></canvas>
     </div>
 <% end %>
