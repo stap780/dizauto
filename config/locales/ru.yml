@@ -41,6 +41,7 @@ ru:
   we_update_price: "цены обновились"
   print_barcode: "Печатать штрихкод?"
   copy: "копировать"
+  search: "поиск"
   hello: "Hello world"
   property_one: "параметр"
   characteristic_one: "значение"
@@ -299,6 +300,8 @@ ru:
       client_companies: 
         one: "клиенты (компании)"
         other: "клиенты (компании)"
+      dashboard:
+        one: "сводка"
       delivery_type: 
         one: "способ доставки"
         other: "способы доставки"

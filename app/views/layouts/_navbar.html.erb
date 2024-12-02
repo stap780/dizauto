@@ -1,65 +1,24 @@
 			<nav class="navbar navbar-expand navbar-light navbar-bg">
-				<a class="sidebar-toggle js-sidebar-toggle">
-					<i class="hamburger align-self-center"></i>
-				</a>
+				<a class="sidebar-toggle js-sidebar-toggle"><i class="hamburger align-self-center"></i></a>
 				<%= form_with url: fullsearch_dashboards_path, method: :post, class: "d-none d-sm-inline-block", id: "fullsearch_result_form",
 				data: {controller: "debounce", debounce_target: "form"} do |f|%>
 					<div class="input-group input-group-navbar position-relative d-inline-flex align-items-center">
-						<%= f.search_field :query, class: 'form-control', style: "z-index: 2;", placeholder: 'Search…', 'aria-label': "Search", data: {action: "input->debounce#search"}, autocomplite: false %>
+						<%= f.search_field :query, class: 'form-control', style: "z-index: 2;", placeholder: t('search'), 'aria-label': "Search", data: {action: "input->debounce#search"}, autocomplite: false %>
 						<button type="button" class="btn position-absolute end-0" aria-label="Close", data-action = "click->debounce#clear">
 							<i class="bi bi-x"></i>
 						</button>
-						<%# f.submit 'search', class: "btn"  %>
 					</div>
 					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" id="fullsearch_result" aria-labelledby="fullsearch_result_form"></div>
 				<% end %>
 
 
 				<ul class="navbar-nav d-none d-lg-flex">
-					<!--
-					<li class="nav-item px-2 dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Mega Menu
-						</a>
-						<div class="dropdown-menu dropdown-menu-start dropdown-mega" aria-labelledby="megaDropdown">
-							<div class="d-md-flex align-items-start justify-content-start">
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">UI Elements</div>
-									<a class="dropdown-item" href="#">Alerts</a>
-									<a class="dropdown-item" href="#">Buttons</a>
-									<a class="dropdown-item" href="#">Cards</a>
-									<a class="dropdown-item" href="#">Carousel</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Forms</div>
-									<a class="dropdown-item" href="#">Layouts</a>
-									<a class="dropdown-item" href="#">Basic Inputs</a>
-									<a class="dropdown-item" href="#">Input Groups</a>
-								</div>
-								<div class="dropdown-mega-list">
-									<div class="dropdown-header">Tables</div>
-									<a class="dropdown-item" href="#">Basic Tables</a>
-									<a class="dropdown-item" href="#">Responsive Table</a>
-									<a class="dropdown-item" href="#">Table with Buttons</a>
-								</div>
-							</div>
-						</div>
-					</li>
-					-->
-
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-							Ресурсы
-						</a>
+							aria-expanded="false">Ресурсы</a>
 						<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
-							<a class="dropdown-item" href="/dashboard" target="_blank"><i class="align-middle me-1" data-feather="home"></i>
-								Главная</a>
-							<a class="dropdown-item" href="https://adminkit.io/docs/" target="_blank"><i class="align-middle me-1" data-feather="book-open"></i>
-								Documentation</a>
-							<a class="dropdown-item" href="/sidekiq" target="_blank"><i class="align-middle me-1"
-									data-feather="edit"></i> sidekiq</a>
+							<a class="dropdown-item" href="/dashboard" target="_blank"><i class="bi bi-bar-chart-fill me-1"></i>Сводка</a>
+							<a class="dropdown-item" href="/sidekiq" target="_blank"><i class="bi bi-clipboard2-pulse me-1"></i>sidekiq</a>
 						</div>
 					</li>
 				</ul>
@@ -71,21 +30,17 @@
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-								<div class="position-relative">
-									<i class="align-middle" data-feather="message-square"></i>
-								</div>
+								<div class="position-relative"><i class="bi bi-chat-left align-middle"></i></div>
 							</a>
 							<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
 								<div class="dropdown-menu-header">
-									<div class="position-relative">
-										4 New Messages
-									</div>
+									<div class="position-relative">4 New Messages</div>
 								</div>
 								<div class="list-group">
 									<a href="#" class="list-group-item">
 										<div class="row g-0 align-items-center">
 											<div class="col-2">
-											<%= image_tag "avatars/avatar-5.jpg", class: "avatar img-fluid rounded me-1", alt: "Vanessa Tucker" %>
+												<%= image_tag "avatars/avatar-5.jpg", class: "avatar img-fluid rounded me-1", alt: "Vanessa Tucker" %>
 											</div>
 											<div class="col-10 ps-2">
 												<div class="text-dark">Vanessa Tucker</div>

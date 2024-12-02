@@ -43,15 +43,15 @@
 			<li class="sidebar-header"></li>
 			<li class="sidebar-item">
 				<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
-						<i class="bi bi-house"></i><span class="align-middle">Главная</span>
+						<i class="bi bi-house"></i><span class="">Главная</span>
 				</a>
 				<ul id="dashboards" class="list-unstyled collapse <%= 'show' if current_page_active?('dashboards') %>" data-bs-parent="#sidebar">
-					<%= li_menu_link_to "<i class='bi bi-bar-chart-fill'></i> #{Dashboard.model_name.human(count: 2)}".html_safe, dashboards_path, class: "sidebar-link" %>
+					<%= li_menu_link_to "<i class='bi bi-bar-chart-fill'></i> #{Dashboard.model_name.human(count: 1)}".html_safe, dashboards_path, class: "sidebar-link" %>
 				</ul>
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#outbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="bi bi-cart4"></i> <span class="align-middle"><%= t('selling')%></span>
+					<i class="bi bi-cart4"></i> <span class=""><%= t('selling')%></span>
 				</a>
 				<ul id="outbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('orders') || 
 																								current_page_active?('invoices') ||
@@ -63,7 +63,7 @@
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#inbounds" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="bi bi-columns"></i> <span class="align-middle"><%= t('purchasing')%></span>
+					<i class="bi bi-columns"></i> <span class=""><%= t('purchasing')%></span>
 				</a>
 				<ul id="inbounds" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('incases') || 
 																								current_page_active?('incase_imports') || 
@@ -75,7 +75,7 @@
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#warehouse" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="bi bi-briefcase"></i> <span class="align-middle"><%= t('inventory')%></span>
+					<i class="bi bi-briefcase"></i> <span class=""><%= t('inventory')%></span>
 				</a>
 				<ul id="warehouse" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('products') || 
 																								current_page_active?('placements') ||
@@ -93,7 +93,7 @@
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#lists" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="bi bi-list"></i> <span class="align-middle"><%= t('directories')%></span>
+					<i class="bi bi-list"></i> <span class=""><%= t('directories')%></span>
 				</a>
 				<ul id="lists" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('properties') || 
 																							current_page_active?('detals') || 
@@ -154,7 +154,7 @@
 			</li>
 			<li class="sidebar-item">
 				<a data-bs-target="#settings" data-bs-toggle="collapse" class="sidebar-link collapsed">
-					<i class="bi bi-sliders"></i> <span class="align-middle"><%= t('settings')%></span>
+					<i class="bi bi-sliders"></i> <span class=""><%= t('settings')%></span>
 				</a>
 				<ul id="settings" class="sidebar-dropdown list-unstyled collapse <%= 'show' if	current_page_active?('users') || 
 																								current_page_active?('email_setups') || 
@@ -170,7 +170,7 @@
 			<li class="sidebar-item">
 				<a data-bs-target="#multi-trigger" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="bi bi-robot"></i>
-				<span class="align-middle"><%= t('rules')%></span></a>
+				<span class=""><%= t('rules')%></span></a>
 				<ul id="multi-trigger" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('triggers') || 
 																									current_page_active?('templs') %>" data-bs-parent="#sidebar">
 					<%= li_menu_link_to Trigger.model_name.human(count: 2), triggers_path, class: "sidebar-link" %>
@@ -180,7 +180,7 @@
 			<li class="sidebar-item">
 				<a data-bs-target="#rental" data-bs-toggle="collapse" class="sidebar-link collapsed">
 				<i class="bi bi-car-front"></i>
-				<span class="align-middle"><%= t('rent')%></span></a>
+				<span class=""><%= t('rent')%></span></a>
 				<ul id="rental" class="sidebar-dropdown list-unstyled collapse <%= 'show' if current_page_active?('rent_case_statuses')%>" data-bs-parent="#sidebar">
 					<li class="sidebar-item"><a class="sidebar-link" href="">Заявки</a></li>
 					<%= li_menu_link_to RentCaseStatus.model_name.human(count: 2), rent_case_statuses_path, class: "sidebar-link" %>

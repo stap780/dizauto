@@ -315,7 +315,7 @@ $sidebar-header-color: (
   ) !default;
 
 // Sidebar user
-$sidebar-user-padding: 0.75rem 1.5rem !default;
+$sidebar-user-padding: 0.75rem 1rem !default;
 $sidebar-user-title-color: (
   "default": $static-gray-200,
   "dark": $static-gray-200,
@@ -330,7 +330,7 @@ $sidebar-user-subtitle-color: (
   ) !default;
 
 // Sidebar link
-$sidebar-link-padding: .625rem 1.625rem !default;
+$sidebar-link-padding: .625rem 1rem !default;
 $sidebar-link-font-weight: 400 !default;
 $sidebar-link-bg: (
   "default": #222E3C,
