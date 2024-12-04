@@ -11,7 +11,7 @@ class IncaseItem < ApplicationRecord
   after_initialize :set_default_new
   before_save :normalize_data_white_space
   before_create :create_product_variant
-  
+
   after_create_commit :automation_on_create
   after_update_commit :automation_on_update
 
@@ -37,8 +37,8 @@ class IncaseItem < ApplicationRecord
   def create_product_variant
     product = Product.create!(
       title: self.title ||= 'Incase product',
-      status: "draft",
-      type: "product"
+      status: 'draft',
+      tip: 'product'
     )
     variant = product.variants.create!(
       quantity: self.quantity ||= 0,
