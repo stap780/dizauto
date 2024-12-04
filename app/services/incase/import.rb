@@ -54,35 +54,35 @@ class Incase::Import
       incase_data = {}
       incase_item_data = {}
       incase_columns.each do |pc|
-        key = pc.column_system.remove("incase#")
+        key = pc.column_system.remove('incase#')
         value = line[pc.column_file]
         if !key.include?("_id")
-          incase_data["#{key}"] = value if key != "images" && key != file_uniq_column
+          incase_data[key] = value if key != 'images' && key != file_uniq_column
         else
           id = search_id_of_relation_column(key, value)
-          incase_data["#{key}"] = id
+          incase_data[key] = id
         end
         # images_data.push(value) if key == 'images'
       end
       incase_item_columns.each do |pc|
-        key = pc.column_system.remove("incase_item#")
+        key = pc.column_system.remove('incase_item#')
         value = line[pc.column_file]
-        if !key.include?("_id")
-          incase_item_data["#{key}"] = value if key != "images" && key != file_uniq_column
+        if !key.include?('_id')
+          incase_item_data[key] = value if key != 'images' && key != file_uniq_column
         else
           id = search_id_of_relation_column(key, value)
-          incase_item_data["#{key}"] = id
+          incase_item_data[key] = id
         end
         # variant_images_data.push(value) if key == 'images'
       end
 
-      puts "##########"
-      puts "incase import uniq field => " + @incase_import.uniq_field.to_s
+      puts '##########'
+      puts "incase import uniq field => #{@incase_import.uniq_field}"
       # puts "line[file_uniq_column] => "+line[file_uniq_column].to_s
-      puts "file uniq column => " + file_uniq_column.to_s
-      puts "incase_data => " + incase_data.to_s
-      puts "incase_item_data => " + incase_item_data.to_s
-      puts "##########"
+      puts "file uniq column => #{file_uniq_column}"
+      puts "incase_data => #{incase_data}"
+      puts "incase_item_data => #{incase_item_data}"
+      puts '##########'
 
       if !@check_import
         # this is for import process
@@ -106,7 +106,7 @@ class Incase::Import
         [false, @check_message]
       else
         @incase_import.update!(check: true)
-        @check_message[:success].push("Импорт Убытков завершен")
+        @check_message[:success].push('Импорт Убытков завершен')
         [true, @check_message]
       end
     end
@@ -115,7 +115,7 @@ class Incase::Import
   private
 
   def collect_data
-    puts "collect_data import file " + Time.now.to_s
+    puts "collect_data import file #{Time.now}"
     @file_data.clear
     spreadsheet = open_spreadsheet(@file)
     header = spreadsheet.row(1)
@@ -124,29 +124,29 @@ class Incase::Import
       row = Hash[[header, spreadsheet.row(i)].transpose]
       @file_data.push(row)
     end
-    puts "finish collect_data import file " + Time.now.to_s
-    @check_message[:success].push("Строк в файле => " + @file_data.count.to_s) if @check_import && @file_data.present?
+    puts "finish collect_data import file #{Time.now}"
+    @check_message[:success].push("Строк в файле => #{@file_data.count}") if @check_import && @file_data.present?
     @import_data = (@header.present? && @file_data.present?) ? {header: @header, file_data: @file_data} : false
   end
 
   def create_incases
-    uniq_field = "#{@incase_import.uniq_field.remove("incase#")}"
+    uniq_field = @incase_import.uniq_field.remove('incase#')
     datas_by_uniq = @work_data.group_by { |a| a[uniq_field] }
     datas_by_uniq.each do |key, value|
       incase_data = @work_data.select { |n| n[uniq_field] == key }[0]
-      incase_data["incase_items_attributes"] = {}
+      incase_data['incase_items_attributes'] = {}
       value.each_with_index do |val, index|
         # puts "val"
         # puts val["incase_item_data"]
         incase_item_data_hash = {}
-        incase_item_data_hash["#{index}"] = val["incase_item_data"]
+        incase_item_data_hash[index] = val['incase_item_data']
         # puts "incase_item_data_hash"
         # p incase_item_data_hash
-        incase_data["incase_items_attributes"].merge!(incase_item_data_hash)
+        incase_data['incase_items_attributes'].merge!(incase_item_data_hash)
       end
-      incase_data.delete("incase_item_data")
+      incase_data.delete('incase_item_data')
       puts "incase_data => #{incase_data}"
-      incase = Incase.create!(incase_data)
+      Incase.create!(incase_data)
       # incase.automation_on_create # пробую callback
     end
   end

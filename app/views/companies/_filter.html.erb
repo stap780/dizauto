@@ -4,7 +4,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
+   	<%= search_form_for q, html: {class: '', "data-controller": "filter" } do |f|%> 
 		<div class="form-group">
         <div class="row g-1 mb-2">
           <div class="col-md-12">
@@ -15,10 +15,15 @@
             <%= f.label :inn_eq %>
             <%= f.search_field :inn_eq, class: "form-control input-sm"%>
           </div>
+          <div class="col-md-6">
+            <%= f.label :tip_eq %>
+            <%= f.select :tip_eq, Company::TIP, { prompt: ''}, class: "form-select input-sm" %>
+          </div>
         </div>
 
   			<div class="btn-group btn-group-sm" role="group"> 
             <%= f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search"}  %>
+            <%= link_to 'сбросить', companies_path(search_cancel: true), class: 'btn btn-outline-primary me-1', data: { turbo: false } %>
   			</div>
 		</div>	
   <% end %>
