@@ -31,7 +31,9 @@
           <%= label_tag "#{ff.object.column_file}", ff.object.column_file %>
         </div>
         <div class="col-8 mb-1">
-          <%= ff.select :column_system, grouped_options_for_select(IncaseImport.import_attributes, selected_value_from_group(ff.object.column_file) ), {include_blank: true}, { class: "form-select" }%>
+          <%= ff.select :column_system, grouped_options_for_select( IncaseImport.import_attributes, 
+                                                                    selected: ff.object.column_system.present? ? ff.object.column_system : selected_value_from_group(ff.object.column_file)), 
+                                                                    {include_blank: true}, { class: "form-select" }%>
         </div>
       <%end%>
     </div>

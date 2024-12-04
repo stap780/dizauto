@@ -47,7 +47,7 @@ class VariantsController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to variant_url(@variant), notice: "Variant was successfully updated." }
+        format.html { redirect_to variant_url(@variant), notice: 'Variant was successfully updated.' }
         format.json { render :show, status: :ok, location: @variant }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,20 +57,26 @@ class VariantsController < ApplicationController
   end
 
   def destroy
-    @check_destroy = @variant.destroy ? true : false
+    check_destroy = @variant.destroy ? true : false
+    if check_destroy == true
+      flash.now[:success] = t(".success")
+    else
+      flash.now[:notice] = @variant.errors.full_messages.join(' ')
+    end
     respond_to do |format|
-      if @check_destroy == true
-        flash.now[:success] = t(".success")
-      else
-        flash.now[:notice] = @variant.errors.full_messages.join(" ")
-      end
       format.turbo_stream do
+        if check_destroy == true
         render turbo_stream: [
           turbo_stream.remove(dom_id(@product, dom_id(@variant))),
           render_turbo_flash
         ]
+        else
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
       end
-      format.html { redirect_to variants_path, notice: "Variant was successfully destroyed." }
+      format.html { redirect_to variants_path, notice: 'Variant was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   include SearchQueryRansack
   include DownloadExcel
   include BulkDelete
+  include ActionView::RecordIdentifier
 
   def index
     @search = Product.includes(:props, :variants, images: [:file_attachment, :file_blob]).ransack(search_params)
@@ -177,15 +178,26 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy!
-    respond_to do |format|
+    check_destroy = @product.destroy ? true : false
+    if check_destroy == true
       flash.now[:success] = t(".success")
+    else
+      flash.now[:notice] = @product.errors.full_messages.join(' ')
+    end
+    respond_to do |format|
       format.turbo_stream do
+        if check_destroy == true
         render turbo_stream: [
+          turbo_stream.remove(dom_id(@product)),
           render_turbo_flash
         ]
+        else
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
       end
-      format.html { redirect_to variants_path, status: :see_other, notice: "Variant was successfully destroyed." }
+      format.html { redirect_to variants_path, notice: 'Product was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

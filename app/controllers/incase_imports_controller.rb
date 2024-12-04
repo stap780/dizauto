@@ -29,7 +29,7 @@ class IncaseImportsController < ApplicationController
         data = header_data.map { |d| {column_file: d, column_system: nil} }
         @incase_import.incase_import_columns.create!(data)
       else
-        flash[:alert] = "Import file not valid"
+        flash[:alert] = 'Import file not valid'
       end
     end
   end
@@ -46,7 +46,7 @@ class IncaseImportsController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to edit_incase_import_url(@incase_import), notice: "File uploaded" }
+        format.html { redirect_to edit_incase_import_url(@incase_import), notice: 'File uploaded' }
         format.json { render :show, status: :created, location: @incase_import }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,7 +60,7 @@ class IncaseImportsController < ApplicationController
     if success
       respond_to do |format|
         if @incase_import.update(incase_import_params)
-          format.html { redirect_to incase_import_url(@incase_import), notice: "Настройки импорта сохранены" }
+          format.html { redirect_to incase_import_url(@incase_import), notice: 'Настройки импорта сохранены' }
           format.json { render :show, status: :ok, location: @incase_import }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -91,9 +91,9 @@ class IncaseImportsController < ApplicationController
     @incase_import.destroy
 
     respond_to do |format|
-      format.html { redirect_to incase_imports_url, notice: "Incase import was successfully destroyed." }
+      format.html { redirect_to incase_imports_url, notice: 'Incase import was successfully destroyed.' }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
+      format.turbo_stream { flash.now[:success] = t('.success') }
     end
   end
 
@@ -104,7 +104,8 @@ class IncaseImportsController < ApplicationController
   end
 
   def incase_import_params
-    params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :file, incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
+    params.require(:incase_import).permit(:check, :active, :title, :report, :file, :uniq_field, :file, 
+      incase_import_columns_attributes: [:id, :incase_import_id, :column_file, :column_system, :_destroy])
   end
 
   def validate_params
@@ -114,16 +115,16 @@ class IncaseImportsController < ApplicationController
 
     # puts "strategy: product // "
     # message.push('strategy: product //')
-    system = params[:incase_import][:incase_import_columns_attributes].values.map { |c| c["column_system"] }.reject(&:blank?)
-    puts "system => " + system.to_s
+    system = params[:incase_import][:incase_import_columns_attributes].values.map { |c| c['column_system'] }.reject(&:blank?)
+    puts "system => #{system.inspect}"
     status.push(system.include?(uniq_field) ? true : false)
-    message.push(system.include?(uniq_field) ? "" : "Need set uniq_field column")
+    message.push(system.include?(uniq_field) ? '' : 'Need set uniq_field column')
     # status.push( system.include?('product#name') ? true : false )
     # message.push( system.include?('product#name') ? '' : 'Need product name' )
     # status.push( system.include?('product#price') ? true : false )
     # message.push( system.include?('product#price') ? '' : 'Need set price' )
 
-    check_status = status.uniq.to_s == "[true]"
-    [check_status, message.join(" ")]
+    check_status = status.uniq.to_s == '[true]'
+    [check_status, message.join(' ')]
   end
 end

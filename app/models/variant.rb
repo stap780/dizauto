@@ -96,6 +96,14 @@ class Variant < ApplicationRecord
     qt.sum
   end
 
+  def relation?
+    result = []
+    models = %w[locations order_items incase_items supply_items]
+    models.each do |model|
+      result << model if model.singularize.camelize.constantize.where(variant_id: id).present?
+    end
+    result.count.zero? ? [false, ''] : [true, result]
+  end
 
   private
 
@@ -105,21 +113,14 @@ class Variant < ApplicationRecord
   end
 
   def check_relations_present
-    if locations.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t("locations")} with it.")
+    success, models = relation?
+    if success
+      models.each do |model|
+        text = "Cannot delete variant. You have #{I18n.t(model)} with it."
+        errors.add(:base, text)
+      end
     end
-    if order_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t("order_items")} with it.")
-    end
-    if incase_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t("incase_items")} with it.")
-    end
-    if supply_items.count > 0
-      errors.add(:base, "Cannot delete product. You have #{I18n.t("supply_items")} with it.")
-    end
-    if errors.present?
-      throw(:abort)
-    end
+    throw(:abort) if errors.present?
   end
 
 end

@@ -10,18 +10,18 @@ class IncaseImportStartImportJob < ApplicationJob
   
         Turbo::StreamsChannel.broadcast_replace_to(
           User.find(current_user_id),
-          "incase_imports",
-          target: "modal",
-          partial: "incase_imports/import_finish",
+          'incase_imports',
+          target: 'modal',
+          partial: 'incase_imports/import_finish',
           layout: false,
           locals: {success: success, message: message, incase_import: incase_import}
         )
       else
         Turbo::StreamsChannel.broadcast_replace_to(
           User.find(current_user_id),
-          "incase_imports",
-          target: "modal",
-          partial: "incase_imports/import_finish",
+          'incase_imports',
+          target: 'modal',
+          partial: 'incase_imports/import_finish',
           layout: false,
           locals: {success: success, message: message, incase_import: incase_import}
         )

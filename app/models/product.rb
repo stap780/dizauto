@@ -20,11 +20,10 @@ class Product < ApplicationRecord
 
   has_associated_audits
   before_save :normalize_data_white_space
-  # before_destroy :check_relations_present, prepend: true
   after_create_commit { broadcast_prepend_to 'products_list' }
   after_update_commit { broadcast_replace_to 'products_list' }
   after_destroy_commit { broadcast_remove_to 'products_list' }
-  # after_commit :update_counter, on: [ :create, :destroy ]
+  before_destroy :check_variants_have_relations, prepend: true
 
   validates :title, presence: true
 
@@ -50,8 +49,8 @@ class Product < ApplicationRecord
   scope :with_images, -> { include_images.where.not(images: {product_id: nil}) }
   scope :without_images, -> { include_images.where(images: {product_id: nil}) }
 
-  Status = ['draft', 'active', 'archived']
-  Tip = ['product', 'service', 'kit']
+  Status = %w[draft active archived].freeze
+  Tip = %w[product service kit].freeze
 
   def self.ransackable_attributes(auth_object = nil)
     Product.attribute_names
@@ -159,5 +158,25 @@ class Product < ApplicationRecord
       self[key] = value.squish if value.respond_to?(:squish)
     end
   end
+
+  def check_variants_have_relations
+    if variants.size.positive?
+      variants.each do |var|
+        success, models = var.relation?
+        if success
+          models.each do |model|
+            text = "Cannot delete. You have #{I18n.t(model)} with it."
+            errors.add(:base, text)
+          end
+        end
+      end
+    end
+    
+    if errors.present?
+      errors.add(:base, 'Cannot delete product')
+      throw(:abort)
+    end
+  end
+
 
 end
