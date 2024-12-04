@@ -86,7 +86,7 @@ class Incase::Import
 
       if !@check_import
         # this is for import process
-        incase_data["incase_item_data"] = incase_item_data
+        incase_data['incase_item_data'] = incase_item_data
         @work_data.push(incase_data)
       end
       if @check_import

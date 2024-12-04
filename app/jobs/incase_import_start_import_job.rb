@@ -6,7 +6,7 @@ class IncaseImportStartImportJob < ApplicationJob
       success, message = Incase::Import.new(incase_import).import
   
       if success
-        IncaseImportNotifier.with(record: incase_import, message: "IncaseImportStartImportJob success").deliver(User.find_by_id(current_user_id))
+        IncaseImportNotifier.with(record: incase_import, message: 'IncaseImportStartImportJob success').deliver(User.find_by_id(current_user_id))
   
         Turbo::StreamsChannel.broadcast_replace_to(
           User.find(current_user_id),
