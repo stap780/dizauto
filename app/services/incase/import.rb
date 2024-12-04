@@ -4,7 +4,7 @@ class Incase::Import
   attr_accessor :incase_import, :columns, :header, :file_data, :import_data, :check_message
 
   def initialize(incase_import)
-    puts "IncaseImport::Import initialize"
+    puts 'IncaseImport::Import initialize'
     @incase_import = incase_import
     @columns = incase_import.incase_import_columns
     # file = Rails.application.routes.url_helpers.url_for(incase_import.file)
@@ -13,7 +13,7 @@ class Incase::Import
     # original_filename = incase_import.file.blob
     @content_type = incase_import.file.blob.content_type
     # @file = File.new(file)
-    host = Rails.env.development? ? "http://localhost:3000" : "https://erp.dizauto.ru"
+    host = Rails.env.development? ? 'http://localhost:3000' : 'https://erp.dizauto.ru'
     @file = host + rails_blob_path(incase_import.file, only_path: true) if incase_import.file.attached? # ActiveStorage::Blob.service.send(:path_for, incase_import.file.key)
     @file_data = []
     @work_data = []
@@ -27,13 +27,13 @@ class Incase::Import
     @check_import = true
     import # we use it for check data
     check_nested_incase_item_statuses
-    puts "@check_message[:errors] => " + @check_message[:errors].to_s
+    puts "@check_message[:errors] => #{@check_message[:errors]}"
     if @check_message[:errors].size > 0
       @incase_import.update!(check: false)
       [false, @check_message]
     else
       @incase_import.update!(check: true)
-      @check_message[:success].push("all good")
+      @check_message[:success].push('all good')
       [true, @check_message]
     end
   end
@@ -41,12 +41,12 @@ class Incase::Import
   def import
     collect_data
     file_uniq_column = @columns.where(column_system: @incase_import.uniq_field)[0].column_file
-    system_columns = @columns.where.not(column_system: [nil, ""])
+    system_columns = @columns.where.not(column_system: [nil, ''])
 
-    incase_columns = system_columns.select { |c| c.column_system.include?("incase#") }
-    incase_item_columns = system_columns.select { |c| c.column_system.include?("incase_item#") }
+    incase_columns = system_columns.select { |c| c.column_system.include?('incase#') }
+    incase_item_columns = system_columns.select { |c| c.column_system.include?('incase_item#') }
 
-    @check_message[:errors].push("you don't have details in file") if @check_import && !incase_item_columns.present?
+    @check_message[:errors].push('в файле нет позиций товаров') if @check_import && !incase_item_columns.present?
 
     @import_data[:file_data].each_with_index do |line, index|
       # images_data = []
@@ -154,25 +154,27 @@ class Incase::Import
   def line_validate_incase(index, incase_data)
     incase = Incase.new(incase_data)
     if incase.validate == false && incase.errors.full_messages.present?
-      puts "line_validate_incase full_messages => #{incase.errors.full_messages}"
-      @check_message[:errors].push("[данные для Заявки] Строка #{index} в файле => " + incase.errors.full_messages.join(", "))
+      text = "[данные для Заявки] Строка #{index} в файле => #{incase.errors.full_messages.join(', ')}"
+      puts text
+      @check_message[:errors].push(text)
     end
   end
 
   def line_validate_incase_items(index, incase_item_data)
     incase_item = IncaseItem.new(incase_item_data)
     if incase_item.validate == false && incase_item.errors.delete(:incase) && incase_item.errors.full_messages.present?
-      puts "line_validate_incase_items full_messages => #{incase_item.errors.full_messages}"
-      @check_message[:errors].push("[данные для Детали заявки] Строка #{index} в файле => " + incase_item.errors.full_messages.join(", "))
+      text = "[данные для Детали заявки] Строка #{index} в файле => #{incase_item.errors.full_messages.join(', ')}"
+      puts text
+      @check_message[:errors].push(text)
     end
   end
 
   def search_id_of_relation_column(key, value)
-    check_key = key.include?("strah") ? "company_id" : key
-    model = check_key.split("_id").first.camelize.constantize
+    check_key = key.include?('strah') ? 'company_id' : key
+    model = check_key.split('_id').first.camelize.constantize
     model_attributes = model.new.attributes
 
-    search = model_attributes.include?("short_title") ? model.find_by_short_title(value) : model.find_by_title(value)
+    search = model_attributes.include?('short_title') ? model.find_by_short_title(value) : model.find_by_title(value)
     search ? search.id : @check_message[:errors].push(I18n.t("activerecord.attributes.incase.#{check_key}") + " : " + value)
   end
 
@@ -186,7 +188,7 @@ class Incase::Import
   end
 
   def check_nested_incase_item_statuses
-    @check_message[:errors].push("=== you don't have incase item status in system ===") if IncaseItemStatus.all.count == 0
+    @check_message[:errors].push('=== не настроены статусы заявок в приложении ===') if IncaseItemStatus.all.count.zero?
   end
 
   def open_spreadsheet(file)

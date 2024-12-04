@@ -18,7 +18,6 @@ class Incase < ApplicationRecord
   after_update_commit :automation_on_update
   # after_commit :update_counter, on: [ :create, :destroy ]
   
-  validates :incase_items, presence: true
   validates :date, presence: true
   validates :unumber, presence: true
 
