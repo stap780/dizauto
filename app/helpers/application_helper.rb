@@ -248,26 +248,26 @@ module ApplicationHelper
   end
 
   def td_index_edit_delete_link(obj)
-    content_tag :td, class: "align-middle" do
-      content_tag :span, class: "no-wrap d-flex justify-content-end gap-2 align-items-center" do
-        render "shared/edit_delete_link", object: obj
+    content_tag :td, class: 'align-middle' do
+      content_tag :span, class: 'no-wrap d-flex justify-content-end gap-2 align-items-center' do
+        render 'shared/edit_delete_link', object: obj
       end
     end
   end
 
   def tabs_head(collection, tabs)
     items = tabs.map.with_index { |tab, index| tab_a_tag(tab, index.zero?) }
-    content_tag(:ul, safe_join(items), class: "nav nav-pills text-capitalize", id: collection + "_tabs", role: "tablist")
+    content_tag(:ul, safe_join(items), class: 'nav nav-pills text-capitalize', id: "#{collection}_tabs", role: 'tablist')
   end
 
   def tab_a_tag(tab, is_active)
-    content_tag :li, class: "nav-item border border-primary rounded", role: "presentation" do
+    content_tag :li, class: 'nav-item border border-primary rounded', role: 'presentation' do
       options = {
-        class: (is_active ? "nav-link active" : "nav-link"),
-        id: tab[0] + "_tab_header",
+        class: (is_active ? 'nav-link active' : 'nav-link'),
+        id: "#{tab[0]}_tab_header",
         "data-bs-toggle": "tab",
         "data-bs-target": "#" + tab[0] + "_tab",
-        role: "presentation"
+        role: 'presentation'
       }
       content_tag :a, options do
         tab[1]
@@ -277,17 +277,22 @@ module ApplicationHelper
 
   def td_remove_nested(obj)
     content_tag :td do
-      render "shared/nested_delete", object: obj
+      render 'shared/nested_delete', object: obj
     end
   end
 
   def div_remove_nested(obj)
-    content_tag :div, class: "col-md-2 d-flex justify-content-start" do
-      render "shared/nested_delete", object: obj
+    content_tag :div, class: 'col-md-2 d-flex justify-content-start' do
+      render 'shared/nested_delete', object: obj
     end
   end
 
   def current_page_active?(page)
     request.path.start_with?("/#{page}")
   end
+
+  def h_v_center_for_status_row_class
+    'd-flex list-group-item py-2 border-start-0 border-end-0 gap-1 justify-content-center align-items-center'
+  end
+
 end

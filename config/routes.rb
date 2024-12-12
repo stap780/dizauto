@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :insales do
     collection do
+      post :order
       get :check
     end
   end

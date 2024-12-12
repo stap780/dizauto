@@ -100,6 +100,10 @@ ru:
         bank_title: "название банка"
         bank_account: "расчетный счет"
         client_companies: "клиенты"
+      delivery_type: &delivery_type
+        title: "название"
+        desc: "описание"
+        price: "цена"
       enter_status:
         title: "название"
         color: "цвет"
@@ -181,6 +185,10 @@ ru:
         sum: "сумма"
         invoice_id: "id накладной"
         product: "товар"
+      payment_type: &payment_type
+        title: "название"
+        desc: "описание"
+        margin: "наценка"
       property:
         title: "название"
       characteristic:
@@ -504,6 +512,8 @@ ru:
     <<: *model_system_flash
   detal_props:
     <<: *model_system_flash
+  delivery_types:
+    <<: *model_system_flash
   enter_statuses:
     <<: *model_system_flash
   exports:
@@ -537,6 +547,8 @@ ru:
     comments:
       <<: *model_system_flash
   order_statuses:
+    <<: *model_system_flash
+  payment_types:
     <<: *model_system_flash
   products:
     <<: *model_system_flash
@@ -582,6 +594,8 @@ ru:
         title: "название значения"
       dashboard:
         variant: "товары"
+      delivery_type:
+        <<: *delivery_type
       enter:
         enter_status_id: "статус"
         date: "дата"
@@ -651,9 +665,7 @@ ru:
         title: "название"
         color: "цвет"
       payment_type:
-        title: "название"
-        desc: "описание"
-        margin: "Наценка"
+        <<: *payment_type
       property:
         title: "название"
       product:

@@ -1,10 +1,12 @@
-<%= link_to new_delivery_type_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(DeliveryType.new) } do %>
-    <%= add_icon %>
-<% end %>
-
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= DeliveryType.model_name.human(count: 2)%></h1>
+<div class="row mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= DeliveryType.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to add_icon, new_delivery_type_path, class: "btn btn-primary float-end", data: {turbo_frame: 'offcanvas_wrap' } %>
+  </div>
 </div>
+
 
 <div class="card">
   <div class="card-header pb-0">
@@ -21,25 +23,21 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-delivery_type_wrapper" class="">
-      <%= turbo_frame_tag DeliveryType.new %>
+    <div id="datatables-delivery_type_wrapper">
+      <%=turbo_stream_from "delivery_types" %>
 
-      <div class="col-12 list-group list-group-striped">
-        <div class="row">
-          <%= tag.div('#', class: 'col-1 fw-semibold text-center')%>
-          <%= tag.div( t( 'helpers.label.delivery_type.title'), class: 'col-3 fw-semibold text-center' )%>
-          <%= tag.div( t( 'helpers.label.delivery_type.desc'), class: 'col-4 fw-semibold text-center' )%>
-          <%= tag.div( t( 'helpers.label.delivery_type.price'), class: 'col-2 fw-semibold text-center' )%>
-          <%= tag.div('', class: 'col-2 fw-semibold')%>
-        </div> 
-          <%= turbo_stream_from "delivery_types" %>     
-          <%= turbo_frame_tag 'delivery_types', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
-            <%= render @delivery_types %>
-          <% end %>
-      </div> 
+      <%=turbo_frame_tag 'delivery_types', class:"table d-table", data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+        <%=tag.div class:"d-table-row" do %>  
+          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div( t( 'helpers.label.delivery_type.title'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.delivery_type.desc'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.delivery_type.price'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%= render @delivery_types %>
+      <% end %>  
 
       <%= render "shared/paginate", f: @delivery_types %>
-
     </div>
   </div>
 </div>

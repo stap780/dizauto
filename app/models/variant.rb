@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# Variant < ApplicationRecord
 class Variant < ApplicationRecord
-  require "barby"
-  require "barby/barcode/ean_13"
-  require "barby/outputter/html_outputter"
+  require 'barby'
+  require 'barby/barcode/ean_13'
+  require 'barby/outputter/html_outputter'
 
   belongs_to :product
   has_many :incase_items
@@ -35,14 +38,14 @@ class Variant < ApplicationRecord
   scope :selected, ->(id) { where(id: id) }
 
   after_create_commit do 
-    broadcast_append_to [product, :variants], target: dom_id(product, :variants), partial: "variants/variant", 
-                                              locals: { product: product, variant: self  }
+    broadcast_append_to [product, :variants], target: dom_id(product, :variants), partial: 'variants/variant',
+                                              locals: { product: product, variant: self }
     # broadcast_update_to [detal, :detal_props], target: dom_id(detal, dom_id(DetalProp.new)), html: ''
   end
 
   after_update_commit do
-    broadcast_replace_to [product, :variants], target: dom_id(product, dom_id(self)), partial: "variants/variant", 
-                                                locals: { product: product, variant: self  }
+    broadcast_replace_to [product, :variants], target: dom_id(product, dom_id(self)), partial: 'variants/variant',
+                                                locals: { product: product, variant: self }
   end
 
   after_destroy_commit do
@@ -63,12 +66,12 @@ class Variant < ApplicationRecord
   end
 
   def create_barcode
-    if !barcode.present?
-      code_value = id.to_s.rjust(12, "0")
-      barcode = Barby::EAN13.new(code_value)
-      checksum = barcode.checksum
-      update!(barcode: barcode.data_with_checksum)
-    end
+    return if barcode.present?
+
+    code_value = id.to_s.rjust(12, '0')
+    barcode = Barby::EAN13.new(code_value)
+    barcode.checksum
+    update!(barcode: barcode.data_with_checksum)
   end
 
   def html_barcode
@@ -80,14 +83,15 @@ class Variant < ApplicationRecord
   end
 
   def full_title
-    barcode.to_s + " - " + product.title.to_s + " - " + sku.to_s
+    "#{barcode} - #{product.title} - #{sku}"
   end
 
   def title
-    self.product.title.to_s
+    product.title.to_s
   end
 
-  def self.stocks_amount #(lifehack) if we call from relation than we will get only relation data
+  def self.stocks_amount 
+    # (lifehack) if we call from relation than we will get only relation data
     variants = Variant.all.order(created_at: :asc)
     qt = [0]
     variants.each do |variant|

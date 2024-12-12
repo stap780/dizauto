@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Order < ApplicationRecord
 class Order < ApplicationRecord
   audited
   belongs_to :order_status
@@ -11,7 +14,7 @@ class Order < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   accepts_nested_attributes_for :comments, allow_destroy: true
 
-  after_destroy_commit { broadcast_remove_to "orders" }
+  after_destroy_commit { broadcast_remove_to 'orders' }
 
   before_save :normalize_data_white_space
   validates :order_items, presence: true

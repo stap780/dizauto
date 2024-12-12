@@ -8,15 +8,13 @@ class VariantsController < ApplicationController
     @variants = @product.variants.order(:id)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @variant = @product.variants.build
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @variant = @product.variants.build(variant_params)

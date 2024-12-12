@@ -1,13 +1,14 @@
-<%= turbo_frame_tag delivery_type, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
-    sort_url: sort_delivery_type_path(delivery_type.id), sort_item_id: delivery_type.id }  do %>
-  <%= tag.div(class: "col-1") do %>
+<%= turbo_frame_tag delivery_type, class: 'd-table-row',  data: {sort_url: sort_delivery_type_path(delivery_type.id), sort_item_id: delivery_type.id }  do %>
+  <%= tag.div(class: "d-table-cell") do %>
     <%= sortable_with_badge(delivery_type.position)%>
     <%= delivery_type.id%>
-  <% end %>
-  <%= tag.div(delivery_type.title, class: "col-3")%>
-  <%= tag.div(delivery_type.desc, class: "col-4")%>
-  <%= tag.div(delivery_type.price, class: "col-2")%>
-  <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
-    <%= render 'shared/edit_delete_link_turbo', object: delivery_type %>
-  </div>
-<% end %>
+  <%end %>
+  <%= tag.div(delivery_type.title, class: "d-table-cell")%>
+  <%= tag.div(delivery_type.desc, class: "d-table-cell")%>
+  <%= tag.div(delivery_type.price, class: "d-table-cell")%>
+  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center") do %>
+    <%#%render 'shared/edit_delete_link_turbo', object: delivery_type %>
+    <%=link_to edit_icon, edit_delivery_type_path(delivery_type), data: { turbo_frame: 'offcanvas_wrap'} %>
+    <%=link_to trash_icon, delivery_type, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>
+  <%end %>
+<%end %>

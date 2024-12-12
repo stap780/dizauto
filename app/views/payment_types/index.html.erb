@@ -1,9 +1,11 @@
-<%= link_to new_payment_type_path, class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(PaymentType.new) } do %>
-    <%= add_icon %>
-<% end %>
 
-<div class="mb-3">
-  <h1 class="h3 d-inline align-middle"><%= PaymentType.model_name.human(count: 2)%></h1>
+<div class="row mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= PaymentType.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to add_icon, new_payment_type_path, class: "btn btn-primary float-end", data: {turbo_frame: 'offcanvas_wrap' } %>
+  </div>
 </div>
 
 <div class="card">
@@ -11,7 +13,7 @@
     <div class="card-actions float-end">
       <div class="dropdown position-relative">
         <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
+          <%=more_icon %>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
@@ -21,21 +23,19 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-payment_type_wrapper" class="">
-      <%= turbo_frame_tag PaymentType.new %>
-      <div class="col-12 list-group list-group-striped">
-        <div class="row">
-          <%= tag.div('#', class: 'col-1 fw-semibold text-center')%>
-          <%= tag.div( t( 'helpers.label.payment_type.title'), class: 'col-3 fw-semibold text-center' )%>
-          <%= tag.div( t( 'helpers.label.payment_type.desc'), class: 'col-4 fw-semibold text-center' )%>
-          <%= tag.div( t( 'helpers.label.payment_type.margin'), class: 'col-2 fw-semibold text-center' )%>
-          <%= tag.div('', class: 'col-2 fw-semibold')%>
-        </div> 
-          <%= turbo_stream_from "payment_types" %>     
-          <%= turbo_frame_tag 'payment_types', data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
-            <%= render @payment_types %>
-          <% end %>
-      </div> 
+    <div id="datatables-payment_type_wrapper">
+      <%=turbo_stream_from "payment_types" %>     
+
+      <%=turbo_frame_tag 'payment_types', class:"table d-table", data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+        <%=tag.div class:"d-table-row" do %>  
+          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div( t( 'helpers.label.payment_type.title'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.payment_type.desc'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.payment_type.margin'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%= render @payment_types %>
+      <% end %>
       
       <%= render "shared/paginate", f: @payment_types %>
     </div>

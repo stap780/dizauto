@@ -4,7 +4,7 @@ module DownloadExcel
   def download
     # puts "########### search_params download => #{search_params}"
     if params[:download_type] == "selected" && !params[items].present?
-      flash.now[:error] = "Выберите позиции"
+      flash.now[:error] = 'Выберите позиции'
       render turbo_stream: [
         render_turbo_flash
       ]
@@ -14,7 +14,7 @@ module DownloadExcel
       render turbo_stream: 
         turbo_stream.update(
           'modal',
-          template: "shared/pending_bulk"
+          template: 'shared/pending_bulk'
         )
     end
   end
@@ -30,7 +30,7 @@ module DownloadExcel
   end
 
   def model_product?
-    model == 'Product' ? true : false
+    model == 'Product'
   end
 
   def excel_collection_ids

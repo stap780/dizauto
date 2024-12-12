@@ -4,8 +4,7 @@
     <%= form_with(model: [@product, variant]) do |f| %>
       <%= render 'shared/errors', object: variant %>
 
-
-      <%= render 'form_data', f: f %>
+      <%=render 'form_data', f: f %>
 
       <div class="my-3 col-12 d-flex justify-content-end gap-2 align-items-center">
         <%= f.submit t('save'), class: "btn btn-primary" %>

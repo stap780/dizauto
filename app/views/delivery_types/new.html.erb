@@ -1,1 +1,4 @@
-<%= render 'shared/new_edit', object: @delivery_type, tip: :new %>
+<%#render 'shared/new_edit', object: @delivery_type, tip: :new %>
+<%=turbo_frame_tag "offcanvas_wrap" do %>
+  <%=render "form", delivery_type: @delivery_type %>
+<%end %>

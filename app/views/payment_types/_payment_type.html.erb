@@ -1,14 +1,14 @@
-
-<%= turbo_frame_tag payment_type, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row", data: {
-    sort_url: sort_payment_type_path(payment_type.id), sort_item_id: payment_type.id }  do %>
-  <%= tag.div(class: "col-1") do %>
+<%= turbo_frame_tag payment_type, class: 'd-table-row',  data: {sort_url: sort_payment_type_path(payment_type.id), sort_item_id: payment_type.id }  do %>
+  <%= tag.div(class: "d-table-cell") do %>
     <%= sortable_with_badge(payment_type.position)%>
     <%= payment_type.id%>
-  <% end %>
-  <%= tag.div(payment_type.title, class: "col-3")%>
-  <%= tag.div(payment_type.desc, class: "col-4")%>
-  <%= tag.div(payment_type.margin, class: "col-2")%>
-  <div class= "col-2 d-flex justify-content-end gap-2 align-items-center">
-    <%= render 'shared/edit_delete_link_turbo', object: payment_type %>
-  </div>
-<% end %>
+  <%end %>
+  <%= tag.div(payment_type.title, class: "d-table-cell")%>
+  <%= tag.div(payment_type.desc, class: "d-table-cell")%>
+  <%= tag.div(payment_type.margin, class: "d-table-cell")%>
+  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center") do %>
+    <%#render 'shared/edit_delete_link_turbo', object: payment_type %>
+    <%=link_to edit_icon, edit_payment_type_path(payment_type), data: { turbo_frame: 'offcanvas_wrap'} %>
+    <%=link_to trash_icon, payment_type, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>    
+  <%end %>
+<%end %>

@@ -106,7 +106,7 @@ class InsalesController < ApplicationController
   end
 
   def order
-    InsaleOrderJob.perform_later(params.permit!)
+    InsaleOrderImportJob.perform_later(params.permit!)
     head :ok
   end
 

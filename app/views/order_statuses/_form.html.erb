@@ -1,31 +1,17 @@
-<%= turbo_frame_tag order_status do %>
-  <%= form_with(model: order_status ) do |f| %>
+
+<%= form_with(model: order_status) do |f| %>
+  <%=tag.div(class: 'card') do %>
+    <%=tag.div(class: 'card-header') do %>
+      <%=tag.div(class: 'h3') do %><%= f.object.new_record? ? 'Создать' : 'Редактировать'%><%end%>
+    <%end%>
+    <%=tag.div(class: 'card-body py-0') do %>
       <%= render "shared/errors", object: order_status %>
 
-      <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <% if !f.object.new_record? %>
-              <div class="col-1"><%= f.object.id if !f.object.new_record? %></div>
-              <% end %>
-                <div class="col-5">
-                  <%= f.label :title, class: "col-form-label" if f.object.new_record?%>
-                  <%= f.text_field :title, class: "form-control" %>
-                </div>
-                <div class="col-4 row" data-controller="color-picker">
-                  <%= f.label :color, class: "col-form-label" if f.object.new_record?%>
-                  <%= f.hidden_field :color, class: "form-control", data: {"color-picker-target": "input"} %>
-                  <span data-color-picker-target="button"></span>
-                </div>
-              <div class="<%= f.object.new_record? ? "col" : "col-2"%> d-flex justify-content-end gap-2 align-items-center">
-                <%= f.submit t(:save), class: "btn btn-primary" %>
-                <%= link_to close_icon, :back, class: "btn btn-outline-primary" %>
-              </div>
-            </div>            
-          </div>
-          <div class="card-footer">
-          </div>
-      </div>
+      <%=render 'form_data', f: f %>
+      <%=tag.div(class: 'my-3 col-12 d-flex justify-content-end gap-2 align-items-center') do %>
+        <%= f.submit t(:save), class: "btn btn-primary" %>
+      <%end %> 
 
-  <% end %>
+    <%end%>
+  <%end%>
 <% end %>

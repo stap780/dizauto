@@ -33,7 +33,7 @@
 @import "3-components/chat";
 @import "3-components/content";
 @import "3-components/dropdown";
-@import "3-components/feather";
+// @import "3-components/feather";
 @import "3-components/footer";
 @import "3-components/forms";
 @import "3-components/hamburger";
@@ -76,7 +76,7 @@
 // // @import "jsvectormap/dist/css/jsvectormap";
 // // @import "quill/dist/quill.bubble";
 // // @import "quill/dist/quill.snow";
-// // @import "simplebar/dist/simplebar";
+@import "simplebar/dist/simplebar";
 // // @import "notyf/notyf.min";
 
 // // 3rd party plugin styles
@@ -88,4 +88,4 @@
 // @import "5-vendor/highlight";
 // @import "5-vendor/jsvectormap";
 // @import "5-vendor/quill";
-// @import "5-vendor/simplebar";
+@import "5-vendor/simplebar";
