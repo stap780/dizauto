@@ -2,6 +2,7 @@
 
 # Order < ApplicationRecord
 class Order < ApplicationRecord
+  include AutomationProcess
   audited
   belongs_to :order_status
   belongs_to :payment_type
@@ -17,7 +18,7 @@ class Order < ApplicationRecord
   after_destroy_commit { broadcast_remove_to 'orders' }
 
   before_save :normalize_data_white_space
-  validates :order_items, presence: true
+  # validates :order_items, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
     Order.attribute_names
@@ -36,4 +37,3 @@ class Order < ApplicationRecord
   end
 
 end
-

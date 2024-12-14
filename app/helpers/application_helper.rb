@@ -291,8 +291,8 @@ module ApplicationHelper
     request.path.start_with?("/#{page}")
   end
 
-  def h_v_center_for_status_row_class
-    'd-flex list-group-item py-2 border-start-0 border-end-0 gap-1 justify-content-center align-items-center'
+  def h_v_center
+    'd-flex justify-content-center align-items-center p-0'
   end
 
 end

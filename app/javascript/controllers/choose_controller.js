@@ -10,10 +10,10 @@ export default class extends Controller {
   }
 
   changeBulkItemStatus(event){
-    console.log(event.target)
+    // console.log(event.target)
     //let selected = document.getElementById('incase_item_status_label')
     let selected = this.itemSelectedTarget
-    console.log(selected.value)
+    // console.log(selected.value)
     this.itemResultsTargets.forEach((element, index) => {
       element.value = selected.value
     })    

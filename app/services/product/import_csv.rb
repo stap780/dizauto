@@ -23,7 +23,7 @@ class Product::ImportCsv < ApplicationService
   private
 
   def collect_data
-    @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map { |v| v.remove("Параметр:").squish if v.present? && v.include?("Параметр:") }.reject(&:blank?)
+    @properties = CSV.foreach(@download_path, headers: false).take(1).flatten.map { |v| v.remove('Параметр:').squish if v.present? && v.include?('Параметр:') }.reject(&:blank?)
 
     @file_data = if Rails.env.development?
       CSV.foreach(@download_path, headers: true).take(10).map(&:to_h)
@@ -42,36 +42,36 @@ class Product::ImportCsv < ApplicationService
   def create_update_products
     @file_data.each do |data|
       props_data = get_properties(data)
-      images = data["Изображения"].to_s.present? ? data["Изображения"].split(" ") : nil
+      images = data['Изображения'].to_s.present? ? data['Изображения'].split(' ') : nil
 
       pr_data = {
-                  barcode: data["Артикул"],
-                  sku: data["Параметр: Артикул производителя"],
-                  title: data["Название товара"],
-                  description: data["Краткое описание"],
-                  # quantity: data["Остаток"].to_i, # кол-во это отдельный бизнес процесс (оприходование) поэтому здесь выключено
-                  cost_price: data["costprice"],
-                  price: data["Цена продажи"],
-                  video: data["video"],
-                  props_attributes: props_data,
-                  images: images
-                }
+        barcode: data['Артикул'],
+        sku: data['Параметр: Артикул производителя'],
+        title: data['Название товара'],
+        description: data['Краткое описание'],
+        # quantity: data['Остаток'].to_i, # кол-во это отдельный бизнес процесс (оприходование) поэтому здесь выключено
+        cost_price: data['costprice'],
+        price: data['Цена продажи'],
+        video: data['video'],
+        props_attributes: props_data,
+        images: images
+      }
       puts "pr_data => #{pr_data}"
       ProductContentSaveJob.perform_later(pr_data)
     end
   end
 
   def get_properties(data)
-    properties = data.select { |k, v| k.present? && k.include?("Параметр:") && !k.include?("Параметр: Артикул производителя") }
+    properties = data.select { |k, v| k.present? && k.include?('Параметр:') && !k.include?('Параметр: Артикул производителя') }
     props_data = []
     if properties.present?
       properties.each do |pro|
         if pro[0].present? && pro[1].present?
-          s_p = Property.where(title: pro[0].remove("Параметр:").squish).first_or_create!
+          s_p = Property.where(title: pro[0].remove('Параметр:').squish).first_or_create!
           s_char = Characteristic.where(property_id: s_p.id, title: pro[1]).first_or_create!
           p_hash = {}
-          p_hash["property_id"] = s_p.id
-          p_hash["characteristic_id"] = s_char.id
+          p_hash['property_id'] = s_p.id
+          p_hash['characteristic_id'] = s_char.id
           props_data.push(p_hash)
         end
       end
