@@ -49,8 +49,7 @@ class Insale::OrderImport < ApplicationService
       order_status_id: order_status_id,
       payment_type_id: payment_type_id,
       delivery_type_id: delivery_type_id,
-      client_id: @client.id,
-      order_items_attributes: []
+      client_id: @client.id
     }
     data_order_items = {}
     @datas['order_lines'].each_with_index do |o_line, index|
@@ -65,7 +64,7 @@ class Insale::OrderImport < ApplicationService
   end
 
   def find_variant_id(o_line)
-    Variant.where(insale_id: o_line['variant_id']).present? ? Variant.where(insale_id: o_line['variant_id']).take.id : Variant.where(barcode: o_line['barcode']).take.id
+    Variant.where(insid: o_line['variant_id']).present? ? Variant.where(insid: o_line['variant_id']).take.id : Variant.where(barcode: o_line['barcode']).take.id
   end
 
 end

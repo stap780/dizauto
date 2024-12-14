@@ -99,7 +99,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_14_110314) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "insale_id"
+    t.integer "insid"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -705,7 +705,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_14_110314) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "insale_id"
+    t.integer "insid"
     t.index ["product_id"], name: "index_variants_on_product_id"
   end
 

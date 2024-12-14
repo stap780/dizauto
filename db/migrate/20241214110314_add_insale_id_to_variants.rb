@@ -1,5 +1,5 @@
 class AddInsaleIdToVariants < ActiveRecord::Migration[7.1]
   def change
-    add_column :variants, :insale_id, :integer
+    add_column :variants, :insid, :integer
   end
 end
