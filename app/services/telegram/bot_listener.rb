@@ -47,6 +47,7 @@ class Telegram::BotListener < ApplicationService
     else
       check_bot.stop
       check_bot.api.delete_webhook
+      @errors << 'bot already work'
       false
     end
   end
