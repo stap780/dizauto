@@ -2,7 +2,7 @@
 # require File.expand_path('../config/environment', __dir__)
 # require 'telegram/bot'
 
-# token = '7833346949:AAFvAgotpTMBSt4-BH9w4oTenawwZj886fc' #TelegramBot.first.token
+# token = TelegramBot.first.token
 
 # Telegram::Bot::Client.run(token) do |bot|
 #   bot.listen do |message|
