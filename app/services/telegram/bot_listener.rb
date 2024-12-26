@@ -13,17 +13,14 @@ class Telegram::BotListener < ApplicationService
     @start_markup = Telegram::Bot::Types::InlineKeyboardMarkup.new(inline_keyboard: @start_keyboard, resize_keyboard: true)
     @product = nil
     @media_group_id = nil
-    @errors = nil
+    @errors = []
   end
 
   def call
-    if check_token_and_bot_not_ran_early
-      @bot = Telegram::Bot::Client.new(@token)
-      start_work
-      [true, '']
-    else
-      [false, @errors]
-    end
+    message = check_token_and_bot_not_ran_early ? 'we start bot' : @errors
+    @bot = Telegram::Bot::Client.new(@token)
+    start_work
+    [true, message]
   end
 
   private
@@ -47,8 +44,10 @@ class Telegram::BotListener < ApplicationService
     else
       check_bot.stop
       check_bot.api.delete_webhook
-      @errors << 'bot already work'
-      false
+      @bot.stop
+      @bot.api.delete_webhook
+      @errors << 'we stop bot and run again'
+      true
     end
   end
 
