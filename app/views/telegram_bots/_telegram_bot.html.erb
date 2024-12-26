@@ -8,7 +8,7 @@
             <%#render 'shared/edit_delete_link_turbo', object: order_status %>
             <%=link_to edit_icon, edit_telegram_bot_path(telegram_bot), class: "btn", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>
             <%#link_to "Проверить интеграцию", check_insales_path, class: "btn btn-primary", data: {turbo_stream: true}%>
-            <%=link_to "Run", run_telegram_bots_path, class: "btn btn-primary", data: {turbo_stream: true, "turbo-method": :get}%>
+            <%=link_to "Run", run_telegram_bots_path, class: "btn btn-primary", style: 'opacity:0;', data: {turbo_stream: true, "turbo-method": :get}%>
             <%#link_to "Stop", stop_telegram_bots_path, class: "btn btn-primary", data: {turbo_stream: true, "turbo-method": :get}%>
             <%=link_to trash_icon, telegram_bot, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class: "btn" %> 
         <%end %>
