@@ -96,12 +96,14 @@ a.sidebar-link {
   @include theme("theme", "background", $sidebar-link-child-bg);
 
   &:before {
-    content: "→";
+    content: "\f138";
     display: inline-block;
     position: relative;
-    left: -14px;
-    transition: all .1s ease;
+    left: -10px;
+    transition: all 0.1s ease;
     transform: translateX(0);
+    font-family: "Bootstrap-icons";
+    top: 2px;
   }
 }
 
