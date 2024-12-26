@@ -29,18 +29,20 @@ class Telegram::BotListener < ApplicationService
   private
 
   def check_token_and_bot_not_ran_early
-    result = nil
-    check_token = nil
+    check_token_work = nil
+    check_bot_work  = nil
     check_bot = nil
     Telegram::Bot::Client.run(@token) do |bot|
-      check_token = bot.api.getMe
-      check_bot = bot.api.get_updates(offset: -1)
+      check_token_work = bot.api.getMe
+      check_bot_work = bot.api.get_updates(offset: -1)
+      check_bot = bot
       # bot.stop if check_token
       # bot.api.delete_webhook if check_token
     end
-    puts "check_token => #{check_token.to_json}"
+    puts "check_token_work => #{check_token_work.to_json}"
+    puts "check_bot_work => #{check_bot_work.to_json}"
     puts "check_bot => #{check_bot.to_json}"
-    if check_token && !check_bot.present?
+    if check_token_work && !check_bot_work.present?
       true
     else
       check_bot.stop
