@@ -33,14 +33,14 @@ class Telegram::BotListener < ApplicationService
       check_token_work = bot.api.getMe
       check_bot_work = bot.api.get_updates(offset: -1)
       check_bot = bot
-      # bot.stop if check_token
-      # bot.api.delete_webhook if check_token
     end
     puts "check_token_work => #{check_token_work.to_json}"
     puts "check_bot_work => #{check_bot_work.to_json}"
     puts "check_bot => #{check_bot.to_json}"
     if check_token_work && !check_bot_work.present?
       true
+      @bot.stop if @bot.present?
+      @bot.api.delete_webhook if @bot.present?
     else
       check_bot.stop
       check_bot.api.delete_webhook
