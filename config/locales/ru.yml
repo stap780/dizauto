@@ -308,6 +308,9 @@ ru:
       client_companies: 
         one: "клиенты (компании)"
         other: "клиенты (компании)"
+      characteristic:
+        one: "параметр значение"
+        other: "параметры значения"
       dashboard:
         one: "сводка"
       delivery_type: 
@@ -324,7 +327,7 @@ ru:
         other: "оприходования"
       enter_status: 
         one: "статус оприходования"
-        other: "cтатусы оприходования"
+        other: "статусы оприходования"
       export:
         one: "экспорт"
         other: "экспорты"
@@ -373,9 +376,6 @@ ru:
       property:
         one: "параметр"
         other: "параметры"
-      characteristic:
-        one: "значение параметра"
-        other: "значения параметра"
       order: 
         one: "заказ"
         other: "заказы"
@@ -406,6 +406,9 @@ ru:
       return_status:
         one: "статус возврата"
         other: "статусы возврата"
+      rent_case_status:
+        one: "статус аренды"
+        other: "статусы аренды"
       stock:
         one: "остаток"
         other: "остатки"
@@ -420,7 +423,7 @@ ru:
         other: "перемещения"
       stock_transfer_status: 
         one: "статус перемещения"
-        other: "cтатусы перемещения"
+        other: "статусы перемещения"
       supply_item: 
         one: "позиции поступления"
         other: "позиции поступления"

@@ -29,7 +29,7 @@ class ImagesController < ApplicationController
     @image = Image.new(image_params)
     respond_to do |format|
       if @image.save
-        format.html { redirect_to images_path, notice: "Image was successfully created." }
+        format.html { redirect_to images_path, notice: 'Image was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,10 +40,10 @@ class ImagesController < ApplicationController
 
   def upload
     params.require(:blob_signed_id)
-    signed_id = params["blob_signed_id"]
+    signed_id = params['blob_signed_id']
     upload_blob = ActiveStorage::Blob.find_signed(signed_id)
     filename = upload_blob.filename
-    content_type = upload_blob.content_type
+    # content_type = upload_blob.content_type
 
     # This is use when we save image to Disk storage
     # upload_image_path = ActiveStorage::Blob.service.send(:path_for, upload_blob.key)
@@ -54,9 +54,8 @@ class ImagesController < ApplicationController
 
     # This use when we save to S3
     file = upload_blob.open do |tempfile|
-      puts "upload_blob ======= upload_blob"
-      puts "tempfile.path"
-      puts tempfile.path
+      puts 'upload_blob ======= upload_blob'
+      puts "tempfile.path => #{tempfile.path}"
       ImageProcessing::MiniMagick.source(tempfile.path).saver!(quality: 80)
     end
 

@@ -9,9 +9,11 @@
     <%= tag.div('', class: "d-table-cell") do %>
         <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{order_status.color};")%>
     <% end %>
-    <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center") do %>
-        <%#render 'shared/edit_delete_link_turbo', object: order_status %>
-        <%=link_to edit_icon, edit_order_status_path(order_status), data: { turbo_frame: 'offcanvas_wrap'} %>
-        <%=link_to trash_icon, order_status, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>    
+    <%= tag.div(class: "d-table-cell") do %>
+        <%= tag.div(class: h_v_center) do %>
+            <%#render 'shared/edit_delete_link_turbo', object: order_status %>
+            <%=link_to edit_icon, edit_order_status_path(order_status), data: { turbo_frame: 'offcanvas_wrap'} %>
+            <%=link_to trash_icon, order_status, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %> 
+        <%end %> 
     <%end %>
 <% end %>

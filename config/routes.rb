@@ -2,6 +2,12 @@ require "sidekiq/web"
 require "sidekiq-scheduler/web"
 
 Rails.application.routes.draw do
+  resources :telegram_bots do
+    collection do
+      get :run
+      get :stop
+    end
+  end
 
   resources :insales do
     collection do

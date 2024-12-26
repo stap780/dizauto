@@ -1,6 +1,7 @@
+# Image
 class Image < ApplicationRecord
   include Rails.application.routes.url_helpers
-  require "image_processing/vips"
+  require 'image_processing/vips'
 
   acts_as_list scope: :product, sequential_updates: false
 
@@ -13,9 +14,9 @@ class Image < ApplicationRecord
     # attachable.variant :def_png, saver: { strip: true, compression: 9 }, format: "png"
     # WEBP not use - only example
     # attachable.variant :def_webp, saver: { strip: true, quality: 75, lossless: false, alpha_q: 85, reduction_effort: 6, smart_subsample: true }, format: "webp"
-    attachable.variant :thumb_webp, resize_to_limit: [200, 200], format: "webp"
+    attachable.variant :thumb_webp, resize_to_limit: [200, 200], format: 'webp'
   end
-  validates :position, uniqueness: {scope: :product}
+  validates :position, uniqueness: { scope: :product }
 
   validate :validate_image
   before_validation :set_position_if_nil, on: :create
@@ -26,7 +27,7 @@ class Image < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["file_attachment", "file_blob", "product"]
+    %w[file_attachment file_blob product]
   end
 
   def s3_url
@@ -39,12 +40,12 @@ class Image < ApplicationRecord
     return unless file.attached?
 
     unless file.blob.byte_size <= 10.megabyte
-      errors.add(:file, "is too big")
+      errors.add(:file, 'is too big')
     end
 
     acceptable_types = ["image/jpeg", "image/png"]
     unless acceptable_types.include?(file.content_type)
-      errors.add(:file, "must be a JPEG or PNG")
+      errors.add(:file, 'must be a JPEG or PNG')
     end
   end
 
@@ -75,5 +76,5 @@ class Image < ApplicationRecord
       self.file.attach(new_blob.signed_id)
     end
   end
-  
+
 end

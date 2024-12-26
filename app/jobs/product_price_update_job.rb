@@ -1,3 +1,4 @@
+# ProductPriceUpdateJob
 class ProductPriceUpdateJob < ApplicationJob
   queue_as :default
   sidekiq_options retry: 0

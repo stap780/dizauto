@@ -1,21 +1,16 @@
-<%= turbo_frame_tag insale, class: "py-2 px-0 justify-content-between align-items-center py-2 border-top-1 border-start-0 border-end-0 row", data: { }  do %>
 
-  <div class="card w-50">
-    <div class="card-header"></div>
-    <div class="card-body">
-      <div class="mb-3 row align-items-center">
-        <label class="col-form-label col-sm-2 text-sm-end" for="insale_api_key">ключ</label>
-        <div class="col-sm-10 col-md-8"><%= insale.api_key %></div>
-      </div>
-      <div class="mb-3 row">
-        <label class="col-form-label col-sm-2 text-sm-end" for="insale_api_password">пароль</label>
-        <div class="col-sm-10 col-md-8"><%= insale.api_password %></div>
-      </div>
-      <div class="mb-3 row align-items-center">
-        <label class="col-form-label col-sm-2 text-sm-end" for="insale_api_link">ссылка</label>
-        <div class="col-sm-10 col-md-8"><%= insale.api_link %></div>
-      </div>
-    </div>
-  </div>
+<%=turbo_frame_tag insale, class: "d-table-row" do %>
+    <%= tag.div( insale.id, class: "d-table-cell") %>
+    <%= tag.div( insale.api_key, class: "d-table-cell")%>
+    <%= tag.div( insale.api_password, class: "d-table-cell")%>
+    <%= tag.div( insale.api_link, class: "d-table-cell")%>
 
+    <%= tag.div(class: "d-table-cell") do %>
+        <%= tag.div(class: h_v_center) do %>
+            <%#render 'shared/edit_delete_link_turbo', object: order_status %>
+            <%=link_to edit_icon, edit_insale_path(insale), class: "btn", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>
+            <%=link_to "Проверить интеграцию", check_insales_path, class: "btn btn-primary", data: {turbo_stream: true}%>
+            <%=link_to trash_icon, insale, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class: "btn" %> 
+        <%end %>
+    <%end %>
 <% end %>

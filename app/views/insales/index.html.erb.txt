@@ -1,0 +1,20 @@
+<div class="mb-3 d-flex justify-content-between align-items-center">
+  <div class="h3 d-inline align-middle m-0"><%= Insale.model_name.human(count: 2)%></div>
+  <%= render "add_new_button" %>
+</div>
+
+<div class="card">
+  <div class="card-header pb-0">
+  </div>
+  <div class="card-body">
+    <div id="datatables-insale_wrapper" class="">
+        <%= turbo_frame_tag Insale.new %>
+
+        <%= turbo_stream_from "insales" %>    
+        <%= turbo_frame_tag 'insales' do %>
+            <%= render @insales %>
+        <% end %>
+      
+    </div>
+  </div>
+</div>

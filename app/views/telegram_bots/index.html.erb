@@ -1,0 +1,27 @@
+<div class="row mb-3">
+  <div class="col-md-6 index-head__title">
+    <h1 class="h3 d-inline align-middle"><%= TelegramBot.model_name.human(count: 2)%></h1>
+  </div>
+  <div class="col-md-6 d-flex justify-content-end index-head__buttons">
+    <%= link_to add_icon, new_telegram_bot_path, class: "btn btn-primary float-end", data: {turbo_frame: 'offcanvas_wrap', turbo_prefetch: false, turbo_stream: true } %>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header pb-0">
+  </div>
+  <div class="card-body">
+    <%=turbo_stream_from "telegram_bots" %> 
+
+    <%=turbo_frame_tag :telegram_bots, class:"table d-table" do %>
+        <%=tag.div class:"d-table-row" do %> 
+            <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+            <%=tag.div( t( 'helpers.label.telegram_bot.title'), class: 'd-table-cell fw-semibold' )%>
+            <%=tag.div( t( 'helpers.label.telegram_bot.token'), class: 'd-table-cell fw-semibold' )%>
+            <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%=render @telegram_bots %>
+    <%end %>
+    
+    <%=render "shared/paginate", f: @telegram_bots %>
+  </div>
+</div>

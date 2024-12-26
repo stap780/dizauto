@@ -1,5 +1,6 @@
-require "sidekiq-scheduler"
+require 'sidekiq-scheduler'
 
+# ExportScheduler
 class ExportScheduler
   # проверяем указано ли время в экспорте,
   # если указано и равно текущему времени, то вызываем метод

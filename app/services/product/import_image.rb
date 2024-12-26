@@ -1,7 +1,8 @@
-class Product::ImportImage
-  require "open-uri"
-  require "addressable/uri"
-  require "image_processing/vips"
+# Product::ImportImage
+class Product::ImportImage < ApplicationService
+  require 'open-uri'
+  require 'addressable/uri'
+  require 'image_processing/vips'
 
   #  FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
   #  FileUtils.rm_rf(Dir["#{Rails.public_path}/import_img/*"])
@@ -28,8 +29,7 @@ class Product::ImportImage
 
   def io_image
     product_images_filenames = @product.images.map { |im| im.file.filename.base }
-    puts "Product::ImportImage ====== Product::ImportImage"
-    puts product_images_filenames
+    puts "product_images_filenames => #{product_images_filenames}"
     @images.each_with_index do |link, index|
       filename = File.basename(link)
       check_name = File.basename(link, File.extname(link))
@@ -43,7 +43,7 @@ class Product::ImportImage
         images_have_position_like_index = @product.images.pluck(:position).include?(index + 1)
 
         position = if images_have_position_like_index
-          nil  # because we have validate_image_position callback
+          nil # because we have validate_image_position callback
         else
           index + 1
         end
@@ -64,8 +64,7 @@ class Product::ImportImage
   end
 
   def add_images_to_product
-    puts "@images_attributes"
-    puts @images_attributes
+    puts "@images_attributes => #{@images_attributes}"
     @product.update!(images_attributes: @images_attributes) if @images_attributes.present?
   end
 
@@ -73,21 +72,18 @@ class Product::ImportImage
     FileUtils.rm_rf(Dir[@tmp_folder_path + "*"])
   end
 
-  def normalize_link_download_image_file(url) # , temp_file_name)
+  def normalize_link_download_image_file(url)
     clear_url = Addressable::URI.parse(url).normalize
-
     begin
       file = URI.open(clear_url.to_s)
     rescue OpenURI::HTTPError
-      puts "normalize_download_image_file OpenURI::HTTPError"
-      puts clear_url
-      file = nil
+      puts "normalize_download_image_file OpenURI::HTTPError => #{clear_url}"
+      nil
     rescue Net::OpenTimeout
-      puts "normalize_download_image_file Net::OpenTimeout"
-      puts clear_url
-      file = nil
+      puts "normalize_download_image_file Net::OpenTimeout => #{clear_url}"
+      nil
     else
-      tempfile = ImageProcessing::MiniMagick.source(file.path).saver!(quality: 80)
+      ImageProcessing::MiniMagick.source(file.path).saver!(quality: 80)
     end
   end
 
@@ -95,6 +91,7 @@ class Product::ImportImage
     # save original image to check volume for first 100 product pcs
     IO.copy_stream(file_path, "#{Rails.public_path}/test_img/#{filename}")
   end
+
 end
 
 # product.update!(images_attributes: [{file: blob.signed_id}, {file: blob1.signed_id}])

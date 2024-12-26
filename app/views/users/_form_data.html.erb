@@ -24,5 +24,10 @@
     <%= f.label :role, class: "form-label" %>
     <%= f.select :role, User::Role, {}, {  class: "form-select", data: {action: "change->user#change_role", user_target: "role"} } %>
 </div>
+<div class="mb-3 col-md-4">
+    <%= f.label :telegram, class: "form-label" %>
+    <%=f.text_field :telegram, class: "form-control" %>
+</div>
+
 
 

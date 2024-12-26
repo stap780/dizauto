@@ -1,11 +1,12 @@
+# UsersController
 class UsersController < ApplicationController
   authorize_resource
-  before_action :set_user, only: [:show, :edi, :update, :read_notification, :delete_notification, :destroy]
+  before_action :set_user, only: %i[show edit update read_notification delete_notification destroy]
 
   def index
     @search = User.ransack(params[:q])
-    @search.sorts = "id asc" if @search.sorts.empty?
-    @users = @search.result.paginate(page: params[:page], per_page: 30)
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @users = @search.result.paginate(page: params[:page], per_page: 50)
   end
 
   def new
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
     Permission.all_models.size.times do |index|
       @user.permissions.build(
         pmodel: Permission.all_models[index],
-        pactions: [""]
+        pactions: ['']
       )
     end
   end
@@ -24,7 +25,7 @@ class UsersController < ApplicationController
       Permission.all_models.size.times do |index|
         @user.permissions.build(
           pmodel: Permission.all_models[index],
-          pactions: [""]
+          pactions: ['']
         )
       end
     end
@@ -32,7 +33,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # redirect_to root_path, alert: 'Access denied.' unless @user == current_user
   end
 
   def create
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: t(".success") }
+        format.html { redirect_to users_url, notice: t('success') }
         format.json { render :show, status: :created, location: @permission }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,10 +54,10 @@ class UsersController < ApplicationController
     @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
     respond_to do |format|
       if @user.update(user_params)
-        if params[:user][:role] == "admin"
+        if params[:user][:role] == 'admin'
           Permission.where(user_id: @user.id).delete_all
         end
-        format.html { redirect_to users_url, notice: t(".success") }
+        format.html { redirect_to users_url, notice: t('success') }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -72,11 +72,11 @@ class UsersController < ApplicationController
       @user.destroy!
 
       respond_to do |format|
-        format.html { redirect_to users_url, notice: t(".success") }
+        format.html { redirect_to users_url, notice: t('success') }
         format.json { head :no_content }
       end
     else
-      redirect_to users_url, notice: "Нельзя удалить последнего пользователя или админа"
+      redirect_to users_url, notice: 'Нельзя удалить последнего пользователя или админа'
     end
   end
 
@@ -84,7 +84,7 @@ class UsersController < ApplicationController
     ActiveStorage::Attachment.where(id: params[:image_id])[0].purge
     respond_to do |format|
       # format.html { redirect_to edit_product_path(params[:id]), notice: 'Image was successfully deleted.' }
-      format.json { render json: {status: "ok", message: "destroyed"} }
+      format.json { render json: {status: 'ok', message: 'destroyed'} }
     end
   end
 
@@ -95,7 +95,7 @@ class UsersController < ApplicationController
     Permission.all_models.size.times do |index|
       @user.permissions.build(
         pmodel: Permission.all_models[index],
-        pactions: [""]
+        pactions: ['']
       )
     end
   end
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: t(".success") }
+        format.html { redirect_to users_url, notice: t('success') }
         format.json { render :show, status: :created, location: @permission }
       else
         format.html { render :admin_new, status: :unprocessable_entity }
@@ -115,13 +115,13 @@ class UsersController < ApplicationController
   end
 
   def admin_update
-    if params[:user][:role] == "admin"
+    if params[:user][:role] == 'admin'
       Permission.where(user_id: @user.id).delete_all
     end
     @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_url, notice: t(".success") }
+        format.html { redirect_to users_url, notice: t('success') }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -134,18 +134,17 @@ class UsersController < ApplicationController
     @notification = @user.notifications.find_by_id(params[:notification_id])
     @notification.mark_as_read
     respond_to do |format|
-      format.turbo_stream{ flash.now[:success] = t(".success") }
+      format.turbo_stream{ flash.now[:success] = t('success') }
     end
   end
 
   def delete_notification
     @notification = @user.notifications.find_by_id(params[:notification_id])
-    if !@notification.blob.nil?
-      @notification.blob.purge
-    end
+    @notification.blob.purge unless @notification.blob.nil?
+
     @notification.delete
     respond_to do |format|
-      format.turbo_stream{ flash.now[:success] = t(".success") }
+      format.turbo_stream{ flash.now[:success] = t('success') }
     end
   end
 
@@ -158,7 +157,7 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:name, :phone, :email, :role, :avatar, :password, :password_confirmation,
+    params.require(:user).permit(:name, :phone, :email, :role, :avatar, :password, :password_confirmation, :telegram,
       permissions_attributes: [:id, :pmodel, :user_id, pactions: []])
   end
 

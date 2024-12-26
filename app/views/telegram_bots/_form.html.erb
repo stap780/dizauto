@@ -1,0 +1,15 @@
+<%=form_with(model: telegram_bot) do |f| %>
+  <%=tag.div(class: 'card') do %>
+    <%=tag.div(class: 'card-header') do %>
+      <%=tag.div(class: 'h3') do %><%= f.object.new_record? ? 'Создать' : 'Редактировать'%><%end%>
+    <%end%>
+    <%=tag.div(class: 'card-body py-0') do %>
+      <%= render "shared/errors", object: telegram_bot %>
+
+      <%=render 'form_data', f: f %>
+      <%=tag.div(class: "my-3 col-12 #{h_v_center}") do %>
+        <%= f.submit t(:save), class: "btn btn-primary" %>
+      <%end %> 
+    <%end%>
+  <%end%>
+<%end %>

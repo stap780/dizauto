@@ -15,7 +15,7 @@ class Product::PriceUpdate < ApplicationService
       if @error_message.size > 0
         [false, @error_message]
       else
-        [true, I18n.t("we_update_price")]
+        [true, I18n.t('we_update_price')]
       end
     end
 
@@ -27,8 +27,8 @@ class Product::PriceUpdate < ApplicationService
           salePrice = variant.price.present? ? variant.price : nil
           puts "salePrice => #{salePrice}"
           puts "@shift => #{@shift}"
-          if @points == "fixed"
-            if @move == "plus"
+          if @points == 'fixed'
+            if @move == 'plus'
               new_price = (salePrice + @shift.to_f).round(@round.to_i)
             else
               new_price = (salePrice - @shift.to_f).round(@round.to_i)

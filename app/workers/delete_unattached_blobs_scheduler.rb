@@ -1,11 +1,12 @@
-require "sidekiq-scheduler"
+require 'sidekiq-scheduler'
 
+# DeleteUnattachedBlobsScheduler
 class DeleteUnattachedBlobsScheduler
   include Sidekiq::Worker
 
   def perform
     Rails.application.load_tasks
-    Rake::Task["file:delete_unattached_blobs_every_day"].invoke
+    Rake::Task['file:delete_unattached_blobs_every_day'].invoke
   end
 end
 

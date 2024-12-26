@@ -1,92 +1,89 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.2.0"
+ruby '3.2.0'
 
-gem "rails", "~> 7.1.1"
+gem 'acts_as_list'
+gem 'addressable'
+gem 'audited'
+gem 'audited-ui'
+gem 'aws-sdk-s3'
+gem 'barby'
+gem 'bootsnap', require: false
+gem 'cancancan'
+gem 'caxlsx'
+gem 'caxlsx_rails'
+gem 'combine_pdf'
+gem 'cssbundling-rails'
+gem 'devise'
+gem 'erb-formatter', '~> 0.4.3'
+gem 'image_processing', '~> 1.2'
+gem 'liquid'
 
-gem "sprockets-rails"
+gem 'rails', '~> 7.1.1'
+gem 'redis', '~> 4.0'
 
-gem "pg", "~> 1.1"
-gem "puma"
+gem 'pg', '~> 1.1'
+gem 'puma'
 
-gem "jsbundling-rails"
+gem 'jbuilder'
+gem 'jsbundling-rails'
 
-gem "turbo-rails"
+gem 'turbo-rails'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
-gem "stimulus-rails"
+gem 'sidekiq'
+gem 'sidekiq-scheduler'
+gem 'sprockets-rails'
+gem 'stimulus-rails'
 
-gem "cssbundling-rails"
+gem 'high_voltage', '~> 3.1'
 
-gem "jbuilder"
-gem "redis", "~> 4.0"
-
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-
-gem "bootsnap", require: false
-
-gem "image_processing", "~> 1.2"
-gem "devise"
-gem "sidekiq"
-gem "sidekiq-scheduler"
-gem "high_voltage", "~> 3.1"
-gem "cancancan"
-gem "ransack"
-gem "will_paginate", "~> 3.3"
+gem 'will_paginate', '~> 3.3'
 gem 'will_paginate-bootstrap-style'
 
-gem "acts_as_list"
-gem "requestjs-rails"
-gem "erb-formatter", "~> 0.4.3"
-gem "liquid"
-gem "caxlsx"
-gem "caxlsx_rails"
-gem "roo"
-gem "roo-xls"
-
-gem "audited"
-gem "audited-ui"
-gem 'kaminari'
-
-gem "barby"
-gem "wicked_pdf"
-gem "wkhtmltopdf-binary"
-gem "combine_pdf"
-gem "recaptcha"
-gem "addressable"
-gem "aws-sdk-s3"
-gem "rack-cors"
-gem "noticed", "~> 2.1"
-gem 'insales_api', github: "stap780/insales_api"
+gem 'rack-cors'
+gem 'ransack'
+gem 'recaptcha'
+gem 'requestjs-rails'
 gem 'rest-client'
+gem 'roo'
+gem 'roo-xls'
+
+
+gem 'insales_api', github: 'stap780/insales_api'
+gem 'kaminari'
+gem 'noticed', '~> 2.1'
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
+gem 'telegram-bot-ruby', '~> 2.1'
 
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[mri mingw x64_mingw]
-  gem "standard"
+  gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'standard'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  gem 'web-console'
 
-  gem "letter_opener"
+  gem 'letter_opener'
 
-  gem "capistrano", require: false
-  gem "capistrano-rails", require: false
-  gem "capistrano-rvm", require: false
-  gem "capistrano3-puma", github: "seuros/capistrano-puma"
+  gem 'capistrano', require: false
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
   # gem 'capistrano-rails-console', require: false
-  gem "capistrano-sidekiq", require: false
+  gem 'capistrano-sidekiq', require: false
 end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'capybara'
+  gem 'selenium-webdriver'
   # gem "webdrivers"
 end

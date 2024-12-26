@@ -1,5 +1,6 @@
-require "sidekiq-scheduler"
+require 'sidekiq-scheduler'
 
+# ImportProductScheduler
 class ImportProductScheduler
   include Sidekiq::Worker
 

@@ -9,4 +9,8 @@ class Placement < ApplicationRecord
     Placement.attribute_names
   end
 
+  def self.ransackable_associations(auth_object = nil)
+    ["locations", "warehouse"]
+  end
+
 end

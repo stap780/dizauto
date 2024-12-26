@@ -1,12 +1,12 @@
-<span id="add_new_button" >
-      <% if Insale.count < 1 %>
-            <%= link_to add_icon, new_insale_path, class: "btn btn-primary float-end", 
-                  data: {turbo_frame: (Insale.count < 1 ? dom_id(Insale.new) : "_top") } %>
-      <% else %>
+<%=turbo_frame_tag 'add_new_button' do %>
+      <%if Insale.count < 1 %>
+      <%= link_to add_icon, new_insale_path, class: "btn btn-primary float-end", 
+            data: {turbo_frame: (Insale.count < 1 ? dom_id(Insale.new) : "_top") } %>
+      <%else %>
             <div class="d-flex gap-2 align-items-center">
-                  <%= link_to "#{edit_icon} Редактировать".html_safe, edit_insale_path(Insale.first), class: "btn btn-primary", data: {turbo_stream: true, turbo_frame: dom_id(Insale.first)}%>
-                  <%= link_to "Проверить интеграцию", check_insales_path, class: "btn btn-primary", data: {turbo_stream: true}%>
-                  <%= link_to trash_icon, Insale.first, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>
+            <%= link_to "#{edit_icon} Редактировать".html_safe, edit_insale_path(Insale.first), class: "btn btn-primary", data: {turbo_stream: true, turbo_frame: dom_id(Insale.first)}%>
+            <%= link_to "Проверить интеграцию", check_insales_path, class: "btn btn-primary", data: {turbo_stream: true}%>
+            <%= link_to trash_icon, Insale.first, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>
             </div>
-      <% end %>
-</span>
+      <%end %>
+ <%end %>
