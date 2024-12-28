@@ -69,13 +69,13 @@ class TelegramBotsController < ApplicationController
   def run
     result, message = Telegram::BotListener.call(TelegramBot.first.token)
     respond_to do |format|
-      flash.now[:success] = result ? 'we run bot' : message
+      flash.now[:notice] = message
       format.turbo_stream do
         render turbo_stream: [
           render_turbo_flash
         ]
       end
-      format.html { redirect_to telegram_bots_path, status: :see_other, notice: 'we run bot' }
+      format.html { redirect_to telegram_bots_path, status: :see_other, notice: message }
       format.json { head :no_content }
     end
   end
