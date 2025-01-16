@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  order: one
+  delivery_type: one
   price: 9.99
-  desc: MyString
 
 two:
-  title: MyString
+  order: two
+  delivery_type: two
   price: 9.99
-  desc: MyString

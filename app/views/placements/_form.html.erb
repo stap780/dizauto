@@ -11,7 +11,7 @@
               <div class="col-5 d-flex flex-column">
                 <% warehouse_id = f.object.present? && f.object.warehouse_id ? f.object.warehouse_id : params[:warehouse_id] %>
                 <%= f.label :warehouse_id, class: "form-label" %>
-                <button type="button" class="btn border-light text-start" disabled style= "background-color: #e9ecef;opacity: 1;">
+                <button type="button" class="btn border-light text-start" disabled style="background-color: #e9ecef;opacity: 1;">
                   <%= Warehouse.find(warehouse_id).title%>
                 </button>
                 <%= f.hidden_field :warehouse_id %>
@@ -25,8 +25,8 @@
             </div>
             <div class="row py-2 px-0">
                 <%= tag.div('', class: 'col-1 fw-semibold')%>
-                <%= tag.div(t('helpers.label.location.product_id'), class: 'col-4 fw-semibold')%> 
-                <%= tag.div( t('helpers.label.location.place_id'), class: 'col-3 fw-semibold' )%>
+                <%= tag.div(t('helpers.label.location.product_id'), class: 'col-5 fw-semibold')%> 
+                <%= tag.div( t('helpers.label.location.place_id'), class: 'col-2 fw-semibold' )%>
                 <%= tag.div( t('helpers.label.location.comment'), class: 'col-3 fw-semibold' )%>
                 <%= tag.div('', class: 'col fw-semibold')%>
             </div>

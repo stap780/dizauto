@@ -13,6 +13,7 @@ export default class extends Controller {
     "sum",
     "subtotal",
     "vattotal",
+    "delivery",
     "total",
   ];
 
@@ -30,13 +31,18 @@ export default class extends Controller {
       style: "currency",
       currency: this.currency,
     });
-
+    
+    let delivery = 0;
     let itemTotal = 0;
     let subTotal = 0;
     let totalTotal = 0;
     let vatArray = [];
     let qtysArray = [];
     let pricesArray = [];
+    
+    if (this.hasdeliveryTarget){
+      delivery = this.convertNum(this.deliveryTarget.value);
+    }
 
     this.vatTargets.forEach((vat, index) => {
       vatArray[index] = vat.value.trim() * 1;
@@ -51,7 +57,7 @@ export default class extends Controller {
     });
 
     this.sumTargets.forEach((element, index) => {
-      itemTotal = pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index];
+      itemTotal = pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index] ;
 
       element.value = itemTotal.toFixed(2);
 
@@ -60,9 +66,9 @@ export default class extends Controller {
       subTotal += itemTotal / (1 + vatArray[index] / 100);
     });
 
-    this.subtotalTarget.textContent = formatter.format(subTotal);
+    this.subtotalTarget.textContent = formatter.format(subTotal + delivery);
     this.vattotalTarget.textContent = formatter.format(totalTotal - subTotal);
-    this.totalTarget.textContent = formatter.format(totalTotal);
+    this.totalTarget.textContent = formatter.format(totalTotal + delivery);
 
   }
 
@@ -72,7 +78,7 @@ export default class extends Controller {
         .replace("$", "")
         .replace("€", "")
         .replace("&euro", "")
-        .replace(".", "")
+        //.replace(".", "")
         .replace(",", ".")
         .trim() * 1
     );

@@ -1,3 +1,4 @@
+# Enter < ApplicationRecord
 class Enter < ApplicationRecord
   audited
   belongs_to :enter_status
@@ -17,11 +18,10 @@ class Enter < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     Enter.attribute_names
   end
-  
+
   def self.ransackable_associations(auth_object = nil)
     %w[associated_audits audits enter_items]
   end
-
 
   private
 
@@ -32,8 +32,8 @@ class Enter < ApplicationRecord
   end
 
   def add_default
-    self.title = "Оприходование"
-    self.date = Time.now
+    self.title = 'Оприходование' if title.nil?
+    self.date = Time.now if date.nil?
   end
 
 end

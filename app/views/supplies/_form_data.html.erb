@@ -13,7 +13,7 @@
 </div>
 <div class="mb-3 col-2 ps-0 pe-1 ">
     <%= f.label :in_date, class: "form-label" %>
-    <%= f.date_field :in_date, class: "form-control" %>
+    <%= f.date_field :in_date, class: "form-control bg-light", data: { controller: 'flatpickr',flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
 </div>
 <div class="mb-3 col-2 ps-0 pe-1 ">
     <%= f.label :warehouse_id, class: "form-label" %>

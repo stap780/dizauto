@@ -3,18 +3,13 @@
     <h1 class="h3 d-inline align-middle"><%= Templ.model_name.human(count: 2)%></h1>
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
-    <%= link_to  '#offcanvasFilter', class: 'btn btn-outline-primary me-2 position-relative', data: {bs_toggle: 'offcanvas'} do %>
-      <span><i data-feather='sliders'></i></span>
-      <span class="<%=informer_class%> <% unless params[:q].present?%>d-none<% end %>" id = "filter-informer">
-        <span class="visually-hidden"></span>
-      </span>
-    <% end %>
+    <%= render 'shared/index_filter' if lookup_context.find_all("templs/_filter").any? %>
     <%= link_to arrow_clockwise_icon, templs_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to add_icon, new_templ_path, class: "btn btn-primary float-end mt-n1" %>
+    <%= link_to add_icon, new_templ_path, class: "btn btn-primary float-end" %>
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: "#{Templ.model_name.human} фильтр" %>
+<%= render 'filter', q: @search, title: "#{Templ.model_name.human} фильтр" if lookup_context.find_all("templs/_filter").any?  %>
 
 <div class="card">
   <div class="card-header pb-0">

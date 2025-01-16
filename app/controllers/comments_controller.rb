@@ -1,3 +1,4 @@
+# CommentsController < ApplicationController
 class CommentsController < ApplicationController
   load_and_authorize_resource
   before_action :set_commentable
@@ -10,8 +11,7 @@ class CommentsController < ApplicationController
   end
 
   # GET /comments/1 or /comments/1.json
-  def show
-  end
+  def show; end
 
   # GET /comments/new
   def new
@@ -29,13 +29,13 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully created." }
+        format.html { redirect_to comment_url(@comment), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,13 +48,13 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
+        format.html { redirect_to comment_url(@comment), notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,8 +68,8 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.turbo_stream { flash.now[:success] = t(".success") }
-      format.html { redirect_to comments_url, notice: "Comment was successfully destroyed." }
+      format.turbo_stream { flash.now[:success] = t('.success') }
+      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

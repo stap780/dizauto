@@ -3,9 +3,9 @@
         <h5 class="card-title mb-0">Появление товаров</h5>
         <%= form_with url: product_created_at_count_chart_dashboards_path, method: :post, class: 'd-flex g-2' do |f| %>
             <%= f.text_field :product_created_at_count_chart_start_at, class: "form-control form-control-sm bg-light rounded-2 border-1", placeholder: 'start',
-                                                                        data: { controller: 'flatpickr', flatpickr_max_date: (Time.zone.now - 1.day) } %>
+                                                                        data: { controller: 'flatpickr', flatpickr_max_date: (Time.zone.now - 1.day), flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
             <%= f.text_field :product_created_at_count_chart_end_at, class: "form-control form-control-sm bg-light rounded-2 border-1", placeholder: 'end',
-                                                                        data: { controller: 'flatpickr', flatpickr_max_date: Time.zone.now } %>
+                                                                        data: { controller: 'flatpickr', flatpickr_max_date: Time.zone.now, flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
             <%= f.button search_icon, type: :submit, class: "btn btn-outline-primary"%>
         <% end %>
     </div>

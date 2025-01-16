@@ -1,5 +1,6 @@
+# class Product::ImportSaveData
 class Product::ImportSaveData < ApplicationService
-  
+
   def initialize(data)
     @data = data
     @images = @data[:images]
@@ -16,10 +17,12 @@ class Product::ImportSaveData < ApplicationService
   private
 
   def create_update_product
-	  puts "@pr_data => #{@pr_data}"
-	  puts "@var_data => #{@var_data}"
-    # s_product = Product.find_by_barcode(@pr_data[:barcode])
-    s_product = Variant.find_by_barcode(@var_data[:barcode]).present? ? Variant.find_by_barcode(@var_data[:barcode]).product : nil
+    puts "@pr_data => #{@pr_data}"
+    puts "@var_data => #{@var_data}"
+
+    s_variant = Variant.find_by_barcode(@var_data[:barcode])
+    s_product = s_variant.present? ? s_variant.product : nil
+
     if s_product.present?
       s_product.props.size.zero? ? s_product.update!(@pr_data) : s_product.update!(@pr_data.except!(:props_attributes))
 

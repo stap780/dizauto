@@ -1,9 +1,9 @@
+# Stock < ApplicationRecord
 class Stock < ApplicationRecord
 
   belongs_to :variant
   belongs_to :user
   belongs_to :stockable, polymorphic: true
-  # validates :variant, uniqueness: {scope: [:stockable_id, :stockable_type]}
 
   def self.ransackable_attributes(auth_object = nil)
     Stock.attribute_names
@@ -15,13 +15,17 @@ class Stock < ApplicationRecord
 
   def self.amount
     stocks = Stock.all.order(created_at: :asc) # (lifehack) if we call from relation than we will get only relation data
-    s_qt = 0
-    stocks.each do |stock|
-      qt = s_qt + stock.value if stock.move == '+'
-      qt = s_qt - stock.value if stock.move == '-'
-      s_qt = qt
-    end
-    s_qt
+
+    return 0 if stocks.empty?
+
+    # s_qt = 0
+    # stocks.each do |stock|
+    #   qt = s_qt + stock.value if stock.move == '+'
+    #   qt = s_qt - stock.value if stock.move == '-'
+    #   s_qt = qt
+    # end
+    # s_qt
+    stocks.map{|a| a.move+a.value.to_s}.map(&:to_i).sum
   end
 
   def self.plus

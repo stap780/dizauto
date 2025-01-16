@@ -1,18 +1,21 @@
-require "sidekiq/web"
-require "sidekiq-scheduler/web"
+require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :shippings do
+    resources :comments, module: :shippings
+  end
   resources :telegram_bots do
     collection do
       get :run
       get :stop
     end
   end
-
   resources :insales do
     collection do
       post :order
       get :check
+      get :add_order_webhook
     end
   end
   resources :stocks do
@@ -206,6 +209,7 @@ Rails.application.routes.draw do
     end
   end
   resources :orders do
+    resources :deliveries
     resources :comments, module: :orders
     collection do
       get :slimselect_nested_item
@@ -213,6 +217,7 @@ Rails.application.routes.draw do
       post :remove_nested
       post :bulk_print
       post :download
+      get :delivery
     end
   end
   resources :client_companies do

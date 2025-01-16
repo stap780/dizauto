@@ -17,27 +17,32 @@
             <%= render  partial: "shared/items_form_data", 
                         locals: {   f: ff,
                                     variant: nil,
-                                    nested_url: "/orders/slimselect_nested_item",
+                                    nested_url: slimselect_nested_item_orders_path,
                                     object_turbo_frame_tag: "order_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
                                     remove_element_path: "/orders/remove_nested?order_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
                                     discount_field: true
                                 } %>
         <% end %>
     <% end %>
+    <%= turbo_frame_tag dom_id(f.object, :delivery), class: "row", data: {}  do %>
+        <%= f.fields_for :delivery do |ff| %>
+            <%= render  partial: 'orders/delivery', locals: { selected: ff.object.delivery_type } %>
+        <% end %>
+    <% end %>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">Subtotal:</div>
-        <div class="col" data-calculate-target="subtotal"><%= @order.order_items.sum(:sum)%></div>
+        <div class="col-1">Подитог:</div>
+        <div class="col" data-calculate-target="subtotal"><%= @order.order_items.sum(:sum) %></div>
     </div>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">NDS:</div>
+        <div class="col-1">НДС:</div>
         <div class="col" data-calculate-target="vattotal"></div>
     </div>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">Total:</div>
-        <div class="col" data-calculate-target="total"><%= @order.order_items.sum(:sum)%></div>
+        <div class="col-1">Итого:</div>
+        <div class="col" data-calculate-target="total"><%= @order.total_sum %></div>
     </div>
 
 </div>

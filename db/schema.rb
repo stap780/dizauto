@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_17_145911) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_15_074608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -140,6 +140,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_145911) do
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "delivery_type_id", null: false
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["delivery_type_id"], name: "index_deliveries_on_delivery_type_id"
+    t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
 
   create_table "delivery_types", force: :cascade do |t|
@@ -575,6 +585,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_145911) do
     t.index ["return_status_id"], name: "index_returns_on_return_status_id"
   end
 
+  create_table "shippings", force: :cascade do |t|
+    t.string "name"
+    t.string "phone"
+    t.string "address"
+    t.datetime "date"
+    t.datetime "time_from"
+    t.datetime "time_to"
+    t.bigint "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_shippings_on_order_id"
+  end
+
   create_table "stock_transfer_items", force: :cascade do |t|
     t.bigint "stock_transfer_id", null: false
     t.integer "quantity"
@@ -726,6 +749,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_145911) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "deliveries", "delivery_types"
+  add_foreign_key "deliveries", "orders"
   add_foreign_key "detal_props", "characteristics"
   add_foreign_key "detal_props", "detals"
   add_foreign_key "detal_props", "properties"
@@ -746,6 +771,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_17_145911) do
   add_foreign_key "returns", "companies"
   add_foreign_key "returns", "invoices"
   add_foreign_key "returns", "return_statuses"
+  add_foreign_key "shippings", "orders"
   add_foreign_key "stock_transfer_items", "stock_transfers"
   add_foreign_key "stock_transfers", "stock_transfer_statuses"
   add_foreign_key "stocks", "users"

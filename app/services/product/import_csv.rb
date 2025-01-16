@@ -1,6 +1,6 @@
 class Product::ImportCsv < ApplicationService
-  require "open-uri"
-  require "addressable/uri"
+  require 'open-uri'
+  require 'addressable/uri'
 
   # FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
 

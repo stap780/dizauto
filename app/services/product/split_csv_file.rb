@@ -1,14 +1,14 @@
 class Product::SplitCsvFile < ApplicationService
-  require "open-uri"
-  require "addressable/uri"
+  require 'open-uri'
+  require 'addressable/uri'
 
   # FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
 
   def initialize
-    @url = "http://138.197.52.153/insales.csv"
+    @url = 'http://138.197.52.153/insales.csv'
     @filename = File.basename(@url, File.extname(@url))
     @extention = File.extname(@url)
-    @download_path = Rails.env.development? ? "#{Rails.public_path}/csv/" : "/var/www/dizauto/shared/public/csv/"
+    @download_path = Rails.env.development? ? "#{Rails.public_path}/csv/" : '/var/www/dizauto/shared/public/csv/'
     @main_file = @download_path + @filename + @extention
     @file_count = 6
     @split_files = []

@@ -1,5 +1,8 @@
-<div class="col-2 my-3 ps-0">
-    <%= link_to add_icon, new_nested_invoices_path, class: "btn btn-primary", data: { turbo_stream: true } %>
+<div class="row">
+    <div class="col-2 mb-3 ps-0">
+        <%= link_to add_icon, new_nested_invoices_path, class: "btn btn-primary", data: { turbo_stream: true } %>
+    </div>
+    <%=tag.div( @information, class:"col-8 border border-danger border-1 rounded-1 mb-3 #{h_v_center} fw-bold" ) if @information.present? %>
 </div>
 
 <div class="col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
@@ -26,17 +29,17 @@
     <% end %>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">Subtotal:</div>
+        <div class="col-1">Подитог:</div>
         <div class="col" data-calculate-target="subtotal"><%= @invoice.invoice_items.sum(:sum)%></div>
     </div>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">NDS:</div>
+        <div class="col-1">НДС:</div>
         <div class="col" data-calculate-target="vattotal"></div>
     </div>
     <div class="row">
         <div class="col-9"></div>
-        <div class="col-1">Total:</div>
+        <div class="col-1">Итого:</div>
         <div class="col" data-calculate-target="total"><%= @invoice.invoice_items.sum(:sum)%></div>
     </div>
 

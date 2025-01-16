@@ -6,21 +6,21 @@ class CompaniesController < ApplicationController
   def index
     # @companies = Company.all
     @search = Company.ransack(params[:q])
-    @search.sorts = "id desc" if @search.sorts.empty?
+    @search.sorts = 'id desc' if @search.sorts.empty?
     @companies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
   def download
-    filename = "companies.xlsx"
+    filename = 'companies.xlsx'
     collection_ids = params[:company_ids].present? ? params[:company_ids] : Company.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: "Company",
+    CreateZipXlsxJob.perform_later(collection_ids, {  model: 'Company',
                                                       current_user_id: current_user.id,
                                                       filename: filename,
-                                                      template: "companies/index"})
+                                                      template: 'companies/index'})
     render turbo_stream: 
       turbo_stream.update(
         'modal',
-        template: "shared/pending_bulk"
+        template: 'shared/pending_bulk'
       )
   end
 

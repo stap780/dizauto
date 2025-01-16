@@ -9,7 +9,7 @@ class SupplyItem < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   before_save :normalize_data_white_space
 
-  after_commit :set_stock
+  after_save_commit :set_stock
 
 
   def self.ransackable_attributes(auth_object = nil)

@@ -1,4 +1,4 @@
-<div class="mb-3 col-4 ps-0 pe-1 ">
+<div class="mb-3 col-5 ps-0 pe-1 ">
     <%= f.label :client_id, class: "form-label" %>
     <%= f.select :client_id, Client.collection_for_select(f.object.client_id), {include_blank: false}, 
                             { class: "form-select", data: {controller: 'slimselect', search_url:  "/clients/search"} } %>
@@ -8,11 +8,11 @@
     <%= f.select :company_id, Company.all.pluck(:short_title, :id), {include_blank: true}, 
                             { class: "form-select", data: {controller: 'slimselect'} } %>
 </div>
-<div class="mb-3 col-2 ps-0 pe-1 ">
+<div class="mb-3 col-3 ps-0 pe-1 ">
     <%= f.label :payment_type_id, class: "form-label" %>
     <%= f.select :payment_type_id, PaymentType.pluck(:title, :id), {include_blank: false}, {class: "form-select"} %>
 </div>
-<div class="mb-3 col-2 ps-0 pe-0">
-    <%= f.label :delivery_type_id, class: "form-label" %>
-    <%= f.select :delivery_type_id, DeliveryType.all.map{|d| [d.title_price, d.id]}, {include_blank: false}, {class: "form-select"} %>
-</div>
+
+    <%# f.label :delivery_type_id, class: "form-label" %>
+    <%# f.select :delivery_type_id, DeliveryType.all.map{|d| [d.title_price, d.id]}, {include_blank: false}, {class: "form-select"} %>
+

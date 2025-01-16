@@ -8,12 +8,12 @@
     <%= tag.div class: "col-md-1 p-0" do %>
         <%=tag.div(class: "img-ratio img-fit") do %>
             <%=tag.div(class: "img-ratio__inner") do %>
-                <%= turbo_frame_tag dom_id(product, :index_image), src: product_path(product), loading: :lazy, turbo_frame: "_top" do %>
+                <%=turbo_frame_tag dom_id(product, :index_image), src: product_path(product), loading: :lazy, turbo_frame: "_top" do %>
                 ...
-                <% end if product.image_first %>
-            <% end %>
-        <% end %>
-    <% end %>
+                <%end if product.image_first %>
+            <%end %>
+        <%end %>
+    <%end %>
     <%= tag.div class: "col row" do %>
         <div class="col-12 text-break fw-semibold"><%=product.title %></div>
         <div class="col-6 fst-italic">Sku: <%=product.var_sku %></div>

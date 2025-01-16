@@ -103,11 +103,11 @@ module NestedItem
   end
 
   def nested_model
-      ("#{model}_item").singularize.camelize.constantize
+    ("#{model}_item").singularize.camelize.constantize
   end
 
   def nested_model_to_s
-      ("#{model}_item").downcase
+    ("#{model}_item").downcase
   end
 
   def nested_model_pluralize_to_s

@@ -12,12 +12,12 @@
   <%= turbo_stream_from [commentable, :comments, current_user&.to_gid_param] %>
 <% end %>
 <%= turbo_frame_tag dom_id(commentable,dom_id(Comment.new)) %>
-<div class="col-10 row my-3">
-    <div class="col-3">Date</div>
-    <div class="col">Comment</div>
-    <div class="col-3">User</div>
+<%= tag.div class: "col-10 row mt-3" do %>
+    <%= tag.div( t('helpers.label.comment.created_at'), class: 'col-2 fw-semibold')%>
+    <%= tag.div( t('helpers.label.comment.user_id'), class: 'col-3 fw-semibold')%> 
+    <%= tag.div( t('helpers.label.comment.body'), class: 'col fw-semibold')%>
     <%=tag.div( class: "col") %>
-</div>
+<% end %>
 <%= turbo_frame_tag commentable, :comments, class: "col-10 row my-3" do %>
   <% commentable.comments.order(created_at: :asc).each do |comment| %>
     <%= render partial: "comments/comment", locals: { commentable: commentable, comment: comment, admin: current_user.admin?, user: comment.user == current_user } %>

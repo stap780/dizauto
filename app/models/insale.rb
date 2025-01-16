@@ -36,9 +36,6 @@ class Insale < ApplicationRecord
     rescue ActiveResource::ForbiddenAccess
       message << 'Failed.  Response code = 403.  Response message = Forbidden.'
     rescue StandardError => e
-      # puts "StandardError => "+e.to_s
-      # puts "e.response => "+e.response.to_s if e.response
-      # puts "e.response.body => "+e.response.body.to_s if e.response && e.response.body
       message << "StandardError #{e}"
     else
       account
@@ -46,4 +43,41 @@ class Insale < ApplicationRecord
     # account.blocked == false
     message.size.positive? ? [false, message] : [true, '']
   end
+
+  def self.add_order_webhook
+    return false unless Insale.first.present? && Insale.api_work?
+
+    webh_list = InsalesApi::Webhook.all
+    check_present = webh_list.map{|w| w.topic == 'orders/create' && w.address == 'https://erp.dizauto.ru/insales/order'}[0]
+    if check_present
+      message = 'вебхук уже существует. всё работает'
+    else
+      data_webhook_order_create = {
+        address: 'https://erp.dizauto.ru/insales/order',
+        topic: 'orders/create',
+        format_type: 'json'
+      }
+      message = []
+      webhook_order_create = InsalesApi::Webhook.new(webhook: data_webhook_order_create)
+      begin
+        webhook_order_create.save
+      rescue SocketError
+        message << 'SocketError Check Key,Password,Domain'
+      rescue ActiveResource::ResourceNotFound
+        message << 'not_found 404'
+      rescue ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid
+        message << 'ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid'
+      rescue ActiveResource::UnauthorizedAccess
+        message << 'Failed.  Response code = 401.  Response message = Unauthorized'
+      rescue ActiveResource::ForbiddenAccess
+        message << 'Failed.  Response code = 403.  Response message = Forbidden.'
+      rescue StandardError => e
+        message << "StandardError #{e}"
+      else
+        webhook_order_create
+      end
+    end
+    message.size.positive? ? [false, message] : [true, '']
+  end
+
 end

@@ -24,7 +24,7 @@
 </div>
 <div class="mb-3 col-md-2 p-0">
     <%= f.label :date, class: "form-label" %>
-    <%= f.date_field :date, class: "form-control" %>
+    <%= f.date_field :date, class: "form-control bg-light", data: { controller: 'flatpickr', flatpickr_min_date: (Time.zone.now + 1.day), flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y"}  %>
 </div>
 <div class="mb-3 col-md-2 p-0">
     <%= f.label :modelauto, class: "form-label" %>

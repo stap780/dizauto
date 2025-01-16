@@ -1,7 +1,8 @@
+# VariantsController < ApplicationController
 class VariantsController < ApplicationController
   load_and_authorize_resource
   before_action :set_product
-  before_action :set_variant, only: %i[ show edit update destroy ]
+  before_action :set_variant, only: %i[show edit update destroy]
   include ActionView::RecordIdentifier
 
   def index
@@ -21,13 +22,13 @@ class VariantsController < ApplicationController
 
     respond_to do |format|
       if @variant.save
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to variant_url(@variant), notice: "Variant was successfully created." }
+        format.html { redirect_to variant_url(@variant), notice: 'Variant was successfully created.' }
         format.json { render :show, status: :created, location: @variant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +40,7 @@ class VariantsController < ApplicationController
   def update
     respond_to do |format|
       if @variant.update(variant_params)
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
@@ -57,7 +58,7 @@ class VariantsController < ApplicationController
   def destroy
     check_destroy = @variant.destroy ? true : false
     if check_destroy == true
-      flash.now[:success] = t(".success")
+      flash.now[:success] = t('.success')
     else
       flash.now[:notice] = @variant.errors.full_messages.join(' ')
     end
@@ -84,7 +85,7 @@ class VariantsController < ApplicationController
   def set_product
     @product = Product.find(params[:product_id])
   end
-  
+
   def set_variant
     @variant = @product.variants.find(params[:id])
   end

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  phone: MyString
+  address: MyString
+  date: 2025-01-12 15:08:58
+  time_from: 2025-01-12 15:08:58
+  time_to: 2025-01-12 15:08:58
+  order: one
+
+two:
+  name: MyString
+  phone: MyString
+  address: MyString
+  date: 2025-01-12 15:08:58
+  time_from: 2025-01-12 15:08:58
+  time_to: 2025-01-12 15:08:58
+  order: two

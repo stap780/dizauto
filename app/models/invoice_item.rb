@@ -1,3 +1,4 @@
+# InvoiceItem < ApplicationRecord
 class InvoiceItem < ApplicationRecord
   include Stockable
   belongs_to :variant
@@ -8,7 +9,7 @@ class InvoiceItem < ApplicationRecord
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
   before_save :normalize_data_white_space
-  after_commit :set_stock
+  after_save_commit :set_stock
 
 
   def self.ransackable_attributes(auth_object = nil)

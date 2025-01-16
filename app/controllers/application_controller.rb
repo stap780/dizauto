@@ -2,25 +2,24 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
   before_action :set_current_user
-
+  protect_from_forgery with: :null_session
 
   rescue_from CanCan::AccessDenied do |exception|
-    puts "CanCan::AccessDenied message => " + exception.message.to_s
-    puts "CanCan::AccessDenied action => " + exception.action.to_s
-    puts "CanCan::AccessDenied subject => " + exception.subject.to_s
+    puts "CanCan::AccessDenied message => #{exception.message}"
+    puts "CanCan::AccessDenied action => #{exception.action}"
+    puts "CanCan::AccessDenied subject => #{exception.subject}"
     msg = "#{exception.message} #{exception.action}--#{exception.subject}"
     # flash[:notice] = msg
     # redirect_to root_url # redirect_to(request.referrer || root_path)
-    
+
     flash.now[:notice] = msg
     render turbo_stream: [
       render_turbo_flash
     ]
-
   end
 
   def render_turbo_flash
-    turbo_stream.update("our_flash", partial: "shared/flash")
+    turbo_stream.update('our_flash', partial: 'shared/flash')
   end
 
   private
@@ -51,7 +50,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    attributes = [:name, :email]
+    attributes = %i[name email]
     devise_parameter_sanitizer.permit(:sign_up, keys: attributes)
   end
 

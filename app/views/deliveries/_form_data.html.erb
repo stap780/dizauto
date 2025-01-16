@@ -1,0 +1,16 @@
+<%= f.hidden_field :order_id, class: '' %>
+
+<div class="col-10">
+
+<%= f.select :delivery_type_id, options_for_select(DeliveryType.all.map{ |d| [d.title_price, d.id] }, nil), 
+                            {include_blank: false, prompt: t('delivery_type')}, 
+                            {data: {
+                                controller: 'slimselect',
+                                nested_url:  order_deliveries_path(order)
+                                }
+                            }  %>
+</div>
+
+<div class="col-1 p-0">
+<%= f.text_field :price, class: 'form-control rounded-0 disabled p-1 text-center', disabled: true %>
+</div>

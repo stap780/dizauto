@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(order, dom_id(delivery)), class: "row", data: { }  do %>
+  <%= tag.div( delivery.order_id, class: "d-table-cell") %>
+  <%= tag.div( delivery.delivery_type_id, class: "d-table-cell") %>
+  <%= tag.div( delivery.price, class: "d-table-cell") %>
+  <%= tag.div("", class: "d-table-cell") do %>
+    <%= link_to edit_icon, edit_order_delivery_path(order, delivery), data: { turbo_frame: 'offcanvas_wrap'} %>
+    <%#link_to trash_icon, [product, variant], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>    
+  <% end %>
+<% end %>

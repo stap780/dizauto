@@ -1,3 +1,4 @@
+# LocationsController < ApplicationController
 class LocationsController < ApplicationController
   load_and_authorize_resource
   before_action :set_placement
@@ -10,8 +11,7 @@ class LocationsController < ApplicationController
   end
 
   # GET /locations/1 or /locations/1.json
-  def show
-  end
+  def show; end
 
   # GET /locations/new
   def new
@@ -22,7 +22,7 @@ class LocationsController < ApplicationController
       f.fields_for :locations, @location, child_index: child_index do |ff|
         render turbo_stream: turbo_stream.append(
           dom_id(@placement, :locations),
-          partial: "locations/form_data",
+          partial: 'locations/form_data',
           locals: { f: ff, our_dom_id: dom_id(@placement, "location_#{child_index}") }
         )
       end
@@ -36,7 +36,7 @@ class LocationsController < ApplicationController
     # respond_to do |format|
     #   format.turbo_stream do
     #     render turbo_stream: [
-    #       turbo_stream.replace( @location, partial: "locations/form", locals: {location: @location, target: @location } )
+    #       turbo_stream.replace( @location, partial: "locations/form", locals: {location: @location, target: @location })
     #     ]
     #   end
     # end
@@ -48,13 +48,13 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       if @location.save
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to location_url(@location), notice: "Location was successfully created." }
+        format.html { redirect_to location_url(@location), notice: 'Location was successfully created.' }
         format.json { render :show, status: :created, location: @location }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -67,7 +67,7 @@ class LocationsController < ApplicationController
   def update
     respond_to do |format|
       if @location.update(location_params)
-        format.html { redirect_to location_url(@location), notice: "Location was successfully updated." }
+        format.html { redirect_to location_url(@location), notice: 'Location was successfully updated.' }
         format.json { render :show, status: :ok, location: @location }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -81,22 +81,25 @@ class LocationsController < ApplicationController
     @location.destroy!
 
     respond_to do |format|
-      format.html { redirect_to locations_url, notice: "Location was successfully destroyed." }
+      format.html { redirect_to locations_url, notice: 'Location was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    def set_placement
-      @placement = Placement.find(params[:placement_id])
-    end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_location
-      @location = @placement.locations.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def location_params
-      params.require(:location).permit(:variant_id, :warehouse_id, :place_id)
-    end
+  def set_placement
+    @placement = Placement.find(params[:placement_id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_location
+    @location = @placement.locations.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def location_params
+    params.require(:location).permit(:variant_id, :warehouse_id, :place_id,
+    comments_attributes: %i[id commentable_type commentable_id user_id body _destroy])
+  end
 end

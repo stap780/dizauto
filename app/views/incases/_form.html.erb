@@ -24,7 +24,7 @@
                 </div>
                 <%= tag.div(class: "row mt-3") do %>
                     <%=tag.div('Комментарий', class: "fs-4 fw-bold my-3")%>
-                    <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
+                    <%= f.fields_for :comments do |comment| %>
                         <%= render 'comments/form_data', f: comment%>
                     <% end %>
                 <% end if f.object.new_record?%>

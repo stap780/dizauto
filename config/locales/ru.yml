@@ -53,6 +53,7 @@ ru:
   cancel: "отменить"
   back: "назад"
   main: 'основные'
+  shipping: 'доставка'
   add: 'добавить'
   save: "сохранить"
   update: "обновить"
@@ -86,6 +87,10 @@ ru:
         phone: "телефон"
         email: "email"
         created_at: "создан"
+      comment: &comment
+        body: "содержание"
+        created_at: "дата создания"
+        user_id: "пользователь"
       company:  &company
         title: "название"
         short_title: "краткое название"
@@ -104,6 +109,13 @@ ru:
         title: "название"
         desc: "описание"
         price: "цена"
+      enter: &enter
+        enter_status: "статус"
+        enter_status_id: "статус"
+        date: "дата"
+        title: "название"
+        warehouse_id: "склад"
+        sum: "сумма"
       enter_status:
         title: "название"
         color: "цвет"
@@ -224,13 +236,16 @@ ru:
       order: &order
         id: "номер"
         order_status_id: "статус"
+        order_status: "статус"
         order_items: "позиции заказа"
         number: "номер"
         client_id: "клиент"
         company_id: "компания"
         manager_id: "менеджер"
-        payment_type_id: "оплаты"
-        delivery_type_id: "доставки"
+        payment_type_id: "способ оплаты"
+        payment_type: "способ оплаты"
+        delivery_type_id: "способ доставки"
+        delivery_type: "способ доставки"
         created_at: "дата создания"
         sum: "сумма"
       order_item: &nested_item
@@ -242,8 +257,19 @@ ru:
         order_id: "id заказа"
         product: "товар"
         nds: "ндс"
+      order_status: &order_status
+        title: "название"
+        color: "цвет"
       okrug:
         title: "название"
+      shipping: &shipping
+        name: "фио получателя"
+        phone: "телефон получателя"
+        address: "адрес"
+        date: "дата доставки"
+        time_from: "время с"
+        time_to: "время до"
+        comments: "комментарий"
       supply: &supply
         title: "название"
         company_id: "компания"
@@ -593,6 +619,8 @@ ru:
         <<: *client
       company:
         <<: *company
+      comment:
+        <<: *comment
       characteristic:
         title: "название значения"
       dashboard:
@@ -600,11 +628,7 @@ ru:
       delivery_type:
         <<: *delivery_type
       enter:
-        enter_status_id: "статус"
-        date: "дата"
-        title: "название"
-        warehouse_id: "склад"
-        sum: "сумма"
+        <<: *enter
       enter_status:
         title: "название"
         color: "цвет"
@@ -665,8 +689,7 @@ ru:
         <<: *nested_item
         order_id: "id заказа"
       order_status:
-        title: "название"
-        color: "цвет"
+        <<: *order_status
       payment_type:
         <<: *payment_type
       property:
@@ -686,6 +709,8 @@ ru:
         invoice_id:  "накладная"
       return_item:
         <<: *nested_item
+      shipping:
+        <<: *shipping
       stock:
         title: "позиция"
         plus: "+"

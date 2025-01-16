@@ -3,7 +3,7 @@ class ReturnItem < ApplicationRecord
 
   belongs_to :variant
   belongs_to :return
-  after_commit :set_stock
+  after_save_commit :set_stock
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
 

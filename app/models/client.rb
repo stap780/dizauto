@@ -1,3 +1,4 @@
+# class Client
 class Client < ApplicationRecord
   has_many :client_companies
   has_many :companies, through: :client_companies

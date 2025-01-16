@@ -1,10 +1,10 @@
 <% child_index = f.object.new_record? && child_index.nil? ?  Time.now.to_i+f.index : child_index %>
 <%= turbo_frame_tag "location_#{ f.object.persisted? ? f.object.id : child_index}", 
                     class: "d-flex justify-content-center align-items-center py-1 border-start-0 border-end-0 px-2 bg-light row" do %>    
-    <div class = "col-1">
+    <div class = "col-1 p-0">
       <%= f.text_field :id, class: "form-control disabled", readonly: true %>
     </div>
-    <div class = "col-4">
+    <div class = "col-5 p-0">
         <% start_variant_id = f.object.variant_id if f.object.present? %>
         <% variant_id = variant.present? ? variant.id : start_variant_id %>
         <% selected = Variant.collection_for_select(variant_id).first if variant_id %>
@@ -14,10 +14,10 @@
                                                             warehouse_id: warehouse_id } } %>
 
     </div>
-    <div class="col-3">
+    <div class="col-2 p-0">
       <%= f.select :place_id, Warehouse.find_by_id(warehouse_id).places.map{|p| [p.full_title, p.id]}, { include_blank: true }, { class: "form-select" } %>
     </div>
-    <div class="col-3">
+    <div class="col-3 p-0">
         <%= f.fields_for :comments, f.object.comments.present? ? f.object.comments : Comment.new do |comment| %>
             <%= render partial: 'comments/form_data', locals: {f: comment}%>
         <% end %>

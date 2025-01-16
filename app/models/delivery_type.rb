@@ -3,7 +3,8 @@
 # DeliveryType < ApplicationRecord
 class DeliveryType < ApplicationRecord
   acts_as_list
-  has_many :orders
+  # has_many :orders
+  has_many :deliveries
   validates :title, presence: true
   after_create_commit { broadcast_append_to 'delivery_types' }
   after_update_commit { broadcast_replace_to 'delivery_types' }
@@ -20,7 +21,7 @@ class DeliveryType < ApplicationRecord
     "#{title} - #{price}p"
   end
 
-  def last_delivery_type?
+  def last?
     DeliveryType.all.count == 1
   end
 
@@ -33,7 +34,7 @@ class DeliveryType < ApplicationRecord
   end
 
   def check_destroy_ability
-    if last_delivery_type?
+    if last?
       errors.add(:base, 'Cannot delete last Delivery Type.')
     end
     if orders.count.positive?

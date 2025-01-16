@@ -1,3 +1,4 @@
+# Location < ApplicationRecord
 class Location < ApplicationRecord
   belongs_to :placement
   belongs_to :variant

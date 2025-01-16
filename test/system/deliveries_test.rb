@@ -14,9 +14,9 @@ class DeliveriesTest < ApplicationSystemTestCase
     visit deliveries_url
     click_on "New delivery"
 
-    fill_in "Desc", with: @delivery.desc
+    fill_in "Delivery type", with: @delivery.delivery_type_id
+    fill_in "Order", with: @delivery.order_id
     fill_in "Price", with: @delivery.price
-    fill_in "Title", with: @delivery.title
     click_on "Create Delivery"
 
     assert_text "Delivery was successfully created"
@@ -27,9 +27,9 @@ class DeliveriesTest < ApplicationSystemTestCase
     visit delivery_url(@delivery)
     click_on "Edit this delivery", match: :first
 
-    fill_in "Desc", with: @delivery.desc
+    fill_in "Delivery type", with: @delivery.delivery_type_id
+    fill_in "Order", with: @delivery.order_id
     fill_in "Price", with: @delivery.price
-    fill_in "Title", with: @delivery.title
     click_on "Update Delivery"
 
     assert_text "Delivery was successfully updated"

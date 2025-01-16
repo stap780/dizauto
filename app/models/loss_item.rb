@@ -1,10 +1,11 @@
+# LossItem < ApplicationRecord
 class LossItem < ApplicationRecord
   include Stockable
 
   belongs_to :loss
   belongs_to :variant
   
-  after_commit :set_stock
+  after_save_commit :set_stock
   
   private
   

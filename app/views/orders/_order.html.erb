@@ -16,8 +16,8 @@
         <%=tag.div(order.company ? order.company.short_title : '',  class: "col-12")%>
     <% end %>
     <%= tag.div( order.payment_type.title  , class: "col-1") %>
-    <%= tag.div( order.delivery_type.title  , class: "col-2") %>
-    <%= tag.div( order.order_items.sum(:sum)  , class: "col-1") %>
+    <%= tag.div( order.delivery_type.title , class: "col-2") %>
+    <%= tag.div( order.total_sum  , class: "col-1") %>
     <%= tag.div( order.created_at.strftime("%d/%m/%Y"), class: "col-2 p-0" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=order.id%>">

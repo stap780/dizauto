@@ -1,3 +1,4 @@
+# PlacementsController < ApplicationController
 class PlacementsController < ApplicationController
   load_and_authorize_resource
   before_action :set_placement, only: %i[ show edit update destroy ]
@@ -6,12 +7,11 @@ class PlacementsController < ApplicationController
 
   def index
     @search = Placement.ransack(search_params)
-    @search.sorts = "id asc" if @search.sorts.empty?
+    @search.sorts = 'id asc' if @search.sorts.empty?
     @placements = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @placement = Placement.new(warehouse_id: params[:warehouse_id])
@@ -27,7 +27,7 @@ class PlacementsController < ApplicationController
 
     respond_to do |format|
       if @placement.save
-        format.html { redirect_to placements_url, notice: "Placement was successfully created." }
+        format.html { redirect_to placements_url, notice: 'Placement was successfully created.' }
         format.json { render :show, status: :created, location: @placement }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class PlacementsController < ApplicationController
   def update
     respond_to do |format|
       if @placement.update(placement_params)
-        format.html { redirect_to placements_url, notice: "Placement was successfully updated." }
+        format.html { redirect_to placements_url, notice: 'Placement was successfully updated.' }
         format.json { render :show, status: :ok, location: @placement }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class PlacementsController < ApplicationController
     @placement.destroy!
 
     respond_to do |format|
-      format.html { redirect_to placements_url, notice: "Placement was successfully destroyed." }
+      format.html { redirect_to placements_url, notice: 'Placement was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -63,9 +63,9 @@ class PlacementsController < ApplicationController
     helpers.fields model: Placement.new do |f|
       f.fields_for :locations, Location.new, child_index: child_index do |ff|
         render turbo_stream: turbo_stream.append(
-          "locations_placement",
-          partial: "locations/form_data",
-          locals: {f: ff, variant: nil, our_dom_id: "location_#{child_index}_placement", warehouse_id: params[:warehouse_id] }
+          'locations_placement',
+          partial: 'locations/form_data',
+          locals: {f: ff, variant: nil, our_dom_id: "location_#{child_index}_placement", warehouse_id: params[:warehouse_id]}
         )
       end
     end
@@ -85,11 +85,17 @@ class PlacementsController < ApplicationController
   end
 
   private
-    def set_placement
-      @placement = Placement.find(params[:id])
-    end
 
-    def placement_params
-      params.require(:placement).permit(:warehouse_id, locations_attributes: [:id, :variant_id, :place_id, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])
-    end
+  def set_placement
+    @placement = Placement.find(params[:id])
+  end
+
+  def placement_params
+    params.require(:placement).permit(
+      :warehouse_id,
+      locations_attributes: [:id,:variant_id,:place_id,:_destroy,
+        comments_attributes: %i[id commentable_type commentable_id user_id body _destroy]
+      ]
+    )
+  end
 end

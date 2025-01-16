@@ -44,7 +44,7 @@ class User < ApplicationRecord
     Thread.current[:user] = user
   end
 
-  private 
+  private
 
   def valid_email?
     self.email =~ URI::MailTo::EMAIL_REGEXP

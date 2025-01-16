@@ -14,8 +14,7 @@ class StockTransfersController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @stock_transfer = StockTransfer.new

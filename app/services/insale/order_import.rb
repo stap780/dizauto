@@ -1,70 +1,81 @@
-# frozen_string_literal: true
+  # Service to import Order from Insales
+  class Insale::OrderImport < ApplicationService
 
-# Insale
-class Insale::OrderImport < ApplicationService
-
-  def initialize(datas)
-    @datas = datas
-    @client = nil
-  end
-
-  def call
-    create_client
-    create_order
-  end
-
-  private
-
-  def create_client
-    # :surname, :name, :middlename, :phone, :email
-    # validates :name, presence: true
-    # validates :email, presence: true
-    # validates :email, uniqueness: true
-    client_id = @datas['client']['id']
-    client_email = @datas['client']['email'].present? ? @datas['client']['email'] : "#{client_id}@mail.ru"
-    client_phone = @datas['client']['phone']
-    check_client = client_email.present? ? Client.find_by_email(client_email) : Client.find_by_insale_client_id(client_id)
-    client_data = {
-      insale_client_id: client_id,
-      email: client_email,
-      name: @datas['client']['name'],
-      surname: @datas['client']['surname'],
-      phone: client_phone
-    }
-    check_client.update(client_data.except!(:email)) if check_client.present?
-    @client = check_client.present? ? check_client : Client.create!(client_data)
-  end
-
-  def create_order
-    # order_attributes: [:company_id, :order_status_id, :client_id, :manager_id, :payment_type_id, :delivery_type_id]
-    # order_items_attributes: [:id, :variant_id, :price, :discount, :sum, :quantity]
-    # validates :order_status_id
-    # validates :payment_type_id
-    # validates :delivery_type_id
-    # validates :client_id
-    order_status_id = OrderStatus.first.id
-    payment_type_id = PaymentType.first.id
-    delivery_type_id = DeliveryType.first.id
-    data = {
-      order_status_id: order_status_id,
-      payment_type_id: payment_type_id,
-      delivery_type_id: delivery_type_id,
-      client_id: @client.id
-    }
-    data_order_items = {}
-    @datas['order_lines'].each_with_index do |o_line, index|
-      item = {}
-      item[:variant_id] = find_variant_id(o_line)
-      item[:price] = o_line['full_total_price']
-      item[:quantity] = o_line['quantity']
-      data_order_items[index] = item
+    def initialize(datas)
+      @datas = datas['order']
+      @client = nil
     end
-    data[:order_items_attributes] = data_order_items
-    Order.create!(data)
-  end
 
-  def find_variant_id(o_line)
-    Variant.where(insid: o_line['variant_id']).present? ? Variant.where(insid: o_line['variant_id']).take.id : Variant.where(barcode: o_line['barcode']).take.id
-  end
+    def call
+      create_client
+      create_order
+    end
 
-end
+    private
+
+    def create_client
+      insid = @datas['client']['id']
+      email = @datas['client']['email'].present? ? @datas['client']['email'] : "#{@datas['client']['id']}@mail.ru"
+      phone = @datas['client']['phone']
+      name = @datas['client']['name'].present? ? @datas['client']['name'] : "api_client_#{insid}"
+      surname = @datas['client']['surname']
+      client_data = {
+        email: email,
+        name: name,
+        surname: surname,
+        phone: phone,
+        insid: insid
+      }
+      client = Client.find_by_insid(insid).present? ? Client.find_by_insid(insid) : Client.find_by_email(email)
+      @client = client.present? ? client : Client.create!(client_data)
+    end
+
+    def create_order
+      order_status = OrderStatus.where(position: 1).first_or_create!(title: 'New')
+      payment_data = {
+        title: @datas['payment_title'],
+        desc: @datas['payment_description']
+      }
+      payment_type = PaymentType.where(title: payment_data[:title]).first_or_create!(payment_data)
+      delivery_data = {
+        title: @datas['delivery_title'],
+        desc: @datas['delivery_description'],
+        price: @datas['full_delivery_price']
+      }
+      delivery_type = DeliveryType.where(title: delivery_data[:title]).first_or_create!(delivery_data)
+
+      order_items = []
+      shippings = [{
+        name: @datas['shipping_address']['full_name'],
+        phone: @datas['shipping_address']['formatted_phone'],
+        address: @datas['shipping_address']['full_delivery_address'],
+        comments_attributes: [body: @datas['comment'], user_id: User.where(role: 'admin').first.id]
+      }]
+      delivery = {
+        delivery_type_id: delivery_type.id,
+        price: @datas['full_delivery_price']
+      }
+
+      @datas['order_lines'].each do |o_line|
+        variant = Variant.find_by_insid(o_line['variant_id']).present? ? Variant.find_by_insid(o_line['variant_id']) : Variant.find_by_barcode(o_line['sku'])
+        line_data = {
+          variant_id: variant.id,
+          price: o_line['full_sale_price'],
+          quantity: o_line['quantity'],
+          sum: o_line['full_total_price']
+        }
+        order_items << line_data
+      end
+
+      order_data = {
+        client_id: @client.id,
+        order_status_id: order_status.id,
+        payment_type_id: payment_type.id,
+        delivery_attributes: delivery,
+        shippings_attributes: shippings,
+        order_items_attributes: order_items
+      }
+      Order.create!(order_data)
+    end
+
+  end

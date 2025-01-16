@@ -17,7 +17,7 @@ class PaymentType < ApplicationRecord
     PaymentType.attribute_names
   end
 
-  def last_payment_type?
+  def last?
     PaymentType.all.count == 1
   end
 
@@ -30,7 +30,7 @@ class PaymentType < ApplicationRecord
   end
 
   def check_destroy_ability
-    if last_payment_type?
+    if last?
       errors.add(:base, 'Cannot delete last Payment Type.')
     end
     if orders.count.positive?

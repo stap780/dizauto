@@ -43,9 +43,9 @@
     <h5 class="card-title mb-0">Заказы поставщикам</h5>
     <h5 class="card-title mb-0" id="count_info">Всего: <%= Incase.all.count %></h5>
   </div>
-  <div class="card-body">
-    <div id="datatables-incases" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-      <div class="row py-2 px-0 justify-content-between align-items-center">
+  <%= tag.div(class: "card-body") do %>
+    <%= tag.div(class: "col-sm-12 list-group list-group-striped", id: 'datatables-incases', data: {controller: "selectall"}) do %>
+       <%= tag.div(class: "row #{h_v_center}") do %>
         <%= div_check_box_tag_all %>
         <%= tag.div( t( 'helpers.label.incase.incase_status_id'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.incase.incase_tip_id'), class: 'col-md-1 fw-semibold' )%> 
@@ -53,13 +53,13 @@
         <%= tag.div( t( 'helpers.label.incase.date'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
-      </div>
+      <% end %>
       <%= turbo_stream_from "incases_list" %>
       <%= turbo_frame_tag 'incases' do %>
           <%= render @incases %>
       <% end %>
-    </div>
+    <% end if Incase.count.positive?%>
     
     <%= render "shared/paginate", f: @incases %>
-  </div>
+  <% end %>
 </div>

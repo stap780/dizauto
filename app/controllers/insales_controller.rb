@@ -1,4 +1,4 @@
-# InsalesController
+# InsalesController < ApplicationController
 class InsalesController < ApplicationController
   before_action :authenticate_user!, except: %i[order]
   before_action :set_insale, only: %i[ show edit update destroy ]
@@ -86,7 +86,30 @@ class InsalesController < ApplicationController
     result, message = Insale.api_work?
     if result
       respond_to do |format|
-        flash.now[:success] = "#{t(".success")} API work"
+        flash.now[:success] = "#{t('.success')} API work"
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+      end
+    else
+      respond_to do |format|
+        flash.now[:error] = message
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+      end
+    end
+  end
+
+  def add_order_webhook
+    result, message = Insale.add_order_webhook
+    if result
+      respond_to do |format|
+        flash.now[:success] = "#{t('.success')} API work"
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
@@ -111,13 +134,14 @@ class InsalesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_insale
-      @insale = Insale.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def insale_params
-      params.require(:insale).permit(:api_key, :api_password, :api_link)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_insale
+    @insale = Insale.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def insale_params
+    params.require(:insale).permit(:api_key, :api_password, :api_link)
+  end
 end
