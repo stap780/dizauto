@@ -6,7 +6,7 @@
             id="order_delivery_attributes_delivery_type_id">
             <option>Способ доставки</option>
         <% DeliveryType.all.each do |delivery_type| %>
-            <option value="<%= delivery_type.id%>" <%= 'selected=selected' if delivery_type.id == selected.id %>>
+            <option value="<%= delivery_type.id%>" <%= 'selected=selected' if selected && delivery_type.id == selected.id %>>
                 <%= delivery_type.title_price %>
             </option>
         <% end %>
