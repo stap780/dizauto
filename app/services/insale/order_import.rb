@@ -26,7 +26,7 @@
         phone: phone,
         insid: insid
       }
-      
+
       client = Client.find_by_insid(insid).present? ? Client.find_by_insid(insid) : Client.find_by_email(email)
       @client = client.present? ? client : Client.create!(client_data)
     end
