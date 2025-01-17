@@ -28,7 +28,7 @@ class Product::ImportCsv < ApplicationService
     @file_data = if Rails.env.development?
       CSV.foreach(@download_path, headers: true).take(10).map(&:to_h)
     else
-      CSV.foreach(@download_path, headers: true).take(9000).map(&:to_h) # we have 50000pcs and 6 files
+      CSV.foreach(@download_path, headers: true).take(10000).map(&:to_h) # we have 50000pcs and 6 files
     end
     # @file_data = CSV.foreach(@download_path, headers: true).map(&:to_h)
   end

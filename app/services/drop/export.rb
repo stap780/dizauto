@@ -16,7 +16,7 @@ class Drop::Export < Liquid::Drop
       b = product.attributes # this is Hash
       b['properties'] = collect_props(product)
       b['variants'] = product.variants.map{ |var| var.attributes }
-      b['images'] = product.images_urls.split(',')
+      b['images'] = product.images_urls
       b['description'] = product.file_description
       l_products.push(b)
     end

@@ -20,7 +20,6 @@ class Telegram::BotListener < ApplicationService
     message = 'wrong token'
     if check_token
       start_work
-      # message = start_work == true ? 'we start bot' : @errors
     end
     [true, message]
   end
@@ -87,6 +86,7 @@ class Telegram::BotListener < ApplicationService
     return false unless User.pluck(:telegram).size.positive?
 
     username = message.from.username
+    puts "telegram username => #{username}"
     User.find_by_telegram(username).present?
   end
 
@@ -104,6 +104,29 @@ class Telegram::BotListener < ApplicationService
         @client.api.send_message(chat_id: message.from.id, text: result_text)
       else
         result_text = "не нашли #{text}. попробуйте другой.\n\nУкажите штрихкод товара"
+        force_reply = Telegram::Bot::Types::ForceReply.new(force_reply: true,selective: true)
+        @client.api.send_message(chat_id: message.from.id, text: result_text, reply_markup: force_reply)
+      end
+    elsif message.reply_to_message.present? && message.reply_to_message.text.include?('Давайте найдём товар. Укажите штрихкод...')
+      text = message.text
+      @product = Variant.find_by_barcode(text)&.product
+      if @product
+        result_text = "Найден товар - #{@product.title} \n\nПожалуйста ожидайте ..."
+        @client.api.send_message(chat_id: message.from.id, text: result_text)
+        @product.images.each do |image|
+          image.file.open do |temp_file|
+            path_to_photo = File.expand_path(temp_file) # File.expand_path("#{Rails.public_path}/test_img/test2.png")
+            @client.api.send_photo(chat_id: message.chat.id, photo: Faraday::UploadIO.new(path_to_photo, 'image/jpeg'))
+          end
+        end
+        end_text = "Закончили загрузку фотографий по товару - #{@product.title} \nВсего фотографий - #{@product.images.count} шт"
+
+        button1 = Telegram::Bot::Types::KeyboardButton.new(text: "Завершить работу с товаром #{@product.title}")
+        # button2 = Telegram::Bot::Types::KeyboardButton.new(text: 'button1')
+        markup = Telegram::Bot::Types::ReplyKeyboardMarkup.new(keyboard: [[button1]], resize_keyboard: true)
+        @client.api.send_message(chat_id: message.from.id, text: end_text, reply_markup: markup)
+      else
+        result_text = "не нашли #{text}. попробуйте другой. Должно быть 13 цифр.\n\nДавайте найдём товар. Укажите штрихкод..."
         force_reply = Telegram::Bot::Types::ForceReply.new(force_reply: true,selective: true)
         @client.api.send_message(chat_id: message.from.id, text: result_text, reply_markup: force_reply)
       end
@@ -159,7 +182,9 @@ class Telegram::BotListener < ApplicationService
       @client.api.send_message(chat_id: message.from.id, text: 'Укажите штрихкод товара', reply_markup: force_reply)
     end
     if message.data == 'download_photo'
-      @client.api.send_message(chat_id: message.from.id, text: 'эта кнопка пока не работает')
+      # @client.api.send_message(chat_id: message.from.id, text: 'эта кнопка пока не работает')
+      force_reply = Telegram::Bot::Types::ForceReply.new(force_reply: true,selective: true)
+      @client.api.send_message(chat_id: message.from.id, text: 'Давайте найдём товар. Укажите штрихкод...', reply_markup: force_reply)
     end
   end
 
@@ -213,8 +238,6 @@ class Telegram::BotListener < ApplicationService
 
   def validate_file_size(file)
     puts "validate_file_size => #{file[:file_size]}"
-    # Rails.logger.error 'validate_file_size'
-    # Rails.logger.error file[:file_size]
     return false if file[:file_size] >= 20.megabytes
 
     true

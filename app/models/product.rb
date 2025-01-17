@@ -1,3 +1,4 @@
+# Product < ApplicationRecord
 class Product < ApplicationRecord
   require 'barby'
   require 'barby/barcode/ean_13'
@@ -38,7 +39,7 @@ class Product < ApplicationRecord
   scope :tip_service, -> { where(tip: 'service') }
   scope :tip_kit, -> { where(tip: 'ki') }
 
-  scope :include_images, -> { includes(images: [:file_attachment, :file_blob]) }
+  scope :include_images, -> { includes(images: %i[file_attachment file_blob]) }
   scope :include_props, -> { includes(:props) }
 
   scope :all_quantity, -> { ransack(variants_quantity_gteq: 0).result }
@@ -72,9 +73,9 @@ class Product < ApplicationRecord
     Product.where('id < ?', id).order(id: :desc).first || Product.last
   end
 
-  def properties_data # this for export cvs/excel
-    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} } # speed test said it is better
-    # props.includes(property: :characteristics).map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
+  def properties_data 
+    # this is for export cvs/excel
+    props.map { |prop| {prop.property.title.to_s => prop.characteristic.title.to_s} }
   end
 
   def props_to_h
@@ -103,13 +104,15 @@ class Product < ApplicationRecord
     end
   end
 
-  def images_urls # this is for attribute :images_urls
+  def images_urls 
+    # this is for attribute :images_urls
     return [] unless images.present?
 
-    images.map { |image| image.s3_url }.join(",")
+    images.map(&:s3_url)
   end
 
-  def file_description # this is for attribute :file_description
+  def file_description
+    # this is for attribute :file_description
     return '' unless description.present?
 
     description&.to_plain_text

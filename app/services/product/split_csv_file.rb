@@ -4,13 +4,13 @@ class Product::SplitCsvFile < ApplicationService
 
   # FileUtils.rm_rf(Dir["#{Rails.public_path}/test_img/*"])
 
-  def initialize
-    @url = 'http://138.197.52.153/insales.csv'
+  def initialize( url = 'http://138.197.52.153/insales.csv', file_count = 10 )
+    @url = url
     @filename = File.basename(@url, File.extname(@url))
     @extention = File.extname(@url)
     @download_path = Rails.env.development? ? "#{Rails.public_path}/csv/" : '/var/www/dizauto/shared/public/csv/'
     @main_file = @download_path + @filename + @extention
-    @file_count = 6
+    @file_count = file_count
     @split_files = []
   end
 
@@ -29,7 +29,7 @@ class Product::SplitCsvFile < ApplicationService
   end
 
   def split
-    puts "split start"
+    puts 'split start'
     original = @main_file
     file_count = @file_count
     header_lines = 1
@@ -45,7 +45,7 @@ class Product::SplitCsvFile < ApplicationService
       file = "#{original}-#{i}.csv"
       File.delete(file) if File.file?(file)
       # File.write(file, header)
-      CSV.open(file, "wb", headers: false) do |csv|
+      CSV.open(file, 'wb', headers: false) do |csv|
         csv << header
         CSV.foreach(@main_file, headers: true).with_index do |row, index|
           csv << row if index >= start && index <= finish
@@ -55,6 +55,6 @@ class Product::SplitCsvFile < ApplicationService
       start = finish
       @split_files.push(file)
     end
-    puts "split finish"
+    puts 'split finish'
   end
 end

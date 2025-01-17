@@ -33,7 +33,7 @@ class Drop::Product < Liquid::Drop
 
   def images
     # ['http://test.com/test.jpg','http://test.com/test1.jpg']
-    @product.images_urls.split(',')
+    @product.images_urls
   end
 
   def properties
@@ -42,7 +42,7 @@ class Drop::Product < Liquid::Drop
   end
 
   def variants
-    @product.variants.map{ |var| var.attributes }
+    @product.variants.map(&:attributes)
   end
 
 end
