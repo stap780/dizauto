@@ -1,38 +1,42 @@
+# PermissionsController < ApplicationController
 class PermissionsController < ApplicationController
   load_and_authorize_resource
+  before_action :set_user
   before_action :set_permission, only: %i[show edit update destroy]
+  include ActionView::RecordIdentifier
 
-  # GET /permissions or /permissions.json
   def index
     if current_user.admin?
-      @search = Permission.ransack(params[:q])
-      @search.sorts = "id desc" if @search.sorts.empty?
-      @permissions = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+      # @search = Permission.ransack(params[:q])
+      # @search.sorts = 'id desc' if @search.sorts.empty?
+      # @permissions = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
+      @permissions = @user.permissions
     else
-      redirect_to root_url, notice: "You are not admin"
+      redirect_to root_url, notice: 'You are not admin'
     end
   end
 
-  # GET /permissions/1 or /permissions/1.json
-  def show
-  end
+  def show; end
 
-  # GET /permissions/new
   def new
-    @permission = Permission.new
+    # @permission = Permission.new
+    @permission = @user.permissions.build
   end
 
-  # GET /permissions/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /permissions or /permissions.json
   def create
-    @permission = Permission.new(permission_params)
+    @permission = @user.permissions.build(permission_params)
 
     respond_to do |format|
       if @permission.save
-        format.html { redirect_to permission_url(@permission), notice: "Permission was successfully created." }
+        flash.now[:success] = t('.success')
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+        format.html { redirect_to permission_url(@permission), notice: 'Permission was successfully created.' }
         format.json { render :show, status: :created, location: @permission }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -41,11 +45,16 @@ class PermissionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /permissions/1 or /permissions/1.json
   def update
     respond_to do |format|
       if @permission.update(permission_params)
-        format.html { redirect_to permission_url(@permission), notice: "Permission was successfully updated." }
+        flash.now[:success] = t('.success')
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+        format.html { redirect_to permission_url(@permission), notice: 'Permission was successfully updated.' }
         format.json { render :show, status: :ok, location: @permission }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,25 +63,35 @@ class PermissionsController < ApplicationController
     end
   end
 
-  # DELETE /permissions/1 or /permissions/1.json
   def destroy
     @permission.destroy
 
     respond_to do |format|
-      format.html { redirect_to permissions_url, notice: "Permission was successfully destroyed." }
+      flash.now[:success] = t('.success')
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(dom_id(@user, dom_id(@permission))),
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to permissions_url, notice: 'Permission was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_permission
-    @permission = Permission.find(params[:id])
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
-  # Only allow a list of trusted parameters through.
+  def set_permission
+    # @permission = Permission.find(params[:id])
+    @permission = @user. permissions.find(params[:id])
+  end
+
   def permission_params
     params.require(:permission).permit(:pmodel, :user_id, pactions: [])
   end
+
 end

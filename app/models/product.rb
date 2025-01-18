@@ -104,15 +104,15 @@ class Product < ApplicationRecord
     end
   end
 
-  def images_urls 
-    # this is for attribute :images_urls
+  # this is for attribute :images_urls
+  def images_urls
     return [] unless images.present?
 
     images.map(&:s3_url)
   end
 
+  # this is for attribute :file_description
   def file_description
-    # this is for attribute :file_description
     return '' unless description.present?
 
     description&.to_plain_text
@@ -143,17 +143,6 @@ class Product < ApplicationRecord
     end
   end
 
-  # def self.test_create_xlsx(collection_for_file = nil)
-  #   collection = collection_for_file ||= Product.include_images
-  #   current_user = User.first
-  #   filename = "products.xlsx"
-  #   Product::CreateXlsx.call( collection, {  model: "Product",
-  #                                           current_user_id: current_user.id,
-  #                                           filename: filename,
-  #                                           template: "products/index"}
-  #                                           )
-  # end
-
   private
 
   def normalize_data_white_space
@@ -174,7 +163,7 @@ class Product < ApplicationRecord
         end
       end
     end
-    
+
     if errors.present?
       errors.add(:base, 'Cannot delete product')
       throw(:abort)

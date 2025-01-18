@@ -6,8 +6,6 @@ class User < ApplicationRecord
   has_many :permissions #, -> { order(pmodel: :asc) }
   accepts_nested_attributes_for :permissions, allow_destroy: true
   has_many :notifications, as: :recipient, dependent: :destroy, class_name: 'Noticed::Notification'
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
   validates :name, presence: true

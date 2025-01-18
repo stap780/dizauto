@@ -5,7 +5,7 @@
             <div class="h4"><%= ff.object.pmodel.singularize.classify.constantize.model_name.human(count: 2).capitalize %></div>
             <%= ff.hidden_field :pmodel, value: ff.object.pmodel %>
 
-            <% Permission::Actions.each do |action| %>
+            <% Permission::ACTIONS.each do |action| %>
                 <%=tag.div class: 'form-check-inline me-1' do %>
                     <%=ff.check_box :pactions, { multiple: true, class: 'form-check-input' }, action, nil %>
                     <%=ff.label action, class: 'form-check-label' %>

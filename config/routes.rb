@@ -233,7 +233,7 @@ Rails.application.routes.draw do
       post :download
     end
   end
-  resources :permissions
+  
   resources :email_setups
   resources :incase_items
   resources :incases do
@@ -335,6 +335,7 @@ Rails.application.routes.draw do
   #########
 
   resources :users do
+    resources :permissions
     member do
       post :read_notification
       post :delete_notification

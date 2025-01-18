@@ -1,17 +1,12 @@
-<div class="mb-3 col-md-4">
+<div class="mb-3 col-md-10">
     <%= f.label :pmodel, class: "form-label" %>
     <%= f.select :pmodel, Permission.all_models, {}, {  class: "form-select"} %>
 </div>
-<div class="mb-3 col-md-6">
-    <%# f.label :paction, class: "form-label" %>
-    <%# f.select :paction, Permission::Actions, {}, {  class: "form-select"} %>
-    <% Permission::Actions.each do |action| %>
+<div class="mb-3 col-md-12">
+    <% Permission::ACTIONS.each do |action| %>
         <%= f.check_box :pactions, { multiple: true, checked: f.object.pactions&.include?(action.to_s), class: 'form-check-input' }, action, nil %>
         <%= f.label action %>
     <% end %>
 </div>
 
-<div class="mb-3 col-md-6">
-    <%= f.label :user_id, class: "form-label" %>
-    <%= f.select :user_id, User.all.pluck(:name, :id), {}, {  class: "form-select" } %>
-</div>
+<%= f.hidden_field :user_id%>

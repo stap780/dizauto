@@ -1,8 +1,10 @@
 
-<tr id="<%= dom_id permission %>">
-  <td><b><%= permission.id%></b></td>
-  <td><%= permission.pmodel%></td>
-  <td><%= permission.pactions.map{|action| action}.join(' ').to_s  %></td>
-  <td><%= permission.user_id%></td>
-  <%= td_index_edit_delete_link(permission)%>
-</tr>
+<%= turbo_frame_tag dom_id(user, dom_id(permission)), class: "d-table-row my-2", data: { }  do %>
+  <%# tag.div( permission.id, class: "d-table-cell") %>
+  <%= tag.div( permission.pmodel_to_human, class: "d-table-cell") %>
+  <%= tag.div( permission.pactions.map{|action| action}.join(' ').to_s, class: "d-table-cell") %>
+  <%= tag.div("", class: "d-table-cell") do %>
+    <%= link_to edit_icon, edit_user_permission_path(user, permission), data: { turbo_frame: 'offcanvas_wrap'} %>
+    <%= link_to trash_icon, [user, permission], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>    
+  <% end %>
+<% end %>

@@ -205,6 +205,9 @@ ru:
         title: "название"
       characteristic:
         title: "название значения"
+      permission: &permission
+        pmodel: "Раздел"
+        pactions: "Действия"
       placement:
         created_at: "дата создания"
         warehouse_id: "склад"
@@ -417,6 +420,9 @@ ru:
       payment_type: 
         one: "способ оплаты"
         other: "способы оплаты"
+      permission: 
+        one: "права доступа"
+        other: "права доступа"
       place: 
         one: "место"
         other: "места"
@@ -456,6 +462,9 @@ ru:
       supply_status: 
         one: "статусы поступления"
         other: "статусы поступления"
+      telegram_bot:
+        one: "телеграмм bot"
+        other: "телеграмм bot"
       templ: 
         one: "шаблон"
         other: "шаблоны"
@@ -692,6 +701,8 @@ ru:
         <<: *order_status
       payment_type:
         <<: *payment_type
+      permission:
+        <<: *permission
       property:
         title: "название"
       product:

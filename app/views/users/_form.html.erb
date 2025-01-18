@@ -1,5 +1,4 @@
-<%= form_with(model: user, data: {controller: 'user nested-form', 'user-dnone-class': 'd-none',
-    nested_form_wrapper_selector_value: '.nested-form-wrapper'}) do |f| %>
+<%= form_with(model: user, data: {controller: 'user', 'user-dnone-class': 'd-none'}) do |f| %>
     <%= render "shared/errors", object: @user%>
 
     <div class="row">
@@ -10,7 +9,27 @@
                 </div>
                 <div class="card-body row">
                     <%= render 'form_data', f: f %>
-                    <%= render 'nested_permission', f: f if !f.object.new_record?%>
+                    <%# render 'nested_permission', f: f if !f.object.new_record?%>
+
+                    <%=tag.div class: "mb-3 col-10", data: {user_target: "nested"} do %>
+                        <%= tag.label(Permission.model_name.human, class: "form-label mb-3") %>
+                        <%= link_to add_icon, new_user_permission_path(f.object), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
+                        <%= turbo_stream_from f.object, :permissions %>
+                        
+                        <%= turbo_frame_tag f.object, :permissions, data: { }, class: "table d-table" do %>
+                            <%= tag.div class:"d-table-row" do %>
+                                <%# tag.div("#", class: "d-table-cell fw-bold")%>
+                                <%= tag.div(t('helpers.label.permission.pmodel'), class: "d-table-cell fw-bold")%>
+                                <%= tag.div(t('helpers.label.permission.pactions'), class: "d-table-cell fw-bold")%>
+                                <%= tag.div("", class: "d-table-cell")%>
+                            <% end %>
+
+                            <% f.object.permissions.each do |permission| %>
+                                <%= render partial: "permissions/permission", locals: { permission: permission, user: f.object } %>
+                            <% end %>
+                        <% end %>
+                    <% end if !f.object.new_record? %>
+
                 </div>
                 
                 <div class="card-footer">
