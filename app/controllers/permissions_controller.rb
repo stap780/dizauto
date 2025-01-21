@@ -7,9 +7,6 @@ class PermissionsController < ApplicationController
 
   def index
     if current_user.admin?
-      # @search = Permission.ransack(params[:q])
-      # @search.sorts = 'id desc' if @search.sorts.empty?
-      # @permissions = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
       @permissions = @user.permissions
     else
       redirect_to root_url, notice: 'You are not admin'
@@ -19,7 +16,6 @@ class PermissionsController < ApplicationController
   def show; end
 
   def new
-    # @permission = Permission.new
     @permission = @user.permissions.build
   end
 
@@ -86,8 +82,7 @@ class PermissionsController < ApplicationController
   end
 
   def set_permission
-    # @permission = Permission.find(params[:id])
-    @permission = @user. permissions.find(params[:id])
+    @permission = @user.permissions.find(params[:id])
   end
 
   def permission_params

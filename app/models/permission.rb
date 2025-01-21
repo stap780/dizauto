@@ -4,7 +4,7 @@ class Permission < ApplicationRecord
   validates :pmodel, presence: true, uniqueness: { scope: :user_id }
   validates :pactions, presence: true
   include ActionView::RecordIdentifier
-  
+
   after_create_commit do 
     broadcast_append_to [user, :permissions], target: dom_id(user, :permissions), partial: 'permissions/permission',
                                               locals: { user: user, permission: self }
@@ -61,6 +61,10 @@ class Permission < ApplicationRecord
   end
 
   def pmodel_to_human
+    puts "pmodel => #{pmodel}"
+    puts "pmodel.present? => #{pmodel.present?}"
+    retun '' unless pmodel.present?
+
     pmodel.singularize.classify.constantize.model_name.human(count: 2).capitalize
   end
 

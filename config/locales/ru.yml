@@ -342,6 +342,9 @@ ru:
         other: "параметры значения"
       dashboard:
         one: "сводка"
+      delivery: 
+        one: "доставка"
+        other: "доставки"
       delivery_type: 
         one: "способ доставки"
         other: "способы доставки"

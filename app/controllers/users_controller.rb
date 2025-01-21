@@ -21,14 +21,15 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-    if !@user.permissions.present?
-      Permission.all_models.size.times do |index|
-        @user.permissions.build(
-          pmodel: Permission.all_models[index],
-          pactions: ['']
-        )
-      end
-    end
+    # we not use this from 20/01/2025
+    # if !@user.permissions.present?
+    #   Permission.all_models.size.times do |index|
+    #     @user.permissions.build(
+    #       pmodel: Permission.all_models[index],
+    #       pactions: ['']
+    #     )
+    #   end
+    # end
   end
 
   def show
@@ -157,7 +158,7 @@ class UsersController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:name, :phone, :email, :role, :avatar, :password, :password_confirmation, :telegram,
+    params.require(:user).permit(:name, :phone, :email, :role, :avatar, :password, :password_confirmation, :telegram, :notified,
       permissions_attributes: [:id, :pmodel, :user_id, pactions: []])
   end
 

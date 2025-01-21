@@ -28,6 +28,10 @@
     <%= f.label :telegram, class: "form-label" %>
     <%=f.text_field :telegram, class: "form-control" %>
 </div>
+<div class="d-flex <%=h_v_center%>% col-md-2 form-check form-switch">
+    <%= f.check_box :notified, {class: "form-check-input", role: "switch"} %>
+    <%= f.label 'Вкл оповещение?', class: "ms-2 form-check-label"%>
+</div>
 
 
 
