@@ -31,7 +31,7 @@ class User < ApplicationRecord
   end
 
   def self.admin_emails
-    User.where(role: 'admin',notified: true).pluck(:email).join(',')
+    User.where(role: 'admin', notified: true).pluck(:email).join(',')
   end
 
   def self.current

@@ -34,8 +34,8 @@ class Automation < ApplicationService
 
           if check_render_value == 'do_work'
             puts "automation template.render check_render_value.length => #{check_render_value.length}"
+            wait = trigger.pause && trigger.pause_time.present? ? trigger.pause_time : 1
             trigger.trigger_actions.each do |action|
-              wait = (trigger.pause == true && trigger.pause_time.present?) ? trigger.pause_time : 1
 
               attr = action.name.split('#').first
 
@@ -52,7 +52,7 @@ class Automation < ApplicationService
     if @update_triggers.present?
       puts 'start automation update'
       @update_triggers.each do |trigger|
-        if trigger.condition.include?("do_work")
+        if trigger.condition.include?('do_work')
           puts 'we here update - trigger.condition.include?(do_work)'
 
           # add to template our method that we use as check condition == true
@@ -65,9 +65,9 @@ class Automation < ApplicationService
 
           if check_render_value == 'do_work'
             puts "automation template.render check_render_value.length => #{check_render_value.length}"
-            trigger.trigger_actions.each do |action|
-              wait = (trigger.pause == true && trigger.pause_time.present?) ? trigger.pause_time : 1
+            wait = trigger.pause && trigger.pause_time.present? ? trigger.pause_time : 1
 
+            trigger.trigger_actions.each do |action|
               attr = action.name.split('#').first
 
               update_object(attr, action.value) unless action.name.include?('email')

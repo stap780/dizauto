@@ -4,7 +4,7 @@
 module NestedItem
   extend ActiveSupport::Concern
 
-  def slimselect_nested_item # GET
+  def slimselect_nested_item
     target = params[:turboId]
     item = nested_model.find_by(id: target.remove("#{model_to_s}_item_"))
     variant = Variant.find(params[:selected_id])
@@ -47,7 +47,7 @@ module NestedItem
     end
   end
 
-  def new_nested # GET
+  def new_nested
     child_index = Time.now.to_i
     puts "child_index => #{child_index}"
     helpers.fields model: model.new do |f|
@@ -68,7 +68,7 @@ module NestedItem
     end
   end
 
-  def remove_nested # POST
+  def remove_nested
     params_item_id = params["#{nested_model_to_s}_id"]
     item = nested_model.find_by(id: params_item_id)
     item.delete if item.present?
@@ -103,18 +103,20 @@ module NestedItem
   end
 
   def nested_model
-    ("#{model}_item").singularize.camelize.constantize
+    "#{model}_item".singularize.camelize.constantize
   end
 
   def nested_model_to_s
-    ("#{model}_item").downcase
+    "#{model}_item".downcase
   end
 
   def nested_model_pluralize_to_s
     if model == 'Placement'
-      ('location').pluralize.downcase
+      'location'.pluralize.downcase
+    elsif model == 'StockTransfer'
+      'stock_transfer_item'.pluralize.downcase
     else
-      ("#{model}_item").pluralize.downcase
+      "#{model}_item".pluralize.downcase
     end
   end
 
@@ -123,7 +125,11 @@ module NestedItem
   end
 
   def nested_url
-    "/#{model_pluralize_to_s}/slimselect_nested_item"
+    if model == 'StockTransfer'
+      '/stock_transfers/slimselect_nested_item'
+    else
+      "/#{model_pluralize_to_s}/slimselect_nested_item"
+    end
   end
 
   def check_discount
