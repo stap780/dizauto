@@ -130,7 +130,7 @@ class DashboardsController < ApplicationController
   end
 
   def collect_sale_chart_data
-    last_12_months = (Date.today - 1.year..Date.today).map { |d| d.strftime('%b') }.uniq
+    last_12_months = (Date.today - 1.year..Date.today).map { |d| d.strftime('%b') }.uniq.reverse
 
     data = collect_month_orders_sum#[54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79]
 
@@ -174,11 +174,11 @@ class DashboardsController < ApplicationController
   end
 
   def collect_month_orders_sum
-    last_12_months = (Date.today - 1.year..Date.today).map { |d| d.strftime('%b') }.uniq
+    start_month_dates = (Date.today - 1.year..Date.today).map { |d| d.strftime('%Y-%m-01') }.uniq
     data = []
-    last_12_months.each do |month|
-      month_start = Date.parse(month).beginning_of_month
-      month_end = Date.parse(month).end_of_month
+    start_month_dates.each do |start_month_date|
+      month_start = Date.parse(start_month_date).beginning_of_month
+      month_end = month_start.end_of_month
       month_orders = Order.where(created_at: (month_start..month_end))
       month_sum = month_orders.total_sum
       data << month_sum
