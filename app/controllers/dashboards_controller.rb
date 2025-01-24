@@ -174,7 +174,7 @@ class DashboardsController < ApplicationController
   end
 
   def collect_month_orders_sum
-    start_month_dates = (Date.today - 1.year..Date.today).map { |d| d.strftime('%Y-%m-01') }.uniq
+    start_month_dates = (Date.today - 11.month..Date.today).map { |d| d.strftime('%Y-%m-01') }.uniq
     data = []
     start_month_dates.each do |start_month_date|
       month_start = Date.parse(start_month_date).beginning_of_month

@@ -136,3 +136,14 @@ trix-editor {
 .fs-7 {
   font-size: 0.65rem !important;
 }
+
+.flatpickr-day.today {
+  border-color: #adb5bd;
+  background: #d3e2f7;
+}
+
+.flatpickr-day.today:focus,.flatpickr-day.today:hover {
+  background: #adb5bd;
+  border-color: #adb5bd;
+  color: #fff
+}
