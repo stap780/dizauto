@@ -25,6 +25,8 @@ class Order < ApplicationRecord
 
   before_save :normalize_data_white_space
 
+  attribute :total_sum
+
   def self.ransackable_attributes(auth_object = nil)
     Order.attribute_names
   end
@@ -37,6 +39,16 @@ class Order < ApplicationRecord
     return order_items.sum(:sum) unless delivery.price
 
     order_items.sum(:sum) + delivery.price
+  end
+
+  def self.total_sum 
+    # (lifehack) if we call from relation than we will get only relation data
+    orders = Order.all.order(created_at: :asc)
+    sum = [0]
+    orders.each do |order|
+      sum << order.total_sum
+    end
+    sum.sum
   end
 
   private

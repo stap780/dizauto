@@ -1,12 +1,15 @@
 <%= turbo_frame_tag "place_#{place.id}_warehouse_#{warehouse.id}", class: "row justify-content-between align-items-center mb-3" do %>
-  <div class="col-5">
-      <%= place.sector%>
+  <div class="col-3">
+        <%= place.sector%>
   </div>
-  <div class="col-5">
-      <%= place.cell %>
+  <div class="col-3">
+        <%= place.cell %>
   </div>
+    <div class="col-4">
+        <%= place.barcode %>
+    </div>
   <div class="col d-flex justify-content-end gap-2 align-items-center">
-      <%= link_to edit_icon, [:edit, warehouse, place], class: '' %>
+      <%= link_to edit_icon, [:edit, warehouse, place], class: '', data: { turbo_frame: 'offcanvas_wrap'} %>
       <%= link_to trash_icon, [warehouse,place], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>
   </div>
 <% end %>

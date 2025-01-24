@@ -113,7 +113,6 @@ class OrdersController < ApplicationController
       :client_id,
       :manager_id,
       :payment_type_id,
-      :delivery_type_id,
       order_items_attributes: %i[id variant_id price discount sum quantity _destroy],
       shippings_attributes: [:id,:name,:phone,:address,:date,:time_from,:time_to,:order_id,:_destroy,
         comments_attributes: %i[id commentable_type commentable_id user_id body _destroy]

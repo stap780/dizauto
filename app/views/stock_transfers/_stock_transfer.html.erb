@@ -1,4 +1,4 @@
-<%= turbo_frame_tag stock_transfer, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-cstock_transfer px-0" do %>
+<%= turbo_frame_tag stock_transfer, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center px-0" do %>
     <%= tag.div class: "col-1" do %>
         <%=tag.div class: 'form-check' do %>
             <%= check_box_tag "stock_transfer_ids[]", stock_transfer.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
@@ -11,8 +11,8 @@
                         style: 'background-color:'+stock_transfer.stock_transfer_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: stock_transfer.stock_transfer_status.color }) if stock_transfer.stock_transfer_status %>
     <% end %>
-    <%= tag.div( stock_transfer.created_at.strftime("%d/%m/%Y"), class: "col-2 p-0" ) %>
-    <%= tag.div( "Всего товаров: #{stock_transfer.stock_transfer_items.count}", class: "col-2") %>
+    <%= tag.div( stock_transfer.created_at.strftime("%d/%m/%Y"), class: "col-2" ) %>
+    <%= tag.div( stock_transfer.stock_transfer_items.count, class: "col-2") %>
     <%= tag.div( stock_transfer.origin_warehouse.title, class: "col-2") %>
     <%= tag.div( stock_transfer.destination_warehouse.title, class: "col-2") %>
     

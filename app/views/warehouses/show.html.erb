@@ -1,48 +1,45 @@
 
-<%= link_to add_icon, new_warehouse_place_path(@warehouse), class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(@warehouse, dom_id(Place.new)), turbo_prefetch: false } %>
+<%#link_to add_icon, new_warehouse_place_path(@warehouse), class: "btn btn-primary float-end mt-n1", data: {turbo_frame: dom_id(@warehouse, dom_id(Place.new)), turbo_prefetch: false } %>
+<%= link_to add_icon, new_warehouse_place_path(@warehouse), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
 
 <div class="mb-3">
   <%= link_to t('back'), warehouses_path, class: "btn btn-outline-primary" %>
   <h1 class="h3 d-inline align-middle px-3"><%= Warehouse.model_name.human.capitalize %>: <%= @warehouse.title%></h1>
 </div>
 
-<div class="row">
-  <div class="col-md-12">
-      <div class="card">
-          <div class="card-header">
-            <div class="row">
-                <div class="col-9">
-                  <h5 class="card-title mb-0"><%= Place.model_name.human.capitalize %></h5>
-                </div>
-                <%= search_form_for @search, {url: warehouse_places_path(@warehouse), class: 'form-inline col-sm-12 col-md-3 pl-0 pr-0'} do |f| %>
-                  <div class="input-group input-group-sm">
-                    <%= f.search_field :sector_cont , placeholder: 'Sector', class: "form-control col-4 flex-end"%>
-                    <%= button_tag(type: 'submit', :class => "btn btn-info") do %><%= search_icon%><% end %>
-                    <%= link_to arrow_clockwise_icon, warehouse_path(@warehouse), class: 'btn btn-outline-dark ' %>
-                  </div>
-                <% end %>
-            </div>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+        <div class="col-9">
+          <h5 class="card-title mb-0"><%= Place.model_name.human.capitalize %></h5>
+        </div>
+        <%= search_form_for @search, {url: warehouse_places_path(@warehouse), class: 'form-inline col-sm-12 col-md-3 pl-0 pr-0'} do |f| %>
+          <div class="input-group input-group-sm">
+            <%= f.search_field :sector_cont , placeholder: 'Sector', class: "form-control col-4 flex-end"%>
+            <%= button_tag(type: 'submit', class: "btn btn-info") do %><%= search_icon%><% end %>
+            <%= link_to arrow_clockwise_icon, warehouse_path(@warehouse), class: 'btn btn-outline-dark ' %>
           </div>
-          <div class="card-body w-50">
-            <div class="row py-2 px-0 text-start">
-                <%= tag.div( t('helpers.label.place.sector'), class: 'col-5 fw-semibold')%> 
-                <%= tag.div( t('helpers.label.place.cell'), class: 'col-5 fw-semibold' )%>
-                <%= tag.div('', class: 'col fw-semibold')%>
-            </div>
-            <%= turbo_stream_from @warehouse, :places %>     
-            <%= turbo_frame_tag dom_id(@warehouse, dom_id(Place.new)) %>
-            <%= turbo_frame_tag @warehouse, :places, data: { } do %>
-                <% @warehouse.places.each do |place|%>
-                    <%= render partial: "places/place", locals: { place: place, warehouse: @warehouse } %>
-                <% end %>
-            <% end %>
-            
-            <%= render "shared/paginate", f: @places %>
-          </div>
-          <div class="card-footer">
-            <%= link_to t('back'), warehouses_path, class: "btn btn-outline-primary" %>
-          </div>
-
-      </div>
+        <% end %>
+    </div>
+  </div>
+  <div class="card-body w-75">
+    <div class="row py-2 px-0 text-start">
+      <%= tag.div( t('helpers.label.place.sector'), class: 'col-3 fw-semibold')%> 
+      <%= tag.div( t('helpers.label.place.cell'), class: 'col-3 fw-semibold' )%>
+      <%= tag.div( t('helpers.label.place.barcode'), class: 'col-4 fw-semibold' )%>
+      <%= tag.div('', class: 'col fw-semibold')%>
+    </div>
+    <%= turbo_stream_from @warehouse, :places %>     
+    <%= turbo_frame_tag dom_id(@warehouse, dom_id(Place.new)) %>
+    <%= turbo_frame_tag @warehouse, :places, data: { } do %>
+        <% @warehouse.places.each do |place|%>
+            <%= render partial: "places/place", locals: { place: place, warehouse: @warehouse } %>
+        <% end %>
+    <% end %>
+    
+    <%= render "shared/paginate", f: @places %>
+  </div>
+  <div class="card-footer">
+    <%= link_to t('back'), warehouses_path, class: "btn btn-outline-primary" %>
   </div>
 </div>

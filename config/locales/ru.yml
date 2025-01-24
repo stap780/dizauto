@@ -64,6 +64,7 @@ ru:
   incase_items: "позиции убытка"
   order_items: "позиции заказа"
   supply_items: "позиции поступления"
+  stock_transfer_items_variant: "позиции перемещения"
   inventory: "склад"
   settings: "настройки"
   rules: "автоматизация"
@@ -208,6 +209,10 @@ ru:
       permission: &permission
         pmodel: "Раздел"
         pactions: "Действия"
+      place: &place
+        sector: 'сектор'
+        cell: 'ячейка'
+        barcode: 'штрихкод'
       placement:
         created_at: "дата создания"
         warehouse_id: "склад"
@@ -253,6 +258,7 @@ ru:
         sum: "сумма"
       order_item: &nested_item
         variant_id: "позиция"
+        variant: "позиция"
         quantity: "кол-во"
         price: "цена" 
         discount: "скидка"
@@ -293,11 +299,14 @@ ru:
         warehouse: "склад"
         product: "товар"
       stock_transfer: &stock_transfer
+        stock_transfer_status: "статус"
         stock_transfer_status_id: "статус"
         created_at: "дата создания"
         products: "товары"
         origin_warehouse_id: "начальный склад"
         destination_warehouse_id: "конечный склад"
+      stock_transfer_items:
+        variant: 'позиция'
       stock_transfer_status:
         title: "название"
         color: "цвет"
@@ -450,15 +459,15 @@ ru:
       stock_transfer:
         one: "перемещение"
         other: "перемещения"
-      supply: 
-        one: "поступление"
-        other: "поступления"
-      stock_transfer: 
-        one: "перемещение"
-        other: "перемещения"
+      stock_transfer_item:
+        one: "позиция перемещения"
+        other: "позиции перемещения"
       stock_transfer_status: 
         one: "статус перемещения"
         other: "статусы перемещения"
+      supply: 
+        one: "поступление"
+        other: "поступления"
       supply_item: 
         one: "позиции поступления"
         other: "позиции поступления"
@@ -710,6 +719,8 @@ ru:
         title: "название"
       product:
         <<: *product
+      place:
+        <<: *place
       placement:
         created_at: "дата создания"
         warehouse_id: "склад"

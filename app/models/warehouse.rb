@@ -1,3 +1,4 @@
+# Warehouse < ApplicationRecord
 class Warehouse < ApplicationRecord
   acts_as_list
   has_many :places, dependent: :destroy
@@ -8,9 +9,9 @@ class Warehouse < ApplicationRecord
   before_save :normalize_data_white_space
   validates :title, presence: true
   validates :title, uniqueness: true
-  after_create_commit { broadcast_prepend_to "warehouses" }
-  after_update_commit { broadcast_replace_to "warehouses" }
-  after_destroy_commit { broadcast_remove_to "warehouses" }
+  after_create_commit { broadcast_prepend_to 'warehouses' }
+  after_update_commit { broadcast_replace_to 'warehouses' }
+  after_destroy_commit { broadcast_remove_to 'warehouses' }
   before_destroy :check_presence_in_products, prepend: true
 
 
@@ -19,7 +20,7 @@ class Warehouse < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    ["places", "supplies", "locations"]
+    %w[places supplies locations placements]
   end
 
   private
@@ -31,8 +32,8 @@ class Warehouse < ApplicationRecord
   end
 
   def check_presence_in_products
-    if placements.count > 0
-      errors.add(:base, "Cannot delete warehouse. You have placements with it.")
+    if placements.count.positive?
+      errors.add(:base, 'Cannot delete warehouse. You have placements with it.')
       throw(:abort)
     end
   end

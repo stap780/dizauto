@@ -4,7 +4,7 @@
 
 <div class="col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtitle rounded-3">
     <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.stock_transfer_item.variant_id'), class: 'col-7 fw-semibold')%> 
+        <%= tag.div( t('helpers.label.stock_transfer_item.variant_id'), class: 'col-6 fw-semibold')%> 
         <%= tag.div( t('helpers.label.stock_transfer_item.quantity'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.stock_transfer_item.price'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t('helpers.label.stock_transfer_item.nds'), class: 'col-1 fw-semibold' )%>
@@ -25,18 +25,18 @@
         <% end %>
     <% end %>
     <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Subtotal:</div>
+        <div class="col-8"></div>
+        <div class="col-1">Подитог:</div>
         <div class="col" data-calculate-target="subtotal"><%= @stock_transfer.stock_transfer_items.sum(:sum)%></div>
     </div>
     <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">NDS:</div>
+        <div class="col-8"></div>
+        <div class="col-1">НДС:</div>
         <div class="col" data-calculate-target="vattotal"></div>
     </div>
     <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Total:</div>
+        <div class="col-8"></div>
+        <div class="col-1">Итого:</div>
         <div class="col" data-calculate-target="total"><%= @stock_transfer.stock_transfer_items.sum(:sum)%></div>
     </div>
 

@@ -44,7 +44,7 @@
           </div>
           <div class="col-md-6">
             <%= f.label :status_eq %>
-            <%= f.select :status_eq, Product::Status, { prompt:''}, class: "form-select input-sm" %>
+            <%= f.select :status_eq, Product::STATUS, { prompt:''}, class: "form-select input-sm" %>
           </div>
           <div class="col-md-6" data-controller="checkbox">
             <div class="label"><%= t('images') %></div>

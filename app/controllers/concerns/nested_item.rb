@@ -8,7 +8,7 @@ module NestedItem
     target = params[:turboId]
     item = nested_model.find_by(id: target.remove("#{model_to_s}_item_"))
     variant = Variant.find(params[:selected_id])
-    child_index = target.remove("#{model_to_s}_item_")
+    child_index = model_to_s == 'stocktransfer' ? target.remove('stock_transfer_item_') : target.remove("#{model_to_s}_item_")
 
     if item.present?
       helpers.fields model: model.new do |f|
@@ -48,6 +48,7 @@ module NestedItem
   end
 
   def new_nested
+    puts "new_nested => model = #{model} /// nested_model = #{nested_model} /// nested_url = #{nested_url} /// nested_model_to_s = #{nested_model_to_s}"
     child_index = Time.now.to_i
     puts "child_index => #{child_index}"
     helpers.fields model: model.new do |f|
@@ -99,7 +100,11 @@ module NestedItem
   end
 
   def model_pluralize_to_s
-    model.to_s.pluralize.downcase
+    if model_to_s == 'stocktransfer'
+      'stock_transfers'
+    else
+      model.to_s.pluralize.downcase
+    end
   end
 
   def nested_model
@@ -107,13 +112,17 @@ module NestedItem
   end
 
   def nested_model_to_s
-    "#{model}_item".downcase
+    if model_to_s == 'stocktransfer'
+      'stock_transfer_item'
+    else
+      "#{model}_item".downcase
+    end
   end
 
   def nested_model_pluralize_to_s
     if model == 'Placement'
       'location'.pluralize.downcase
-    elsif model == 'StockTransfer'
+    elsif model_to_s == 'stocktransfer'
       'stock_transfer_item'.pluralize.downcase
     else
       "#{model}_item".pluralize.downcase
@@ -125,7 +134,7 @@ module NestedItem
   end
 
   def nested_url
-    if model == 'StockTransfer'
+    if model_to_s == 'stocktransfer'
       '/stock_transfers/slimselect_nested_item'
     else
       "/#{model_pluralize_to_s}/slimselect_nested_item"

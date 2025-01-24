@@ -2,35 +2,31 @@
   <%= form_with(  model: placement) do |f| %>
     <%= render 'shared/errors', object: placement %>
 
-    <div class="row">
-      <div class="col-md-12">
         <div class="card">
-          <div class="card-header"></div>
+          <div class="card-header pb-0">
+            <%= f.label :warehouse_id, class: "form-label" %>
+          </div>
           <div class="card-body">
             <div class="row mb-3">
-              <div class="col-5 d-flex flex-column">
+              <div class="col-4 d-flex flex-column">
                 <% warehouse_id = f.object.present? && f.object.warehouse_id ? f.object.warehouse_id : params[:warehouse_id] %>
-                <%= f.label :warehouse_id, class: "form-label" %>
-                <button type="button" class="btn border-light text-start" disabled style="background-color: #e9ecef;opacity: 1;">
-                  <%= Warehouse.find(warehouse_id).title%>
+                <button type="button" class="btn border-light text-start bg-light" disabled">
+                  <%= Warehouse.find(warehouse_id).title %>
                 </button>
                 <%= f.hidden_field :warehouse_id %>
               </div>
-            </div>
-            <div class="row my-3">
               <div class="col-2">
                 <%= link_to add_icon, new_nested_placements_path(warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id), 
                                       class: "btn btn-primary float-start", data: { turbo_stream: true } %>
               </div>
             </div>
             <div class="row py-2 px-0">
-                <%= tag.div('', class: 'col-1 fw-semibold')%>
-                <%= tag.div(t('helpers.label.location.product_id'), class: 'col-5 fw-semibold')%> 
+                <%= tag.div(t('helpers.label.location.product_id'), class: 'col-7 fw-semibold')%> 
                 <%= tag.div( t('helpers.label.location.place_id'), class: 'col-2 fw-semibold' )%>
-                <%= tag.div( t('helpers.label.location.comment'), class: 'col-3 fw-semibold' )%>
+                <%= tag.div( t('helpers.label.location.comment'), class: 'col-2 fw-semibold' )%>
                 <%= tag.div('', class: 'col fw-semibold')%>
             </div>
-              <%= turbo_frame_tag :locations, :placement, class: "container" do %>
+              <%= turbo_frame_tag :locations, :placement, class: "" do %>
                 <%= f.fields_for :locations do |ff| %>
                   <%= render "locations/form_data", f: ff, variant: nil, warehouse_id: params[:warehouse_id].present? ? params[:warehouse_id] : placement.warehouse_id %>
                 <% end %>
@@ -41,8 +37,6 @@
             <%= link_to t('back'), placements_path, class: "btn btn-outline-primary", data: {turbo_frame: "_top"} %>
           </div>
         </div>
-      </div>
-    </div>
 
   <% end %>
 <% end %>

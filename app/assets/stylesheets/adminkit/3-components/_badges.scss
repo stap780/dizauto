@@ -11,7 +11,6 @@ a.badge.bg-light,
 @each $color, $value in $theme-colors {
   a.badge-#{$color}-light,
   .badge-#{$color}-light {
-    @include badge-variant(rgba($value, 0.15));
-    color: $value;
+    @include badge-variant(rgba($value, 0.15), $value);
   }
 }

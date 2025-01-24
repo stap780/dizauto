@@ -50,8 +50,8 @@ class Product < ApplicationRecord
   scope :with_images, -> { include_images.where.not(images: {product_id: nil}) }
   scope :without_images, -> { include_images.where(images: {product_id: nil}) }
 
-  Status = %w[draft active archived].freeze
-  Tip = %w[product service kit].freeze
+  STATUS = %w[draft active archived].freeze
+  TIP = %w[product service kit].freeze
 
   def self.ransackable_attributes(auth_object = nil)
     Product.attribute_names

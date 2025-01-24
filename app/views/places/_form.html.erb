@@ -1,18 +1,29 @@
-<%= turbo_frame_tag dom_id(@warehouse, dom_id(place))  do %>
-    <%= form_with(model: [@warehouse, place], class: "row justify-content-between align-items-center mb-3", data: {}) do |f|%>
-        <%= render 'shared/errors', object: place %>
-        <div class="col-4">
-          <%= f.text_field :sector, class: "form-control" %>
-        </div>
-        
-        <div class="col-4">
-          <%= f.text_field :cell, class: "form-control" %>
-        </div>
+<%#turbo_frame_tag dom_id(@warehouse, dom_id(place))  do %>
+<div class="card">
+  <div class="card-header border-bottom border-info border-opacity-10"><div class="h4">Место</div></div>
+  <div class="card-body">
+    <%= form_with(model: [@warehouse, place], class: "", data: {}) do |f|%>
+      <%= render 'shared/errors', object: place %>
+      
+      <%= tag.div class: "mb-3 col-md-4" do %>
+        <%= f.label :sector, class: "form-label" %> 
+        <%= f.select :sector, ('A'..'Z').to_a, {}, class: 'form-select' %>
+      <% end %>
+      <%= tag.div class: "mb-3 col-md-4" do %>
+        <%= f.label :cell, class: "form-label" %> 
+        <%= f.text_field :cell, class: 'form-control' %>
+      <% end %>
+      <%= tag.div class: "mb-3 col-md-6" do %>
+        <%= f.label :barcode, class: "form-label" %> 
+        <%= f.text_field :barcode, class: 'form-control', placeholder: 'появится после сохранения', readonly: true %>
+      <% end %>
 
-        <div class="col d-flex justify-content-end gap-2 align-items-center">
-            <%= f.submit t(:save), class: "btn btn-primary" %>
-            <%= link_to close_icon, :back, class: "btn btn-outline-primary" %>
-        </div>
+      <div class="my-3 col-12 d-flex justify-content-end gap-2 align-items-center">
+        <%= f.submit t(:save), class: "btn btn-primary" %>
+        <%#link_to close_icon, :back, class: "btn btn-outline-primary" %>
+      </div>
 
     <% end %>
-<% end %>
+  </div>
+</div>
+<%#end %>

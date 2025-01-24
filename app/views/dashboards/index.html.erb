@@ -58,7 +58,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col mt-0">
-									<h5 class="card-title">Доходы</h5>
+									<h5 class="card-title">Общий оборот</h5>
 								</div>
 
 								<div class="col-auto">
@@ -67,9 +67,9 @@
 									</div>
 								</div>
 							</div>
-							<h1 class="mt-1 mb-3">&#x20bd;21.300</h1>
+							<h1 class="mt-1 mb-3"><%=@orders_data[:sum]%></h1>
 							<div class="mb-0">
-								<span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
+								<span class="badge badge-success-light"> <i class="mdi mdi-arrow-bottom-right"></i><%=@orders_data[:sum_procent]%></span>
 								<span class="text-muted">С прошлой недели</span>
 							</div>
 						</div>
@@ -89,7 +89,7 @@
 							</div>
 							<h1 class="mt-1 mb-3"><%=@orders_data[:count]%></h1>
 							<div class="mb-0">
-								<span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i><%=@orders_data[:procent]%></span>
+								<span class="badge badge-danger-light"> <i class="mdi mdi-arrow-bottom-right"></i><%=@orders_data[:count_procent]%></span>
 								<span class="text-muted">С прошлой недели</span>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 	<div class="col-12 col-md-6 d-flex order-1">
 		<div class="card flex-fill w-100">
 			<div class="card-header">
-				<h5 class="card-title mb-0">Продажи по месяцам</h5>
+				<h5 class="card-title mb-0">Оборот по месяцам</h5>
 			</div>
 			<div class="card-body pt-2 pb-3 w-100">
 				<div class="align-self-center chart chart-lg">

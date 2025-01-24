@@ -18,8 +18,8 @@
 
   <%=tag.div class: "mb-3" do %>
     <%= tag.label(t('variants'), class: "form-label mb-3") %>
+    <%# not_use_this because change to canvas => turbo_frame_tag dom_id(f.object, dom_id(Variant.new)) %>
     <%= link_to add_icon, new_product_variant_path(f.object), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
-    <%# turbo_frame_tag dom_id(f.object, dom_id(Variant.new)) %>
     <%= turbo_stream_from f.object, :variants %>
     
     <%= turbo_frame_tag f.object, :variants, data: { }, class: "table d-table" do %>

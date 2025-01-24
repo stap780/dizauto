@@ -1,4 +1,5 @@
+<% row ||= 5 %>
 <%= f.hidden_field :user_id, value: current_user.id %>
 <%= f.hidden_field :commentable_type %>
 <%= f.hidden_field :commentable_id %>
-<%= f.text_area :body, class: "form-control" %>
+<%= f.text_area :body, class: "form-control", rows: row %>

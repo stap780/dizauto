@@ -107,29 +107,42 @@ class DashboardsController < ApplicationController
     hash = {}
     order_count = Order.all.count
     hash[:count] = order_count
+    order_sum = Order.total_sum
+    hash[:sum] = order_sum
+
     today = Date.today
-    this_week = Order.where(created_at: (today.beginning_of_week..today))
-    this_week_count = this_week.count.zero? ? 1 : this_week.count
+    this_week_orders = Order.where(created_at: (today.beginning_of_week..today))
+    this_week_count = this_week_orders.count.zero? ? 1 : this_week_orders.count
+    this_week_orders_sum = this_week_orders.total_sum
     # puts "this_week_count => #{this_week_count}"
-    last_week = Order.where(created_at: (today.last_week.beginning_of_week..today.last_week.end_of_week))
-    last_week_count = last_week.count.zero? ? 1 : last_week.count
+
+    last_week_orders = Order.where(created_at: (today.last_week.beginning_of_week..today.last_week.end_of_week))
+    last_week_count = last_week_orders.count.zero? ? 1 : last_week_orders.count
+    last_week_orders_sum = last_week_orders.total_sum
     # puts "last_week_count => #{last_week_count}"
-    procent = last_week_count.zero? ? ((this_week_count / 1.0 - 1) * 100).round(2) : ((this_week_count / last_week_count.to_f - 1) * 100).round(2)
-    hash[:procent] = procent
+
+    count_procent = last_week_count.zero? ? ((this_week_count / 1.0 - 1) * 100).round(2) : ((this_week_count / last_week_count.to_f - 1) * 100).round(2)
+    hash[:count_procent] = count_procent
+    sum_procent = last_week_orders_sum.zero? ? ((this_week_orders_sum / 1.0 - 1) * 100).round(2) : ((this_week_orders_sum / last_week_orders_sum.to_f - 1) * 100).round(2)
+    hash[:sum_procent] = sum_procent
     # puts hash
     hash
   end
 
   def collect_sale_chart_data
+    last_12_months = (Date.today - 1.year..Date.today).map { |d| d.strftime('%b') }.uniq
+
+    data = collect_month_orders_sum#[54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79]
+
     chart_data = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      labels: last_12_months,
       datasets: [{
-        label: 'сумма',
+        label: 'оборот',
         backgroundColor: '#3B7DDD',
         borderColor: '#3B7DDD',
         hoverBackgroundColor: '#3B7DDD',
         hoverBorderColor: '#3B7DDD',
-        data: [54, 67, 41, 55, 62, 45, 55, 73, 60, 76, 48, 79],
+        data: data,
         barPercentage: 0.75,
         categoryPercentage: 0.5
       }]
@@ -158,6 +171,19 @@ class DashboardsController < ApplicationController
       }
     }
     [chart_data, chart_options]
+  end
+
+  def collect_month_orders_sum
+    last_12_months = (Date.today - 1.year..Date.today).map { |d| d.strftime('%b') }.uniq
+    data = []
+    last_12_months.each do |month|
+      month_start = Date.parse(month).beginning_of_month
+      month_end = Date.parse(month).end_of_month
+      month_orders = Order.where(created_at: (month_start..month_end))
+      month_sum = month_orders.total_sum
+      data << month_sum
+    end
+    data
   end
 
 end

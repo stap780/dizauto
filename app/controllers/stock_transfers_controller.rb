@@ -19,6 +19,7 @@ class StockTransfersController < ApplicationController
 
   def new
     @stock_transfer = StockTransfer.new
+    @stock_transfer.stock_transfer_items.build
   end
 
   def edit; end

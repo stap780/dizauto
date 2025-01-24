@@ -29,7 +29,7 @@
     <div class="card-actions float-end">
       <div class="dropdown position-relative">
         <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
+          <%# more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
           <a href="#" class="dropdown-item">test</a>
@@ -41,14 +41,14 @@
   </div>
   <div class="card-body">
     <div id="datatables-stock_transfers" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-      <div class="row py-2 px-0 justify-content-between align-items-cstock_transfer">
+      <div class="row py-2 px-0 justify-content-between align-items-center">
         <%= div_check_box_tag_all %>
         <%= tag.div( t( 'helpers.label.stock_transfer.stock_transfer_status_id'), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.stock_transfer.created_at'), class: 'col-2 fw-semibold' )%> 
-        <%= tag.div( t( 'helpers.label.stock_transfer.products'), class: 'col-2 fw-semibold' )%>
+        <%= tag.div( "всего #{t( 'helpers.label.stock_transfer.products')}", class: 'col-2 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.stock_transfer.origin_warehouse_id'), class: 'col-2 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.stock_transfer.destination_warehouse_id'), class: 'col-2 fw-semibold' )%>
-        <%= tag.div('', class: 'col-1 fw-semibold')%>
+        <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
       <%= turbo_stream_from "stock_transfers" %>
       <%= turbo_frame_tag 'stock_transfers' do %>
