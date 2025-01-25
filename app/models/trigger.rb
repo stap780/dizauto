@@ -1,3 +1,4 @@
+# Trigger < ApplicationRecord
 class Trigger < ApplicationRecord
   has_many :trigger_actions, dependent: :destroy
   accepts_nested_attributes_for :trigger_actions, allow_destroy: true, reject_if: :all_blank
@@ -10,9 +11,9 @@ class Trigger < ApplicationRecord
 
   scope :active, -> { where(active: true).order(:id) }
 
-  Event = [ ["Создание убытка", "create_incase", "incase"], ["Редактирование убытка", "update_incase", "incase"],
-            ["Создание заказа", "create_order", "order"], ["Редактирование заказа", "update_order", "order"],
-            ["Создание позиции убытка", "create_incase_item", "incase_item"]].freeze
+  EVENT = [ ['Создание убытка', 'create_incase', 'incase'], ['Редактирование убытка', 'update_incase', 'incase'],
+            ['Создание заказа', 'create_order', 'order'], ['Редактирование заказа', 'update_order', 'order'],
+            ['Создание позиции убытка', 'create_incase_item', 'incase_item']].freeze
 
   def self.ransackable_attributes(auth_object = nil)
     Trigger.attribute_names
@@ -28,7 +29,7 @@ class Trigger < ApplicationRecord
 
   def check_active
     if self.active
-      errors.add(:base, "Cannot delete Trigger. it is active")
+      errors.add(:base, 'Cannot delete Trigger. it is active')
       throw(:abort)
     end
   end

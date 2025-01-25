@@ -1,9 +1,14 @@
-<td><b><%= client.id%></b></td>
-<td><%= client.surname%></td>
-<td><%= client.name%></td>
-<td><%= client.middlename%></td>
-<td><%= client.phone%></td>
-<td><%= client.email%></td>
-<td><%= client.created_at.strftime("%d/%m/%Y")%></td>
-<%= td_index_edit_delete_link(client)%>
+<%= turbo_frame_tag dom_id(client), class: "d-table-row", style:'height:30px;', data: { }  do %>
+    <%= tag.div client.id, class: "d-table-cell col-1" %>
+    <%= tag.div( client.surname, class: "d-table-cell") %>
+    <%= tag.div( client.name, class: "d-table-cell") %>
+    <%= tag.div( client.middlename, class: "d-table-cell") %>
+    <%= tag.div( client.phone, class: "d-table-cell") %>
+    <%= tag.div( client.email, class: "d-table-cell") %>
+    <%= tag.div( client.created_at.strftime("%d/%m/%Y"), class: "d-table-cell") %>
+    <%= tag.div("", class: "d-table-cell") do %>
+        <%= link_to edit_icon, edit_client_path(client), data: { turbo_frame: 'offcanvas_wrap'} %>
+        <%= link_to trash_icon, client, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>
+    <% end %>
+<% end %>
 

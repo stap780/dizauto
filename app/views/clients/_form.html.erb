@@ -1,21 +1,19 @@
-<%= turbo_frame_tag client do %>
-    <%= form_with(  model: client) do |f| %>
-        <%= render 'shared/errors', object: client%>
+<%#turbo_frame_tag client do %>
+<%= form_with(  model: client) do |f| %>
+    <%= render 'shared/errors', object: client%>
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"></div>
-                    <div class="card-body">
-                        <%= render 'form_data', f: f %>
-                    </div>
-                    <div class="card-footer">
-                        <%= f.submit class: "btn btn-primary" %>
-                        <%= link_to t('back'), :back, class: "btn btn-outline-primary", data: {turbo: false} %>
-                    </div>
-                </div>
+    <div class="card">
+        <div class="card-header"></div>
+        <div class="card-body">
+            <%= render 'form_data', f: f %>
+        </div>
+        <div class="card-footer">
+            <div class="my-3 col-12 d-flex justify-content-end gap-2 align-items-center">
+                <%= f.submit t('save'), class: "btn btn-primary" %>
+                <%# link_to close_icon, :back, class: "btn btn-outline-primary" %>
             </div>
         </div>
+    </div>
 
-    <% end %>
 <% end %>
+<%#end %>

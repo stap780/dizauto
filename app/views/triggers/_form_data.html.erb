@@ -13,7 +13,7 @@
     </div>
     <div class="mb-3 col-4">
         <%= f.label :event, class: "form-label" %>
-        <%= f.select :event, Trigger::Event.map{ |r| [r[0], r[1], { value2: r[2]}] }, {}, {class: "form-select"} %>
+        <%= f.select :event, Trigger::EVENT.map{ |r| [r[0], r[1], { value2: r[2]}] }, {}, {class: "form-select"} %>
     </div>
     <div class="mb-3 col-12">
         <%= f.label :condition, class: "form-label" %>

@@ -1,4 +1,4 @@
-# class Client
+# class Client < ApplicationRecord
 class Client < ApplicationRecord
   has_many :client_companies
   has_many :companies, through: :client_companies
@@ -14,7 +14,7 @@ class Client < ApplicationRecord
   scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.full_name, p.id] } + first_five }
 
   def full_name
-    [name, surname, email].join(" ")
+    [name, surname, email].join('')
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -30,15 +30,14 @@ class Client < ApplicationRecord
   end
 
   def check_relations_present
-    if orders.count > 0
+    if orders.count.positive?
       errors.add(:base, "Cannot delete Client. You have #{I18n.t('orders')} with it.")
     end
-    if companies.count > 0
+    if companies.count.positive?
       errors.add(:base, "Cannot delete Client. You have #{I18n.t('companies')} with it.")
     end
-    if errors.present?
-      throw(:abort)
-    end
+
+    throw(:abort) if errors.present?
   end
 
 end

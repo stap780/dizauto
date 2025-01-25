@@ -7,8 +7,8 @@
       <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel' do %>.xlsx<% end%>
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("clients/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, clients_path, class: 'btn btn-outline-primary me-2' %>
-    <%= link_to add_icon, new_client_path, class: "btn btn-primary" %>
+    <%= link_to arrow_clockwise_icon, clients_path, class: 'btn btn-outline-primary me-2', style: 'max-height: 32.5938px;' %>
+    <%= link_to add_icon, new_client_path, class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
   </div>
 </div>
 
@@ -30,34 +30,23 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-products" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.client.surname')%></th>
-                <th><%= t('helpers.label.client.name')%></th>
-                <th><%= t('helpers.label.client.middlename')%></th>
-                <th><%= t('helpers.label.client.phone')%></th>
-                <th><%= t('helpers.label.client.email')%></th>
-                <th><%= t('helpers.label.client.created_at')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @clients.each do |client| %>
-                <tr id="<%= dom_id client %>">
-                  <%= render client %>
-                </tr>
-              <% end %>
-              </tbody>
-          </table>
-        </div>
-      </div>
+    <%= turbo_stream_from :clients %>
+    <div class="table-responsive">
+    <%= turbo_frame_tag :clients, data: { }, class: "table d-table" do %>
+      <%= tag.div class:"d-table-row", style:'height:30px;' do %>
+        <%= tag.div("#", class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.surname'), class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.name'), class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.middlename'), class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.phone'), class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.email'), class: "d-table-cell fw-bold")%>
+        <%= tag.div(t('helpers.label.client.created_at'), class: "d-table-cell fw-bold")%>
+        <%= tag.div("", class: "d-table-cell")%>
+      <% end %>
       
-      <%= render "shared/paginate", f: @clients %>
+      <%= render @clients %>
     </div>
+    <%= render "shared/paginate", f: @clients %>
+   <% end %>
   </div>
 </div>

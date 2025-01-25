@@ -7,7 +7,7 @@
   <%= tag.div( variant.price, class: "d-table-cell") %>
   <%= tag.div("", class: "d-table-cell") do %>
     <%= link_to edit_icon, edit_product_variant_path(product, variant), data: { turbo_frame: 'offcanvas_wrap'} %>
-    <%= link_to trash_icon, [product, variant], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>    
+    <%= link_to trash_icon, [product, variant], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>    
     <%# render 'shared/edit_delete_link_turbo', object: [product, variant] %>
   <% end %>
 <% end %>
