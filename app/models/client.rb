@@ -10,6 +10,13 @@ class Client < ApplicationRecord
   before_save :normalize_data_white_space
   before_destroy :check_relations_present, prepend: true
 
+  include ActionView::RecordIdentifier
+
+  after_create_commit { broadcast_append_to 'clients' }
+  after_update_commit { broadcast_replace_to 'clients' }
+  after_destroy_commit { broadcast_remove_to 'clients' }
+
+
   scope :first_five, -> { all.limit(5).map { |p| [p.full_name, p.id] } }
   scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.full_name, p.id] } + first_five }
 
