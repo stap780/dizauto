@@ -7,7 +7,7 @@
     <% end %>
     <%= tag.div class: "col-2" do %>
         <%= tag.span(   enter.enter_status.title,
-                        class: 'w-100', 
+                        class: 'text-wrap w-100', 
                         style: 'background-color:'+enter.enter_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: enter.enter_status.color }) if enter.enter_status %>
     <% end %>

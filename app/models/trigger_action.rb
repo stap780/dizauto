@@ -7,12 +7,12 @@ class TriggerAction < ApplicationRecord
   include ActionView::RecordIdentifier
 
   after_create_commit do 
-    broadcast_append_to [trigger, :trigger_actions], target: dom_id(trigger, :trigger_actions), partial: "trigger_actions/trigger_action", locals: { trigger_action: self, trigger: trigger  }
+    broadcast_append_to [trigger, :trigger_actions], target: dom_id(trigger, :trigger_actions), partial: 'trigger_actions/trigger_action', locals: { trigger_action: self, trigger: trigger  }
     broadcast_update_to [trigger, :trigger_actions], target: dom_id(trigger, dom_id(TriggerAction.new)), html: ''
   end
 
   after_update_commit do
-    broadcast_replace_to [trigger, :trigger_actions], target: dom_id(trigger, dom_id(self)), partial: "trigger_actions/trigger_action", locals: { trigger_action: self, trigger: trigger }
+    broadcast_replace_to [trigger, :trigger_actions], target: dom_id(trigger, dom_id(self)), partial: 'trigger_actions/trigger_action', locals: { trigger_action: self, trigger: trigger }
   end
 
   after_destroy_commit do
@@ -25,7 +25,9 @@ class TriggerAction < ApplicationRecord
     "incase_item_status_id#incase_item": IncaseItemStatus.pluck(:title, :id),
     "email#incase": Templ.where(modelname: 'incase').pluck(:title, :id),
     "order_status_id#order": OrderStatus.pluck(:title, :id),
-    "email#order": Templ.where(modelname: 'order').pluck(:title, :id)
+    "email#order": Templ.where(modelname: 'order').pluck(:title, :id),
+    "email#invoice": Templ.where(modelname: 'invoice').pluck(:title, :id),
+    "invoice_status_id#invoice": InvoiceStatus.pluck(:title, :id)
   }
 
   def names

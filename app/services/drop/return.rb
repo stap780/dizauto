@@ -28,7 +28,6 @@ class Drop::Return < Liquid::Drop
     end
   
     def items
-      #li.attributes 
       @myreturn.myreturn_items.present? ? @myreturn.myreturn_items.map { |li| 
         {
           "id"=>li.id,

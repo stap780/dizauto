@@ -1,4 +1,6 @@
+# Drop::Product < Liquid::Drop
 class Drop::Product < Liquid::Drop
+
   def initialize(product)
     @product = product
   end

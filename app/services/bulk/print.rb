@@ -1,11 +1,12 @@
+# Bulk::Print < ApplicationService
 class Bulk::Print < ApplicationService
   def initialize(items, options = {})
     @items = items
     @templ = Templ.find(options[:templ_id])
     @save_dir = "#{Rails.public_path}/bulk_prints"
     @filename = "#{options[:templ_id]}.pdf"
-    @result_file_path = "#{@save_dir}/barcodes.pdf"
-    @error_message = "We have error while print create"
+    @result_file_path = "#{@save_dir}/result_file.pdf"
+    @error_message = 'We have error while print create'
     @multi_pdf = CombinePDF.new
   end
 
@@ -27,7 +28,7 @@ class Bulk::Print < ApplicationService
   private
 
   def create(item)
-    save_path = "#{@save_dir}/#{item.id}.pdf"
+    # save_path = "#{@save_dir}/#{item.id}.pdf"
     success, pdf = CreatePdf.new(item, {templ: @templ}).call
     pdf if success
   end

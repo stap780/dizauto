@@ -98,16 +98,22 @@ class Automation < ApplicationService
     subject_template = Liquid::Template.parse(action_template.subject)
     content_template = Liquid::Template.parse(action_template.content)
 
+    attachment = action_template.print_template_id.present? ? true : false
+    # if action_template.print_template_id.present?
+    #   success, blob = Bulk::Print.new([@object], {templ_id: action_template.print_template_id}).call
+    #   attachment = blob if success
+    # end
+
     if action_template.receiver == 'client'
       receiver = @object.client.email if @drop_object == 'order'
       receiver = @object.company.main_email if @drop_object == 'incase'
       receiver = @object.company.main_email if @drop_object == 'supply'
+      receiver = @object.client.email if @drop_object == 'invoice'
     end
 
     if action_template.receiver == 'user'
-      receiver = User.admin_emails if @drop_object == 'incase'
-      receiver = User.admin_emails if @drop_object == 'order' # @object.manager.email
-      receiver = User.admin_emails if @drop_object == 'supply' # @object.manager.email
+      user_emails = action_template.receiver_value.present? ? action_template.receiver_value : User.admin_emails
+      receiver = user_emails
     end
 
     subject = subject_template.render(@drop_object => @drop)
@@ -117,7 +123,10 @@ class Automation < ApplicationService
       email_setup: EmailSetup.all.first,
       subject: subject,
       content: content,
-      receiver: receiver
+      receiver: receiver,
+      attachment: attachment,
+      attachment_items: @object,
+      attachment_template_id: action_template.print_template_id
     }
 
     AutomationMailer.with(email_data).send_action_email.deliver_later(wait: wait.to_i.minutes)
@@ -139,14 +148,14 @@ class Automation < ApplicationService
     object_have_changes.uniq.size == 1 && object_have_changes.uniq.first == true ? true : false
   end
 
-  # this is for future create relation object
-  # def create_object(attr, value)
-  #   # here attr = "create_supply"
-  #   # new_object = attr.remove("create_")
-  #   new_object = attr.remove("create_").classify.constantize
-  #   if value.present?
-
-  #   end
-  # end
-
 end
+
+# this is for future create relation object
+# def create_object(attr, value)
+#   # here attr = "create_supply"
+#   # new_object = attr.remove("create_")
+#   new_object = attr.remove("create_").classify.constantize
+#   if value.present?
+
+#   end
+# end

@@ -7,7 +7,7 @@
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span(   order.order_status.title,
-                        class: 'w-100', 
+                        class: 'text-wrap w-100', 
                         style: 'background-color:'+order.order_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: order.order_status.color }) if order.order_status %>
     <% end %>

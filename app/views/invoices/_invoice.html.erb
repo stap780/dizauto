@@ -8,7 +8,7 @@
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span( invoice.invoice_status.title,
-                      class: 'w-100', 
+                      class: 'text-wrap w-100', 
                       style: 'background-color:'+invoice.invoice_status.color,
                       data: {controller: 'badge', badge_target: 'value', bg_color: invoice.invoice_status.color }) if invoice.invoice_status %>
     <% end %>

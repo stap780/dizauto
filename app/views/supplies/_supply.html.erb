@@ -4,7 +4,7 @@
     <%= tag.td(supply.created_at.strftime("%d/%m/%Y")) %>
     <%= tag.td do %>
         <%= tag.span(   supply.supply_status.title,
-                        class: 'w-100', 
+                        class: 'text-wrap w-100', 
                         style: 'background-color:'+supply.supply_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: supply.supply_status.color }) if supply.supply_status %>
     <% end %>

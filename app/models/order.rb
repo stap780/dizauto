@@ -28,7 +28,7 @@ class Order < ApplicationRecord
   attribute :total_sum
 
   def self.ransackable_attributes(auth_object = nil)
-    Order.attribute_names
+    attribute_names
   end
 
   def self.ransackable_associations(auth_object = nil)

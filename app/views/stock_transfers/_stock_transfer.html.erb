@@ -7,7 +7,7 @@
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span(   stock_transfer.stock_transfer_status.title,
-                        class: 'w-100', 
+                        class: 'text-wrap w-100', 
                         style: 'background-color:'+stock_transfer.stock_transfer_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: stock_transfer.stock_transfer_status.color }) if stock_transfer.stock_transfer_status %>
     <% end %>

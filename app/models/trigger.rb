@@ -13,7 +13,8 @@ class Trigger < ApplicationRecord
 
   EVENT = [ ['Создание убытка', 'create_incase', 'incase'], ['Редактирование убытка', 'update_incase', 'incase'],
             ['Создание заказа', 'create_order', 'order'], ['Редактирование заказа', 'update_order', 'order'],
-            ['Создание позиции убытка', 'create_incase_item', 'incase_item']].freeze
+            ['Создание позиции убытка', 'create_incase_item', 'incase_item'],
+            ['Создание накладной', 'create_invoice', 'invoice'], ['Редактирование накладной', 'update_invoice', 'invoice']].freeze
 
   def self.ransackable_attributes(auth_object = nil)
     Trigger.attribute_names

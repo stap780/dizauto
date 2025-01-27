@@ -43,12 +43,10 @@ class Drop::Order < Liquid::Drop
   end
 
   def items
-    return [] if @order.order_items.zero?
-
     @order.order_items.map { |li|
       {
         'id'=>li.id,
-        'title'=>li.product.title,
+        'title'=>li.variant.product.title,
         'price'=>li.price,
         'discount'=>li.discount,
         'sum'=> li.sum,

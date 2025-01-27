@@ -1,27 +1,39 @@
-<div class="row col-md-10">
-    <div class="mb-3 col-md-4">
-    <%= f.label :tip, class: "form-label" %>
-    <%= f.select :tip, Templ::TIP, {include_blank: false}, {class: "form-select", selected: f.object.tip.present? ? f.object.tip : Templ::TIP.first, 
-                                                                        data: {action: "change->template#change_tip", template_target: "tip"} }%>
-    </div>
-    <div class="mb-3 col-md-4">
-    <%= f.label :modelname, class: "form-label" %>
-    <%= f.select :modelname, Templ::MODELNAME, {include_blank: false}, {class: "form-select" }%>
-    </div>
-    <div class="mb-3 col-md-8">
-    <%= f.label :title, class: "form-label" %>
-    <%= f.text_field :title, class: "form-control" %>
-    </div>
-    <div class="mb-3 col-md-8 <% if !f.object.tip || f.object.tip == 'simple'%>d-none<%end%>" data-template-target= "attributes">
-    <%= f.label :subject, class: "form-label" %>
-    <%= f.text_field :subject, class: "form-control" %>
-    </div>
-    <div class="mb-3 col-md-8 <% if !f.object.tip || f.object.tip == 'simple'%>d-none<%end%>" data-template-target= "attributes">
-    <%= f.label :receiver, class: "form-label" %>
-    <%= f.select :receiver, Templ::RECEIVER , {}, {class: "form-select" }%>
-    </div>
-    <div class="mb-3 col-md-12">
-    <%= f.label :content, class: "form-label" %>
-    <%= f.text_area :content, class: "form-control", rows: "30" %>
-    </div>
-</div>            
+
+<%= tag.div class: 'row col-md-9' do %>
+    <%= tag.div class: 'mb-3 col-md-4' do %>
+        <%= f.label :tip, class: "form-label" %>
+        <%= f.select :tip, Templ::TIP, {include_blank: false}, {class: "form-select", selected: f.object.tip.present? ? f.object.tip : Templ::TIP.first, 
+                                                                            data: {action: "change->template#changeTip", template_target: "tip"} } %>
+    <% end %>
+    <%= tag.div class: 'mb-3 col-md-4' do %>
+        <%= f.label :modelname, class: "form-label" %>
+        <%= f.select :modelname, Templ::MODELNAME, {include_blank: false}, {class: "form-select" } %>
+    <% end %>
+    <%= tag.div class: 'mb-3 col-md-10' do %>
+        <%= f.label :title, class: "form-label" %>
+        <%= f.text_field :title, class: "form-control" %>
+    <% end %>
+    <%= tag.div class: 'mb-3 col-md-10', data: {template_target: 'subject'} do %>
+        <%= f.label :subject, class: "form-label" %>
+        <%= f.text_field :subject, class: "form-control" %>
+    <% end %>
+    <%= tag.div class: 'row col-12', data: {template_target: 'receiver'} do %> 
+        <%= tag.div class: 'mb-3 col-md-3' do %> 
+            <%= f.label :receiver, class: "form-label" %>
+            <%= f.select :receiver, Templ::RECEIVER , {}, class: "form-select", data: {action: "change->template#changeReceiver", template_target: "receivertip"}%>
+        <% end %>
+        <%= tag.div class: 'mb-3 col-md-3', data: {template_target: 'receiverValue'} do %>    
+            <%= f.label :receiver_value, class: "form-label" %>
+            <%= f.select :receiver_value, User.all.map{|user| [ "#{user.name} - #{user.email}",user.email]} , {include_blank: true}, class: "form-select" %>
+        <% end %>
+        <%= tag.div class: 'mb-3 col-md-3' do %>
+            <%= f.label 'attachment', class: "form-label" %>
+            <%= f.select :print_template_id, Templ.print.pluck(:title, :id), {include_blank: true}, {class: "form-select"}%>
+        <% end %>
+    <% end %>
+
+    <%= tag.div class: 'mb-3 col-md-12' do %>
+        <%= f.label :content, class: "form-label" %>
+        <%= f.text_area :content, class: "form-control", rows: "30" %>
+    <% end %>
+ <% end %>
