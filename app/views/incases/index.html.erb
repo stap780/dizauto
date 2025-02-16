@@ -15,6 +15,7 @@
         <% end %>
       <% end %>
       </ul>
+      <%= f.button 'Status', type: :submit, class: "btn btn-outline-primary", formaction: bulk_status_incases_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("bulk_status") %>
       <%= render 'shared/download_excel_buttons', f: f, object: Incase.new %>
     <% end %>
 
@@ -34,14 +35,12 @@
           <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <%#OLD IMPORT link_to 'Импорт'.html_safe, file_import_incases_path, class: 'dropdown-item', data: {turbo_frame: "modal"} %>
           <%= link_to 'Импорт'.html_safe, incase_imports_path, class: 'dropdown-item'%>
-          <%# link_to '.xlsx', incases_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>
     <h5 class="card-title mb-0">Заказы поставщикам</h5>
-    <h5 class="card-title mb-0" id="count_info">Всего: <%= Incase.all.count %></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@incases).to_s.gsub('Incase','').gsub('товары','').html_safe %></h5>
   </div>
   <%= tag.div(class: "card-body") do %>
     <%= tag.div(class: "col-sm-12 list-group list-group-striped", id: 'datatables-incases', data: {controller: "selectall"}) do %>
@@ -54,7 +53,13 @@
         <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       <% end %>
-      <%= turbo_stream_from "incases_list" %>
+      
+      <% if !@incases.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
+        <%= turbo_stream_from "incases_page1" %>
+      <% else %>
+        <%= turbo_stream_from "incases" %>
+      <% end %>
+
       <%= turbo_frame_tag 'incases' do %>
           <%= render @incases %>
       <% end %>

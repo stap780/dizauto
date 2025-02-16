@@ -46,10 +46,6 @@ class CreatePdf < ApplicationService
     else
       new_content = Nokogiri::HTML(content)
       new_content.inner_html.gsub('<html>', '<html><meta http-equiv="content-type" content="text/html; charset=utf-8" />')
-
-      # puts "convert_content error"
-      # @error_message = "don't have utf-8"
-      # false
     end
   end
 

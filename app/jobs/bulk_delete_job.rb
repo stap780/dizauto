@@ -1,3 +1,4 @@
+# BulkDeleteJob < ApplicationJob
 class BulkDeleteJob < ApplicationJob
   queue_as :bulk_delete
   sidekiq_options retry: 0
@@ -10,7 +11,7 @@ class BulkDeleteJob < ApplicationJob
     if result
       BulkDeleteNotifier.with(
         # record: items.first,
-        message: "Success",
+        message: 'Success',
         error: nil,
         model: model
       ).deliver(User.find_by_id(options[:current_user_id]))
@@ -23,13 +24,13 @@ class BulkDeleteJob < ApplicationJob
       ).deliver(User.find_by_id(options[:current_user_id]))
       Turbo::StreamsChannel.broadcast_update_to(
         User.find(options[:current_user_id]),
-        "bulk_actions",
-        target: "modal",
-        template: "shared/show_modal",
+        'bulk_action',
+        target: 'moda',
+        template: 'shared/show_modal',
         layout: false,
         locals: {message: message}
       )
     end
-    
+
   end
 end

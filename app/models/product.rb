@@ -21,9 +21,9 @@ class Product < ApplicationRecord
 
   has_associated_audits
   before_save :normalize_data_white_space
-  after_create_commit { broadcast_prepend_to 'products_list' }
-  after_update_commit { broadcast_replace_to 'products_list' }
-  after_destroy_commit { broadcast_remove_to 'products_list' }
+  after_create_commit { broadcast_prepend_to 'products_page1' }
+  after_update_commit { broadcast_replace_to 'products' }
+  after_destroy_commit { broadcast_remove_to 'products' }
   before_destroy :check_variants_have_relations, prepend: true
 
   validates :title, presence: true
@@ -164,10 +164,10 @@ class Product < ApplicationRecord
       end
     end
 
-    if errors.present?
-      errors.add(:base, 'Cannot delete product')
-      throw(:abort)
-    end
+    return unless errors.present?
+
+    errors.add(:base, 'Cannot delete product')
+    throw(:abort)
   end
 
 

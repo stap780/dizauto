@@ -16,7 +16,8 @@ class Incase < ApplicationRecord
 
   before_save :normalize_data_white_space
 
-  after_create_commit { broadcast_prepend_to 'incases_list' }
+  after_create_commit { broadcast_prepend_to 'incases_page1' }
+  after_update_commit { broadcast_replace_to 'incases' }
 
   validates :date, presence: true
   validates :unumber, presence: true
@@ -24,7 +25,7 @@ class Incase < ApplicationRecord
   REGION = %w[МСК СПБ].freeze
 
   def self.ransackable_attributes(auth_object = nil)
-    Incase.attribute_names
+    attribute_names
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -32,7 +33,13 @@ class Incase < ApplicationRecord
   end
 
   def send_excel
-    email_data = { email_setup: EmailSetup.all.first, incase: self, subject: 'Test subject', content: 'Test content', receiver: strah.main_email }
+    email_data = { 
+      email_setup: EmailSetup.all.first,
+      incase: self,
+      subject: 'Test subject',
+      content: 'Test content',
+      receiver: strah.main_email 
+    }
     check_email = IncaseMailer.with(email_data).send_info_email.deliver_now # .deliver_later(wait: '1'.to_i.minutes)
     check_email.present? ? true : false
   end

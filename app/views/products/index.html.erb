@@ -7,7 +7,7 @@
       <div class="btn-group" role="group">
         <%= button_print %>
         <ul class="dropdown-menu">
-          <%= f.submit "Этикетки", class: "dropdown-item"%>
+          <%= f.submit "Этикетки", data: { turbo_frame: "modal" }, class: "dropdown-item"%>
           <% Templ.product_print.each do |templ|%>
             <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item", formaction: bulk_print_products_path do %>
               <%= templ.title %>
@@ -29,18 +29,7 @@
 
 <div class="card">
   <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
-          <%# link_to '.xlsx', products_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
-        </div>
-      </div>
-    </div>
-    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info @products if @products.size > 0 %></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@products).to_s.gsub('Product','').gsub('товары','').html_safe %></h5>
   </div>
   <div class="card-body">
     <%= turbo_stream_from current_user, "products" if user_signed_in? %>
@@ -54,7 +43,13 @@
         <%= tag.div( t( 'helpers.label.product.created_at'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
-      <%= turbo_stream_from "products_list" %>
+
+      <% if !@products.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
+        <%= turbo_stream_from "products_page1" %>
+      <% else %>
+        <%= turbo_stream_from "products" %>
+      <% end %>
+      
       <%= turbo_frame_tag 'products' do %>
         <%= render @products %>
       <% end %>

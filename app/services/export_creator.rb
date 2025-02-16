@@ -1,6 +1,7 @@
+# ExportCreator < ApplicationService
 class ExportCreator < ApplicationService
-  require "csv"
-  require "caxlsx"
+  require 'csv'
+  require 'caxlsx'
 
   attr_reader :export, :file_path
 
@@ -92,7 +93,7 @@ class ExportCreator < ApplicationService
   end
 
   def delete_file
-    File.delete(@file_path) if File.file?(@file_path).present?
+    File.delete(@file_path) if we_have_file?
   end
 
   def we_have_file?

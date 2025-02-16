@@ -25,6 +25,7 @@
     <%= turbo_frame_tag f.object, :variants, data: { }, class: "table d-table" do %>
       <%= tag.div class:"d-table-row" do %>
         <%= tag.div("#", class: "d-table-cell fw-bold")%>
+        <%= tag.div("", class: "d-table-cell")%>
         <%= tag.div("sku", class: "d-table-cell fw-bold")%>
         <%= tag.div("barcode", class: "d-table-cell fw-bold")%>
         <%= tag.div("qt", class: "d-table-cell fw-bold")%>

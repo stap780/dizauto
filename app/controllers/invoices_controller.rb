@@ -4,6 +4,7 @@ class InvoicesController < ApplicationController
   include SearchQueryRansack
   include DownloadExcel
   include NestedItem
+  include BulkStatus
 
   def index
     @search = Invoice.ransack(search_params)

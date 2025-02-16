@@ -24,7 +24,7 @@
     <%= tag.div( product.created_at.strftime("%d/%m/%Y"), class: "col-md-1 px-1" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=product.id%>">
-        <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: {turbo_method: :post, turbo_confirm: I18n.t("print_barcode")}, title: I18n.t("print_barcode") %>
+        <%= link_to barcode_icon, print_etiketki_products_path(product_ids: [product.id]), data: { turbo_method: :post, turbo_confirm: I18n.t("print_barcode"), turbo_frame: "modal" }, title: I18n.t("print_barcode") %>
         <%= link_to copy_icon, copy_product_path(product), data: {turbo_method: :post, turbo_confirm: "Вы уверены, что хотите скопировать этот товар?"}, title: I18n.t('copy') %>
         <%= render 'shared/edit_delete_link', object: product %>
     </div>

@@ -2,7 +2,7 @@
 class VariantsController < ApplicationController
   load_and_authorize_resource
   before_action :set_product
-  before_action :set_variant, only: %i[show edit update destroy]
+  before_action :set_variant, only: %i[show edit update destroy print_etiketki]
   include ActionView::RecordIdentifier
 
   def index
@@ -78,6 +78,10 @@ class VariantsController < ApplicationController
       format.html { redirect_to variants_path, notice: 'Variant was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def print_etiketka
+    @success, @blob = Etiketka.call(@variant)
   end
 
   private

@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   include SearchQueryRansack
   include DownloadExcel
   include NestedItem
+  include BulkStatus
 
   def index
     @search = Order.ransack(search_params)

@@ -1,0 +1,7 @@
+<%= turbo_frame_tag "modal" do %>
+  <% if @success %>
+    <%= render template: "shared/success_bulk", locals: { bulk_print: @blob, message: nil } %>
+  <% else %>
+     <%= render template: "shared/error_bulk", locals: { error_message: @blob, error_process: 'variant print_etiketka' } %>
+  <% end %>
+<% end %>

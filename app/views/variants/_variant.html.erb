@@ -1,12 +1,16 @@
 <%= turbo_frame_tag dom_id(product, dom_id(variant)), class: "d-table-row", data: { }  do %>
   <%= tag.div( variant.id, class: "d-table-cell") %>
+  <%= tag.div class: "d-table-cell" do %>
+    <%= tag.div(variant.png_barcode, style: "height:30px; overflow-y:hidden;padding:0;")%>
+  <% end %>
   <%= tag.div( variant.sku, class: "d-table-cell") %>
   <%= tag.div( variant.barcode, class: "d-table-cell") %>
   <%= tag.div( variant.quantity, class: "d-table-cell") %>
   <%= tag.div( variant.cost_price, class: "d-table-cell") %>
   <%= tag.div( variant.price, class: "d-table-cell") %>
   <%= tag.div("", class: "d-table-cell") do %>
-    <%= link_to edit_icon, edit_product_variant_path(product, variant), data: { turbo_frame: 'offcanvas_wrap'} %>
+    <%= link_to edit_icon, edit_product_variant_path(product, variant), data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>
+    <%= link_to barcode_icon, print_etiketka_product_variant_path(product, variant), data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("print_barcode") %>
     <%= link_to trash_icon, [product, variant], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>    
     <%# render 'shared/edit_delete_link_turbo', object: [product, variant] %>
   <% end %>

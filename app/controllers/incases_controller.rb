@@ -5,6 +5,7 @@ class IncasesController < ApplicationController
   include SearchQueryRansack
   include DownloadExcel
   include NestedItem
+  include BulkStatus
 
   def index
     @search = Incase.includes(:strah, :incase_items).ransack(search_params)
@@ -15,8 +16,7 @@ class IncasesController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @incase = Incase.new

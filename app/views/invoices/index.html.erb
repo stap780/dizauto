@@ -4,18 +4,19 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
     <%= form_with url: bulk_print_invoices_path, method: :post, id: :bulk_action_form  do |f| %>
-    <% if Templ.invoice_print.presence %>
-    <%= button_print %>
-    <ul class="dropdown-menu">
-      <% Templ.invoice_print.each do |templ|%>
-        <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
-          <%= templ.title %>
-        <% end %>
+      <% if Templ.invoice_print.presence %>
+        <%= button_print %>
+        <ul class="dropdown-menu">
+          <% Templ.invoice_print.each do |templ|%>
+            <%= f.button type: :submit, value: "templ_id##{templ.id}", class: "dropdown-item" do %>
+              <%= templ.title %>
+            <% end %>
+          <% end %>
+        </ul>
       <% end %>
+      <%= f.button 'Status', type: :submit, class: "btn btn-outline-primary", formaction: bulk_status_invoices_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("bulk_status") %>
+      <%= render 'shared/download_excel_buttons', f: f, object: Invoice.new %>
     <% end %>
-    </ul>
-    <%= render 'shared/download_excel_buttons', f: f, object: Invoice.new %>
-  <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("invoices/_filter").any? %>
     <%= link_to arrow_clockwise_icon, invoices_path(search_cancel: true), class: 'btn btn-outline-primary me-2', data: {turbo: false}  %>
     <%= link_to add_icon, new_invoice_path, class: "btn btn-primary" %>
@@ -32,12 +33,11 @@
           <%= more_icon%>
         </a>
         <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
           <%= link_to '.xlsx', invoices_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0"><%= page_entries_info(@invoices).to_s.gsub('Invoice','').gsub('накладные','').html_safe %></h5>
   </div>
   <div class="card-body">
 
@@ -51,7 +51,13 @@
         <%= tag.div( t( 'helpers.label.invoice.created_at'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
-      <%= turbo_stream_from "invoices" %>
+
+      <% if !@invoices.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
+        <%= turbo_stream_from "invoices_page1" %>
+      <% else %>
+        <%= turbo_stream_from "invoices" %>
+      <% end %>
+
       <%= turbo_frame_tag 'invoices' do %>
           <%= render @invoices %>
       <% end %>

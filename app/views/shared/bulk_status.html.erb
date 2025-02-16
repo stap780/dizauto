@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "modal" do %>
+  <%= render partial: "shared/bulk_status_form", locals: {
+    collection_ids: @collection_ids,
+    model: @model,
+    status_model: @status_model,
+    hidden_field: @hidden_field,
+    update_field: @update_field
+    }%>
+<% end %>
+<%= turbo_stream_action_tag :set_unchecked, targets: '.checkboxes' %>

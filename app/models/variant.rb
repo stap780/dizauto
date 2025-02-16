@@ -5,6 +5,8 @@ class Variant < ApplicationRecord
   require 'barby'
   require 'barby/barcode/ean_13'
   require 'barby/outputter/html_outputter'
+  require 'barby/outputter/ascii_outputter'
+  require 'barby/outputter/png_outputter'
 
   belongs_to :product
   has_many :incase_items
@@ -75,11 +77,20 @@ class Variant < ApplicationRecord
   end
 
   def html_barcode
-    if barcode.size == 13
-      barcode = Barby::EAN13.new(self.barcode[0...-1])
-      barcode_for_html = Barby::HtmlOutputter.new(barcode)
-      barcode_for_html.to_html.html_safe
-    end
+    return unless barcode.size == 13
+
+    barcode = Barby::EAN13.new(self.barcode[0...-1])
+    barcode_for_html = Barby::HtmlOutputter.new(barcode)
+    barcode_for_html.to_html.html_safe
+  end
+
+  def png_barcode
+    return unless barcode.size == 13
+
+    barcode = Barby::EAN13.new(self.barcode[0...-1])
+    barcode_png = Barby::PngOutputter.new(barcode)
+    image_64 = barcode_png.to_png
+    "<img src='data:image/png;base64,#{Base64.encode64(image_64)}'>".html_safe
   end
 
   def full_title

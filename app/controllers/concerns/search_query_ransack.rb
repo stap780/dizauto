@@ -2,7 +2,7 @@ module SearchQueryRansack
   extend ActiveSupport::Concern
 
   included do
-    before_action :clear_search_index, :only => [:index]
+    before_action :clear_search_index, only: [:index]
   end
 
   private

@@ -8,6 +8,9 @@ class Invoice < ApplicationRecord
   belongs_to :client
   belongs_to :invoice_status
   belongs_to :order, optional: true # это убирает проверку presence: true , которая стоит по дефолту
+
+  after_create_commit { broadcast_prepend_to 'invoices_page1' }
+  after_update_commit { broadcast_replace_to 'invoices' }
   after_destroy_commit { broadcast_remove_to 'invoices'}
 
   validates :invoice_items, presence: true

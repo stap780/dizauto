@@ -95,14 +95,12 @@ class ProductsController < ApplicationController
 
   def print_etiketki # post
     if params[:product_ids]
-      ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
-      render turbo_stream:
-        turbo_stream.update(
-          "modal",
-          template: "shared/pending_bulk"
-        )
+      #ProductEtiketkiJob.perform_later(params[:product_ids], current_user.id)
+      
+      variants_ids = Product.where(id: params[:product_ids]).map(&:variants).flatten.map(&:id)
+      ProductEtiketkiJob.perform_later(variants_ids, current_user.id)
     else
-      notice = "Выберите товары"
+      notice = 'Выберите товары'
       redirect_to products_url, alert: notice
     end
   end
@@ -152,7 +150,7 @@ class ProductsController < ApplicationController
         format.turbo_stream
       end
     else
-      notice = "Выберите позиции"
+      notice = 'Выберите позиции'
       redirect_to products_url, alert: notice
     end
   end
@@ -168,11 +166,11 @@ class ProductsController < ApplicationController
       ProductPriceUpdateJob.perform_later(params[:product_ids], field_type, move, shift, points, round, current_user.id)
       render turbo_stream:
         turbo_stream.update(
-          "modal",
-          partial: "shared/pending_bulk_text"
+          'modal',
+          partial: 'shared/pending_bulk_text'
         )
     else
-      notice = "Выберите товары"
+      notice = 'Выберите товары'
       redirect_to products_url, alert: notice
     end
   end

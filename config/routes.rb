@@ -116,6 +116,8 @@ Rails.application.routes.draw do
       post :remove_nested
       post :bulk_print
       post :download
+      post :bulk_status
+      post :bulk_status_update
     end
   end
   resources :rent_case_statuses do
@@ -145,8 +147,8 @@ Rails.application.routes.draw do
       post :bulk_print
       get :pending_bulk
       get :success_bulk
-      get "/:id/start", action: "start", as: "start"
-      get "/:id/check", action: "check", as: "check"
+      get '/:id/start', action: 'start', as: 'start'
+      get '/:id/check', action: 'check', as: 'check'
       post :download
     end
   end
@@ -218,6 +220,8 @@ Rails.application.routes.draw do
       post :bulk_print
       post :download
       get :delivery
+      post :bulk_status
+      post :bulk_status_update
     end
   end
   resources :client_companies do
@@ -249,6 +253,8 @@ Rails.application.routes.draw do
       get :new_nested
       post :remove_nested
       post :download
+      post :bulk_status
+      post :bulk_status_update
     end
   end
   resources :warehouses do
@@ -292,7 +298,11 @@ Rails.application.routes.draw do
   end
   resources :notifications, only: [:index]
   resources :products do
-    resources :variants
+    resources :variants do
+      member do
+        get :print_etiketka
+      end
+    end
     member do
       get :print
       patch :sort_image
@@ -317,21 +327,21 @@ Rails.application.routes.draw do
   end
 
   authenticate :user, ->(user) { user.admin? } do
-    mount Sidekiq::Web => "/sidekiq"
+    mount Sidekiq::Web => '/sidekiq'
   end
 
-  root to: "dashboards#index"
+  root to: 'dashboards#index'
   # root to: 'home#dashboard'
   # get '/dashboard', to: 'home#dashboard', as: 'dashboard'
 
   devise_for :users, controllers: {
-    registrations: "users/registrations",
-    sessions: "users/sessions",
-    passwords: "users/passwords"
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords'
   }
   # devise patch create users inside service
-  get "users/admin_new" => "users#admin_new"
-  post "users/admin_create" => "users#admin_create"
+  get 'users/admin_new' => 'users#admin_new'
+  post 'users/admin_create' => 'users#admin_create'
   #########
 
   resources :users do

@@ -14,6 +14,7 @@
           <% end %>
         <% end %>
       </ul>
+      <%= f.button 'Status', type: :submit, class: "btn btn-outline-primary", formaction: bulk_status_orders_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("bulk_status") %>
       <%= render 'shared/download_excel_buttons', f: f, object: Order.new %>
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("orders/_filter").any? %>
@@ -26,18 +27,7 @@
 
 <div class="card">
   <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
-          <%# link_to '.xlsx', orders_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
-        </div>
-      </div>
-    </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0"><%= page_entries_info(@orders).to_s.gsub('Order','').gsub('заказы','').html_safe %></h5>
   </div>
   <div class="card-body">
 
@@ -52,7 +42,13 @@
         <%= tag.div( t( 'helpers.label.order.created_at' ), class: 'col-2 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
-      <%= turbo_stream_from "orders" %>
+      
+      <% if !@orders.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
+        <%= turbo_stream_from "orders_page1" %>
+      <% else %>
+        <%= turbo_stream_from "orders" %>
+      <% end %>
+
       <%= turbo_frame_tag 'orders' do %>
           <%= render @orders %>
       <% end %>

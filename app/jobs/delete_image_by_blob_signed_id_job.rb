@@ -1,3 +1,4 @@
+# DeleteImageByBlobSignedIdJob < ApplicationJob
 class DeleteImageByBlobSignedIdJob < ApplicationJob
   queue_as :image
 
@@ -7,7 +8,7 @@ class DeleteImageByBlobSignedIdJob < ApplicationJob
       success = DeleteImageByBlob.call(blob)
       if success
         Turbo::StreamsChannel.broadcast_remove_to(
-          "images",
+          'images',
           target: blob_signed_id
         )
       end

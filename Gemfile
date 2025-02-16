@@ -11,6 +11,7 @@ gem 'aws-sdk-s3'
 gem 'barby'
 gem 'bootsnap', require: false
 gem 'cancancan'
+gem 'chunky_png'
 gem 'caxlsx'
 gem 'caxlsx_rails'
 gem 'combine_pdf'

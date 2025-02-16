@@ -49,4 +49,4 @@ class Drop::Product < Liquid::Drop
 
 end
 
-#all methods above =  Drop::Product.public_instance_methods - Liquid::Drop.public_instance_methods
+# all methods above = Drop::Product.public_instance_methods - Liquid::Drop.public_instance_methods

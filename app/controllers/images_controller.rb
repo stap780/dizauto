@@ -64,7 +64,7 @@ class ImagesController < ApplicationController
     @blob = new_blob
 
     respond_to do |format|
-      format.turbo_stream { flash.now[:notice] = t(".success") }
+      format.turbo_stream { flash.now[:notice] = t('.success') }
     end
   end
 
@@ -84,11 +84,11 @@ class ImagesController < ApplicationController
     if params[:blob_signed_ids]
       DeleteImageByBlobSignedIdJob.perform_now(params[:blob_signed_ids], current_user.id)
       respond_to do |format|
-        format.turbo_stream{ flash.now[:success] = t(".success") }
+        format.turbo_stream{ flash.now[:success] = t('.success') }
       end
     else
       respond_to do |format|
-        format.turbo_stream{ flash.now[:success] = t(".choose_images") }
+        format.turbo_stream{ flash.now[:success] = t('.choose_images') }
       end
     end
   end
