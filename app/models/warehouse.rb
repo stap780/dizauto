@@ -1,12 +1,12 @@
 # Warehouse < ApplicationRecord
 class Warehouse < ApplicationRecord
+  include NormalizeDataWhiteSpace
   acts_as_list
   has_many :places, dependent: :destroy
   accepts_nested_attributes_for :places, allow_destroy: true, reject_if: :all_blank
   has_many :supplies
   has_many :placements
 
-  before_save :normalize_data_white_space
   validates :title, presence: true
   validates :title, uniqueness: true
   after_create_commit { broadcast_prepend_to 'warehouses' }
@@ -24,12 +24,6 @@ class Warehouse < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def check_presence_in_products
     if placements.count.positive?

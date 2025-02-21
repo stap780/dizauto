@@ -1,5 +1,4 @@
 import { Controller } from "@hotwired/stimulus"
-import { StreamActions } from "@hotwired/turbo"
 
 // Connects to data-controller="calculate"
 
@@ -13,7 +12,6 @@ export default class extends Controller {
     "sum",
     "subtotal",
     "vattotal",
-    "delivery",
     "total",
   ];
 
@@ -32,17 +30,14 @@ export default class extends Controller {
       currency: this.currency,
     });
     
-    let delivery = 0;
     let itemTotal = 0;
     let subTotal = 0;
     let totalTotal = 0;
     let vatArray = [];
     let qtysArray = [];
     let pricesArray = [];
-    
-    if (this.hasdeliveryTarget){
-      delivery = this.convertNum(this.deliveryTarget.value);
-    }
+    let discountArray = [];
+
 
     this.vatTargets.forEach((vat, index) => {
       vatArray[index] = vat.value.trim() * 1;
@@ -56,19 +51,35 @@ export default class extends Controller {
       pricesArray[index] = price.value;
     });
 
-    this.sumTargets.forEach((element, index) => {
-      itemTotal = pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index] ;
-
-      element.value = itemTotal.toFixed(2);
-
-      totalTotal += itemTotal;
-
-      subTotal += itemTotal / (1 + vatArray[index] / 100);
+    this.discountTargets.forEach((discount, index) => {
+      discountArray[index] = discount.value;
     });
 
-    this.subtotalTarget.textContent = formatter.format(subTotal + delivery);
+
+    this.sumTargets.forEach((element, index) => {
+      // price vat exclude
+      // itemTotal = pricesArray[index] * (1 + vatArray[index] / 100) * qtysArray[index] ;
+      // element.value = itemTotal.toFixed(2);
+      // totalTotal += itemTotal;
+      // subTotal += itemTotal / (1 + vatArray[index] / 100);
+      //
+      //
+      // price vat include
+      let discount = 1;
+      if (discountArray[index] > 0) {
+        discount = 1 - discountArray[index] / 100;
+      }
+      let itemVat = (100 + vatArray[index]) / 100;
+
+      itemTotal = pricesArray[index] * qtysArray[index] * discount;
+      element.value = itemTotal.toFixed(2);
+      totalTotal += itemTotal;
+      subTotal += itemTotal / itemVat;
+    });
+
+    this.subtotalTarget.textContent = formatter.format(subTotal);
     this.vattotalTarget.textContent = formatter.format(totalTotal - subTotal);
-    this.totalTarget.textContent = formatter.format(totalTotal + delivery);
+    this.totalTarget.textContent = formatter.format(totalTotal);
 
   }
 

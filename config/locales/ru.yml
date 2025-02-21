@@ -31,6 +31,11 @@ ru:
     email#invoice: "отправить письмо по накладной"
     incase_item_status_id#incase_item: "сменить статус позиции убытка"
     invoice_status_id#invoice: "сменить статус накладной"
+  company:
+    tip:
+      standart: "стандарт"
+      our: "наша"
+      strah: "страховая"
   attribute: "атрибут"
   before: "до"
   after: "после"
@@ -183,12 +188,14 @@ ru:
       inventory_status:
         title: "название"
         color: "цвет"
-      invoice:
+      invoice: &invoice
         invoice_status_id: "статус"
         number: "номер"
         client_id: "клиент"
-        company_id: "Компания"
+        company_id: "компания"
         sum: "сумма"
+        created_at: "дата создания"
+        seller_id: "организация"
       invoice_status:
         title: "название"
         color: "цвет"
@@ -258,6 +265,7 @@ ru:
         delivery_type: "способ доставки"
         created_at: "дата создания"
         sum: "сумма"
+        seller_id: "организация"
       order_item: &nested_item
         variant_id: "позиция"
         variant: "позиция"
@@ -273,6 +281,14 @@ ru:
         color: "цвет"
       okrug:
         title: "название"
+      return: &return
+        return_status_id: "статус"
+        number: "номер"
+        contact: "контакт"
+        sum: "сумма"
+        created_at: "создан"
+        invoice_id:  "накладная"
+        seller_id: "организация"
       shipping: &shipping
         name: "фио получателя"
         phone: "телефон получателя"
@@ -283,7 +299,7 @@ ru:
         comments: "комментарий"
       supply: &supply
         title: "название"
-        company_id: "компания"
+        company_id: "поставщик"
         in_number: "вх номер"
         in_date: "вх дата"
         manager_id: "менеджер"
@@ -291,6 +307,7 @@ ru:
         supply_status_id: "статус"
         warehouse_id: "склад"
         sum: "сумма"
+        buyer_id: "покупатель"
       supply_items:
         product_id: "товар"
         warehouse_id: "склад"
@@ -675,12 +692,7 @@ ru:
       incase_import:
         <<: *incase_import
       invoice:
-        invoice_status_id: "статус"
-        number: "номер"
-        client_id: "клиент"
-        company_id: "компания"
-        sum: "сумма"
-        created_at: "дата создания"
+        <<: *invoice
       invoice_status:
         title: "название"
         color: "цвет"
@@ -728,12 +740,7 @@ ru:
         warehouse_id: "склад"
         items_quantity: "кол-во позиций"
       return:
-        return_status_id: "статус"
-        number: "номер"
-        contact: "контакт"
-        sum: "сумма"
-        created_at: "создан"
-        invoice_id:  "накладная"
+        <<: *return
       return_item:
         <<: *nested_item
       shipping:

@@ -5,6 +5,7 @@
             <%= check_box_tag "invoice_ids[]", invoice.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( invoice.id ) %><% end %>
         <% end %>
+        <%= invoice.created_at.strftime("%d/%m/%Y %H:%M") %>
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span( invoice.invoice_status.title,
@@ -12,13 +13,13 @@
                       style: 'background-color:'+invoice.invoice_status.color,
                       data: {controller: 'badge', badge_target: 'value', bg_color: invoice.invoice_status.color }) if invoice.invoice_status %>
     <% end %>
-    <%= tag.div( invoice.number , class: "col-2") %>
+    <%= tag.div( invoice.number , class: "col-1") %>
+    <%= tag.div( invoice.seller.short_title , class: "col-2") %>
     <%= tag.div class: "col-4 row" do %>
       <%= tag.div(invoice.client ? invoice.client.name : '', class: "col-12")%>
       <%= tag.div(invoice.company ? invoice.company.short_title : '', class: "col-12")%>
     <% end %>
     <%= tag.div( invoice.invoice_items.sum(:sum)  , class: "col-1") %>
-    <%= tag.div( invoice.created_at.strftime("%d/%m/%Y"), class: "col-1 p-0" ) %>
 
     <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=invoice.id%>">
         <% if Templ.invoice_print.presence %>

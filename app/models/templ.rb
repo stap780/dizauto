@@ -1,13 +1,14 @@
+# frozen_string_literal: true
+
 # Templ < ApplicationRecord
 class Templ < ApplicationRecord
+  include NormalizeDataWhiteSpace
   belongs_to :print_template, class_name: 'Templ', foreign_key: 'print_template_id', optional: true
 
   validates :tip, presence: true
   validates :modelname, presence: true
   validates :title, presence: true
   validates :content, presence: true
-
-  before_save :normalize_data_white_space
 
   scope :print, -> { where(tip: 'simple').order(:id) }
   scope :incase_print, -> { where(modelname: 'incase', tip: 'simple').order(:id) }
@@ -35,14 +36,6 @@ class Templ < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     attribute_names
-  end
-
-  private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish) && self[key] != content
-    end
   end
 
 end

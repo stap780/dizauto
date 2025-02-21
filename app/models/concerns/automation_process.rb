@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # module Automation
 module AutomationProcess
   extend ActiveSupport::Concern

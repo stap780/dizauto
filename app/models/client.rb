@@ -1,5 +1,8 @@
 # class Client < ApplicationRecord
 class Client < ApplicationRecord
+  include NormalizeDataWhiteSpace
+  include ActionView::RecordIdentifier
+  
   has_many :client_companies
   has_many :companies, through: :client_companies
   has_many :orders
@@ -7,10 +10,8 @@ class Client < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true
 
-  before_save :normalize_data_white_space
   before_destroy :check_relations_present, prepend: true
 
-  include ActionView::RecordIdentifier
 
   after_create_commit { broadcast_append_to 'clients' }
   after_update_commit { broadcast_replace_to 'clients' }
@@ -29,12 +30,6 @@ class Client < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def check_relations_present
     if orders.count.positive?

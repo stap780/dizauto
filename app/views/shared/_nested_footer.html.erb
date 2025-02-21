@@ -1,0 +1,15 @@
+<div class="row">
+    <div class="col-9"></div>
+    <div class="col-1">Подитог:</div>
+    <div class="col" data-calculate-target="subtotal"><%# @invoice.invoice_items.sum(:sum)%></div>
+</div>
+<div class="row">
+    <div class="col-9"></div>
+    <div class="col-1">НДС:</div>
+    <div class="col" data-calculate-target="vattotal"></div>
+</div>
+<div class="row">
+    <div class="col-9"></div>
+    <div class="col-1">Итого:</div>
+    <div class="col" data-calculate-target="total"><%# @invoice.invoice_items.sum(:sum)%></div>
+</div>

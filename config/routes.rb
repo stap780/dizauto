@@ -181,11 +181,6 @@ Rails.application.routes.draw do
       patch :sort
     end
   end
-  # resources :actions do
-  #   collection do
-  #     get :values
-  #   end
-  # end
   resources :templs
   resources :triggers do
     resources :trigger_actions do
@@ -211,7 +206,10 @@ Rails.application.routes.draw do
     end
   end
   resources :orders do
-    resources :deliveries
+    resources :deliveries do
+      collection do
+      end
+    end
     resources :comments, module: :orders
     collection do
       get :slimselect_nested_item
@@ -219,9 +217,11 @@ Rails.application.routes.draw do
       post :remove_nested
       post :bulk_print
       post :download
-      get :delivery
       post :bulk_status
       post :bulk_status_update
+      get :delivery
+    end
+    member do
     end
   end
   resources :client_companies do

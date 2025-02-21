@@ -1,5 +1,6 @@
 # Enter < ApplicationRecord
 class Enter < ApplicationRecord
+  include NormalizeDataWhiteSpace
   audited
   belongs_to :enter_status
   belongs_to :warehouse
@@ -9,7 +10,6 @@ class Enter < ApplicationRecord
   accepts_nested_attributes_for :enter_items, allow_destroy: true
   has_associated_audits
   after_initialize :add_default
-  before_save :normalize_data_white_space
 
   validates :enter_items, presence: true
   validates :title, presence: true
@@ -24,12 +24,6 @@ class Enter < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def add_default
     self.title = 'Оприходование' if title.nil?

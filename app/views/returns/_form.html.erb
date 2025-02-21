@@ -1,36 +1,33 @@
-<%= form_with(  model: @return, data: { controller: 'slimselect' }, class: 'return-form' ) do |f| %>
-   <%= render 'shared/errors', object: @return %>
+<%= form_with(model: @return, data: { controller: 'slimselect' }, class: 'return-form') do |f| %>
+    <%= render 'shared/errors', object: @return %>
 
     <div class="card">
-      <div class="card-header d-flex align-items-center gap-3 px-2">
-          <div class="d-flex justify-content-between align-items-center gap-3">
-              <%= f.select :return_status_id, ReturnStatus.order(:position).pluck(:title, :id), {include_blank: false, prompt: t('status')}, {class: "form-select border-primary-subtle"}%>
-          </div>
-          <div class="d-flex justify-content-between align-items-center gap-3">    
-              <%= tabs_head('return', [ ['main', t(:main)]]) if !f.object.new_record? %>
-          </div>
-          <div class="d-flex ms-auto justify-content-between align-items-center gap-3">
-              <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "return", auditable_id: @return.id), 
-                                class: 'btn btn-outline-success d-flex', 
-                                data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
-          </div>
-      </div>
-      <div class="card-body">
-        <div class="tab-content">
-            <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
-                <div class="row">
-                    <%= render 'form_data', f: f%>
-                </div>
-                <div class="row" data-controller="calculate">
-                    <%= render 'nested', f: f %>
+        <div class="card-header d-flex align-items-center gap-3 px-2">
+            <div class="d-flex justify-content-between align-items-center gap-3">
+                <%= f.select :return_status_id, ReturnStatus.order(:position).pluck(:title, :id), { include_blank: false, prompt: t('status') }, { class: "form-select border-primary-subtle" } %>
+            </div>
+            <div class="d-flex justify-content-between align-items-center gap-3">
+                <%= tabs_head('return', [['main', t(:main)]]) unless f.object.new_record? %>
+            </div>
+            <div class="d-flex ms-auto justify-content-between align-items-center gap-3">
+                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "return", auditable_id: @return.id), class: 'btn btn-outline-success d-flex', data: { turbo_frame: "offcanvas_history" } unless f.object.new_record? %>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
+                    <div class="row">
+                        <%= render 'form_data', f: f %>
+                    </div>
+                    <div class="row" data-controller="calculate">
+                        <%= render 'nested', f: f %>
+                    </div>
                 </div>
             </div>
         </div>
-      </div>
-      <div class="card-footer">
-        <%= f.submit t('save'),class: "btn btn-primary" %>
-        <%= link_to t('back'), returns_path, class: "btn btn-outline-primary" %>
-      </div>
+        <div class="card-footer">
+            <%= f.submit t('save'), class: "btn btn-primary" %>
+            <%= link_to t('back'), returns_path, class: "btn btn-outline-primary" %>
+        </div>
     </div>
-
 <% end %>

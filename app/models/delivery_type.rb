@@ -2,14 +2,13 @@
 
 # DeliveryType < ApplicationRecord
 class DeliveryType < ApplicationRecord
+  include NormalizeDataWhiteSpace
   acts_as_list
-  # has_many :orders
   has_many :deliveries
   validates :title, presence: true
   after_create_commit { broadcast_append_to 'delivery_types' }
   after_update_commit { broadcast_replace_to 'delivery_types' }
   after_destroy_commit { broadcast_remove_to 'delivery_types' }
-  before_save :normalize_data_white_space
   before_destroy :check_destroy_ability, prepend: true
 
 
@@ -26,12 +25,6 @@ class DeliveryType < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def check_destroy_ability
     if last?

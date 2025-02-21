@@ -1,43 +1,30 @@
-<div class="col-2 my-3 ps-0">
+<%= tag.div class: "col-2 my-3 ps-0" do %>
     <%= link_to add_icon, new_nested_stock_transfers_path, class: "btn btn-primary", data: { turbo_stream: true } %>
-</div>
+<% end %>
 
-<div class="col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtitle rounded-3">
-    <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.stock_transfer_item.variant_id'), class: 'col-6 fw-semibold')%> 
-        <%= tag.div( t('helpers.label.stock_transfer_item.quantity'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.stock_transfer_item.price'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.stock_transfer_item.nds'), class: 'col-1 fw-semibold' )%>
-        <%# tag.div( t('helpers.label.stock_transfer_item.discount'), class: 'col-1 fw-semibold')%>
-        <%= tag.div( t('helpers.label.stock_transfer_item.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div('', class: 'col fw-semibold')%>
-    </div>
+<%= tag.div class: "col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtitle rounded-3" do %>
+    <%= tag.div class: "row py-2 px-0" do %>
+        <%= tag.div t('helpers.label.stock_transfer_item.variant_id'), class: 'col-6 fw-semibold' %>
+        <%= tag.div t('helpers.label.stock_transfer_item.quantity'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.stock_transfer_item.price'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.stock_transfer_item.nds'), class: 'col-1 fw-semibold' %>
+        <%# tag.div t('helpers.label.stock_transfer_item.discount'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.stock_transfer_item.sum'), class: 'col-1 fw-semibold' %>
+        <%= tag.div '', class: 'col fw-semibold' %>
+    <% end %>
+
     <%= turbo_frame_tag 'stock_transfer_items', class: "container" do %>
         <%= f.fields_for :stock_transfer_items do |ff| %>
-            <%= render  partial: "shared/items_form_data", 
-                        locals: {   f: ff,
-                                    variant: nil,
-                                    nested_url: "/stock_transfers/slimselect_nested_item",
-                                    object_turbo_frame_tag: "stock_transfer_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
-                                    remove_element_path: "/stock_transfers/remove_nested?stock_transfer_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
-                                    discount_field: false
-                                } %>
+            <%= render partial: "shared/items_form_data", 
+                                 locals: { f: ff,
+                                                     variant: nil,
+                                                     nested_url: "/stock_transfers/slimselect_nested_item",
+                                                     object_turbo_frame_tag: "stock_transfer_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     remove_element_path: "/stock_transfers/remove_nested?stock_transfer_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     discount_field: false } %>
         <% end %>
     <% end %>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">Подитог:</div>
-        <div class="col" data-calculate-target="subtotal"><%= @stock_transfer.stock_transfer_items.sum(:sum)%></div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">НДС:</div>
-        <div class="col" data-calculate-target="vattotal"></div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">Итого:</div>
-        <div class="col" data-calculate-target="total"><%= @stock_transfer.stock_transfer_items.sum(:sum)%></div>
-    </div>
 
-</div>
+    <%= render partial: 'shared/nested_footer' %>
+    <%= render partial: 'shared/recalculate' %>
+<% end %>

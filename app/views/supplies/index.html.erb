@@ -24,47 +24,35 @@
 
 <%= render 'filter', q: @search, title: 'Supply filter' if lookup_context.find_all("supplies/_filter").any?%>
 
-<div class="card">
-  <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <%# link_to '.xlsx', supplies_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
-        </div>
-      </div>
-    </div>
-    <h5 class="card-title mb-0">Всего: <%= Supply.all.count %></br><%= "Выбрано: "+@supplies.total_entries.to_s if @supplies.size > 0 &&  @supplies.size != Supply.all.count %></h5>
-  </div>
-  <div class="card-body">
-    <div id="datatables-supplies_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12 table-responsive">
-          <table id="datatables-supplies" class="table table-striped" data-controller="selectall">
-            <thead>
-              <tr>
-                <%= th_check_box_tag_all %>
-                <%= tag.th('#')%>
-                <%= tag.th(t('helpers.label.supply.created_at'))%>
-                <%= tag.th(t('helpers.label.supply.supply_status_id'))%>
-                <%= tag.th(t('helpers.label.supply.company_id'))%>
-                <%= tag.th(t('helpers.label.supply.title'))%>
-                <%= tag.th('')%>
-                <%= tag.th(t('helpers.label.supply.manager_id'))%>
-                <%= tag.th(t('helpers.label.supply.sum'))%>
-                <%= tag.th('')%>
-              </tr>
-            </thead>
-            <tbody>
-              <%= render @supplies %>
-            </tbody>
-          </table>
-        </div>
-      </div>
+<%=tag.div class: "card" do %>
+  <%=tag.div class: "card-header pb-0" do %>
+    <%=tag.h5 class: "card-title mb-0" do %>
+      <%= page_entries_info(@supplies).to_s.gsub('Supply','').gsub('поступления','').html_safe %>
+    <% end %>
+  <% end %>
+  <%=tag.div class: "card-body" do %>
+    <%=tag.div(id: "datatables-supplies", class: "col-sm-12 list-group list-group-striped", data: {controller:"selectall"}) do %>  
+      <%= tag.div class:"row py-2 px-0 justify-content-between align-items-center" do %>
+        <%= div_check_box_tag_all %>
+        <%= tag.div( t( 'helpers.label.supply.supply_status_id' ), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.supply.buyer_id' ), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.supply.company_id' ), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( '', class: 'col-2 fw-semibold' )%>
+        <%# tag.div( t( 'helpers.label.supply.sum' ), class: 'col-1 fw-semibold' )%>
+        <%= tag.div('', class: 'col-2 fw-semibold')%>
+      <% end %>
       
-      <%= render "shared/paginate", f: @supplies %>
-    </div>
-  </div>
-</div>
+      <% if !@supplies.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
+        <%= turbo_stream_from "supplies_page1" %>
+      <% else %>
+        <%= turbo_stream_from "supplies" %>
+      <% end %>
+
+      <%= turbo_frame_tag 'supplies' do %>
+          <%= render @supplies %>
+      <% end %>
+    <% end %>
+
+    <%= render "shared/paginate", f: @supplies %>
+  <% end %>
+<% end %>

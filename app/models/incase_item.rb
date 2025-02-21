@@ -2,6 +2,7 @@
 
 # IncaseItem < ApplicationRecord
 class IncaseItem < ApplicationRecord
+  include NormalizeDataWhiteSpace
   include AutomationProcess
   audited associated_with: :incase
   belongs_to :incase
@@ -13,7 +14,6 @@ class IncaseItem < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   after_initialize :set_default_new
-  before_save :normalize_data_white_space
   before_create :create_product_variant
 
 
@@ -38,12 +38,6 @@ class IncaseItem < ApplicationRecord
       price: self.price ||= 0
       )
     self.variant_id = variant.id
-  end
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
   end
 
 end

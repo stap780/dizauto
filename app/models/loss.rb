@@ -1,4 +1,5 @@
 class Loss < ApplicationRecord
+  include NormalizeDataWhiteSpace
   audited
   belongs_to :loss_status
   belongs_to :warehouse
@@ -8,7 +9,6 @@ class Loss < ApplicationRecord
   accepts_nested_attributes_for :loss_items, allow_destroy: true
   has_associated_audits
   after_initialize :add_default
-  before_save :normalize_data_white_space
 
   validates :loss_items, presence: true
   validates :title, presence: true
@@ -24,12 +24,6 @@ class Loss < ApplicationRecord
 
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def add_default
     self.title = "Списание"

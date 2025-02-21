@@ -35,12 +35,11 @@
     <div id="datatables-returns" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
       <div class="row py-2 px-0 justify-content-between align-items-center">
         <%= div_check_box_tag_all %>
-        <%= tag.div( t( 'helpers.label.return.number'), class: 'col-1 fw-semibold' )%> 
         <%= tag.div( t( 'helpers.label.return.return_status_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.return.invoice_id'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.return.contact'), class: 'col-4 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.return.number'), class: 'col-1 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.return.seller_id'), class: 'col-1 fw-semibold' )%>
+        <%= tag.div( t( 'helpers.label.return.client_id'), class: 'col-4 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.return.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.return.created_at'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
       <%= turbo_stream_from "returns" %>

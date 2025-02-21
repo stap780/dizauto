@@ -1,22 +1,28 @@
 <%= turbo_frame_tag trigger, class: "d-flex list-group-item py-2 border-start-0 border-end-0 row justify-content-between align-items-center px-0" do %>
-    <%= tag.div( trigger.id, class: "col-1") %>
-    <%= tag.div( class: "col-1 p-0") do %>
-         <%= trigger.active ? check_circle : false_icon %>
+    <%= tag.div class: "col-1 p-0" do %>
+        <%= trigger.id %>
+        <%= trigger.active ? check_circle : false_icon %>
     <% end %>
-    <%= tag.div(trigger.title, class: "col-2 row") %>
-    <%= tag.div( class: "col-3") do %>
-        <%= tag.span(Trigger::EVENT.map{|trg| trg.first if trg[1] == trigger.event}.reject(&:blank?).join)%><br>
-        <%= t( 'helpers.label.trigger.condition')%>: <%= trigger.condition %>
+    
+    <%= tag.div class: "col-2 row" do %>
+        <%= trigger.title %>
     <% end %>
-    <%= tag.div( class: "col-2") do %>
-        <%= trigger.trigger_actions.map{|act| [act.name_title+": "+act.value_title]}.compact.join(' ') if trigger.trigger_actions.respond_to?('each') %>
+    
+    <%= tag.div class: "col-4" do %>
+        <%= tag.span Trigger::EVENT.map { |trg| trg.first if trg[1] == trigger.event }.reject(&:blank?).join %><br>
+        <%= t('helpers.label.trigger.condition') %>: <%= trigger.condition %>
     <% end %>
-    <%= tag.div( class: "col-1") do %>
+    
+    <%= tag.div class: "col-3" do %>
+        <%= trigger.trigger_actions.map { |act| "#{act.name_title}: #{act.value_title}" }.compact.join(' ') if trigger.trigger_actions.respond_to?(:each) %>
+    <% end %>
+    
+    <%= tag.div class: "col-1" do %>
         <%= trigger.pause %>
         <%= trigger.pause_time %>
     <% end %>
-
-    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=trigger.id%>">
+    
+    <%= tag.div class: "col d-flex justify-content-end gap-2 align-items-center", id: "buttons-#{trigger.id}" do %>
         <%= render 'shared/edit_delete_link', object: trigger %>
-    </div>
+    <% end %>
 <% end %>

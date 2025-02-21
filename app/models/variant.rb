@@ -55,7 +55,7 @@ class Variant < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    Variant.attribute_names
+    attribute_names
   end
 
   def self.ransackable_associations(auth_object = nil)

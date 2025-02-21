@@ -1,52 +1,38 @@
-<div class="col-md-2 mb-2">
-    <%=link_to add_icon, new_nested_incases_path, class: "btn btn-primary", data: { turbo_stream: true } %>
-</div>
+<%= tag.div class: "col-md-2 mb-2" do %>
+    <%= link_to add_icon, new_nested_incases_path, class: "btn btn-primary", data: { turbo_stream: true } %>
+<% end %>
 
-<div class="col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3">
-    <div class="row py-2 px-0 ">
-        <%=tag.div( '', class: 'col-1 px-0' ) do %>    
-            <%=select_tag "incase_item_status_label", 
-                            options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), 
-                            prompt: "Статус позиции", class: 'form-select ps-1', 
-                            data: {
-                                    action: "change->choose#changeBulkItemStatus", 
-                                    choose_target: "itemSelected" 
-                                    } %>
+<%= tag.div class: "col-sm-12 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" do %>
+    <%= tag.div class: "row py-2 px-0" do %>
+        <%= tag.div class: 'col-1 px-0' do %>
+            <%= select_tag "incase_item_status_label", 
+                                            options_from_collection_for_select(IncaseItemStatus.order(:id), "id", "title"), 
+                                            prompt: "Статус позиции", class: 'form-select ps-1', 
+                                            data: {
+                                                            action: "change->choose#changeBulkItemStatus", 
+                                                            choose_target: "itemSelected" 
+                                                        } %>
         <% end %>
-        <%=tag.div( t('helpers.label.incase_item.title'), class: 'col-4 fw-semibold' )%> 
-        <%=tag.div( t('helpers.label.incase_item.katnumber'), class: 'col-2 fw-semibold' )%>
-        <%=tag.div( t('helpers.label.incase_item.quantity'), class: 'col-1 fw-semibold' )%>
-        <%=tag.div( t('helpers.label.incase_item.price'), class: 'col-1 fw-semibold' )%>
-        <%=tag.div( t('helpers.label.incase_item.nds'), class: 'col-1 fw-semibold' )%>
-        <%=tag.div( t('helpers.label.incase_item.sum'), class: 'col-1 fw-semibold')%>
-        <%=tag.div( '', class: 'col fw-semibold' )%>
-    </div>
-    <%=turbo_frame_tag 'incase_items', class: "container m-0 p-0" do %>
-        <%=f.fields_for :incase_items do |ff| %>
-            <%=render  partial: "shared/items_form_data", 
-                        locals: {   f: ff,
-                                    variant: nil,
-                                    nested_url: "/incases/slimselect_nested_item",
-                                    object_turbo_frame_tag: "incase_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
-                                    remove_element_path: "/incases/remove_nested?incase_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
-                                    discount_field: false
-                                } %>
-        <%end %>
-    <%end %>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Subtotal:</div>
-        <div class="col" data-calculate-target="subtotal"><%=@incase.incase_items.sum(:sum)%></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">NDS:</div>
-        <div class="col" data-calculate-target="vattotal"></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Total:</div>
-        <div class="col" data-calculate-target="total"><%=@incase.incase_items.sum(:sum)%></div>
-    </div>
-
-</div>
+        <%= tag.div t('helpers.label.incase_item.title'), class: 'col-4 fw-semibold' %> 
+        <%= tag.div t('helpers.label.incase_item.katnumber'), class: 'col-2 fw-semibold' %>
+        <%= tag.div t('helpers.label.incase_item.quantity'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.incase_item.price'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.incase_item.nds'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.incase_item.sum'), class: 'col-1 fw-semibold' %>
+        <%= tag.div '', class: 'col fw-semibold' %>
+    <% end %>
+    <%= turbo_frame_tag 'incase_items', class: "container m-0 p-0" do %>
+        <%= f.fields_for :incase_items do |ff| %>
+            <%= render partial: "shared/items_form_data", 
+                                 locals: { f: ff,
+                                                     variant: nil,
+                                                     nested_url: "/incases/slimselect_nested_item",
+                                                     object_turbo_frame_tag: "incase_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
+                                                     remove_element_path: "/incases/remove_nested?incase_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     discount_field: false
+                                                 } %>
+        <% end %>
+    <% end %>
+    <%= render partial: 'shared/nested_footer' %>
+    <%= render partial: 'shared/recalculate' %>
+<% end %>

@@ -2,11 +2,11 @@
 
 # PaymentType < ApplicationRecord
 class PaymentType < ApplicationRecord
+  include NormalizeDataWhiteSpace
   acts_as_list
 
   has_many :orders
   validates :title, presence: true
-  before_save :normalize_data_white_space
   after_create_commit { broadcast_append_to 'payment_types' }
   after_update_commit { broadcast_replace_to 'payment_types' }
   after_destroy_commit { broadcast_remove_to 'payment_types' }
@@ -22,12 +22,6 @@ class PaymentType < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def check_destroy_ability
     if last?

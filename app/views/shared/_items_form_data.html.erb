@@ -1,38 +1,38 @@
 <%=turbo_frame_tag object_turbo_frame_tag, class: "#{h_v_center} bg-light row #{f.object.class}" do %>
-    <%o_class = f.object.class.to_s %>
+    <% o_class = f.object.class.to_s %>
 
-    <%=f.hidden_field :id %>
+    <%= f.hidden_field :id %>
 
-    <%if o_class == 'IncaseItem'%>
+    <% if o_class == 'IncaseItem'%>
         <%start_title = f.object.title if f.object.present? %>
         <%title_value = variant.present? ? variant.title : start_title %>
         <%=f.hidden_field :title, value: title_value %>
-    <%end %>
+    <% end %>
 
-    <%=tag.div class: "col-1 p-0 m-0" do %>
+    <%= tag.div class: "col-1 p-0 m-0" do %>
         <%=f.select :incase_item_status_id, IncaseItemStatus.pluck(:title, :id), { include_blank: true }, { class: "form-select rounded-0", data: { choose_target: 'itemResults' } }%>
-    <%end if o_class == 'IncaseItem' %>
+    <% end if o_class == 'IncaseItem' %>
     
-    <%title_class = o_class == 'IncaseItem' ? "col-4 p-0 m-0" : "col-6 p-0 m-0"%>
-    <%=tag.div class: title_class do %>
-        <%start_variant_id = f.object.variant_id if f.object.present? %>
-        <%variant_id = variant.present? ? variant.id : start_variant_id %>
-        <%selected = Variant.collection_for_select(variant_id).first if variant_id %>
-        <%=f.select :variant_id, options_for_select(Variant.collection_for_select(variant_id), selected: selected ),
+    <% title_class = o_class == 'IncaseItem' ? "col-4 p-0 m-0" : "col-6 p-0 m-0"%>
+    <%= tag.div class: title_class do %>
+        <% start_variant_id = f.object.variant_id if f.object.present? %>
+        <% variant_id = variant.present? ? variant.id : start_variant_id %>
+        <% selected = Variant.collection_for_select(variant_id).first if variant_id %>
+        <%= f.select :variant_id, options_for_select(Variant.collection_for_select(variant_id), selected: selected ),
                                 {include_blank: true}, { class: "rounded-0 form-select", data: { controller: 'slimselect', 
                                                         search_url:  "/products/search",
                                                         nested_url:  nested_url,
                                                         action: "change->calculate#recalculate" } } %>
-    <%end %>
+    <% end %>
 
     <%=tag.div class: "col-2 p-0 m-0" do %>
         <%=f.text_field :katnumber, class: "form-control rounded-0 p-1 text-center" %>
     <%end if o_class == 'IncaseItem' %>
 
     <%=tag.div class: "col-1 p-0 m-0" do %>
-        <%start_quantity = f.object.quantity.present? ? f.object.quantity : 0 %>
-        <%quantity = variant.present? ? 0 : start_quantity %>
-        <%=f.number_field :quantity,   class: "form-control rounded-0 p-1 text-center", min: "0", value: quantity,
+        <% start_quantity = f.object.quantity.present? ? f.object.quantity : 0 %>
+        <% quantity = variant.present? ? 0 : start_quantity %>
+        <%= f.number_field :quantity,   class: "form-control rounded-0 p-1 text-center", min: "0", value: quantity,
                                         data: { action: "change->calculate#recalculate", calculate_target: "qty" } %>
     <%end %>
 
@@ -43,12 +43,14 @@
                                     data: { action: "change->calculate#recalculate", calculate_target: "price" } %>
     <%end %>
 
-    <%=tag.div class: "col-1 p-0 m-0" do %>
-        <%=f.number_field :discount, class: "form-control rounded-0 disabled p-1 text-center", disabled: true, data: { calculate_target: "discount" } %>
-    <%end if discount_field %>
+    <%= tag.div class: "col-1 p-0 m-0" do %>
+        <%= f.number_field :discount, class: "form-control rounded-0 p-1 text-center", disabled: false, data: { action: "change->calculate#recalculate", calculate_target: "discount" }, min: "0" %>
+    <% end if discount_field %>
 
     <%=tag.div class: "col-1 p-0 m-0" do %>
-        <%=f.number_field :vat, class: "form-control rounded-0 disabled p-1 text-center", disabled: true, data: { calculate_target: "vat" } %>
+        <%= f.select :vat, [['без НДС',0.0],['0%',0],['5%',5],['7%',7],['10%',10],['20%',20]], 
+        {include_blank: false}, 
+        {class: "form-select rounded-0", disabled: false, data: { action: "change->calculate#recalculate",calculate_target: "vat" } }%>
     <%end %>
 
     <%=tag.div class: "col-1 p-0 m-0" do %>

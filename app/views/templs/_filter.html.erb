@@ -1,22 +1,31 @@
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= title %></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter flatpickr", "data-turbo-frame": "table" } do |f|%> 
-		<div class="form-group">
-            <div class="row g-1 mb-2">
-            <div class="col-md-12">
-                <%= f.label :title_cont_all %>
-                <%= f.search_field :title_cont_all, class: "form-control input-sm"%>
-            </div>            
-            </div>
-
-            <div class="btn-group btn-group-sm" role="group"> 
-                <%= f.submit class: "btn btn-success btn-sm submit", data: {action: "filter#start_search"}  %>
-            </div>
-		</div>	
+<%= tag.div class: "offcanvas offcanvas-end", data: { bs_scroll: "true" }, tabindex: "-1", id: "offcanvasFilter", aria: { labelledby: "offcanvasRightLabel" } do %>
+  <%= tag.div class: "offcanvas-header" do %>
+    <%= tag.h5 class: "offcanvas-title", id: "offcanvasRightLabel" do %>
+      <%= title %>
     <% end %>
-  </div>
-</div>
+    <%= tag.button type: "button", class: "btn-close", data: { bs_dismiss: "offcanvas" }, aria: { label: "Close" } %>
+  <% end %>
+  <%= tag.div class: "offcanvas-body" do %>
+    <%= search_form_for q, html: { class: '', data: { controller: "filter", turbo_frame: "table" } } do |f| %>
+      <%= tag.div class: "form-group" do %>
+        <%= tag.div class: "row g-1 mb-2" do %>
+          <%= tag.div class: "col-md-12" do %>
+            <%= f.label :title_cont_all %>
+            <%= f.search_field :title_cont_all, class: "form-control input-sm" %>
+          <% end %>
+          <%= tag.div class: "col-md-6" do %>
+            <%= f.label :tip_eq %>
+            <%= f.select :tip_eq, Templ::TIP, { prompt: '' }, class: "form-select input-sm" %>
+          <% end %>
+          <%= tag.div class: "col-md-6" do %>
+            <%= f.label :modelname_eq %>
+            <%= f.select :modelname_eq, Templ::MODELNAME, { prompt: '' }, class: "form-select input-sm" %>
+          <% end %>
+        <% end %>
+        <%= tag.div class: "btn-group btn-group-sm", role: "group" do %>
+          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search" } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

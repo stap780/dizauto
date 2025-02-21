@@ -12,7 +12,7 @@ namespace :file do
     next if Rails.env.development?
 
     folder = '/var/www/dizauto/shared/log/'
-    file_names = ["nginx.access.log", "nginx.error.log", "production.log", "puma.access.log", "puma.error.log"]
+    file_names = ['nginx.access.log', 'nginx.error.log', 'production.log', 'puma.access.log', 'puma.error.log']
     zip_folder = '/var/www/dizauto/shared/log/zip/'
     time = Time.zone.now.strftime('%d_%m_%Y_%I_%M')
 
@@ -198,5 +198,47 @@ namespace :file do
     #   puts row.inspect # Array of Excelx::Cell objects
     # end
   end
+  desc 'Generate PDF from string with specific dimensions'
+  task :generate_pdf, [:content] => :environment do |t, args|
+    Array(1..1202).each do |i|
+      puts "start index #{i} - #{Time.zone.now}"
+      file = "qrcodes/#{i}.png"
+      content = ActionController::Base.new.render_to_string(partial: 'shared/qr_custom', locals: { qr: file })
+      # content = args[:content] || 'Default content for PDF'
+      pdf = WickedPdf.new.pdf_from_string(
+        content,
+        page_height: '41',
+        page_width: '65',
+        margin: { top: 5, bottom: 5, left: 1, right: 1 },
+        encoding: 'UTF-8'
+      )
 
+      file_path = Rails.root.join('public/qr', "g_#{i}.pdf")
+      File.open(file_path, 'wb') do |file|
+        file << pdf
+      end
+      puts "end index #{i} - #{Time.zone.now}"
+      puts "PDF generated at #{file_path}"
+    end
+  end
+
+  desc 'Combine PDF files from public directory into one file'
+  task combine_pdfs: :environment do
+    require 'combine_pdf'
+
+    puts 'start combine_pdfs'
+    pdf_dir = Rails.root.join('public/qr')
+    combined_pdf = CombinePDF.new
+
+    Dir.glob("#{pdf_dir}/*.pdf").each do |pdf_file|
+      combined_pdf << CombinePDF.load(pdf_file)
+    end
+
+    output_file = Rails.root.join('public', 'combined.pdf')
+    combined_pdf.save(output_file)
+
+    puts "Combined PDF saved at #{output_file}"
+    puts 'finish combine_pdfs'
+  end
+  
 end

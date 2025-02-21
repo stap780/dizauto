@@ -1,3 +1,4 @@
+# InvoicesController < ApplicationController
 class InvoicesController < ApplicationController
   load_and_authorize_resource
   before_action :set_invoice, only: %i[ show edit update destroy ]
@@ -10,7 +11,7 @@ class InvoicesController < ApplicationController
     @search = Invoice.ransack(search_params)
     @search.sorts = 'id desc' if @search.sorts.empty?
     @invoices = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-    collection = @search.present? ? @search.result(distinct: true) : @invoices
+    @collection = @search.present? ? @search.result(distinct: true) : @invoices
     respond_to do |format|
       format.html
     end
@@ -21,10 +22,19 @@ class InvoicesController < ApplicationController
   def new
     if params[:order_id].present?
       order = Order.find(params[:order_id])
-      @invoice = Invoice.new(company_id: order.company_id, client_id: order.client_id)
+      @invoice = Invoice.new(
+        seller_id: order.seller_id,
+        company_id: order.company_id,
+        client_id: order.client_id
+      )
       items = order.order_items
       items.each do |inc|
-        @invoice.invoice_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price, sum: (inc.quantity*inc.price))
+        @invoice.invoice_items.build(
+          variant_id: inc.variant.id,
+          quantity: inc.quantity,
+          price: inc.price,
+          sum: (inc.quantity*inc.price)
+        )
       end
       @information = "Внимание!!! В Заказе #{order.id} присутствует Доставка стоимостью => #{order.delivery.price}"
     else
@@ -71,28 +81,37 @@ class InvoicesController < ApplicationController
     end
   end
 
-  def bulk_print # post
+  def bulk_print
     if params[:invoice_ids]
-      templ_id = params[:button].split("#").last
-      BulkPrintJob.perform_later("Invoice", params[:invoice_ids], templ_id, current_user.id)
+      templ_id = params[:button].split('#').last
+      BulkPrintJob.perform_later('Invoice', params[:invoice_ids], templ_id, current_user.id)
       render turbo_stream: 
         turbo_stream.update(
           'modal',
-          template: "shared/pending_bulk"
+          template: 'shared/pending_bulk'
         )
     else
-      notice = "Выберите позиции"
+      notice = 'Выберите позиции'
       redirect_to invoices_url, alert: notice
     end
   end
 
   private
-    def set_invoice
-      @invoice = Invoice.find(params[:id])
-    end
 
-    def invoice_params
-      params.require(:invoice).permit(:client_id,:company_id, :number, :invoice_status_id, :order_id, invoice_items_attributes: [:id, :variant_id, :price, :discount, :sum, :quantity, :vat, :_destroy])
-    end
+  def set_invoice
+    @invoice = Invoice.find(params[:id])
+  end
+
+  def invoice_params
+    params.require(:invoice).permit(
+      :seller_id,
+      :client_id,
+      :company_id,
+      :number,
+      :invoice_status_id,
+      :order_id,
+      invoice_items_attributes: [:id, :variant_id, :price, :discount, :sum, :quantity, :vat, :_destroy]
+    )
+  end
 
 end

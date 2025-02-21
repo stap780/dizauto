@@ -1,5 +1,6 @@
 # InvoiceItem < ApplicationRecord
 class InvoiceItem < ApplicationRecord
+  include NormalizeDataWhiteSpace
   include Stockable
   belongs_to :variant
   belongs_to :invoice
@@ -8,7 +9,6 @@ class InvoiceItem < ApplicationRecord
 
   validates :quantity, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 0}
   validates :price, presence: true, numericality: {greater_than_or_equal_to: 0}
-  before_save :normalize_data_white_space
   after_save_commit :set_stock
 
 
@@ -17,12 +17,6 @@ class InvoiceItem < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def set_stock
     if self.stock

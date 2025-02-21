@@ -1,43 +1,30 @@
-<div class="col-2 my-3 ps-0">
+<%= tag.div class: "col-2 my-3 ps-0" do %>
     <%= link_to add_icon, new_nested_enters_path, class: "btn btn-primary", data: { turbo_stream: true } %>
-</div>
+<% end %>
 
-<div class="col-12 text-primary-emphasis bg-primary-subtle benter benter-primary-subtitle rounded-3">
-    <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.enter_item.variant_id'), class: 'col-6 fw-semibold')%> 
-        <%= tag.div( t('helpers.label.enter_item.quantity'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.enter_item.price'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.enter_item.nds'), class: 'col-1 fw-semibold' )%>
-        <%# tag.div( t('helpers.label.enter_item.discount'), class: 'col-1 fw-semibold')%>
-        <%= tag.div( t('helpers.label.enter_item.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div('', class: 'col fw-semibold')%>
-    </div>
+<%= tag.div class: "col-12 text-primary-emphasis bg-primary-subtle benter benter-primary-subtitle rounded-3" do %>
+    <%= tag.div class: "row py-2 px-0" do %>
+        <%= tag.div t('helpers.label.enter_item.variant_id'), class: 'col-6 fw-semibold' %> 
+        <%= tag.div t('helpers.label.enter_item.quantity'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.enter_item.price'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.enter_item.nds'), class: 'col-1 fw-semibold' %>
+        <%# tag.div t('helpers.label.enter_item.discount'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.enter_item.sum'), class: 'col-1 fw-semibold' %>
+        <%= tag.div '', class: 'col fw-semibold' %>
+    <% end %>
+
     <%= turbo_frame_tag :enter_items, class: "container" do %>
         <%= f.fields_for :enter_items do |ff| %>
-            <%= render  partial: "shared/items_form_data", 
-                        locals: {   f: ff,
-                                    variant: nil,
-                                    nested_url: "/enters/slimselect_nested_item",
-                                    object_turbo_frame_tag: "enter_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
-                                    remove_element_path: "/enters/remove_nested?enter_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
-                                    discount_field: false
-                                } %>
+            <%= render partial: "shared/items_form_data", 
+                                 locals: { f: ff,
+                                                     variant: nil,
+                                                     nested_url: "/enters/slimselect_nested_item",
+                                                     object_turbo_frame_tag: "enter_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     remove_element_path: "/enters/remove_nested?enter_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     discount_field: false } %>
         <% end %>
     <% end %>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">Subtotal:</div>
-        <div class="col" data-calculate-target="subtotal"><%= @enter.enter_items.sum(:sum)%></div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">NDS:</div>
-        <div class="col" data-calculate-target="vattotal"></div>
-    </div>
-    <div class="row">
-        <div class="col-8"></div>
-        <div class="col-1">Total:</div>
-        <div class="col" data-calculate-target="total"><%= @enter.enter_items.sum(:sum)%></div>
-    </div>
 
-</div>
+    <%= render partial: 'shared/nested_footer' %>
+    <%= render partial: 'shared/recalculate' %>
+<% end %>

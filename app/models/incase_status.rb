@@ -1,13 +1,14 @@
+# IncaseStatus < ApplicationRecord
 class IncaseStatus < ApplicationRecord
+  include NormalizeDataWhiteSpace
   acts_as_list
   has_many :incases
 
-  before_save :normalize_data_white_space
   before_destroy :check_presence_in_incases, prepend: true
 
-  after_create_commit { broadcast_prepend_to "incase_statuses" }
-  after_update_commit { broadcast_replace_to "incase_statuses" }
-  after_destroy_commit { broadcast_remove_to "incase_statuses" }
+  after_create_commit { broadcast_prepend_to 'incase_statuses' }
+  after_update_commit { broadcast_replace_to 'incase_statuses' }
+  after_destroy_commit { broadcast_remove_to 'incase_statuses' }
 
   validates :title, presence: true
 
@@ -17,15 +18,9 @@ class IncaseStatus < ApplicationRecord
 
   private
 
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
-
   def check_presence_in_incases
     if incase.count > 0
-      errors.add(:base, "Cannot delete incase_statuses. You have incase with it.")
+      errors.add(:base, 'Cannot delete incase_statuses. You have incase with it.')
       throw(:abort)
     end
   end

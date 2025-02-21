@@ -4,6 +4,7 @@
             <%= check_box_tag "order_ids[]", order.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( order.id ) %><% end %>
         <% end %>
+        <%= order.created_at.strftime("%d/%m/%Y %H:%M") %>
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span(   order.order_status.title,
@@ -11,6 +12,7 @@
                         style: 'background-color:'+order.order_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: order.order_status.color }) if order.order_status %>
     <% end %>
+    <%= tag.div( order.seller.short_title , class: "col-2") %>
     <%= tag.div(class: "col-2 row") do %>
         <%=tag.div(order.client ? order.client.name : '',  class: "col-12")%>
         <%=tag.div(order.company ? order.company.short_title : '',  class: "col-12")%>
@@ -18,9 +20,8 @@
     <%= tag.div( order.payment_type.title  , class: "col-1") %>
     <%= tag.div( order.delivery_type.title , class: "col-2") %>
     <%= tag.div( order.total_sum  , class: "col-1") %>
-    <%= tag.div( order.created_at.strftime("%d/%m/%Y %H:%M"), class: "col-2 p-0" ) %>
-
-    <div class= "col-2 d-flex justify-content-end gap-2 align-items-center" id="buttons-<%=order.id%>">
+    
+    <%= tag.div(class: "col-2 d-flex justify-content-end gap-2 align-items-center", id:"buttons-#{order.id}" ) do %>
         <% if Templ.order_print.presence %>
             <%= button_print %>
             <ul class="dropdown-menu">
@@ -41,5 +42,5 @@
             </div>
         </div>
         <%= render 'shared/edit_delete_link', object: order %>
-    </div>
+    <% end %>
 <% end %>

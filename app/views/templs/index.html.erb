@@ -13,16 +13,6 @@
 
 <div class="card">
   <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
-        </div>
-      </div>
-    </div>
     <h5 class="card-title mb-0">Всего: <%= Templ.all.count %></br><%= "Выбрано: "+@templs.total_entries.to_s if @templs.size > 0 &&  @templs.size != Templ.all.count %></h5>
   </div>
   <div class="card-body">

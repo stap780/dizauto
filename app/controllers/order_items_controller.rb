@@ -66,7 +66,7 @@ class OrderItemsController < ApplicationController
         render turbo_stream: [
           turbo_stream.remove(remove_element),
           render_turbo_flash,
-          turbo_stream.append("order_items", partial: 'shared/recalculate_after_remove')
+          turbo_stream.append('order_items', partial: 'shared/recalculate')
         ]
       end
     end

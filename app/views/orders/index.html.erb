@@ -25,23 +25,24 @@
 
 <%= render 'filter', q: @search, title: 'Order filter' if lookup_context.find_all("orders/_filter").any?  %>
 
-<div class="card">
-  <div class="card-header pb-0">
-    <h5 class="card-title mb-0"><%= page_entries_info(@orders).to_s.gsub('Order','').gsub('заказы','').html_safe %></h5>
-  </div>
-  <div class="card-body">
-
-    <div id="datatables-orders" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
-      <div class="row py-2 px-0 justify-content-between align-items-center">
+<%=tag.div class: "card" do %>
+  <%=tag.div class: "card-header pb-0" do %>
+    <%=tag.h5 class: "card-title mb-0" do %>
+      <%= page_entries_info(@orders).to_s.gsub('Order','').gsub('заказы','').html_safe %>
+    <% end %>
+  <% end %>
+  <%=tag.div class: "card-body" do %>
+    <%=tag.div(id: "datatables-orders", class: "col-sm-12 list-group list-group-striped", data: {controller:"selectall"}) do %>  
+      <%= tag.div class:"row py-2 px-0 justify-content-between align-items-center" do %>
         <%= div_check_box_tag_all %>
         <%= tag.div( t( 'helpers.label.order.order_status_id' ), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.contact' ), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.order.seller_id' ), class: 'col-2 fw-semibold' )%> 
+        <%= tag.div( t( 'helpers.label.order.client_id' ), class: 'col-2 fw-semibold' )%> 
         <%= tag.div( t( 'helpers.label.order.payment_type_id' ), class: 'col-1 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.order.delivery_type_id' ), class: 'col-2 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.order.sum' ), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t( 'helpers.label.order.created_at' ), class: 'col-2 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
-      </div>
+      <% end %>
       
       <% if !@orders.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
         <%= turbo_stream_from "orders_page1" %>
@@ -52,8 +53,8 @@
       <%= turbo_frame_tag 'orders' do %>
           <%= render @orders %>
       <% end %>
-    </div>
+    <% end %>
 
     <%= render "shared/paginate", f: @orders %>
-  </div>
-</div>
+  <% end %>
+<% end %>

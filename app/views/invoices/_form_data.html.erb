@@ -1,5 +1,10 @@
 
-<%= f.hidden_field :order_id, value: params[:order_id].present? ? params[:order_id] : f.object.order_id %>
+<%# f.hidden_field :order_id, value: params[:order_id].present? ? params[:order_id] : f.object.order_id %>
+<div class="mb-3 col-4 ps-0 pe-1 ">
+    <%= f.label :seller_id, class: "form-label" %>
+    <%= f.select :seller_id, Company.our.pluck(:short_title, :id), {include_blank: false}, { class: "form-select"} %>
+</div>
+<div class="mb-3 col-7 ps-0 pe-1 "></div>
 <div class="mb-3 col-2 ps-0 pe-1">
     <%= f.label :number, class: "form-label" %>
     <%= f.text_field :number, class: "form-control" %>

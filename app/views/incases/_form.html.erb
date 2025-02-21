@@ -1,45 +1,43 @@
- <%= form_with(model: incase, data: { controller: 'choose slimselect'}, class: 'incase-form' ) do |f| %>
-    <%= render 'shared/errors', object: incase%>
+<%= form_with(model: incase, data: { controller: 'choose slimselect'}, class: 'incase-form' ) do |f| %>
+    <%= render 'shared/errors', object: incase %>
 
-    <div class="card">
-        <div class="card-header d-flex align-items-center gap-3 px-2">
-            <div class="d-flex justify-content-between align-items-center gap-3">
-                <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), {include_blank: false, prompt: t( 'helpers.label.incase.incase_status_id') }, {class: "form-select border-primary-subtle"}%>
-                <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), {include_blank: false, prompt: t( 'helpers.label.incase.incase_tip_id')}, {class: "form-select border-primary-subtle"} %>
-            </div>
-            <div class="d-flex justify-content-between align-items-center gap-3">
-                <%= tabs_head('incase', [ ['main', t(:main)], ['comment', t(:comment)] ]) if !f.object.new_record? %>
-            </div>
-            <div class="d-flex justify-content-between align-items-center ms-auto">
-                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "incase", auditable_id: incase.id), class: 'btn btn-outline-success d-flex', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record?%>
-            </div>
-        </div>
-        <div class="card-body tab-content">
-            <div class="tab-pane active" id="main_tab" role="tabpanel" aria-labelledby="main_tab">
-                <div class="row gap-1">
+    <%= tag.div(class: "card") do %>
+        <%= tag.div(class: "card-header d-flex align-items-center gap-3 px-2") do %>
+            <%= tag.div(class: "d-flex justify-content-between align-items-center gap-3") do %>
+                <%= f.select :incase_status_id, IncaseStatus.pluck(:title, :id), { include_blank: false, prompt: t('helpers.label.incase.incase_status_id') }, { class: "form-select border-primary-subtle" } %>
+                <%= f.select :incase_tip_id, IncaseTip.pluck(:title, :id), { include_blank: false, prompt: t('helpers.label.incase.incase_tip_id') }, { class: "form-select border-primary-subtle" } %>
+            <% end %>
+            <%= tag.div(class: "d-flex justify-content-between align-items-center gap-3") do %>
+                <%= tabs_head('incase', [['main', t(:main)], ['comment', t(:comment)]]) if !f.object.new_record? %>
+            <% end %>
+            <%= tag.div(class: "d-flex justify-content-between align-items-center ms-auto") do %>
+                <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "incase", auditable_id: incase.id), class: 'btn btn-outline-success d-flex', data: { turbo_frame: "offcanvas_history" } if !f.object.new_record? %>
+            <% end %>
+        <% end %>
+        <%= tag.div(class: "card-body tab-content") do %>
+            <%= tag.div(class: "tab-pane active", id: "main_tab", role: "tabpanel", "aria-labelledby": "main_tab") do %>
+                <%= tag.div(class: "row gap-1") do %>
                     <%= render 'form_data', f: f %>
-                </div>
-                <div class="row" data-controller="calculate">
+                <% end %>
+                <%= tag.div(class: "row", data: { controller: "calculate" }) do %>
                     <%= render 'nested', f: f %>
-                </div>
+                <% end %>
                 <%= tag.div(class: "row mt-3") do %>
-                    <%=tag.div('Комментарий', class: "fs-4 fw-bold my-3")%>
+                    <%= tag.div('Комментарий', class: "fs-4 fw-bold my-3") %>
                     <%= f.fields_for :comments do |comment| %>
-                        <%= render 'comments/form_data', f: comment%>
+                        <%= render 'comments/form_data', f: comment %>
                     <% end %>
-                <% end if f.object.new_record?%>
-            </div>
+                <% end if f.object.new_record? %>
+            <% end %>
             <%= tag.div(class: "tab-pane", id: "comment_tab", role: "tabpanel", "aria-labelledby": "comment_tab") do %>
-                <div class="row">
-                    <%= render partial: 'comments/nested', locals: {commentable: incase, comment: @comment}%>
-                </div>                        
+                <%= tag.div(class: "row") do %>
+                    <%= render partial: 'comments/nested', locals: { commentable: incase, comment: @comment } %>
+                <% end %>
             <% end if !f.object.new_record? %>
-        </div>
-        <div class="card-footer">
-            <%= f.submit t('save'),class: "btn btn-primary", data: {disable_with: false} %>
+        <% end %>
+        <%= tag.div(class: "card-footer") do %>
+            <%= f.submit t('save'), class: "btn btn-primary", data: { disable_with: false } %>
             <%= link_to t('back'), incases_path, class: "btn btn-outline-primary" %>
-        </div>
-    </div>
-
+        <% end %>
+    <% end %>
 <% end %>
-

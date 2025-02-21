@@ -42,6 +42,10 @@ class Drop::Order < Liquid::Drop
     @order.total_sum
   end
 
+  def seller
+    @order.seller.present? ? @order.seller.attributes : []
+  end
+
   def items
     @order.order_items.map { |li|
       {

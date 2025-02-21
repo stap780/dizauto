@@ -1,16 +1,20 @@
-<%= f.hidden_field :order_id, class: '' %>
-
-<div class="col-10">
-
-<%= f.select :delivery_type_id, options_for_select(DeliveryType.all.map{ |d| [d.title_price, d.id] }, nil), 
-                            {include_blank: false, prompt: t('delivery_type')}, 
-                            {data: {
-                                controller: 'slimselect',
-                                nested_url:  order_deliveries_path(order)
-                                }
-                            }  %>
-</div>
-
-<div class="col-1 p-0">
-<%= f.text_field :price, class: 'form-control rounded-0 disabled p-1 text-center', disabled: true %>
-</div>
+<%= tag.div class: "col-9 px-0" do %>
+    <%= f.select :delivery_type_id, options_for_select(DeliveryType.all.map{ |d| [d.title_price, d.id] }, dtid), 
+                                {include_blank: false, prompt: 'Способ доставки'}, 
+                                {data: {
+                                    controller: 'slimselect',
+                                    nested_url:  delivery_orders_path
+                                    }
+                                }  %>
+<% end %>
+<input class="d-none" min="0" value="1" data-action="change->calculate#recalculate" data-calculate-target="qty" type="number">
+<%= tag.div class: "col-1 p-0 m-0" do %>
+    <%= f.select :vat, [['без НДС',0.0],['0%',0],['5%',5],['7%',7],['10%',10],['20%',20]], 
+    {include_blank: false, selected: vat }, 
+    {class: "form-select rounded-0", disabled: false, data: { action: "change->calculate#recalculate", calculate_target: "vat" } }%>
+<% end %>
+<%= tag.div class: "col-1 p-0" do %>
+    <%= f.number_field :price, class: 'form-control rounded-0 disabled p-1 text-center', 
+    data: { action: "change->calculate#recalculate", calculate_target: "price" }, value: price, min: "0" %>
+<% end %>
+<input class="d-none" min="0" value="0" data-action="change->calculate#recalculate" data-calculate-target="sum" type="number">

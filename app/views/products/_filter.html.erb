@@ -1,70 +1,77 @@
-<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasRightLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= title %></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-   	<%= search_form_for q, html: {class: '', "data-controller": "filter", "data-turbo-frame": "table" } do |f| %> 
-		<div class="form-group">
-        <div class="row g-1 mb-2">
-          <div class="col-md-12">
+<%= tag.div class: "offcanvas offcanvas-end", data: { bs_scroll: "true" }, tabindex: "-1", id: "offcanvasFilter", aria: { labelledby: "offcanvasRightLabel" } do %>
+  <%= tag.div class: "offcanvas-header" do %>
+    <%= tag.h5 class: "offcanvas-title", id: "offcanvasRightLabel" do %>
+      <%= title %>
+    <% end %>
+    <%= tag.button type: "button", class: "btn-close", data: { bs_dismiss: "offcanvas" }, aria: { label: "Close" } %>
+  <% end %>
+  <%= tag.div class: "offcanvas-body" do %>
+    <%= search_form_for q, html: { class: '', data: { controller: "filter", turbo_frame: "table" } } do |f| %>
+      <%= tag.div class: "form-group" do %>
+        <%= tag.div class: "row g-1 mb-2" do %>
+          <%= tag.div class: "col-md-12" do %>
             <%= f.label :variants_sku_or_variants_barcode_or_title_cont_all %>
             <%= f.search_field :variants_sku_or_variants_barcode_or_title_cont_all, class: "form-control input-sm" %>
-          </div>
-          <div class="col-md-6" data-controller="checkbox">
-            <div class="label"><%= t('quantity') %></div>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%= f.label :all_quantity, 'all', class: 'form-check-label'%>
-              <%= f.check_box :all_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-            <%end%>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%= f.label :no_quantity, '= 0', class: 'form-check-label'%>
-              <%= f.check_box :no_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-              <%end%>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%= f.label :yes_quantity, '> 0', class: 'form-check-label'%>
-              <%= f.check_box :yes_quantity , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-            <%end%>
-          </div>
-          <div class="col-md-6" data-controller="checkbox">
-            <div class="label"><%= t('price') %></div>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%= f.check_box :no_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-              <%= f.label :no_price, '= 0', class: 'form-check-label'%>
-            <%end%>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%= f.label :yes_price, '> 0', class: 'form-check-label'%>
-              <%= f.check_box :yes_price , class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-            <%end%>
-          </div>
-            
-          <div class="col-md-6">
-            <div class="label"><%= t('created_at') %></div>
+          <% end %>
+          <%= tag.div class: "col-md-6", data: { controller: "checkbox" } do %>
+            <%= tag.div class: "label" do %>
+              <%= t('quantity') %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.label :all_quantity, 'all', class: 'form-check-label' %>
+              <%= f.check_box :all_quantity, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.label :no_quantity, '= 0', class: 'form-check-label' %>
+              <%= f.check_box :no_quantity, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.label :yes_quantity, '> 0', class: 'form-check-label' %>
+              <%= f.check_box :yes_quantity, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+            <% end %>
+          <% end %>
+          <%= tag.div class: "col-md-6", data: { controller: "checkbox" } do %>
+            <%= tag.div class: "label" do %>
+              <%= t('price') %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.check_box :no_price, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+              <%= f.label :no_price, '= 0', class: 'form-check-label' %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.label :yes_price, '> 0', class: 'form-check-label' %>
+              <%= f.check_box :yes_price, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+            <% end %>
+          <% end %>
+          <%= tag.div class: "col-md-6" do %>
+            <%= tag.div class: "label" do %>
+              <%= t('created_at') %>
+            <% end %>
             <%= f.search_field :created_at_datebegin, placeholder: 'создан от', class: "form-control bg-light", autocomplete: "off", data: { controller: 'flatpickr', flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
-          </div>
-          <div class="col-md-6">
+          <% end %>
+          <%= tag.div class: "col-md-6" do %>
             <%= f.label :status_eq %>
-            <%= f.select :status_eq, Product::STATUS, { prompt:''}, class: "form-select input-sm" %>
-          </div>
-          <div class="col-md-6" data-controller="checkbox">
-            <div class="label"><%= t('images') %></div>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%=f.check_box :with_images, class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-              <%=f.label :with_images,'есть', class: 'form-check-label'%>
-            <%end%>
-            <%=tag.div class: 'form-check form-check-inline' do%>
-              <%=f.check_box :without_images, class: 'form-check-input', data: {"checkbox-target": "btn", "action":"change->checkbox#toggleOne"}%>
-              <%=f.label :without_images,'нет', class: 'form-check-label'%>
-            <%end%>
-          </div>
-
-        </div>
-
-  			<div class="btn-group btn-group-sm gap-1" role="group"> 
-          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search"}  %>
+            <%= f.select :status_eq, Product::STATUS, { prompt: '' }, class: "form-select input-sm" %>
+          <% end %>
+          <%= tag.div class: "col-md-6", data: { controller: "checkbox" } do %>
+            <%= tag.div class: "label" do %>
+              <%= t('images') %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.check_box :with_images, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+              <%= f.label :with_images, 'есть', class: 'form-check-label' %>
+            <% end %>
+            <%= tag.div class: 'form-check form-check-inline' do %>
+              <%= f.check_box :without_images, class: 'form-check-input', data: { checkbox_target: "btn", action: "change->checkbox#toggleOne" } %>
+              <%= f.label :without_images, 'нет', class: 'form-check-label' %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= tag.div class: "btn-group btn-group-sm gap-1", role: "group" do %>
+          <%= f.submit class: "btn btn-success btn-sm submit", data: { action: "filter#start_search" } %>
           <%= link_to 'сбросить', products_path(search_cancel: true), class: 'btn btn-outline-primary me-1', data: { turbo: false } %>
-  			</div>
-		</div>	
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
-</div>
+  <% end %>
+<% end %>

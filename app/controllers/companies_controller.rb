@@ -2,9 +2,7 @@ class CompaniesController < ApplicationController
   load_and_authorize_resource
   before_action :set_company, only: %i[show edit update destroy]
 
-  # GET /companies or /companies.json
   def index
-    # @companies = Company.all
     @search = Company.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @companies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
@@ -27,19 +25,12 @@ class CompaniesController < ApplicationController
   def show
   end
 
-  # GET /companies/new
   def new
     @company = Company.new
-    # @company.client_companies.build
-    # @company.company_plan_dates.build
   end
 
-  # GET /companies/1/edit
-  def edit
-    # @comment = @company.comments.present? ? @company.comments.first : Comment.new
-  end
+  def edit; end
 
-  # POST /companies or /companies.json
   def create
     @company = Company.new(company_params)
 
@@ -54,7 +45,6 @@ class CompaniesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /companies/1 or /companies/1.json
   def update
     respond_to do |format|
       if @company.update(company_params)
@@ -67,9 +57,7 @@ class CompaniesController < ApplicationController
     end
   end
 
-  # DELETE /companies/1 or /companies/1.json
   def destroy
-    # @company.destroy
     @check_destroy = @company.destroy ? true : false
     message = if @check_destroy == true
                 flash.now[:success] = t(".success")
@@ -85,12 +73,10 @@ class CompaniesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_company
     @company = Company.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def company_params
     params.require(:company).permit(:okrug_id, :tip, :inn, :kpp, :title, :short_title, :ur_address, :fact_address, :ogrn, :okpo, :bik, :bank_title, :bank_account, :info,
       client_companies_attributes: [:id, :client_id, :company_id, :_destroy], company_plan_dates_attributes: [:id, :date, :_destroy, comments_attributes: [:id, :commentable_type, :commentable_id, :user_id, :body, :_destroy]])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # module Stockable
 module Stockable
   extend ActiveSupport::Concern
@@ -29,7 +31,6 @@ module Stockable
     def remove_stock
       self.stock.destroy
     end
-
   end
 
 end

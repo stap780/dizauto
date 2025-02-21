@@ -24,20 +24,6 @@
                                 } %>
         <% end %>
     <% end %>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Subtotal:</div>
-        <div class="col" data-calculate-target="subtotal"><%= @return.return_items.sum(:sum)%></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">NDS:</div>
-        <div class="col" data-calculate-target="vattotal"></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Total:</div>
-        <div class="col" data-calculate-target="total"><%= @return.return_items.sum(:sum)%></div>
-    </div>
-
+    <%= render partial: 'shared/nested_footer'%>
+    <%= render partial: 'shared/recalculate'%>
 </div>

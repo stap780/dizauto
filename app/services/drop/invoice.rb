@@ -51,4 +51,8 @@ class Drop::Invoice < Liquid::Drop
     }
   end
 
+  def seller
+    @invoice.seller.present? ? @invoice.seller.attributes : []
+  end
+
 end

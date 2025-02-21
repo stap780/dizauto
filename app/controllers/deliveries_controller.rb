@@ -5,21 +5,18 @@ class DeliveriesController < ApplicationController
   before_action :set_delivery, only: %i[show edit update destroy]
 
   def index
-    # @deliveries = Delivery.all
     @deliveries = @order.deliveries.order(:id)
   end
 
   def show; end
 
   def new
-    # @delivery = Delivery.new
     @delivery = @order.build_delivery
   end
 
   def edit; end
 
   def create
-    # @delivery = Delivery.new(delivery_params)
     @delivery = @order.build_delivery(delivery_params)
 
     respond_to do |format|
@@ -39,7 +36,6 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /deliveries/1 or /deliveries/1.json
   def update
     respond_to do |format|
       if @delivery.update(delivery_params)
@@ -58,7 +54,6 @@ class DeliveriesController < ApplicationController
     end
   end
 
-  # DELETE /deliveries/1 or /deliveries/1.json
   def destroy
     @delivery.destroy!
 
@@ -70,15 +65,15 @@ class DeliveriesController < ApplicationController
 
   private
 
-  def set_product
+  def set_order
     @order = Order.find(params[:order_id])
   end
-  
+
   def set_delivery
     @delivery = Delivery.find(params[:id])
   end
 
   def delivery_params
-    params.require(:delivery).permit(:order_id, :delivery_type_id, :price)
+    params.require(:delivery).permit(:order_id, :delivery_type_id, :price, :vat)
   end
 end

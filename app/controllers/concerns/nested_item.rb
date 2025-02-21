@@ -4,6 +4,10 @@
 module NestedItem
   extend ActiveSupport::Concern
 
+  included do
+    include ActionView::Helpers::FormHelper
+  end
+
   def slimselect_nested_item
     target = params[:turboId]
     item = nested_model.find_by(id: target.remove("#{model_to_s}_item_"))
@@ -50,7 +54,7 @@ module NestedItem
   def new_nested
     puts "new_nested => model = #{model} /// nested_model = #{nested_model} /// nested_url = #{nested_url} /// nested_model_to_s = #{nested_model_to_s}"
     child_index = Time.now.to_i
-    puts "child_index => #{child_index}"
+    puts "new_nested child_index => #{child_index}"
     helpers.fields model: model.new do |f|
       f.fields_for nested_model_pluralize_to_sym, nested_model.new, child_index: child_index do |ff|
         render turbo_stream: turbo_stream.append(
@@ -82,7 +86,7 @@ module NestedItem
         render turbo_stream: [
           turbo_stream.remove(remove_element),
           render_turbo_flash,
-          turbo_stream.append(nested_model_pluralize_to_s, partial: 'shared/recalculate_after_remove')
+          turbo_stream.append(nested_model_pluralize_to_s, partial: 'shared/recalculate')
         ]
       end
       format.json { head :no_content }

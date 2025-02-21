@@ -13,7 +13,7 @@ class Characteristic < ApplicationRecord
 
   def check_presence_in_props
     if props.count > 0
-      errors.add(:base, "Cannot delete characteristic. You have items with it")
+      errors.add(:base, 'Cannot delete characteristic. You have items with it')
       throw(:abort)
     end
   end

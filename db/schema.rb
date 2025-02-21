@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_20_144112) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "vat", default: 0, null: false
     t.index ["delivery_type_id"], name: "index_deliveries_on_delivery_type_id"
     t.index ["order_id"], name: "index_deliveries_on_order_id"
   end
@@ -369,6 +370,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "client_id", null: false
+    t.integer "seller_id"
     t.index ["client_id"], name: "index_invoices_on_client_id"
   end
 
@@ -477,6 +479,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
     t.datetime "updated_at", null: false
     t.integer "order_status_id"
     t.bigint "company_id"
+    t.integer "seller_id"
     t.index ["company_id"], name: "index_orders_on_company_id"
   end
 
@@ -579,6 +582,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
     t.bigint "invoice_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "seller_id"
     t.index ["client_id"], name: "index_returns_on_client_id"
     t.index ["company_id"], name: "index_returns_on_company_id"
     t.index ["invoice_id"], name: "index_returns_on_invoice_id"
@@ -652,6 +656,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_26_115153) do
     t.integer "supply_status_id"
     t.integer "manager_id"
     t.integer "warehouse_id"
+    t.integer "buyer_id"
   end
 
   create_table "supply_items", force: :cascade do |t|

@@ -1,4 +1,9 @@
 
+<div class="mb-3 col-4 ps-0 pe-1 ">
+    <%= f.label :buyer_id, class: "form-label" %>
+    <%= f.select :buyer_id, Company.our.pluck(:short_title, :id), {include_blank: false}, { class: "form-select"} %>
+</div>
+<div class="mb-3 col-7 ps-0 pe-1 "></div>
 <div class="mb-3 col-3 ps-0 pe-1 ">
     <%= f.label :title, class: "form-label" %>
     <%= f.text_field :title, class: "form-control" %>

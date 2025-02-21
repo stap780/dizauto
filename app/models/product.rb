@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   require 'barby/barcode/ean_13'
   require 'barby/outputter/html_outputter'
 
+  include NormalizeDataWhiteSpace
   include Rails.application.routes.url_helpers
   audited
 
@@ -20,7 +21,6 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true
 
   has_associated_audits
-  before_save :normalize_data_white_space
   after_create_commit { broadcast_prepend_to 'products_page1' }
   after_update_commit { broadcast_replace_to 'products' }
   after_destroy_commit { broadcast_remove_to 'products' }
@@ -144,12 +144,6 @@ class Product < ApplicationRecord
   end
 
   private
-
-  def normalize_data_white_space
-    attributes.each do |key, value|
-      self[key] = value.squish if value.respond_to?(:squish)
-    end
-  end
 
   def check_variants_have_relations
     if variants.size.positive?

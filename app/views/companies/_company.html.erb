@@ -1,6 +1,6 @@
 <tr id="<%= dom_id company %>">
-    <td><b><%= company.id%></b></td>
-    <td><%= company.tip%></td>
+    <td><b><%= company.id%></b> <%= '<i class="bi bi-hand-thumbs-up"></i>'.html_safe if company.tip == 'our'%></td>
+    <td><%= t(company.tip, scope: %i[company tip]) %></td>
     <td><%= collect_company_info(company)%></td>
     <td><%= collect_company_bank_info(company)%> </td>
     <%=tag.td(company.company_plan_dates_data)%>

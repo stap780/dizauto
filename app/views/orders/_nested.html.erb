@@ -1,48 +1,36 @@
-<div class="col-2 mb-3 ps-0">
+<%= tag.div class: "col-2 mb-3 ps-0" do %>
     <%= link_to add_icon, new_nested_orders_path, class: "btn btn-primary", data: { turbo_stream: true } %>
-</div>
+<% end %>
 
-<div class="col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtitle rounded-3">
-    <div class="row py-2 px-0 ">
-        <%= tag.div( t('helpers.label.order_item.variant_id'), class: 'col-6 fw-semibold')%> 
-        <%= tag.div( t('helpers.label.order_item.quantity'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.order_item.price'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.order_item.nds'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div( t('helpers.label.order_item.discount'), class: 'col-1 fw-semibold')%>
-        <%= tag.div( t('helpers.label.order_item.sum'), class: 'col-1 fw-semibold' )%>
-        <%= tag.div('', class: 'col fw-semibold')%>
-    </div>
+<%= tag.div class: "col-12 text-primary-emphasis bg-primary-subtle border border-primary-subtitle rounded-3" do %>
+    <%= tag.div class: "row py-2 px-0" do %>
+        <%= tag.div t('helpers.label.order_item.variant_id'), class: 'col-6 fw-semibold' %>
+        <%= tag.div t('helpers.label.order_item.quantity'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.order_item.price'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.order_item.discount'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.order_item.nds'), class: 'col-1 fw-semibold' %>
+        <%= tag.div t('helpers.label.order_item.sum'), class: 'col-1 fw-semibold' %>
+        <%= tag.div '', class: 'col fw-semibold' %>
+    <% end %>
+
     <%= turbo_frame_tag 'order_items', class: "container" do %>
         <%= f.fields_for :order_items do |ff| %>
-            <%= render  partial: "shared/items_form_data", 
-                        locals: {   f: ff,
-                                    variant: nil,
-                                    nested_url: slimselect_nested_item_orders_path,
-                                    object_turbo_frame_tag: "order_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i}",
-                                    remove_element_path: "/orders/remove_nested?order_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
-                                    discount_field: true
-                                } %>
+            <%= render partial: "shared/items_form_data", 
+                                 locals: { f: ff,
+                                                     variant: nil,
+                                                     nested_url: slimselect_nested_item_orders_path,
+                                                     object_turbo_frame_tag: "order_item_#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     remove_element_path: "/orders/remove_nested?order_item_id=#{ ff.object.persisted? ? ff.object.id : Time.now.to_i }",
+                                                     discount_field: true } %>
         <% end %>
     <% end %>
-    <%= turbo_frame_tag dom_id(f.object, :delivery), class: "row", data: {}  do %>
-        <%= f.fields_for :delivery do |ff| %>
-            <%= render  partial: 'orders/delivery', locals: { selected: ff.object.delivery_type } %>
-        <% end %>
-    <% end %>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Подитог:</div>
-        <div class="col" data-calculate-target="subtotal"><%= @order.order_items.sum(:sum) %></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">НДС:</div>
-        <div class="col" data-calculate-target="vattotal"></div>
-    </div>
-    <div class="row">
-        <div class="col-9"></div>
-        <div class="col-1">Итого:</div>
-        <div class="col" data-calculate-target="total"><%= @order.total_sum %></div>
-    </div>
 
-</div>
+    <%= turbo_frame_tag dom_id(f.object, :delivery), class: "row", data: {} do %>
+        <% f.fields_for :delivery do |ff| %>
+            <%= render partial: 'deliveries/form_data', locals: { f: ff, dtid: ff.object.delivery_type_id, vat: ff.object.vat, price: ff.object.price } %>
+        <% end %>
+    <% end %>
+
+    <%= render partial: 'shared/nested_footer' %>
+    <%= render partial: 'shared/recalculate' %>
+<% end %>

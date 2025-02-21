@@ -1,3 +1,4 @@
+# OrdersController < ApplicationController
 class OrdersController < ApplicationController
   load_and_authorize_resource
   before_action :set_order, only: %i[show edit update destroy]
@@ -5,6 +6,7 @@ class OrdersController < ApplicationController
   include DownloadExcel
   include NestedItem
   include BulkStatus
+
 
   def index
     @search = Order.ransack(search_params)
@@ -82,26 +84,27 @@ class OrdersController < ApplicationController
   end
 
   def delivery
-    @selected = DeliveryType.find(params[:selected_id])
-    @target = params[:turboId]
-    puts "@selected => #{@selected.to_json}"
-    # this down don't start work and i change to plain html in partial
-    # respond_to do |format|
-    #   format.turbo_stream do
-    #     helpers.fields model: Order.new do |f|
-    #       f.fields_for :delivery do |ff|
-    #         render turbo_stream: [
-    #           turbo_stream.update(@target, partial: 'orders/delivery', locals: { f: ff })
-    #         ]
-    #       end
-    #     end
-    #   end
-    # end
+    selected = DeliveryType.find(params[:selected_id])
+    order_id = params[:turboId].split('_').last.to_i
+    item = order_id.positive? ? Order.find(order_id)&.delivery : nil
+    puts "delivery selected => #{selected.to_json}"
+    target = params[:turboId]
+
+    helpers.fields model: Order.new do |f|
+      f.fields_for :delivery, item.present? ? item : Delivery.new do |ff|
+        render turbo_stream: [
+          turbo_stream.update(
+            target,
+            partial: 'deliveries/form_data',
+            locals: { f: ff, dtid: selected.id, vat: 0, price: selected.price }
+          ),
+          turbo_stream.append(target, partial: 'shared/recalculate')
+        ]
+      end
+    end
   end
 
   private
-
-  # information - @commentable - as separate folder controllers/orders/comments_controller.rb
 
   def set_order
     @order = Order.find(params[:id])
@@ -109,17 +112,18 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
+      :seller_id,
       :company_id,
       :order_status_id,
       :client_id,
       :manager_id,
       :payment_type_id,
-      order_items_attributes: %i[id variant_id price discount sum quantity _destroy],
+      order_items_attributes: %i[id variant_id price vat discount sum quantity _destroy],
       shippings_attributes: [:id,:name,:phone,:address,:date,:time_from,:time_to,:order_id,:_destroy,
         comments_attributes: %i[id commentable_type commentable_id user_id body _destroy]
       ],
       comments_attributes: %i[id commentable_type commentable_id user_id body _destroy],
-      delivery_attributes: %i[id order_id delivery_type_id price _destroy]
+      delivery_attributes: %i[id order_id delivery_type_id price vat _destroy]
       )
   end
 

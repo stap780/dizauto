@@ -17,10 +17,6 @@ class Drop::Product < Liquid::Drop
     @product.file_description
   end
 
-  def quantity
-    @product.quantity
-  end
-
   def video
     @product.video
   end
