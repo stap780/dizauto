@@ -12,8 +12,8 @@
                         style: 'background-color:'+supply.supply_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: supply.supply_status.color }) if supply.supply_status %>
     <% end %>
-    <%= tag.div( supply.buyer.short_title , class: "col-2") %>
-    <%= tag.div( supply.company.present? ? supply.company.short_title : ''  , class: "col-2") %>
+    <%= tag.div( supply.buyer&.short_title , class: "col-2") %>
+    <%= tag.div( supply.company.present? ? supply.company&.short_title : ''  , class: "col-2") %>
     <%= tag.div class: "col-2" do %>
         <%= tag.div( supply.title ? supply.title : '' , class: "") %>
         <%=tag.span(t('helpers.label.supply.in_number'))%> <%= tag.span(supply.in_number) %></br>

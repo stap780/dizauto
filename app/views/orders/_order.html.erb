@@ -12,10 +12,10 @@
                         style: 'background-color:'+order.order_status.color,
                         data: {controller: 'badge', badge_target: 'value', bg_color: order.order_status.color }) if order.order_status %>
     <% end %>
-    <%= tag.div( order.seller.short_title , class: "col-2") %>
+    <%= tag.div( order.seller&.short_title , class: "col-2") %>
     <%= tag.div(class: "col-2 row") do %>
-        <%=tag.div(order.client ? order.client.name : '',  class: "col-12")%>
-        <%=tag.div(order.company ? order.company.short_title : '',  class: "col-12")%>
+        <%=tag.div(order.client ? order.client&.name : '',  class: "col-12")%>
+        <%=tag.div(order.company ? order.company&.short_title : '',  class: "col-12")%>
     <% end %>
     <%= tag.div( order.payment_type.title  , class: "col-1") %>
     <%= tag.div( order.delivery_type.title , class: "col-2") %>

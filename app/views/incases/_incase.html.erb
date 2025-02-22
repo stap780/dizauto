@@ -19,8 +19,8 @@
                         data: {controller: 'badge', badge_target: 'value', bg_color: incase.incase_tip.color } ) if incase.incase_tip%>
     <% end %>
     <%= tag.div class: "col row" do %>
-        <div class="col-12 text-break fw-semibold"><%= incase.region %> <%= incase.strah.short_title if incase.strah%></div>
-        <div class="col-12 fst-italic"><%= incase.stoanumber %> <%= incase.company.short_title if incase.company%></div>
+        <div class="col-12 text-break fw-semibold"><%= incase.region %> <%= incase.strah&.short_title if incase.strah%></div>
+        <div class="col-12 fst-italic"><%= incase.stoanumber %> <%= incase.company&.short_title if incase.company%></div>
         <div class="col-6 fst-italic"><%= incase.unumber %></div>
         <div class="col-6 fst-italic"><%= incase.carnumber %> <%= incase.modelauto %></div>
     <% end %>

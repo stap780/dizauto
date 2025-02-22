@@ -13,10 +13,10 @@
                       data: {controller: 'badge', badge_target: 'value', bg_color: return.return_status.color }) if return.return_status %>
     <% end %>
     <%= tag.div( return.number , class: "col-1") %>
-    <%= tag.div( return.seller.short_title  , class: "col-1") %>
+    <%= tag.div( return.seller&.short_title  , class: "col-1") %>
     <%= tag.div class: "col-4 row" do %>
-      <%= tag.div(return.client_id ? return.client.name : '', class: "col-12")%>
-      <%= tag.div(return.company_id ? return.company.short_title : '', class: "col-12")%>
+      <%= tag.div(return.client_id ? return.client&.name : '', class: "col-12")%>
+      <%= tag.div(return.company_id ? return.company&.short_title : '', class: "col-12")%>
     <% end %>
     <%= tag.div( return.return_items.sum(:sum)  , class: "col-1") %>
 
