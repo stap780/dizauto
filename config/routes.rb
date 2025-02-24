@@ -2,6 +2,11 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :avitos do
+    member do
+      get :check
+    end
+  end
   resources :shippings do
     resources :comments, module: :shippings
   end

@@ -77,7 +77,7 @@ class Variant < ApplicationRecord
   end
 
   def html_barcode
-    return unless barcode.size == 13
+    return unless barcode&.size == 13
 
     barcode = Barby::EAN13.new(self.barcode[0...-1])
     barcode_for_html = Barby::HtmlOutputter.new(barcode)
@@ -85,7 +85,7 @@ class Variant < ApplicationRecord
   end
 
   def png_barcode
-    return unless barcode.size == 13
+    return unless barcode&.size == 13
 
     barcode = Barby::EAN13.new(self.barcode[0...-1])
     barcode_png = Barby::PngOutputter.new(barcode)

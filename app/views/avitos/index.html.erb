@@ -1,0 +1,28 @@
+<%= tag.div class: "row mb-3" do %>
+  <%= tag.div class: "col-md-6 index-head__title" do %>
+    <h1 class="h3 d-inline align-middle"><%= Avito.model_name.human(count: 2) %></h1>
+  <% end %>
+  <%= tag.div class: "col-md-6 d-flex justify-content-end index-head__buttons" do %>
+    <%= link_to add_icon, new_avito_path, class: "btn btn-primary float-end", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false, turbo_stream: true } %>
+  <% end %>
+<% end %>
+<%= tag.div class: "card" do %>
+  <%= tag.div class: "card-header pb-0" do %>
+  <% end %>
+  <%= tag.div class: "card-body" do %>
+    <%= turbo_stream_from "avitos" %> 
+
+    <%= turbo_frame_tag :avitos, class: "table d-table", style: "border-spacing: 0 1rem;" do %>
+      <%= tag.div class: "d-table-row" do %>
+        <%= tag.div '#', class: 'd-table-cell fw-semibold' %>
+        <%= tag.div t('helpers.label.avito.title'), class: 'd-table-cell fw-semibold' %>
+        <%= tag.div t('helpers.label.avito.api_id'), class: 'd-table-cell fw-semibold' %>
+        <%= tag.div t('helpers.label.avito.api_secret'), class: 'd-table-cell fw-semibold' %>
+        <%= tag.div '', class: 'd-table-cell fw-semibold' %>
+      <% end %>
+      <%= render @avitos %>
+    <% end %>
+    
+    <%= render "shared/paginate", f: @avitos %>
+  <% end %>
+<% end %>

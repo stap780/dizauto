@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @avito %>
+
+<div>
+  <%= link_to "Edit this avito", edit_avito_path(@avito) %> |
+  <%= link_to "Back to avitos", avitos_path %>
+
+  <%= button_to "Destroy this avito", @avito, method: :delete %>
+</div>

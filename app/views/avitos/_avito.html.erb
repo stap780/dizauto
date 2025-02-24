@@ -1,0 +1,13 @@
+<%= turbo_frame_tag avito, class: "d-table-row" do %>
+  <%= tag.div(avito.id, class: "d-table-cell") %>
+  <%= tag.div(avito.title, class: "d-table-cell") %>
+  <%= tag.div(avito.api_id, class: "d-table-cell") %>
+  <%= tag.div(avito.api_secret, class: "d-table-cell") %>
+  <%= tag.div class: "d-table-cell" do %>
+    <%= tag.div class: h_v_center do %>
+      <%= link_to edit_icon, edit_avito_path(avito), class: "btn", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>
+      <%= link_to "Проверить интеграцию", check_avito_path(avito), class: "btn btn-primary me-1", data: { turbo_stream: true } %>
+      <%= link_to trash_icon, avito, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class: "btn" %> 
+    <% end %>
+  <% end %>
+<% end %>

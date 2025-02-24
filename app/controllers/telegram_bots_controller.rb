@@ -80,18 +80,19 @@ class TelegramBotsController < ApplicationController
     end
   end
 
+  # TODO: thinking about bot stop action
   def stop
-    Telegram::BotStop.call
-    respond_to do |format|
-      flash.now[:success] = 'we stop bot'
-      format.turbo_stream do
-        render turbo_stream: [
-          render_turbo_flash
-        ]
-      end
-      format.html { redirect_to telegram_bots_path, status: :see_other, notice: 'we stop bot' }
-      format.json { head :no_content }
-    end
+    # Telegram::BotStop.call
+    # respond_to do |format|
+    #   flash.now[:success] = 'we stop bot'
+    #   format.turbo_stream do
+    #     render turbo_stream: [
+    #       render_turbo_flash
+    #     ]
+    #   end
+    #   format.html { redirect_to telegram_bots_path, status: :see_other, notice: 'we stop bot' }
+    #   format.json { head :no_content }
+    # end
   end
 
   def destroy
@@ -110,11 +111,12 @@ class TelegramBotsController < ApplicationController
   end
 
   private
-    def set_telegram_bot
-      @telegram_bot = TelegramBot.find(params[:id])
-    end
 
-    def telegram_bot_params
-      params.require(:telegram_bot).permit(:title, :token)
-    end
+  def set_telegram_bot
+    @telegram_bot = TelegramBot.find(params[:id])
+  end
+
+  def telegram_bot_params
+    params.require(:telegram_bot).permit(:title, :token)
+  end
 end
