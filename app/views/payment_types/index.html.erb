@@ -23,7 +23,7 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-payment_type_wrapper">
+    <%= tag.div id: 'datatables-payment_type_wrapper' do %>  
       <%=turbo_stream_from "payment_types" %>     
 
       <%=turbo_frame_tag 'payment_types', class:"table d-table", data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
@@ -38,7 +38,7 @@
       <% end %>
       
       <%= render "shared/paginate", f: @payment_types %>
-    </div>
+    <% end %>
   </div>
 
 </div>

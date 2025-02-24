@@ -16,30 +16,26 @@
     <h5 class="card-title mb-0">Всего: <%= Templ.all.count %></br><%= "Выбрано: "+@templs.total_entries.to_s if @templs.size > 0 &&  @templs.size != Templ.all.count %></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-templ_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-templ" class="table table-striped">
-            <thead>
-              <tr>
-                <%=tag.th('#')%>
-                <%=tag.th(t('helpers.label.templ.tip'))%>
-                <%=tag.th(t('helpers.label.templ.modelname'))%>
-                <%=tag.th(t('helpers.label.templ.title'))%>
-                <%=tag.th(t('helpers.label.templ.subject'))%>
-                <%=tag.th(t('helpers.label.templ.receiver'))%>               
-                <%=tag.th(t('helpers.label.templ.content'))%>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-                <%= render @templs %>
-              </tbody>
-          </table>
-        </div>
-      </div>
+
+    <%= tag.div id: 'datatables-templs_wrapper' do %>  
+      <%=turbo_stream_from "templs" %>     
+
+      <%=turbo_frame_tag 'templs', class:"table d-table" do %>
+        <%=tag.div class:"d-table-row" do %>  
+          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div( t('helpers.label.templ.tip'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t('helpers.label.templ.modelname'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t('helpers.label.templ.title'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t('helpers.label.templ.subject'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t('helpers.label.templ.receiver'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t('helpers.label.templ.content'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%= render @templs %>
+      <% end %>
       
       <%= render "shared/paginate", f: @templs %>
-    </div>
+    <% end %>
+
   </div>
 </div>

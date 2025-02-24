@@ -1,10 +1,17 @@
-<tr id="<%= dom_id templ %>">
-  <%= tag.td tag.b(templ.id) %>
-  <%= tag.td(templ.tip)%>
-  <%= tag.td(templ.modelname)%>
-  <%= tag.td(templ.title)%>
-  <%= tag.td(templ.subject)%>
-  <%= tag.td(templ.receiver)%>
-  <%= tag.td(templ.content ? '<i data-feather="check"></i>'.html_safe : '<i data-feather="circle">'.html.safe) %>
-  <%= td_index_edit_delete_link(templ)%>
-</tr>
+<%= turbo_frame_tag templ, class: 'd-table-row' do %>
+  <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
+    <%= tag.b templ.id%>
+  <%end %>
+  <%= tag.div(templ.tip, class: "d-table-cell")%>
+  <%= tag.div(templ.modelname, class: "d-table-cell")%>
+  <%= tag.div(templ.title, class: "d-table-cell")%>
+  <%= tag.div(templ.subject, class: "d-table-cell")%>
+  <%= tag.div(templ.receiver, class: "d-table-cell")%>
+  <%= tag.div(templ.content ? check_circle : false_icon, class: "d-table-cell")%>
+
+
+  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center ps-2") do %>
+    <%= link_to edit_icon, edit_templ_path(templ), data: { turbo_frame: '_top'}, class: '' %>
+    <%= link_to trash_icon, templ, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class: "" %>    
+  <% end %>
+<% end %>

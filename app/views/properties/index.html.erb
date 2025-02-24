@@ -23,28 +23,22 @@
     <h5 class="card-title mb-0"></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-products_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-    <div class="row">
-      <div class="col-sm-12">
-        <table id="datatables-properties" class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Название</th>
-              <th>Значения</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-          <%= turbo_frame_tag 'properties' do %>
-              <%= render @properties %>
-          <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+
+    <%= tag.div id: 'datatables-properties_wrapper' do %>  
+      <%=turbo_stream_from "properties" %>     
+
+      <%=turbo_frame_tag 'properties', class:"table d-table" do %>
+        <%=tag.div class:"d-table-row" do %>  
+          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div( 'Название', class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( 'Значения', class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%= render @properties %>
+      <% end %>
       
       <%= render "shared/paginate", f: @properties %>
-    </div>
+    <% end %>
+
   </div>
 </div>

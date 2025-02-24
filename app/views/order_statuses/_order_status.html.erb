@@ -1,19 +1,16 @@
 
 <%= turbo_frame_tag order_status, class: "d-table-row", data: {
     sort_url: sort_order_status_path(order_status.id), sort_item_id: order_status.id }  do %>
-    <%= tag.div(class: "d-table-cell") do %>
+    <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
         <%= sortable_with_badge(order_status.position)%>
-        <%= order_status.id%>
+        <%= tag.b order_status.id%>
     <% end %>
     <%= tag.div(order_status.title, class: "d-table-cell")%>
     <%= tag.div('', class: "d-table-cell") do %>
         <%= tag.span('', class: 'spinner-grow-static', style: "background-color: #{order_status.color};")%>
     <% end %>
-    <%= tag.div(class: "d-table-cell") do %>
-        <%= tag.div(class: h_v_center) do %>
-            <%#render 'shared/edit_delete_link_turbo', object: order_status %>
-            <%=link_to edit_icon, edit_order_status_path(order_status), data: { turbo_frame: 'offcanvas_wrap'} %>
-            <%=link_to trash_icon, order_status, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %> 
-        <%end %> 
+    <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center ps-2") do %>
+        <%= link_to edit_icon, edit_order_status_path(order_status), data: { turbo_frame: 'offcanvas_wrap'} %>
+        <%= link_to trash_icon, order_status, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %> 
     <%end %>
 <% end %>

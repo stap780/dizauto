@@ -47,7 +47,7 @@
             <%= tag.div class: "label" do %>
               <%= t('created_at') %>
             <% end %>
-            <%= f.search_field :created_at_datebegin, placeholder: 'создан от', class: "form-control bg-light", autocomplete: "off", data: { controller: 'flatpickr', flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
+            <%= f.search_field :created_at_datebegin, placeholder: 'создан от', class: "form-control bg-light cursor-pointer", autocomplete: "off", data: { controller: 'flatpickr', flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
           <% end %>
           <%= tag.div class: "col-md-6" do %>
             <%= f.label :status_eq %>

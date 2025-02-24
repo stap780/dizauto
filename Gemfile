@@ -43,6 +43,7 @@ gem 'high_voltage', '~> 3.1'
 gem 'will_paginate', '~> 3.3'
 gem 'will_paginate-bootstrap-style'
 
+gem 'phonelib'
 gem 'rack-cors'
 gem 'ransack'
 gem 'recaptcha'

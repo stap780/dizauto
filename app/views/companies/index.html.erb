@@ -18,43 +18,27 @@
 
 <div class="card">
   <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
-        </div>
-      </div>
-    </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@companies).to_s.gsub('Company','').gsub('компании','').html_safe %></h5>
   </div>
   <div class="card-body">
-    <div id="datatables-detals_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-      <div class="row">
-        <div class="col-sm-12">
-          <table id="datatables-companies" class="table table-striped">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th><%= t('helpers.label.company.tip')%></th>
-                <th class="w-25">Компания</th>
-                <th>Банк</th>
-                <th>Комментарий</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= turbo_frame_tag 'companies' do %>
-                <%= render @companies %>
-              <% end %>
-              </tbody>
-          </table>
-        </div>
-      </div>
+
+    <%= tag.div id: 'datatables-companies_wrapper' do %>  
+      <%=turbo_stream_from "companies" %>     
+
+      <%=turbo_frame_tag 'companies', class:"table d-table", data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+        <%=tag.div class:"d-table-row" do %>  
+          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div( t('helpers.label.company.tip'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.company.title'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div( t( 'helpers.label.company.bank'), class: 'd-table-cell fw-semibold' )%>
+           <%=tag.div( t( 'helpers.label.company.comment'), class: 'd-table-cell fw-semibold' )%>
+          <%=tag.div('', class: 'd-table-cell fw-semibold')%>
+        <%end %>
+        <%= render @companies %>
+      <% end %>
       
       <%= render "shared/paginate", f: @companies %>
-    </div>
+    <% end %>
+
   </div>
 </div>

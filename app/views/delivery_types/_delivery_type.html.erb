@@ -1,12 +1,12 @@
 <%= turbo_frame_tag delivery_type, class: 'd-table-row',  data: {sort_url: sort_delivery_type_path(delivery_type.id), sort_item_id: delivery_type.id }  do %>
-  <%= tag.div(class: "d-table-cell") do %>
+  <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
     <%= sortable_with_badge(delivery_type.position)%>
-    <%= delivery_type.id%>
+    <%= tag.b delivery_type.id%>
   <%end %>
   <%= tag.div(delivery_type.title, class: "d-table-cell")%>
-  <%= tag.div(delivery_type.desc, class: "d-table-cell")%>
+  <%= tag.div(delivery_type.desc, class: "d-table-cell pe-1")%>
   <%= tag.div(delivery_type.price, class: "d-table-cell")%>
-  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center") do %>
+  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center ps-2") do %>
     <%#%render 'shared/edit_delete_link_turbo', object: delivery_type %>
     <%=link_to edit_icon, edit_delivery_type_path(delivery_type), data: { turbo_frame: 'offcanvas_wrap'} %>
     <%=link_to trash_icon, delivery_type, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %>

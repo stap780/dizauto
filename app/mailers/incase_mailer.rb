@@ -1,6 +1,5 @@
 # IncaseMailer < ApplicationMailer
 class IncaseMailer < ApplicationMailer
-  default from: 'demo@rails7startkit.com'
   layout 'incase_mailer'
 
   before_action { @email_setup, @incase, @subject, @content, @receiver = params[:email_setup], params[:incase], params[:subject], params[:content], params[:receiver] }

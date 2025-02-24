@@ -342,6 +342,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    phonelib (0.10.5)
     prettier_print (1.2.1)
     psych (5.2.1)
       date
@@ -572,6 +573,7 @@ DEPENDENCIES
   liquid
   noticed (~> 2.1)
   pg (~> 1.1)
+  phonelib
   puma
   rack-cors
   rails (~> 7.1.1)

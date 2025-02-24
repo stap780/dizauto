@@ -53,9 +53,9 @@
 }
 
 /* Стили штрихкода */
-table.barby-barcode { border-spacing: 0; }
-td.barby-cell { width: 3px; height: 60px; }
-td.barby-cell.on { background: #000; }
+// table.barby-barcode { border-spacing: 0; }
+// td.barby-cell { width: 3px; height: 60px; }
+// td.barby-cell.on { background: #000; }
 /*  */
 
 /* direct_uploads.css */
@@ -146,4 +146,12 @@ trix-editor {
   background: #adb5bd;
   border-color: #adb5bd;
   color: #fff
+}
+
+.table > :not(caption) > * > * {
+  padding: 0rem;
+}
+
+.d-table {
+  border-spacing: 0 1rem; /* Add space between rows */
 }

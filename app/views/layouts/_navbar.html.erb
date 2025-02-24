@@ -17,7 +17,7 @@
 						<a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false">Ресурсы</a>
 						<div class="dropdown-menu" aria-labelledby="resourcesDropdown">
-							<a class="dropdown-item" href="/dashboard" target="_blank"><i class="bi bi-bar-chart-fill me-1"></i>Сводка</a>
+							<%= link_to "<i class='bi bi-bar-chart-fill'></i> #{Dashboard.model_name.human(count: 1)}".html_safe, dashboards_path, class: "dropdown-item" %>
 							<a class="dropdown-item" href="/sidekiq" target="_blank"><i class="bi bi-clipboard2-pulse me-1"></i>sidekiq</a>
 						</div>
 					</li>

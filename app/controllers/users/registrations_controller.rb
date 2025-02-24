@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+#  user registration controller
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   prepend_before_action :check_captcha, only: [:create]
+  after_action :send_welcome_email, only: [:create]
 
   # GET /resource/sign_up
   # def new
@@ -39,28 +41,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
-
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
-
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
   private
 
   def check_captcha
@@ -73,4 +53,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render :new
     end
   end
+
+  def send_welcome_email
+    if resource.persisted? # Check if the user is successfully created
+      email_data = {
+        email_setup: EmailSetup.all.first,
+        subject: 'Успешная регистрация на сайте',
+        receiver: resource
+      }
+      UserMailer.with(email_data).welcome_email.deliver_now
+    end
+  end
+
 end

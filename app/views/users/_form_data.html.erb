@@ -4,7 +4,7 @@
 </div>
 <div class="mb-3 col-md-4">
     <%= f.label :phone, class: "form-label" %>
-    <%= f.text_field :phone, class: "form-control" %>
+    <%= f.text_field :phone, class: "form-control", placeholder: '89991234567'%>
 </div>
 <div class="mb-3 col-md-4">
     <%= f.label :email, class: "form-label" %>
@@ -22,7 +22,7 @@
 <% end %>
 <div class="mb-3 col-md-4">
     <%= f.label :role, class: "form-label" %>
-    <%= f.select :role, User::Role, {}, {  class: "form-select", data: {action: "change->user#change_role", user_target: "role"} } %>
+    <%= f.select :role, User::ROLE, {}, {  class: "form-select", data: {action: "change->user#change_role", user_target: "role"} } %>
 </div>
 <div class="mb-3 col-md-4">
     <%= f.label :telegram, class: "form-label" %>

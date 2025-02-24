@@ -1,10 +1,15 @@
-<tr id="<%= dom_id property %>">
-    <td><b><%= property.id%></b></td>
-    <td><%= property.title %></td>
-    <td>
-        <%= link_to eye_icon, property_path(property), class: "px-2" %>
-        <%= property.characteristics.pluck(:title).take(4).join(',')+' ...' if property.characteristics.present? %>
-        <%= link_to add_icon, new_property_characteristic_path(property), class: " px-2" %>
-    </td>
-    <%= td_index_edit_delete_link(property)%>
-</tr>
+<%= turbo_frame_tag property, class: 'd-table-row' do %>
+  <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
+    <%= tag.b property.id%>
+  <% end %>
+  <%= tag.div(property.title, class: "d-table-cell")%>
+  <%= tag.div class: "d-table-cell pe-1" do %>
+     <%= link_to eye_icon, property_path(property), data: { turbo_frame: '_top'}, class: "px-2" %>
+    <%= property.characteristics.pluck(:title).take(4).join(',')+' ...' if property.characteristics.present? %>
+    <%= link_to add_icon, new_property_characteristic_path(property), data: { turbo_frame: '_top'}, class: " px-2" %>
+  <% end %>
+  <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center ps-2") do %>
+    <%= link_to edit_icon, edit_property_path(property), data: { turbo_frame: '_top'}, class: '' %>
+    <%= link_to trash_icon, property, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class: "" %>    
+  <% end %>
+<% end %>

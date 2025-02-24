@@ -50,7 +50,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1 or /users/1.json
   def update
     @user.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
     respond_to do |format|
@@ -93,12 +92,12 @@ class UsersController < ApplicationController
 
   def admin_new
     @user = User.new
-    Permission.all_models.size.times do |index|
-      @user.permissions.build(
-        pmodel: Permission.all_models[index],
-        pactions: ['']
-      )
-    end
+    # Permission.all_models.size.times do |index|
+    #   @user.permissions.build(
+    #     pmodel: Permission.all_models[index],
+    #     pactions: ['']
+    #   )
+    # end
   end
 
   def admin_create

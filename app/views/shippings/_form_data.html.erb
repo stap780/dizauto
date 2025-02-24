@@ -15,17 +15,17 @@
 
 <%=tag.div(class: 'col-md-3 mb-3') do %>
     <%= f.label :date, class: "form-label" %>
-    <%= f.date_field :date, class: "form-control bg-light", data: { controller: 'flatpickr', flatpickr_min_date: (Time.zone.now + 1.day), flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
+    <%= f.date_field :date, class: "form-control bg-light cursor-pointer", data: {  cursor-pointer, flatpickr_min_date: (Time.zone.now + 1.day), flatpickr_alt_input: "true", flatpickr_alt_format: "d-m-Y" } %>
 <%end %> 
 
 <%=tag.div(class: 'col-md-3 mb-3') do %>
     <%= f.label :time_from, class: "form-label" %>
-    <%= f.datetime_field :time_from, class: "form-control bg-light", data: { controller: 'flatpickr', flatpickr_enable_time: 'true', flatpickr_no_calendar: 'true', flatpickr_date_format: "H:m", flatpickr_time_24hr: 'true' } %>
+    <%= f.datetime_field :time_from, class: "form-control bg-light cursor-pointer", data: { controller: 'flatpickr', flatpickr_enable_time: 'true', flatpickr_no_calendar: 'true', flatpickr_date_format: "H:m", flatpickr_time_24hr: 'true' } %>
 <%end %> 
 
 <%=tag.div(class: 'col-md-3 mb-3') do %>
     <%= f.label :time_to, class: "form-label" %>
-    <%= f.datetime_field :time_to, class: "form-control bg-light", data: { controller: 'flatpickr', flatpickr_enable_time: 'true', flatpickr_no_calendar: 'true', flatpickr_date_format: "H:m", flatpickr_time_24hr: 'true' } %>
+    <%= f.datetime_field :time_to, class: "form-control bg-light cursor-pointer", data: { controller: 'flatpickr', flatpickr_enable_time: 'true', flatpickr_no_calendar: 'true', flatpickr_date_format: "H:m", flatpickr_time_24hr: 'true' } %>
 <%end %> 
 
 <%=tag.div(class: 'col-md-10 mb-3') do %>

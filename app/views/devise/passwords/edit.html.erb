@@ -8,7 +8,7 @@
               <%= render 'shared/logo_img'%>
               <div class="row justify-content-between mb-2">
                 <div class="col">
-                  <h5>Change your password</h5>
+                  <h5>Сменить пароль</h5>
                 </div>
                 <div class="col text-end"><span class="">Есть регистрация?</span> <span><%= link_to "войти", new_user_session_path%></span></div>
               </div>
@@ -17,10 +17,10 @@
               <%= f.hidden_field :reset_password_token %>
                 <div class="mb-3">
                     <% password_hint = @minimum_password_length ? "#{@minimum_password_length} characters minimum" : ""%>
-                    <%= f.password_field :password, class: "form-control", placeholder: "New password", "data-bs-toggle": "popover", "data-bs-content": password_hint %>
+                    <%= f.password_field :password, class: "form-control", placeholder: "Новый пароль", "data-bs-toggle": "popover", "data-bs-content": password_hint %>
                 </div>
                 <div class="mb-3">
-                  <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirm new password" %>
+                    <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Подтвердите новый пароль" %>
                 </div>
                 <div class="mb-3">
                   <%= f.submit "Изменить пароль", class: "btn btn-primary d-block w-100 mt-3" %>
