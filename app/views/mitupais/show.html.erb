@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @mitupai %>
+
+<div>
+  <%= link_to "Edit this mitupai", edit_mitupai_path(@mitupai) %> |
+  <%= link_to "Back to mitupais", mitupais_path %>
+
+  <%= button_to "Destroy this mitupai", @mitupai, method: :delete %>
+</div>

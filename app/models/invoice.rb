@@ -14,6 +14,7 @@ class Invoice < ApplicationRecord
   after_create_commit { broadcast_prepend_to 'invoices_page1' }
   after_update_commit { broadcast_replace_to 'invoices' }
   after_destroy_commit { broadcast_remove_to 'invoices'}
+  after_destroy_commit { broadcast_remove_to 'invoices_page1'}
 
   after_save :set_invoice_number
 

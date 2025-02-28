@@ -13,6 +13,7 @@
     - active_storage_analysis
     - active_storage_purge
     - insale_order_import
+    - ai_get_content
 :scheduler:
   :dynamic: true
 

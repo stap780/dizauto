@@ -4,7 +4,7 @@ class Drop::Incase < Liquid::Drop
   end
 
   def do_work # this is for check condition true/false
-    "do_work"
+    'do_work'
   end
 
   def id
@@ -16,7 +16,6 @@ class Drop::Incase < Liquid::Drop
   end
 
   def strah
-    # @incase.strah.present? ? @incase.strah.short_title : ''
     @incase.strah.present? ? @incase.strah.attributes : []
   end
 
@@ -37,17 +36,15 @@ class Drop::Incase < Liquid::Drop
   end
 
   def company
-    # @incase.company.present? ? @incase.company.short_title : ''
     @incase.company.present? ? @incase.company.attributes : []
   end
 
   def company_clients
-    @incase.company.present? ? @incase.company.clients.map { |cl| cl.attributes } : []
+    @incase.company.clients.map(&:attributes)
   end
 
-  def company_comment
-    # @incase.company.present? ? @incase.company.short_title : ''
-    (@incase.company.present? && @incase.company.comments.present?) ? @incase.company.comments.first.body : ""
+  def company_plan_dates
+    @incase.company.company_plan_dates.map(&:attributes)
   end
 
   def carnumber
@@ -67,16 +64,14 @@ class Drop::Incase < Liquid::Drop
   end
 
   def status
-    @incase.incase_status.present? ? @incase.incase_status.title : ""
+    @incase.incase_status.present? ? @incase.incase_status.title : ''
   end
 
   def tip
-    @incase.incase_tip_id.present? ? @incase.incase_tip.title : ""
+    @incase.incase_tip_id.present? ? @incase.incase_tip.title : ''
   end
 
   def items
-    # @incase.incase_items.present? ? @incase.incase_items.map { |li| li.attributes } : []
-
     @incase.incase_items.present? ? @incase.incase_items.map { |li| 
       {
         "id" => li.id,
@@ -91,7 +86,7 @@ class Drop::Incase < Liquid::Drop
     } : []
   end
 
-  def items_statuses
+  def items_statuses_titles
     @incase.incase_items.map { |i_i| i_i.incase_item_status.title }
   end
 end

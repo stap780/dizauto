@@ -12,18 +12,19 @@ class InsalesController < ApplicationController
   def show; end
 
   def new
-    if Insale.count.zero?
-      @insale = Insale.new
-    else
+    if Insale.exists?
       respond_to do |format|
-        flash.now[:success] = 'у вас уже есть интеграция'
+        notice = 'у вас уже есть интеграция'
+        flash.now[:notice] = notice
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to insales_path, notice: 'у вас уже есть интеграция' }
+        format.html { redirect_to insales_path, notice: notice }
       end
+    else
+      @insale = Insale.new
     end
   end
 

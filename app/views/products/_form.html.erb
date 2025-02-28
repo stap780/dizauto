@@ -10,7 +10,7 @@
             <%= render "shared/errors", object: product %>
         <% end %>
         <div class="card">
-            <%= tag.div class:"card-header d-flex justify-content-between align-items-center" do %>
+            <%= tag.div class:"card-header d-flex justify-content-between align-items-center pb-0" do %>
                 <%= tabs_head('products', [ ['main', t(:main)],['property', t(:property)],['placement', t(:placement)] ]) %>
                 <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "product", auditable_id: product.id), class: 'btn btn-outline-success d-flex btn-lg', data: {turbo_frame: "offcanvas_history"} %>
             <% end if !f.object.new_record? %>
@@ -78,4 +78,6 @@
     </div>
 <% end %>
 
-
+<%= turbo_frame_tag "offcanvasAI", class: "offcanvas offcanvas-end w-50", 
+tabindex: "-1", "aria-labelledby": "offcanvasRightLabel",
+data: { controller: "offcanvas", action: "turbo:frame-load->offcanvas#show", "bs-scroll":"true" } %>

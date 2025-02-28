@@ -1,0 +1,28 @@
+<%= tag.div class: "row mb-3" do %>
+  <%= tag.div class: "col-md-6 index-head__title" do %>
+    <h1 class="h3 d-inline align-middle"><%= Mitupai.model_name.human(count: 2) %></h1>
+  <% end %>
+  <%= tag.div class: "col-md-6 d-flex justify-content-end index-head__buttons" do %>
+    <%= link_to add_icon, new_mitupai_path, class: "btn btn-primary float-end", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false, turbo_stream: true } %>
+  <% end %>
+<% end %>
+
+<%= tag.div class: "card" do %>
+  <%= tag.div class: "card-header pb-0" do %>
+  <% end %>
+  <%= tag.div class: "card-body" do %>
+    <%= turbo_stream_from "mitupais" %> 
+
+    <%= turbo_frame_tag :mitupais, class: "table d-table" do %>
+      <%= tag.div class: "d-table-row" do %>
+        <%= tag.div '#', class: 'd-table-cell fw-semibold' %>
+        <%= tag.div t('helpers.label.mitupai.api_url'), class: 'd-table-cell fw-semibold' %>
+        <%= tag.div t('helpers.label.mitupai.api_key'), class: 'd-table-cell fw-semibold' %>
+        <%= tag.div '', class: 'd-table-cell fw-semibold' %>
+      <% end %>
+      <%= render @mitupais %>
+    <% end %>
+    
+    <%# render "shared/paginate", f: @mitupais %>
+  <% end %>
+<% end %>

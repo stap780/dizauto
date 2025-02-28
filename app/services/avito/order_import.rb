@@ -28,7 +28,9 @@ private
   def import_orders
     # Fetch orders from Avito API with limit 20 and status 'on_confirmation'
 
-    response = RestClient.get("#{@base_url}/order-management/1/orders", headers ) #, params: { limit: @limit, status: 'on_confirmation' } 
+    response = RestClient.get("#{@base_url}/order-management/1/orders", headers )
+    # TODO if need limits => , params: { limit: @limit, status: 'on_confirmation' }
+
     if response.code == 200
       orders = JSON.parse(response.body)['orders']
       @orders = orders
@@ -54,7 +56,7 @@ private
       client_secret: @api_secret,
       grant_type: 'client_credentials'
     }
-    response = RestClient.post("#{@base_url}/token", data , { 'Content-Type' => 'application/x-www-form-urlencoded' })
+    response = RestClient.post("#{@base_url}/token", data, { 'Content-Type' => 'application/x-www-form-urlencoded' })
 
     if response.code == 200
       @token = JSON.parse(response.body)['access_token']

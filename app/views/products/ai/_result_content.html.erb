@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(product,'ai_result_content') do %>
+    <%= form_with url: ai_description_copy_product_path(product), data: { turbo_stream: true, action: "turbo:submit-end->offcanvas#hideOffcanvasAI"} do |f| %>
+        <%=tag.div class: "col-12 mt-3" do %>
+            <%= f.label :content , class: "form-label"%>
+            <%= f.text_area :content, {rows: 5, class: "form-control px-1", value: result} %>
+        <% end %>
+        <div class="col-12 py-3">
+            <%= f.submit t('update_description'), class: "btn btn-primary" %>
+        </div>
+    <% end if result %>
+<% end %>

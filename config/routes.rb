@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+  resources :mitupais
   resources :avitos do
     member do
       get :check
@@ -300,6 +301,9 @@ Rails.application.routes.draw do
         post :search
       end
     end
+    collection do
+      post :search
+    end
   end
   resources :notifications, only: [:index]
   resources :products do
@@ -312,6 +316,10 @@ Rails.application.routes.draw do
       get :print
       patch :sort_image
       post :copy
+      get :ai_description
+      get :ai_description_get_task_id
+      get :ai_description_get_content
+      post :ai_description_copy
     end
     collection do
       post :search

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_23_095908) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_28_092427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -425,6 +425,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_23_095908) do
     t.integer "stock_transfer_id"
     t.index ["loss_status_id"], name: "index_losses_on_loss_status_id"
     t.index ["warehouse_id"], name: "index_losses_on_warehouse_id"
+  end
+
+  create_table "mitupais", force: :cascade do |t|
+    t.string "api_url"
+    t.string "api_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "noticed_events", force: :cascade do |t|

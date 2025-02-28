@@ -1,0 +1,24 @@
+<%= form_with( url: ai_description_get_task_id_product_path(product), method: :get, data: {turbo_stream: true}) do |f| %>
+    <div class="row" >
+        <div class="h5 mb-3">Создаём AI описание товара из промта на основе параметров (или произвольно)</div>
+        <%=tag.div class: "col-5 mb-3" do %>
+            <%= f.label :model_ai, class: "form-label" %>
+            <%= f.select :model_ai, ['llama3.3-70b','gpt-4o-mini', 'gemini-1.5-pro', 'gemini-1.5-flash' ], {include_blank: false}, {class: "form-select px-1"} %>
+        <% end %>
+        <%=tag.div class: "col-3 mb-3" do %>
+            <%= f.label :temperature, class: "form-label" %>
+            <%= f.select :temperature, (0.5..0.9).step(0.1).to_a, {include_blank: true}, {class: "form-select px-1"} %>
+        <% end %>
+        <%=tag.div class: "col-3 mb-3" do %>
+            <%= f.label :top_p, class: "form-label" %>
+            <%= f.select :top_p, (0.5..0.9).step(0.1).to_a, {include_blank: true}, {class: "form-select px-1"} %>
+        <% end %>
+        <%=tag.div class: "col-12" do %>
+            <%= f.label :prompt , class: "form-label"%>
+            <%= f.text_area :prompt, {rows: 10, class: "form-control px-1", value: prompt} %>
+        <% end %>
+    </div>
+    <div class="col-12 py-3">
+        <%= f.submit t('send'), class: "btn btn-primary" %>
+    </div>
+<% end %>

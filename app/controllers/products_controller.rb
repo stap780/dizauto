@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image reorder_image update_image]
+  before_action :set_product, only: %i[show edit copy update destroy delete_image sort_image ai_description ai_description_get_task_id]
   include SearchQueryRansack
   include DownloadExcel
   include BulkDelete
@@ -175,10 +175,68 @@ class ProductsController < ApplicationController
     end
   end
 
+  def ai_description
+    prompt = [
+      'Напиши описание товара по формуле AIDA для ',
+      @product.title,
+      ', до 1100 символов, 1 абзац. Используй параметры: ',
+      @product.props.map { |p| "#{p.property.title} - #{p.characteristic.title}" }.join(", "),
+      'Не пиши про новый товар. Не пиши о назначении товара. Не пиши преймущества использования товара. Не пиши призыв к действию. Не пиши о требованиях эксплуатации. 
+Укажи года применения товара. Не используй - качественная замена. Не пиши про кросс номера. Не пиши про гарантию качества. Не пиши про проверку детали. Не пиши про контроль качества.'
+    ]  
+    @prompt = prompt.join(' ')
+
+    @ai_work = Mitupai.first&.work?
+  end
+
+  def ai_description_get_task_id
+    @prompt = params[:prompt]
+    @model_ai = params[:model_ai]
+    task_id = nil
+    ai = AiMitup.new
+    result = ai.get_task_id(@prompt, @model_ai)
+    if result && result['task_id'].present?
+      response = [result['message'], "task_id: #{result['task_id']}", 'ожидаем ответа']
+      task_id = result['task_id']
+    else
+      response = [result]
+    end
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.replace(dom_id(@product, 'ai_result_task_id'), partial: 'products/ai/result_task_id', locals: {product: @product, response: response, task_id: task_id} )
+        ]
+      end
+    end
+  end
+
+  def ai_description_get_content
+    AiGetContentJob.perform_later(@product, params[:task_id], current_user.id)
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update(dom_id(@product, 'ai_result_content'), partial: 'shared/button/running')
+        ]
+      end
+    end
+  end
+
+  def ai_description_copy
+    helpers.fields model: @product do |f|
+      render turbo_stream: [
+        turbo_stream.replace(
+          dom_id(@product, :description),
+          partial: 'products/description',
+          locals: { f: f, value: params[:content] }
+        )
+      ]
+    end
+  end
+
   def destroy
     check_destroy = @product.destroy ? true : false
     if check_destroy == true
-      flash.now[:success] = t(".success")
+      flash.now[:success] = t('.success')
     else
       flash.now[:notice] = @product.errors.full_messages.join(' ')
     end
@@ -195,7 +253,7 @@ class ProductsController < ApplicationController
           ]
         end
       end
-      format.html { redirect_to variants_path, notice: 'Product was successfully destroyed.' }
+      format.html { redirect_to variants_path, notice: t('.success') }
       format.json { head :no_content }
     end
   end

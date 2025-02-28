@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # ZipXlsx < ApplicationService
 class ZipXlsx < ApplicationService
   require 'caxlsx'

@@ -1,0 +1,16 @@
+<%= turbo_frame_tag user, class: "d-table-row", data: {}  do %>
+    <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
+        <%=tag.div class: 'form-check' do %>
+            <%= check_box_tag "user_ids[]", user.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
+            <%= tag.label class: 'form-check-label' do %><%= tag.b( user.id ) %><% end %>
+        <% end %>
+    <% end %>
+    <%= tag.div( user.name, class: "d-table-cell")%>
+    <%= tag.div( user.email, class: "d-table-cell")%>
+    <%= tag.div( user.role, class: "d-table-cell") %>
+     <%= tag.div( user.notified ? 'Да' : 'Нет', class: "d-table-cell") %>
+    <%= tag.div(class: "d-table-cell d-flex justify-content-end gap-2 align-items-center ps-2") do %>
+        <%= link_to edit_icon, edit_user_path(user), data: { turbo_frame: '_top'} %>
+        <%= link_to trash_icon, user, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"" %> 
+    <%end %>
+<% end %>

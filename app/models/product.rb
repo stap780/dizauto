@@ -21,9 +21,11 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :images, allow_destroy: true
 
   has_associated_audits
+
   after_create_commit { broadcast_prepend_to 'products_page1' }
   after_update_commit { broadcast_replace_to 'products' }
   after_destroy_commit { broadcast_remove_to 'products' }
+  after_destroy_commit { broadcast_remove_to 'products_page1' }
   before_destroy :check_variants_have_relations, prepend: true
 
   validates :title, presence: true

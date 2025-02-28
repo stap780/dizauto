@@ -5,21 +5,18 @@
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="mb-3">
-    <%= f.label :description, class: "form-label" %>
-    <%= f.rich_text_area :description, class: "form-control" %>
-  </div>
+  <%= render partial: 'products/description', locals: { f: f, value: f.object.description} %>
 
-  <%=tag.div class: "mb-3" do %>
+  <%= tag.div class: "mb-3" do %>
     <%= f.fields_for :variants, Variant.new do |variant| %>
       <%= render 'variants/form_data', f: variant %>
     <% end %>
   <% end if f.object.new_record? %>
 
-  <%=tag.div class: "mb-3" do %>
+  <%= tag.div class: "mb-3" do %>
     <%= tag.label(t('variants'), class: "form-label mb-3") %>
     <%# not_use_this because change to canvas => turbo_frame_tag dom_id(f.object, dom_id(Variant.new)) %>
-    <%= link_to add_icon, new_product_variant_path(f.object), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
+    <%= link_to add_icon, new_product_variant_path(f.object), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap', turbo_prefetch: false  } %>
     <%= turbo_stream_from f.object, :variants %>
     
     <%= turbo_frame_tag f.object, :variants, data: { }, class: "table d-table" do %>

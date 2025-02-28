@@ -70,6 +70,7 @@
 
       order_data = {
         client_id: @client.id,
+        seller_id: Company.our.first.id,
         order_status_id: order_status.id,
         payment_type_id: payment_type.id,
         delivery_attributes: delivery,

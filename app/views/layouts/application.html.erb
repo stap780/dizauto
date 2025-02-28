@@ -51,7 +51,7 @@
         <% end %>
         
         <%= turbo_stream_from current_user, "exports" if user_signed_in? %>
-        <%= turbo_stream_from current_user, "bulk_actions" if user_signed_in?%>
+        <%= turbo_stream_from current_user, "bulk_actions" if user_signed_in? %>
         <%= turbo_stream_from current_user, "incase_imports" if user_signed_in? %>
 
         <%#tag.div(id: "our_notif", class: '' ) do %>

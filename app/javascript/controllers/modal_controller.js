@@ -11,7 +11,6 @@ export default class extends Controller {
     // this.modal.show()
   }
 
-
   // это вариант с сайт (более классический) https://www.hotrails.dev/articles/rails-modals-with-hotwire
   open() {
     if (!this.modal.isOpened) {

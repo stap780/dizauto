@@ -24,7 +24,7 @@ class Variant < ApplicationRecord
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :barcode, length: { minimum: 3, maximum: 13 }, allow_blank: true
+  validates :barcode, length: { minimum: 8, maximum: 13 }, allow_blank: true
   validates :barcode, uniqueness: { allow_blank: true }
 
   after_initialize :set_default_new, if: :new_record?

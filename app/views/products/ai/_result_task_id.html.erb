@@ -1,0 +1,11 @@
+<%= turbo_frame_tag dom_id(product, 'ai_result_task_id'), class: 'd-flex flex-column' do %>
+    <% response.each do |res| %>
+        <%= tag.div res %>
+    <% end if response %>
+    <%= tag.a 'get_content',  id: 'get_content', 
+                        class: 'd-none', 
+                        href: ai_description_get_content_product_path(product, task_id: task_id), 
+                        data: { controller: "autoclick", 
+                                action: "", 
+                                turbo_cache: false, turbo_stream: true } if task_id.present? %>
+<% end %>

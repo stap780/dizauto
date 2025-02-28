@@ -46,15 +46,17 @@ ru:
   new_notifications: "новые"
   all_notifications: "все оповещения"
   we_update_price: "цены обновились"
-  print_barcode: "Печатать штрихкод?"
+  print_barcode: "печатать штрихкод?"
   copy: "копировать"
+  send: "отправить"
+  update_description: "заменить"
   search: "поиск"
   hello: "Hello world"
   property_one: "параметр"
   characteristic_one: "значение"
   okrug_one: "округ"
   warehouse_one: "склад"
-  import_info: "Здесь вы можете проверить файл и начать импорт"
+  import_info: "здесь вы можете проверить файл и начать импорт"
   check: "проверить"
   edit: "редактировать"
   cancel: "отменить"
@@ -655,6 +657,9 @@ ru:
     <<: *model_system_flash
   helpers:
     label:
+      model_ai: "Модель ИИ"
+      prompt: "Запрос"
+      content: "Контент"
       client:
         <<: *client
       company:

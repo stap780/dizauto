@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(f.object, :description), data: { }, class: "" do %>
+    <%= tag.div class: "mb-3" do %>
+        <%= tag.div class: "mb-2" do %>
+            <%= link_to 'AI', ai_description_product_path(f.object), class: "btn btn-outline-primary btn-sm", data: {turbo_frame: 'offcanvasAI', turbo_prefetch: false } unless f.object.new_record? %>
+            <%= f.label :description, class: "form-label" %>
+        <% end %>
+        <%= f.rich_text_area :description, class: "form-control mt-3", value: value %>
+    <% end %>
+<% end %>

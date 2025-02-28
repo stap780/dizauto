@@ -1,0 +1,22 @@
+  <%= turbo_frame_tag "offcanvasAI" do %>
+    <% if @ai_work %>
+    <div class="offcanvas-header pb-0">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <%= turbo_stream_from current_user,"ai_description" %>
+      <%= render partial: 'products/ai/form_get_task_id', locals: {product: @product, prompt: @prompt} %>
+      <%= render partial: 'products/ai/result_task_id', locals: {product: @product, response: nil, task_id: nil} %>
+      <%= render partial: 'products/ai/result_content', locals: {product: @product, result: nil}  %>
+    </div>
+    <% else %>
+      <div class="offcanvas-header pb-0">
+        <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <%= tag.div('Настройте интеграцию для работы с ИИ', class: 'notice-text')%>
+      </div>
+    <% end %>
+  <% end %> 

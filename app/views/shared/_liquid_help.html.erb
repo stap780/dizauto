@@ -41,8 +41,8 @@
     </div>
     <div class="col-12 my-3">
         <div class="h5">Пример</div>
-        <code>{% if incase.strah['title'] == 'Альфа' and incase.totalsum == 0 and incase.items_statuses contains 'Нет' %} {{do_work}} {% endif %}</code>
-    <code>{% if incase_item.status_nil? %}{{do_work}}{%end%}</code>
+<pre><code>{% if incase.strah['title'] == 'Альфа' and incase.totalsum == 0 and incase.items_statuses contains 'Нет' %} {{do_work}} {% endif %}</code></pre>
+<pre><code>{% if incase_item.status_nil? %}{{do_work}}{%end%}</code></pre>
     </div>
     <div class="col-6">
         <%= tag.div("#{Incase.model_name.human(count: 2)} (incase)", class: "h5")%>
@@ -109,12 +109,20 @@
                         <td><%= t('helpers.label.incase.incase_tip_id')%></td>
                     </tr>
                     <tr class="">
-                        <td scope="row">items</td>
-                        <td> позиции убытка ( i['title'] , i['katnumber'] )</td>
+                        <td scope="row">позиции (items)</td>
+                        <td>("title","quantity","katnumber","price","sum","status","have_supply?") // it.title // it.have_supply?</td>
                     </tr>
                      <tr class="">
-                        <td scope="row">items_statuses</td>
-                        <td>статусы позиций убытка</td>
+                        <td scope="row">статусы позиций убытка (items_statuses_titles)</td>
+                        <td>['title1','title2']</td>
+                    </tr>
+                     <tr class="">
+                        <td scope="row">планируемые даты (company_plan_dates)</td>
+                        <td>(cpd['date'], cpd['created_at'])</td>
+                    </tr>
+                     <tr class="">
+                        <td scope="row">контакт в компании (company_clients)</td>
+                        <td>(сс['surname'], сс['name'], сс['middlename'], сс['email:'], сс['phone:'])</td>
                     </tr>
                 </tbody>
             </table>
@@ -153,12 +161,12 @@
                         <td><%= t('helpers.label.order.totalsum')%></td>
                     </tr>
                     <tr class="">
-                        <td scope="row">items</td>
-                        <td>позиции ("title","price","discount","sum","quantity","vat")</td>
+                        <td scope="row">позиции (items)</td>
+                        <td>("title","price","discount","sum","quantity","vat") // it["title"]</td>
                     </tr>
                     <tr class="">
-                        <td scope="row">seller</td>
-                        <td>продавец ("title","short_title","inn","kpp","ur_address", "fact_address", "ogrn", "okpo", "bik", "bank_title", "bank_account")</td>
+                        <td scope="row">продавец (seller)</td>
+                        <td>("title","short_title","inn","kpp","ur_address", "fact_address", "ogrn", "okpo", "bik", "bank_title", "bank_account")</td>
                     </tr>
                 </tbody>
             </table>
@@ -197,7 +205,7 @@
                     </tr>
                     <tr class="">
                         <td scope="row">variants</td>
-                        <td><%= t('helpers.label.product.sku')%> ("sku","price","barcode","png_barcode","quantity","costprice") </td>
+                        <td>("sku","price","barcode","png_barcode","quantity","costprice") // var["sku"]</td>
                     </tr>
                 </tbody>
             </table>
@@ -259,7 +267,7 @@
             <table class="table table-striped-columns">
                 <thead>
                     <tr>
-                        <th scope="col">значение</th>
+                        <th scope="col" style="padding-right: 10px;">значение </th>
                         <th scope="col">описание</th>
                     </tr>
                 </thead>
@@ -303,7 +311,7 @@
             <table class="table table-striped-columns">
                 <thead>
                     <tr>
-                        <th scope="col">значение</th>
+                        <th scope="col" style="padding-right: 10px;">значение</th>
                         <th scope="col">описание</th>
                     </tr>
                 </thead>

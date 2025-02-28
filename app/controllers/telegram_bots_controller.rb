@@ -12,18 +12,19 @@ class TelegramBotsController < ApplicationController
   def show; end
 
   def new
-    if TelegramBot.count.zero?
-      @telegram_bot = TelegramBot.new
-    else
+    if TelegramBot.exists?
       respond_to do |format|
-        flash.now[:success] = 'у вас уже есть бот'
+        notice = 'у вас уже есть бот'
+        flash.now[:notice] = notice
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to telegram_bots_path, notice: 'у вас уже есть бот' }
+        format.html { redirect_to telegram_bots_path, notice: notice }
       end
+    else
+      @telegram_bot = TelegramBot.new
     end
   end
 

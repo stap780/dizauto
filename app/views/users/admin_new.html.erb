@@ -1,7 +1,6 @@
 <%= form_with(model: @user, url: users_admin_create_path, data: {controller: 'user', 'user-dnone-class': 'd-none'}) do |f| %>
     <%= render "shared/errors", object: @user %>
 
-
     <%= tag.div class: 'card' do %>
         <%= tag.div class: 'card-header' %>
         <%= tag.div class: 'card-body row' do %>
