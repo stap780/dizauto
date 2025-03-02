@@ -32,6 +32,7 @@
     <% end %>
   <% end %>
   <%=tag.div class: "card-body" do %>
+    <%= turbo_stream_from "orders" %>
     <%=tag.div(id: "datatables-orders", class: "col-sm-12 list-group list-group-striped", data: {controller:"selectall"}) do %>  
       <%= tag.div class:"row py-2 px-0 justify-content-between align-items-center" do %>
         <%= div_check_box_tag_all %>
@@ -42,12 +43,6 @@
         <%= tag.div( t( 'helpers.label.order.delivery_type_id' ), class: 'col-2 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.order.sum' ), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
-      <% end %>
-      
-      <% if !@orders.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
-        <%= turbo_stream_from "orders_page1" %>
-      <% else %>
-        <%= turbo_stream_from "orders" %>
       <% end %>
 
       <%= turbo_frame_tag 'orders' do %>

@@ -123,21 +123,29 @@ class ProductsController < ApplicationController
 
   def copy
     @new_product = @product.dup
-    @new_product.title = "(COPY) " + @new_product.title + " - " + Time.now.to_s
+    @new_product.title = "(COPY) #{@new_product.title} - #{Time.now.to_s}"
     new_props = @product.props.select(:property_id, :characteristic_id).map(&:attributes)
     @new_product.props_attributes = new_props
     new_vars = @product.variants.select(:sku, :price).map(&:attributes)
     @new_product.variants_attributes = new_vars
     respond_to do |format|
       if @new_product.save!
-        format.turbo_stream { flash.now[:success] = t(".success") }
-        format.html { redirect_to products_path, notice: "Product was successfully created." }
+        flash.now[:success] = t('.success')
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+        format.html { redirect_to products_path, notice: t('.success') }
         format.json { render :show, status: :created, location: @new_product }
       else
+        flash.now[:notice] = @new_product.errors.full_messages.join(' ')
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @new_product.errors, status: :unprocessable_entity }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.update("errors", partial: "shared/errors", locals: {object: @new_product})
+          render turbo_stream: [
+            render_turbo_flash
+          ]
         end
       end
     end

@@ -6,7 +6,7 @@
   <% end %>
   <%= tag.div( permission.pactions.map{|action| action}.join(' ').to_s, class: "d-table-cell") %>
   <%= tag.div("", class: "d-table-cell") do %>
-    <%= link_to edit_icon, edit_user_permission_path(user, permission), data: { turbo_frame: 'offcanvas_wrap '}, class:"p-2" %>
+    <%= link_to edit_icon, edit_user_permission_path(user, permission), data: { turbo_frame: 'offcanvas_wrap'}, class:"p-2" %>
     <%= link_to trash_icon, [user, permission], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>    
   <% end %>
 <% end %>

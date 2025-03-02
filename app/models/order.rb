@@ -22,10 +22,9 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :delivery, allow_destroy: true
   has_one :delivery_type, through: :delivery
 
-  after_create_commit { broadcast_prepend_to 'orders_page1' }
+  after_create_commit { broadcast_prepend_to 'orders' }
   after_update_commit { broadcast_replace_to 'orders' }
   after_destroy_commit { broadcast_remove_to 'orders' }
-  after_destroy_commit { broadcast_remove_to 'orders_page1' }
 
   attribute :total_sum
 

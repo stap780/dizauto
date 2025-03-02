@@ -11,10 +11,9 @@ class Invoice < ApplicationRecord
   belongs_to :order, optional: true # это убирает проверку presence: true , которая стоит по дефолту
   belongs_to :seller, class_name: 'Company', foreign_key: 'seller_id'
 
-  after_create_commit { broadcast_prepend_to 'invoices_page1' }
+  after_create_commit { broadcast_prepend_to 'invoices' }
   after_update_commit { broadcast_replace_to 'invoices' }
   after_destroy_commit { broadcast_remove_to 'invoices'}
-  after_destroy_commit { broadcast_remove_to 'invoices_page1'}
 
   after_save :set_invoice_number
 

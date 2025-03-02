@@ -40,7 +40,7 @@
     <h5 class="card-title mb-0"><%= page_entries_info(@invoices).to_s.gsub('Invoice','').gsub('накладные','').html_safe %></h5>
   </div>
   <div class="card-body">
-
+    <%= turbo_stream_from "invoices" %>
     <div id="datatables-invoices" class="col-sm-12 list-group list-group-striped" data-controller="selectall">
       <div class="row py-2 px-0 justify-content-between align-items-center">
         <%= div_check_box_tag_all %>
@@ -51,12 +51,6 @@
         <%= tag.div( t( 'helpers.label.invoice.sum'), class: 'col-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
       </div>
-
-      <% if !@invoices.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
-        <%= turbo_stream_from "invoices_page1" %>
-      <% else %>
-        <%= turbo_stream_from "invoices" %>
-      <% end %>
 
       <%= turbo_frame_tag 'invoices' do %>
           <%= render @invoices %>

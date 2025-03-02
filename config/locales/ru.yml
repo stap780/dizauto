@@ -43,6 +43,12 @@ ru:
   ago: "назад"
   rekviziti: "реквизиты"
   comment: "комментарии"
+  quantity: "кол-во"
+  price: "цена"
+  images: "изображения"
+  created_at: "создан"
+  updated_at: "обновлён"
+  status: "статус"
   new_notifications: "новые"
   all_notifications: "все оповещения"
   we_update_price: "цены обновились"
@@ -507,6 +513,9 @@ ru:
       user: 
         one: "пользователь"
         other: "пользователи"
+      variant: 
+        one: "вариант"
+        other: "варианты"
       warehouse: 
         one: "склад"
         other: склады
@@ -627,6 +636,8 @@ ru:
       success: Создали
     print_etiketki:
       success: Создали этикетки!
+    copy:
+      success: Скопировали!
   props:
     <<: *model_system_flash
   returns:

@@ -43,6 +43,7 @@
     <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@incases).to_s.gsub('Incase','').gsub('товары','').html_safe %></h5>
   </div>
   <%= tag.div(class: "card-body") do %>
+    <%= turbo_stream_from "incases" %>
     <%= tag.div(class: "col-sm-12 list-group list-group-striped", id: 'datatables-incases', data: {controller: "selectall"}) do %>
        <%= tag.div(class: "row #{h_v_center}") do %>
         <%= div_check_box_tag_all %>
@@ -52,12 +53,6 @@
         <%= tag.div( t( 'helpers.label.incase.date'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div( t( 'helpers.label.incase.totalsum'), class: 'col-md-1 fw-semibold' )%>
         <%= tag.div('', class: 'col-2 fw-semibold')%>
-      <% end %>
-      
-      <% if !@incases.previous_page.present? && !params[:q]&.values&.reject(&:blank?).present? %>
-        <%= turbo_stream_from "incases_page1" %>
-      <% else %>
-        <%= turbo_stream_from "incases" %>
       <% end %>
 
       <%= turbo_frame_tag 'incases' do %>
