@@ -2,10 +2,12 @@ module SearchQueryRansack
   extend ActiveSupport::Concern
 
   included do
+    before_action :search_params
     before_action :clear_search_index, only: [:index]
   end
 
   private
+
   # CHECK THE SESSION FOR SEARCH PARAMETERS IS THEY AREN'T IN THE REQUEST
   def search_params
     if params[:q] == nil
@@ -16,9 +18,10 @@ module SearchQueryRansack
     end
     params[:q]
   end
+
   # DELETE SEARCH PARAMETERS FROM THE SESSION
   def clear_search_index
-    puts "clear_search_index"
+    puts 'clear_search_index'
     puts "controller_name => #{controller_name.singularize}"
     if params[:search_cancel]
       params.delete(:search_cancel)
@@ -33,6 +36,7 @@ module SearchQueryRansack
   end
 
   protected
+
   # GENERATE A GENERIC SESSION KEY BASED ON THE CONTROLLER NAME
   def search_key
     "#{controller_name}_search".to_sym

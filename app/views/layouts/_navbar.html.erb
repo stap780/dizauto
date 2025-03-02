@@ -3,7 +3,7 @@
 				<%= form_with url: fullsearch_dashboards_path, method: :post, class: "d-none d-sm-inline-block", id: "fullsearch_result_form",
 				data: {controller: "debounce", debounce_target: "form"} do |f|%>
 					<div class="input-group input-group-navbar position-relative d-inline-flex align-items-center">
-						<%= f.search_field :query, class: 'form-control', style: "z-index: 2;", placeholder: t('search'), 'aria-label': "Search", data: {action: "input->debounce#search"}, autocomplite: false %>
+						<%= f.search_field :query, class: 'form-control', style: "z-index: 2;", placeholder: t('search'), 'aria-label': "Search", data: {action: "input->debounce#search"}, autocomplete: 'off' %>
 						<button type="button" class="btn position-absolute end-0" aria-label="Close", data-action = "click->debounce#clear">
 							<i class="bi bi-x"></i>
 						</button>

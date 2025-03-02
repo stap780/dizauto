@@ -1,6 +1,5 @@
 #  encoding : utf-8
 #  dashboard values
-#  
 class DashboardsController < ApplicationController
   load_and_authorize_resource
   before_action :set_dashboard, only: %i[show edit update destroy]
