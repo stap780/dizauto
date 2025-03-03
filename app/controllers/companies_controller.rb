@@ -19,8 +19,11 @@ class CompaniesController < ApplicationController
   end
 
   def search
+    puts "params[:title].present? => #{params[:title].present?}"
     if params[:title].present?
-      @search_results = Company.all.where('name ILIKE ?', "%#{params[:short_title]}%").map { |p| {short_title: p.short_title, id: p.id} }.reject(&:blank?)
+      test = Company.all.where('short_title ILIKE ?', "%#{params[:title]}%").map { |p| {short_title: p.short_title, id: p.id} }.reject(&:blank?)
+      puts "test => #{test}"
+      @search_results = Company.all.where('short_title ILIKE ?', "%#{params[:title]}%").map { |p| {title: p.short_title, id: p.id} }.reject(&:blank?)
       render json: @search_results, status: :ok
     else
       render json: @search_results, status: :unprocessable_entity

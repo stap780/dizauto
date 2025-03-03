@@ -10,7 +10,8 @@
 </div>
 <div class="mb-3 col-3 ps-0 pe-1 ">
     <%= f.label :company_id, class: "form-label" %>
-    <%= f.select :company_id, Company.pluck(:short_title, :id), {include_blank: false}, {data: {controller: 'slimselect'}} %>
+    <%= f.select :company_id, Company.collection_for_select(f.object.company_id), {include_blank: true}, 
+                            {  class: "form-select", data: {controller: 'slimselect', search_url:  "/companies/search"} } %>
 </div>
 <div class="mb-3 col-2 ps-0 pe-1 ">
     <%= f.label :in_number, class: "form-label" %>

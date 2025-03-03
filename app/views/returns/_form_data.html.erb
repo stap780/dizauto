@@ -20,6 +20,6 @@
 </div>
 <div class="mb-3 col-4 ps-0 pe-1 ">
     <%= f.label :company_id, class: "form-label" %>
-    <%= f.select :company_id, Company.all.pluck(:short_title, :id), { include_blank: true }, 
-                            { class: "form-select", data: {controller: 'slimselect'} } %>
+    <%= f.select :company_id, Company.collection_for_select(f.object.company_id), {include_blank: true}, 
+                            {  class: "form-select", data: {controller: 'slimselect', search_url:  "/companies/search"} } %>
 </div>
