@@ -25,6 +25,9 @@ class Company < ApplicationRecord
 
   TIP = %w[standart strah our].freeze
 
+  scope :first_five, -> { all.limit(5).map { |p| [p.short_title, p.id] } }
+  scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.short_title, p.id] } + first_five }
+
   scope :strah_first_five, -> { strah.limit(5).map { |p| [p.short_title, p.id] } }
   scope :strah_collection_for_select, ->(id) { where(id: id).map { |p| [p.short_title, p.id] } + strah_first_five }
 
