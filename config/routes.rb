@@ -280,6 +280,7 @@ Rails.application.routes.draw do
   end
   resources :companies do
     collection do
+      post :search
       post :download
       post :bulk_delete
     end

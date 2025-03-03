@@ -4,7 +4,9 @@
 </div>
 <div class="mb-3 col-md-2 p-0">
     <%= f.label :strah_id, class: "form-label" %>
-    <%= f.select :strah_id, Company.strah.pluck(:short_title, :id), {include_blank: true}, {class: "form-select"}%>
+    <%= f.select :strah_id, Company.strah_collection_for_select(f.object.strah_id), {include_blank: true}, 
+                            { class: "form-select", data: {controller: 'slimselect', search_url:  "/companies/search"} } %>
+
 </div>
 <div class="mb-3 col-md-3 p-0 ">
     <%= f.label :stoanumber, class: "form-label" %>
@@ -16,7 +18,8 @@
 </div>
 <div class="mb-3 col-md-3 p-0">
     <%= f.label :company_id, class: "form-label" %>
-    <%= f.select :company_id, Company.standart.pluck(:short_title, :id), {include_blank: true}, { class: "form-select", data: {controller: "slimselect", action: "change->prop#change" } }%>
+    <%= f.select :company_id, Company.standart_collection_for_select(f.object.company_id), {include_blank: true}, 
+                            { class: "form-select", data: {controller: 'slimselect', search_url:  "/companies/search"} } %>
 </div>
 <div class="mb-3 col-md-2 p-0 ">
     <%= f.label :carnumber, class: "form-label" %>

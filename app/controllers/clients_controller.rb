@@ -5,7 +5,7 @@ class ClientsController < ApplicationController
   include DownloadExcel
   include BulkDelete
   include ActionView::RecordIdentifier
-  
+
   def index
     @search = Client.ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
@@ -26,7 +26,7 @@ class ClientsController < ApplicationController
 
   def search
     if params[:title].present?
-      @search_results = Client.all.where("name ILIKE ?", "%#{params[:title]}%").map { |p| {title: p.full_name, id: p.id} }.reject(&:blank?)
+      @search_results = Client.all.where('name ILIKE ?', "%#{params[:title]}%").map { |p| {title: p.full_name, id: p.id} }.reject(&:blank?)
       render json: @search_results, status: :ok
     else
       render json: @search_results, status: :unprocessable_entity

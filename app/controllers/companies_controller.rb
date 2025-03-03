@@ -12,11 +12,19 @@ class CompaniesController < ApplicationController
     @companies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @company = Company.new
+  end
+
+  def search
+    if params[:title].present?
+      @search_results = Company.all.where('name ILIKE ?', "%#{params[:short_title]}%").map { |p| {short_title: p.short_title, id: p.id} }.reject(&:blank?)
+      render json: @search_results, status: :ok
+    else
+      render json: @search_results, status: :unprocessable_entity
+    end
   end
 
   def edit; end

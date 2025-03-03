@@ -25,6 +25,12 @@ class Company < ApplicationRecord
 
   TIP = %w[standart strah our].freeze
 
+  scope :strah_first_five, -> { strah.limit(5).map { |p| [p.short_title, p.id] } }
+  scope :strah_collection_for_select, ->(id) { where(id: id).map { |p| [p.short_title, p.id] } + strah_first_five }
+
+  scope :standart_first_five, -> { standart.limit(5).map { |p| [p.short_title, p.id] } }
+  scope :standart_collection_for_select, ->(id) { where(id: id).map { |p| [p.short_title, p.id] } + standart_first_five }
+
   def self.ransackable_attributes(auth_object = nil)
     attribute_names
   end
