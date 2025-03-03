@@ -55,6 +55,7 @@ ru:
   print_barcode: "печатать штрихкод?"
   copy: "копировать"
   send: "отправить"
+  filter: "фильтр"
   update_description: "заменить"
   search: "поиск"
   hello: "Hello world"
@@ -65,6 +66,8 @@ ru:
   import_info: "здесь вы можете проверить файл и начать импорт"
   check: "проверить"
   edit: "редактировать"
+  create: "создать"
+  destroy: "удалить"
   cancel: "отменить"
   back: "назад"
   main: 'основные'
@@ -121,6 +124,8 @@ ru:
         bank_title: "название банка"
         bank_account: "расчетный счет"
         client_companies: "клиенты"
+        bank: "банк"
+        plandate: "плановая дата"
       delivery_type: &delivery_type
         title: "название"
         desc: "описание"
@@ -150,7 +155,7 @@ ru:
         color: "цвет"
       incase: &incase
         region: "регион"
-        stoanumber: "стоа"
+        stoanumber: "номер з/н"
         unumber: "номер убытка"
         company_id: "компания"
         strah: "страховая"
@@ -602,6 +607,10 @@ ru:
       success: запустили!
   loss_statuses:
     <<: *model_system_flash
+  notification:
+    success:
+      read: прочитали!
+      delete: удалили!
   incase_item_statuses:
     <<: *model_system_flash
   incase_statuses:

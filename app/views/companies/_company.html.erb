@@ -1,7 +1,11 @@
 <%= turbo_frame_tag company, class: 'd-table-row'  do %>
-  <%= tag.div(class: "d-table-cell", style: 'width: 60px;') do %>
-    <%= tag.b company.id%>
-    <%= '<i class="bi bi-hand-thumbs-up"></i>'.html_safe if company.tip == 'our'%>
+  <%= tag.div(class: "d-table-cell", style: 'width: 130px;') do %>
+      <%=tag.div class: 'form-check' do %>
+        <%= check_box_tag "company_ids[]", company.id, false, {class: 'checkboxes form-check-input ms-0 me-1', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
+        <%=tag.label class: 'form-check-label' do %><%= tag.b( company.id ) %><% end %>
+        <%= '<i class="bi bi-hand-thumbs-up"></i>'.html_safe if company.tip == 'our'%>
+      <% end %>
+    <%= company.created_at.strftime("%d/%m/%Y %H:%M") %>  
   <%end %>
   <%= tag.div class: "d-table-cell" do %>
     <%= t(company.tip, scope: %i[company tip]) %>

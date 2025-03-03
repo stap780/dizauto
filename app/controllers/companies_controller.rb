@@ -1,25 +1,15 @@
 class CompaniesController < ApplicationController
   load_and_authorize_resource
   before_action :set_company, only: %i[show edit update destroy]
+  include SearchQueryRansack
+  include DownloadExcel
+  include BulkDelete
+  include ActionView::RecordIdentifier
 
   def index
-    @search = Company.ransack(params[:q])
+    @search = Company.includes(:company_plan_dates).ransack(params[:q])
     @search.sorts = 'id desc' if @search.sorts.empty?
     @companies = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
-  end
-
-  def download
-    filename = 'companies.xlsx'
-    collection_ids = params[:company_ids].present? ? params[:company_ids] : Company.all.pluck(:id)
-    CreateZipXlsxJob.perform_later(collection_ids, {  model: 'Company',
-                                                      current_user_id: current_user.id,
-                                                      filename: filename,
-                                                      template: 'companies/index'})
-    render turbo_stream: 
-      turbo_stream.update(
-        'modal',
-        template: 'shared/pending_bulk'
-      )
   end
 
   def show
@@ -59,15 +49,37 @@ class CompaniesController < ApplicationController
 
   def destroy
     @check_destroy = @company.destroy ? true : false
-    message = if @check_destroy == true
-                flash.now[:success] = t(".success")
-              else
-                flash.now[:notice] = @company.errors.full_messages.join(" ")
-              end
+    # message = if @check_destroy == true
+    #             flash.now[:success] = t(".success")
+    #           else
+    #             flash.now[:notice] = @company.errors.full_messages.join(" ")
+    #           end
+    # respond_to do |format|
+    #   format.html { redirect_to companies_url, notice: t(".success") }
+    #   format.json { head :no_content }
+    #   format.turbo_stream { flash.now[:success] = t(".success") }
+    # end
+
+    if check_destroy == true
+      flash.now[:success] = t('.success')
+    else
+      flash.now[:notice] = @company.errors.full_messages.join(' ')
+    end
     respond_to do |format|
-      format.html { redirect_to companies_url, notice: t(".success") }
+      format.turbo_stream do
+        if check_destroy == true
+        render turbo_stream: [
+          turbo_stream.remove(dom_id(@company)),
+          render_turbo_flash
+        ]
+        else
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+      end
+      format.html { redirect_to companies_url, notice: t('.success') }
       format.json { head :no_content }
-      format.turbo_stream { flash.now[:success] = t(".success") }
     end
   end
 

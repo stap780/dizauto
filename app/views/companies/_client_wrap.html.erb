@@ -1,7 +1,8 @@
 <% company = @company.present? ? @company : company_turbo %>
 <div class="col-md-12 mb-2">
     <button type="button" class="btn btn-primary" data-action="nested-form#add"><i class='bi bi-plus'></i> Добавить клиента</button>
-    <%= link_to plus_square_icon, new_turbo_clients_path(company_id: company.id), title: 'создать клиента', class: 'btn btn-light', data: {turbo_frame: "modal"} %>
+    <%# link_to plus_square_icon, new_turbo_clients_path(company_id: company.id), title: 'создать клиента', class: 'btn btn-light', data: {turbo_frame: "modal"} %>
+     <%= link_to plus_square_icon, new_client_path, class: "btn btn-light", data: {turbo_frame: 'offcanvas_wrap' } %>
 </div>
 <template data-nested-form-target="template">
     <%= fields_for "company[client_companies_attributes][#{Time.now.to_i }]", ClientCompany.new do |f| %>

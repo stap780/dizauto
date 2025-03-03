@@ -15,6 +15,10 @@ class Company < ApplicationRecord
 
   before_destroy :check_relations_present, prepend: true
 
+  after_create_commit { broadcast_prepend_to 'companies' }
+  after_update_commit { broadcast_replace_to 'companies' }
+  after_destroy_commit { broadcast_remove_to 'companies' }
+
   scope :our, -> { where(tip: 'our') }
   scope :strah, -> { where(tip: 'strah') }
   scope :standart, -> { where(tip: 'standart') }
@@ -39,7 +43,6 @@ class Company < ApplicationRecord
   end
 
   def company_plan_dates_data
-
     return '' unless company_plan_dates.present? && company_plan_dates.last.date.present?
 
     "#{company_plan_dates.last.date.strftime('%d/%m/%Y')} #{company_plan_dates.last.comments.first.body}"

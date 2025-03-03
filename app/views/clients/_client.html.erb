@@ -1,11 +1,16 @@
 <%= turbo_frame_tag dom_id(client), class: "d-table-row", style:'height:30px;', data: { }  do %>
-    <%= tag.div client.id, class: "d-table-cell col-1" %>
+    <%= tag.div(class: "d-table-cell", style: 'width: 130px;') do %>
+        <%=tag.div class: 'form-check' do %>
+            <%= check_box_tag "client_ids[]", client.id, false, {class: 'checkboxes form-check-input ms-0 me-1', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
+            <%=tag.label class: 'form-check-label' do %><%= tag.b( client.id ) %><% end %>
+        <% end %>
+        <%= client.created_at.strftime("%d/%m/%Y %H:%M") %>  
+    <%end %>
     <%= tag.div( client.surname, class: "d-table-cell") %>
     <%= tag.div( client.name, class: "d-table-cell") %>
     <%= tag.div( client.middlename, class: "d-table-cell") %>
     <%= tag.div( client.phone, class: "d-table-cell") %>
     <%= tag.div( client.email, class: "d-table-cell") %>
-    <%= tag.div( client.created_at.strftime("%d/%m/%Y"), class: "d-table-cell") %>
     <%= tag.div("", class: "d-table-cell") do %>
         <%= link_to edit_icon, edit_client_path(client), data: { turbo_frame: 'offcanvas_wrap'} %>
         <%= link_to trash_icon, client, data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>

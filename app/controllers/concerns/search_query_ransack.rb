@@ -26,9 +26,9 @@ module SearchQueryRansack
     if params[:search_cancel]
       params.delete(:search_cancel)
       if(!search_params.nil?)
-          search_params.each do |key, param|
-              search_params[key] = nil
-          end
+        search_params.each do |key, param|
+          search_params[key] = nil
+        end
       end
       # REMOVE FROM SESSION
       session.delete(search_key)

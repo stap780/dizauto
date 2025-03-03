@@ -238,8 +238,9 @@ Rails.application.routes.draw do
   resources :clients do
     collection do
       post :search
-      post :create_turbo
-      get :new_turbo
+      # post :create_turbo
+      # get :new_turbo
+      post :bulk_delete
       post :download
     end
   end
@@ -280,6 +281,7 @@ Rails.application.routes.draw do
   resources :companies do
     collection do
       post :download
+      post :bulk_delete
     end
   end
   resources :detals do

@@ -9,7 +9,7 @@ class ZipXlsx < ApplicationService
     @model = options[:model]
     @filename = "#{@model.downcase}.xlsx"
     @template = "#{@model.downcase.pluralize}/index"
-    @error_message = 'We have error while zip create'
+    @error_message = 'We have error whith zip create'
   end
 
   def call

@@ -134,7 +134,7 @@ class UsersController < ApplicationController
     @notification = @user.notifications.find_by_id(params[:notification_id])
     @notification.mark_as_read
     respond_to do |format|
-      format.turbo_stream{ flash.now[:success] = t('success') }
+      format.turbo_stream{ flash.now[:success] = t('notification.success.read') }
     end
   end
 
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
 
     @notification.delete
     respond_to do |format|
-      format.turbo_stream{ flash.now[:success] = t('success') }
+      format.turbo_stream{ flash.now[:success] = t('notification.success.delete') }
     end
   end
 

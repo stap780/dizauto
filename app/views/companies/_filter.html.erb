@@ -17,7 +17,7 @@
           </div>
           <div class="col-md-6">
             <%= f.label :tip_eq %>
-            <%= f.select :tip_eq, Company::TIP, { prompt: ''}, class: "form-select input-sm" %>
+            <%= f.select :tip_eq, Company.tip_collection, { prompt: ''}, class: "form-select input-sm" %>
           </div>
         </div>
 

@@ -5,15 +5,17 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
     <%= form_with url: download_companies_path, method: :post, id: :bulk_action_form  do |f| %>
-      <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel' do %>.xlsx<% end%>
+      <%# f.button '.xlsx', type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel'%>
+      <%= render 'shared/download_excel_buttons', f: f, object: Company.new %>
+      <%= render 'shared/bulk_delete_buttons', f: f, object: Company.new %>      
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("companies/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, companies_path, class: 'btn btn-outline-primary me-2' %>
+    <%= link_to arrow_clockwise_icon, companies_path(search_cancel: true), class: 'btn btn-outline-primary me-2' %>
     <%= link_to add_icon, new_company_path, class: "btn btn-primary" %>
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Company filter' if lookup_context.find_all("companies/_filter").any? %>
+<%= render 'filter', q: @search, title: t('filter') if lookup_context.find_all("companies/_filter").any? %>
 
 
 <div class="card">
@@ -25,13 +27,15 @@
     <%= tag.div id: 'datatables-companies_wrapper' do %>  
       <%=turbo_stream_from "companies" %>     
 
-      <%=turbo_frame_tag 'companies', class:"table d-table", data: { controller: "sortable toast", action: "sortable:move->toast#show"} do %>
+      <%=turbo_frame_tag 'companies', class:"table d-table", data: { controller: "sortable toast selectall", action: "sortable:move->toast#show"} do %>
         <%=tag.div class:"d-table-row" do %>  
-          <%=tag.div('#', class: 'd-table-cell fw-semibold')%>
+          <%=tag.div class: 'd-table-cell fw-semibold' do %>
+            <%= div_check_box_tag_all %>
+          <% end %>
           <%=tag.div( t('helpers.label.company.tip'), class: 'd-table-cell fw-semibold' )%>
           <%=tag.div( t( 'helpers.label.company.title'), class: 'd-table-cell fw-semibold' )%>
           <%=tag.div( t( 'helpers.label.company.bank'), class: 'd-table-cell fw-semibold' )%>
-           <%=tag.div( t( 'helpers.label.company.comment'), class: 'd-table-cell fw-semibold' )%>
+           <%=tag.div( t( 'helpers.label.company.plandate'), class: 'd-table-cell fw-semibold' )%>
           <%=tag.div('', class: 'd-table-cell fw-semibold')%>
         <%end %>
         <%= render @companies %>

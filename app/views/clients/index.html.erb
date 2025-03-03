@@ -4,10 +4,12 @@
   </div>
   <div class="col-md-6 d-flex justify-content-end index-head__buttons">
     <%= form_with url: download_clients_path, method: :post, id: :bulk_action_form  do |f| %>
-      <%= f.button type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel' do %>.xlsx<% end%>
+      <%# f.button '.xlsx', type: :submit, class: "btn btn-outline-primary me-1", id: 'download-excel'%>
+      <%= render 'shared/download_excel_buttons', f: f, object: Client.new %>
+      <%= render 'shared/bulk_delete_buttons', f: f, object: Client.new %>     
     <% end %>
     <%= render 'shared/index_filter' if lookup_context.find_all("clients/_filter").any? %>
-    <%= link_to arrow_clockwise_icon, clients_path, class: 'btn btn-outline-primary me-2', style: 'max-height: 32.5938px;' %>
+    <%= link_to arrow_clockwise_icon, clients_path(search_cancel: true), class: 'btn btn-outline-primary me-2', style: 'max-height: 32.5938px;' %>
     <%= link_to add_icon, new_client_path, class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap' } %>
   </div>
 </div>
@@ -16,31 +18,21 @@
 
 <div class="card">
   <div class="card-header pb-0">
-    <div class="card-actions float-end">
-      <div class="dropdown position-relative">
-        <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
-          <%= more_icon%>
-        </a>
-        <div class="dropdown-menu dropdown-menu-end">
-          <a href="#" class="dropdown-item">test</a>
-          <%# link_to '.xlsx', clients_path(request.parameters.merge(format: 'zip')), class:"dropdown-item", data: {turbo_prefetch: false} %>
-        </div>
-      </div>
-    </div>
-    <h5 class="card-title mb-0"></h5>
+    <h5 class="card-title mb-0"><%= page_entries_info(@clients).to_s.gsub('Client','').gsub('клиенты','').html_safe %></h5>
   </div>
   <div class="card-body">
     <%= turbo_stream_from :clients %>
     <div class="table-responsive">
-    <%= turbo_frame_tag :clients, data: { }, class: "table d-table" do %>
-      <%= tag.div class:"d-table-row", style:'height:30px;' do %>
-        <%= tag.div("#", class: "d-table-cell fw-bold")%>
+    <%= turbo_frame_tag :clients, data: { controller: "selectall"}, class: "table d-table" do %>
+      <%= tag.div class:"d-table-row" do %>
+        <%=tag.div class: 'd-table-cell fw-semibold' do %>
+          <%= div_check_box_tag_all %>
+        <% end %>
         <%= tag.div(t('helpers.label.client.surname'), class: "d-table-cell fw-bold")%>
         <%= tag.div(t('helpers.label.client.name'), class: "d-table-cell fw-bold")%>
         <%= tag.div(t('helpers.label.client.middlename'), class: "d-table-cell fw-bold")%>
         <%= tag.div(t('helpers.label.client.phone'), class: "d-table-cell fw-bold")%>
         <%= tag.div(t('helpers.label.client.email'), class: "d-table-cell fw-bold")%>
-        <%= tag.div(t('helpers.label.client.created_at'), class: "d-table-cell fw-bold")%>
         <%= tag.div("", class: "d-table-cell")%>
       <% end %>
       

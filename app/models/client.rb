@@ -2,7 +2,7 @@
 class Client < ApplicationRecord
   include NormalizeDataWhiteSpace
   include ActionView::RecordIdentifier
-  
+
   has_many :client_companies
   has_many :companies, through: :client_companies
   has_many :orders
@@ -22,11 +22,15 @@ class Client < ApplicationRecord
   scope :collection_for_select, ->(id) { where(id: id).map { |p| [p.full_name, p.id] } + first_five }
 
   def full_name
-    [name, surname, email].join('')
+    [name, surname, email].join(' ')
   end
 
   def self.ransackable_attributes(auth_object = nil)
     Client.attribute_names
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[companies client_companies orders]
   end
 
   private

@@ -8,6 +8,7 @@ module BulkDelete
       flash.now[:error] = 'Выберите позиции'
     else
       ## this is was for test - CreateXlsxJob.perform_later(collection_ids, {model: "Product",current_user_id: current_user.id} )
+      # puts "delete_collection_ids => #{delete_collection_ids}"
       BulkDeleteJob.perform_later(delete_collection_ids, {model: model.to_s, current_user_id: current_user.id})
       flash.now[:success] = 'Запустили удаление'
     end

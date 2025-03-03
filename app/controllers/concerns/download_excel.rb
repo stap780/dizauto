@@ -9,6 +9,7 @@ module DownloadExcel
         render_turbo_flash
       ]
     else
+      # puts "DownloadExcel excel_collection_ids => #{excel_collection_ids}"
       CreateZipXlsxJob.perform_later(excel_collection_ids, {model: model.to_s, current_user_id: current_user.id} )
       render turbo_stream: 
         turbo_stream.update(
@@ -33,8 +34,8 @@ module DownloadExcel
   end
 
   def excel_collection_ids
-    puts "search_params => #{search_params}"
-    case params[:delete_type]
+    # puts "DownloadExcel search_params => #{search_params}"
+    case params[:download_type]
     when 'selected'
       collection_ids = model.include_images.where(id: params[items]).pluck(:id) if model_product?
       collection_ids = model.where(id: params[items]).pluck(:id) unless model_product?
