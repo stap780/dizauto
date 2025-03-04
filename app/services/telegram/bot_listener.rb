@@ -18,10 +18,10 @@ class Telegram::BotListener < ApplicationService
 
   def call
     message = 'wrong token'
-    if check_token
-      start_work
-    end
-    [true, message]
+
+    return [true, message] unless check_token
+
+    start_work
   end
 
   private
@@ -46,7 +46,7 @@ class Telegram::BotListener < ApplicationService
         Rails.application.config.telegram_bot = bot
         bot.api.get_updates(offset: -1)
         bot.listen do |update|
-          puts "update => #{update.to_json}"
+          puts " start_work update => #{update.to_json}"
           if check_user(update)
             case update
             when Telegram::Bot::Types::Message
@@ -62,12 +62,12 @@ class Telegram::BotListener < ApplicationService
             when Telegram::Bot::Types::InlineQuery
               handle_inline_query(update)
             else
-              puts "Unprocessed UPDATE of type: #{update.class}"
+              puts "start_work Unprocessed UPDATE of type: #{update.class}"
             end
           else
             @client.api.send_message(
               chat_id: update.chat.id,
-              text: "You are not authorized - Buy,#{update.from.first_name}"
+              text: "You are not authorized - Bye, #{update.from.first_name}"
             )
           end
         end
@@ -92,7 +92,7 @@ class Telegram::BotListener < ApplicationService
 
   def handle_message(message)
     puts '**********'
-    puts "handle_message => #{message.to_json}"
+    puts "#{Time.now} handle_message => #{message.to_json}"
     puts "message.text => #{message.text}"
     puts '**********'
 
@@ -104,7 +104,7 @@ class Telegram::BotListener < ApplicationService
         @client.api.send_message(chat_id: message.from.id, text: result_text)
       else
         result_text = "не нашли #{text}. попробуйте другой.\n\nУкажите штрихкод товара"
-        force_reply = Telegram::Bot::Types::ForceReply.new(force_reply: true,selective: true)
+        force_reply = Telegram::Bot::Types::ForceReply.new(force_reply: true, selective: true)
         @client.api.send_message(chat_id: message.from.id, text: result_text, reply_markup: force_reply)
       end
     elsif message.reply_to_message.present? && message.reply_to_message.text.include?('Давайте найдём товар. Укажите штрихкод...')
@@ -167,12 +167,13 @@ class Telegram::BotListener < ApplicationService
   end
 
   def handle_unknown_command(message)
+    puts " handle_unknown_command => #{message.to_json}"
     @client.api.send_message(chat_id: message.chat.id, text: 'Unknown command.')
   end
 
   def handle_callback_query(message)
     # callback_query = message
-    puts "Received callback query: #{message.data}"
+    puts " Received callback query: #{message.data}"
     if message.data == 'upload_photo'
       # kb = [[
       #   Telegram::Bot::Types::InlineKeyboardButton.new(text: 'Найти по штрихкоду', callback_data: 'search_by_barcode')
@@ -249,13 +250,13 @@ class Telegram::BotListener < ApplicationService
     true
   end
 
-  Signal.trap("TERM") do
+  Signal.trap('TERM') do
     puts 'Shutting down bot...'
     Rails.application.config.telegram_bot.stop
     exit
   end
 
-  Signal.trap("INT") do
+  Signal.trap('INT') do
     puts 'Shutting down bot...'
     Rails.application.config.telegram_bot.stop
     exit
