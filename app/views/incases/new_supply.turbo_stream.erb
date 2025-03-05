@@ -1,9 +1,9 @@
 <%= turbo_stream.update "modal", '' %>
 <%= turbo_stream.update "modal" do %>
-    <%# link_to 'Создать поступление'.html_safe, new_supply_path(incase: @incase), class: 'btn btn-primary', data: {turbo_frame: "_top"} %>
-
     <%= form_with( url: new_supply_path, method: :get, data: {turbo_frame: "_top"}) do |f| %>
-        <%= hidden_field_tag 'incase_id', @incase.id %>
+        <%@incases.each do |inc|%>
+            <%= hidden_field_tag "incase_ids[]", inc.id %>
+        <% end %>
         <div class="col-12 mb-3" data-controller="checkbox">
             <div class="h5 pb-3">Выберите статус позиции товара если это необходимо</div>
             <% IncaseItemStatus.order(:position).each do |status| %>

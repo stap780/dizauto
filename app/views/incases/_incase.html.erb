@@ -5,6 +5,7 @@
             <%= check_box_tag "incase_ids[]", incase.id, false, {class: 'checkboxes form-check-input', data: { 'selectall_target': 'checkbox', action: "change->selectall#toggleParent"}, form: :bulk_action_form } %>
             <%=tag.label class: 'form-check-label' do %><%= tag.b( incase.id ) %><% end %>
         <% end %>
+        <%= incase.created_at.strftime("%d/%m/%Y %H:%M") %>
     <% end %>
     <%= tag.div class: "col-1" do %>
         <%= tag.span(   incase.incase_status.title,
@@ -44,7 +45,7 @@
         <div class="dropdown position-relative">
             <a href="#" data-bs-toggle="dropdown" data-bs-display="static"><%= more_icon%></a>
             <div class="dropdown-menu dropdown-menu-end">
-                <%= link_to 'Создать поступление'.html_safe, new_supply_incase_path(incase), class: 'dropdown-item', data: {turbo_stream: true}%>
+                <%= link_to 'Создать поступление'.html_safe, new_supply_incases_path(incase_ids: [incase.id]), class: 'dropdown-item', data: {turbo_stream: true, turbo_method: :post}%>
             </div>
         </div>
         <%= render 'shared/edit_delete_link', object: incase %>

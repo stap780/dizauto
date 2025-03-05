@@ -251,9 +251,9 @@ Rails.application.routes.draw do
     resources :comments, module: :incases
     member do
       get :act
-      get :new_supply
     end
     collection do
+      post :new_supply
       post :create_from_import
       post :bulk_print
       get :slimselect_nested_item

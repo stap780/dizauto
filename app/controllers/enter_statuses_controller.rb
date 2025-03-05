@@ -29,7 +29,7 @@ class EnterStatusesController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to enter_statuses_url, notice: 'Enter status was successfully created.' }
+        format.html { redirect_to enter_statuses_url, notice: t('.success') }
         format.json { render :show, status: :created, location: @enter_status }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +47,7 @@ class EnterStatusesController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to enter_statuses_url, notice: 'Enter status was successfully updated.' }
+        format.html { redirect_to enter_statuses_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @enter_status }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,8 +64,12 @@ class EnterStatusesController < ApplicationController
                 flash.now[:notice] = @enter_status.errors.full_messages.join(' ')
               end
     respond_to do |format|
-      format.turbo_stream { message }
-      format.html { redirect_to enter_statuses_url, notice: 'Enter status was successfully destroyed.' }
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to enter_statuses_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end

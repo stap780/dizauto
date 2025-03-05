@@ -49,19 +49,19 @@ class PropertiesController < ApplicationController
 
   def destroy
     @check_destroy = @property.destroy ? true : false
-    # puts '====='
-    # puts @check_destroy
-    # puts @property.errors.messages
-    # puts '====='
     message = if @check_destroy == true
       flash.now[:success] = t('.success')
     else
       flash.now[:notice] = @property.errors.full_messages.join(' ')
     end
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: 'Property was successfully destroyed.' }
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to properties_url, notice: t('.success') }
       format.json { head :no_content }
-      format.turbo_stream { message }
     end
   end
 

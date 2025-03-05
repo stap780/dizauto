@@ -15,7 +15,8 @@
         <% end %>
       <% end %>
       </ul>
-      <%= f.button 'Status', type: :submit, class: "btn btn-outline-primary", formaction: bulk_status_incases_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("bulk_status") %>
+      <%= f.button "<i class='bi bi-plus'></i>#{Supply.model_name.human(count: 1)}".html_safe, type: :submit, class: "btn btn-outline-primary", formaction: new_supply_incases_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: t("bulk_status") %>
+      <%= f.button t('status'), type: :submit, class: "btn btn-outline-primary", formaction: bulk_status_incases_path, data: { turbo_frame: 'modal', turbo_prefetch: false }, title: t("bulk_status") %>
       <%= render 'shared/download_excel_buttons', f: f, object: Incase.new %>
     <% end %>
 
@@ -25,7 +26,7 @@
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Incase filter' if lookup_context.find_all("incases/_filter").any?%>
+<%= render 'filter', q: @search, title: t('filter') if lookup_context.find_all("incases/_filter").any?%>
 
 <div class="card">
   <div class="card-header pb-0">
@@ -39,8 +40,7 @@
         </div>
       </div>
     </div>
-    <h5 class="card-title mb-0">Заказы поставщикам</h5>
-    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@incases).to_s.gsub('Incase','').gsub('товары','').html_safe %></h5>
+    <h5 class="card-title mb-0" id="count_info"><%= page_entries_info(@incases).to_s.gsub('Incase','').gsub('убытки','').html_safe %></h5>
   </div>
   <%= tag.div(class: "card-body") do %>
     <%= turbo_stream_from "incases" %>

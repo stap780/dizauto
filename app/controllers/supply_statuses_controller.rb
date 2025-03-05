@@ -41,13 +41,13 @@ class SupplyStatusesController < ApplicationController
   def update
     respond_to do |format|
       if @supply_status.update(supply_status_params)
-        flash.now[:success] = t(".success")
+        flash.now[:success] = t('.success')
         format.turbo_stream do
           render turbo_stream: [
             render_turbo_flash
           ]
         end
-        format.html { redirect_to supply_statuses_url, notice: t(".success") }
+        format.html { redirect_to supply_statuses_url, notice: t('.success') }
         format.json { render :show, status: :ok, location: @supply_status }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -57,17 +57,20 @@ class SupplyStatusesController < ApplicationController
   end
 
   def destroy
-    # @supply_status.destroy
     @check_destroy = @supply_status.destroy ? true : false
     message = if @check_destroy == true
-                flash.now[:success] = t(".success")
+                flash.now[:success] = t('.success')
               else
                 flash.now[:notice] = @supply_status.errors.full_messages.join(' ')
               end
 
     respond_to do |format|
-      format.turbo_stream { message }
-      format.html { redirect_to supply_statuses_url, notice: 'Supply status was successfully destroyed.' }
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to supply_statuses_url, notice: t('.success') }
       format.json { head :no_content }
     end
   end
@@ -79,12 +82,10 @@ class SupplyStatusesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_supply_status
     @supply_status = SupplyStatus.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def supply_status_params
     params.require(:supply_status).permit(:title, :color, :position)
   end

@@ -25,7 +25,7 @@
   </div>
 </div>
   
-<%= render 'filter', q: @search, title: 'Фильтр' if lookup_context.find_all("products/_filter").any?  %>
+<%= render 'filter', q: @search, title: t('filter') if lookup_context.find_all("products/_filter").any?  %>
 
 <div class="card">
   <div class="card-header pb-0">

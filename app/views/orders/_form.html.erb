@@ -11,7 +11,7 @@
                     <%= tabs_head('order', tabs) %>
                 <% end %>
                 <%= tag.div class: 'd-flex ms-auto justify-content-between align-items-center gap-3' do %>
-                    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false, prompt: t('helpers.label.order.manager_id')}, {class: "form-select border-primary-subtle"} %>
+                    <%= f.select :manager_id, User.pluck(:name, :id), {include_blank: false, prompt: t('helpers.label.order.manager_id'), selected: current_user}, {class: "form-select border-primary-subtle"} %>
                     <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "order", auditable_id: order.id), class: 'btn btn-outline-success d-flex', data: {turbo_frame: "offcanvas_history"} if !f.object.new_record? %>
                 <% end %>
             <% end %>

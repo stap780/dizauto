@@ -1,7 +1,7 @@
 # IncasesController < ApplicationController
 class IncasesController < ApplicationController
   load_and_authorize_resource
-  before_action :set_incase, only: %i[show edit update destroy act new_supply]
+  before_action :set_incase, only: %i[show edit update destroy act]
   include SearchQueryRansack
   include DownloadExcel
   include NestedItem
@@ -90,8 +90,23 @@ class IncasesController < ApplicationController
   end
 
   def new_supply
-    respond_to do |format|
-      format.turbo_stream
+    # respond_to do |format|
+    #   format.turbo_stream
+    # end
+    if params[:incase_ids]
+      @incases = Incase.where(id: params[:incase_ids])
+      respond_to do |format|
+        format.turbo_stream
+      end
+    else
+      flash.now[:notice] = 'Выберите позиции'
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            render_turbo_flash
+          ]
+        end
+      end
     end
   end
 

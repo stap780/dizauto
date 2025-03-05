@@ -19,14 +19,20 @@ class SuppliesController < ApplicationController
   def show; end
 
   def new
-    if params[:incase_id].present?
-      incase = Incase.find(params[:incase_id])
-      @supply = Supply.new(company_id: incase.company_id, manager_id: current_user.id)
-      p_status_id = params[:incase_item_status_id]
-      items = p_status_id.present? ? incase.incase_items.where(incase_item_status_id: p_status_id) : incase.incase_items
-      items.each do |inc|
-        @supply.supply_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price)
+    if params[:incase_ids].present?
+      @supply = Supply.new(manager_id: current_user.id)
+      company_id_array = []
+      params[:incase_ids].each do |incase_id|
+        incase = Incase.find(incase_id)
+        company_id_array << incase.company_id
+        p_status_id = params[:incase_item_status_id]
+        items = p_status_id.present? ? incase.incase_items.where(incase_item_status_id: p_status_id) : incase.incase_items
+        items.each do |inc|
+          @supply.supply_items.build(variant_id: inc.variant.id, quantity: inc.quantity, price: inc.price)
+        end
       end
+      @supply.company_id = company_id_array.uniq[0]
+      @supply
     else
       @supply = Supply.new
       @supply.supply_items.build

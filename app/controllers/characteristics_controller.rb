@@ -36,7 +36,7 @@ class CharacteristicsController < ApplicationController
   def update
     respond_to do |format|
       if @characteristic.update(characteristic_params)
-        format.html { redirect_to property_url(@property), notice: 'Characteristic was successfully updated.' }
+        format.html { redirect_to property_url(@property), notice: t('.success') }
         format.json { render :show, status: :ok, location: @characteristic }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,9 +53,13 @@ class CharacteristicsController < ApplicationController
       flash.now[:notice] = @characteristic.errors.full_messages.join(' ')
     end
     respond_to do |format|
-      format.html { redirect_to property_url(@property), notice: 'Characteristic was successfully destroyed.' }
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
+      format.html { redirect_to property_url(@property), notice: t('.success') }
       format.json { head :no_content }
-      format.turbo_stream { message }
     end
   end
 

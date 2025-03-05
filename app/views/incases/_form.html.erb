@@ -14,7 +14,7 @@
                 <%= link_to history_icon, audited_auditable_audits_path(auditable_type: "incase", auditable_id: incase.id), class: 'btn btn-outline-success d-flex', data: { turbo_frame: "offcanvas_history" } if !f.object.new_record? %>
             <% end %>
         <% end %>
-        <%= tag.div(class: "card-body tab-content") do %>
+        <%= tag.div(class: "card-body tab-content pt-0") do %>
             <%= tag.div(class: "tab-pane active", id: "main_tab", role: "tabpanel", "aria-labelledby": "main_tab") do %>
                 <%= tag.div(class: "row gap-1") do %>
                     <%= render 'form_data', f: f %>

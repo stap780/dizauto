@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<%= render 'filter', q: @search, title: 'Supply filter' if lookup_context.find_all("supplies/_filter").any?%>
+<%= render 'filter', q: @search, title: t('filter') if lookup_context.find_all("supplies/_filter").any?%>
 
 <%=tag.div class: "card" do %>
   <%=tag.div class: "card-header pb-0" do %>

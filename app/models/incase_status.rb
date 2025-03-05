@@ -13,16 +13,16 @@ class IncaseStatus < ApplicationRecord
   validates :title, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
-    IncaseStatus.attribute_names
+    attribute_names
   end
 
   private
 
   def check_presence_in_incases
-    if incase.count > 0
-      errors.add(:base, 'Cannot delete incase_statuses. You have incase with it.')
-      throw(:abort)
-    end
+    return unless incases.count > 0
+
+    errors.add(:base, I18n.t('helpers.label.incase_status.check_presence_in_incases'))
+    throw(:abort)
   end
 
 end

@@ -225,14 +225,15 @@ module ApplicationHelper
 
   def history_value(key, value)
     # puts "history_value => key #{key.to_s} // value #{value.to_s}"
-    if key.include?("_id")
-      search_key = "company" if key == "strah_id"
-      search_key = "user" if key == "manager_id"
-      search_key = "warehouse" if key == "origin_warehouse_id"
-      search_key = "warehouse" if key == "destination_warehouse_id"
-      search_key = key.split("_id").first if key != "strah_id" && key != "manager_id" && key != "origin_warehouse_id" && key != "destination_warehouse_id"
+    if key.include?('_id')
+      search_key = 'company' if key == 'strah_id'
+      search_key = 'company' if key == 'seller_id'
+      search_key = 'user' if key == 'manager_id'
+      search_key = 'warehouse' if key == 'origin_warehouse_id'
+      search_key = 'warehouse' if key == 'destination_warehouse_id'
+      search_key = key.split('_id').first if key != 'strah_id' && key != 'manager_id' && key != 'origin_warehouse_id' && key != 'destination_warehouse_id' && key != 'seller_id'
 
-      val = search_key.classify.safe_constantize.where(id: value).present? ? search_key.classify.safe_constantize.find_by_id(value.to_i) : nil
+      val = search_key.classify.safe_constantize&.where(id: value).present? ? search_key.classify.safe_constantize.find_by_id(value.to_i) : nil
       return_value = val.title if val.present? && val.respond_to?(:title)
       return_value = val.short_title if val.present? && val.respond_to?(:short_title)
       return_value = val.name if val.present? && val.respond_to?(:name)

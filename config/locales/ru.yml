@@ -177,6 +177,7 @@ ru:
         status: "статус"
         incase_item_status_id: "статус позиции"
         product_id: "товар"
+        nds: "ндс"
       incase_item_status:
         title: "название"
         color: "цвет"
@@ -321,6 +322,7 @@ ru:
         warehouse_id: "склад"
         sum: "сумма"
         buyer_id: "покупатель"
+        supply_status: "статус"
       supply_items:
         product_id: "товар"
         warehouse_id: "склад"
@@ -711,6 +713,7 @@ ru:
       incase_status:
         title: "название"
         color: "цвет"
+        check_presence_in_incases: "не можем удалить статус. есть входящие заявки"
       incase_tip:
         title: "название"
         color: "цвет"

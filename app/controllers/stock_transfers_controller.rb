@@ -58,9 +58,13 @@ class StockTransfersController < ApplicationController
       flash.now[:notice] = @stock_transfer.errors.full_messages.join(' ')
     end
     respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          render_turbo_flash
+        ]
+      end
       format.html { redirect_to stock_transfers_url, notice: t('.success') }
       format.json { head :no_content }
-      format.turbo_stream { message }
     end
   end
 
