@@ -11,6 +11,9 @@ module NormalizeDataWhiteSpace
 
     def normalize_whitespace
       attributes.each do |key, value|
+        puts "key: #{key}, value: #{value}"
+        next if key == 'content' || key == 'condition'
+
         self[key] = value.squish if value.respond_to?(:squish)
       end
     end

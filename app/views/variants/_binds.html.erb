@@ -1,0 +1,33 @@
+<%=tag.div class: "card" do %>
+    <%= tag.div class: "card-header" do %>
+        <%= tag.div class: "row" do %>
+          <div class="col-md-6 index-head__title">
+                <h1 class="h3 d-inline align-middle"><%= t('binds')%></h1>
+            </div>
+            <%= tag.div( class: "col-md-6 d-flex justify-content-end index-head__buttons") do %>
+                <%= link_to add_icon, new_product_variant_varbind_path(product, variant), class: "btn btn-primary float-start", 
+                data: {turbo_frame: dom_id(product, dom_id(variant, dom_id(Varbind.new))) } %>
+            <% end %>
+        <% end %>
+    <% end %>
+    <%= tag.div class: "card-body" do %>
+        <%= turbo_frame_tag dom_id(product, dom_id(variant, dom_id(Varbind.new))) %>
+
+        <%= turbo_stream_from [product, [variant, :varbinds]]  %>
+        <%= turbo_frame_tag dom_id(product, dom_id(variant, :varbinds)) , class: "" do %>
+
+            <%= tag.div class: "row mb-2" do %>
+                <%= tag.div( t('helpers.label.varbind.created_at'), class: 'col-4 fw-bold')%>
+                <%= tag.div( t('helpers.label.varbind.varbindable_type'), class: 'col-2 fw-bold')%>
+                <%= tag.div( t('helpers.label.varbind.varbindable_id'), class: 'col-2 fw-bold')%>
+                <%= tag.div( t('helpers.label.varbind.value'), class: 'col-2 fw-bold')%>
+                <%= tag.div( class: "col fw-bold") %>
+            <% end %>
+
+            <% variant.varbinds.order(created_at: :asc).each do |varbind| %>
+                <%= render partial: "varbinds/varbind", locals: { product: product, variant: variant, varbind: varbind } %>
+            <% end %>
+
+        <% end %>
+    <% end %>
+<% end %>

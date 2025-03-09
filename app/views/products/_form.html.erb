@@ -81,3 +81,7 @@
 <%= turbo_frame_tag "offcanvasAI", class: "offcanvas offcanvas-end w-50", 
 tabindex: "-1", "aria-labelledby": "offcanvasRightLabel",
 data: { controller: "offcanvas", action: "turbo:frame-load->offcanvas#show", "bs-scroll":"true" } %>
+
+<%= turbo_frame_tag "offcanvasBinds", class: "offcanvas offcanvas-end w-50", 
+tabindex: "-1", "aria-labelledby": "offcanvasRightLabel",
+data: { controller: "offcanvas", action: "turbo:frame-load->offcanvas#show", "bs-scroll":"true" } %>

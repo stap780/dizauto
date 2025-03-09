@@ -11,6 +11,7 @@
   <%= tag.div("", class: "d-table-cell") do %>
     <%= link_to edit_icon, edit_product_variant_path(product, variant), data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>
     <%= link_to barcode_icon, print_etiketka_product_variant_path(product, variant), data: { turbo_frame: 'modal', turbo_prefetch: false }, title: I18n.t("print_barcode") %>
+    <%= link_to '<i class="bi bi-link"></i>'.html_safe, product_variant_path(product, variant), data: { turbo_frame: 'offcanvasBinds', turbo_prefetch: false }, title: I18n.t("binds") %>
     <%= link_to trash_icon, [product, variant], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>    
     <%# render 'shared/edit_delete_link_turbo', object: [product, variant] %>
   <% end %>

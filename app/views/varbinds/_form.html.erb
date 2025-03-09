@@ -1,0 +1,22 @@
+<%= form_with(model: [product, variant, varbind], class: "card my-4", data: {turbo_stream: true}) do |f| %>
+  <%= render "shared/errors", object: varbind %>
+  <%= f.hidden_field :variant_id %>
+  <div class="d-flex flex-row gap-1">
+    <div class="pt-1">
+      <%= f.label :varbindable_type %>
+      <%= f.select :varbindable_type, [['avito','Avito'],['insales','Insale']], {include_blank: false}, {class: "form-select" } %>
+    </div>
+    <div class="pt-1">
+      <%= f.label :varbindable_id %>
+      <%= f.select :varbindable_id, Varbind.collections, {include_blank: false}, {class: "form-select" } %>
+    </div>
+    <div class="pt-1">
+      <%= f.label :value %>
+      <%= f.text_field :value, class: "form-control" %>
+    </div>
+    <div class="d-flex justify-content-end pt-4">
+      <%= f.submit t(:save), class: "btn btn-primary" %>
+      <%= link_to close_icon, product_variant_path(product, variant), class: "btn btn-outline-primary", data: { turbo_stream: true } %>
+    </div>
+  </div>
+<% end %>

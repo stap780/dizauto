@@ -1,7 +1,8 @@
 # Avito < ApplicationRecord
 class Avito < ApplicationRecord
-
+  include Varbindable
   include NormalizeDataWhiteSpace
+  has_many :varbinds, as: :varbindable, dependent: :destroy
   after_create_commit { broadcast_append_to 'avitos' }
   after_update_commit { broadcast_replace_to 'avitos' }
   after_destroy_commit { broadcast_remove_to 'avitos' }
@@ -13,7 +14,6 @@ class Avito < ApplicationRecord
   def self.ransackable_attributes(auth_object = nil)
     attribute_names
   end
-
 
   def api_work?
     return false unless api_id.present? && api_secret.present?

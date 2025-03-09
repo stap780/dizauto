@@ -99,6 +99,6 @@ class AvitosController < ApplicationController
   end
 
   def avito_params
-    params.require(:avito).permit(:title, :api_id, :api_secret)
+    params.require(:avito).permit(:title, :api_id, :api_secret, :profileid)
   end
 end

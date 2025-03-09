@@ -28,7 +28,7 @@ class VariantsController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to variant_url(@variant), notice: 'Variant was successfully created.' }
+        format.html { redirect_to variant_url(@variant), notice: t('.success') }
         format.json { render :show, status: :created, location: @variant }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +46,7 @@ class VariantsController < ApplicationController
             render_turbo_flash
           ]
         end
-        format.html { redirect_to variant_url(@variant), notice: 'Variant was successfully updated.' }
+        format.html { redirect_to variant_url(@variant), notice: t('.success') }
         format.json { render :show, status: :ok, location: @variant }
       else
         format.html { render :edit, status: :unprocessable_entity }

@@ -2,6 +2,7 @@ require 'sidekiq/web'
 require 'sidekiq-scheduler/web'
 
 Rails.application.routes.draw do
+
   resources :mitupais
   resources :avitos do
     member do
@@ -311,6 +312,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index]
   resources :products do
     resources :variants do
+      resources :varbinds
       member do
         get :print_etiketka
       end

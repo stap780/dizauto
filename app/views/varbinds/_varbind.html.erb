@@ -1,0 +1,12 @@
+<%= turbo_frame_tag dom_id(product, dom_id(variant, dom_id(varbind))), class: "row mb-2", data: { }  do %>
+  <%= tag.div( varbind.created_at.strftime("%d/%m/%Y %H:%M"), class: "col-4") %>
+  <%= tag.div( varbind.varbindable_type, class: "col-2") %>
+  <%= tag.div( varbind.varbindable.respond_to?(:title) ? varbind.varbindable.title : "#{varbind.varbindable_type} #{varbind.varbindable_id}", class: "col-2") %>
+  <%= tag.div( varbind.value, class: "col-2") %>
+  <%= tag.div("", class: "col") do %>
+    <%= link_to edit_icon, edit_product_variant_varbind_path(product, variant, varbind), data: { 
+      turbo_prefetch: false,
+      turbo_stream: true } %>
+    <%= link_to trash_icon, [product, variant, varbind], data: { "turbo-method": :delete, 'turbo-confirm': 'Are you sure?' }, class:"p-2" %>    
+  <% end %>
+<% end %>

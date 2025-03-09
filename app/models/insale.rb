@@ -1,5 +1,8 @@
 # Insale < ApplicationRecord
 class Insale < ApplicationRecord
+  include Varbindable
+  include NormalizeDataWhiteSpace
+  has_many :varbinds, as: :varbindable, dependent: :destroy
   validates :api_link, presence: true
   validates :api_key, presence: true
   validates :api_password, presence: true

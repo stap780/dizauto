@@ -1,4 +1,5 @@
 module Orders
+  # CommentsController < CommentsController
   class CommentsController < CommentsController
 
     private
@@ -6,7 +7,7 @@ module Orders
     def set_commentable
       @commentable = Order.find(params[:order_id])
     end
-    
+
   end
   
 end

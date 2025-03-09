@@ -21,6 +21,8 @@ class Variant < ApplicationRecord
   accepts_nested_attributes_for :stocks, allow_destroy: true
   has_many :locations, dependent: :destroy
   has_many :placements, through: :locations
+  has_many :varbinds
+  accepts_nested_attributes_for :varbinds, allow_destroy: true
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }

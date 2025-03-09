@@ -13,10 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <title>Dizauto</title>
     <%= favicon_link_tag asset_path("favicon.png") %>
-
-  	
- 
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.11/codemirror.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.11/codemirror.css"/>
   </head>
 <!--
   HOW TO USE: 
@@ -46,7 +44,7 @@
         <%= render "shared/modal_wrap"%>
         <%= render "shared/offcanvas_history"%>
         <%= render "shared/offcanvas_wrap" %>
-        <%=tag.div(id: "our_flash", class: "position-fixed start-50 translate-middle-x w-25", style: "top: 20px;" ) do %>
+        <%=tag.div(id: "our_flash", class: "position-fixed start-50 translate-middle-x w-25") do %>
           <%= render "shared/flash"%>
         <% end %>
         

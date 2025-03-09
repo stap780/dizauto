@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  varbindable: one
+  varbindable_type: Varbindable
+  value: MyString
+
+two:
+  varbindable: two
+  varbindable_type: Varbindable
+  value: MyString

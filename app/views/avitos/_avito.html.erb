@@ -3,6 +3,7 @@
   <%= tag.div(avito.title, class: "d-table-cell") %>
   <%= tag.div(avito.api_id, class: "d-table-cell") %>
   <%= tag.div(avito.api_secret, class: "d-table-cell") %>
+  <%= tag.div(avito.profileid, class: "d-table-cell") %>
   <%= tag.div class: "d-table-cell" do %>
     <%= tag.div class: h_v_center do %>
       <%= link_to edit_icon, edit_avito_path(avito), class: "btn", data: { turbo_frame: 'offcanvas_wrap', turbo_prefetch: false } %>

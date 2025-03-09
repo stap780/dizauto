@@ -6,7 +6,7 @@ class Stock < ApplicationRecord
   belongs_to :stockable, polymorphic: true
 
   def self.ransackable_attributes(auth_object = nil)
-    Stock.attribute_names
+    attribute_names
   end
 
   def self.ransackable_associations(auth_object = nil)
@@ -14,7 +14,8 @@ class Stock < ApplicationRecord
   end
 
   def self.amount
-    stocks = Stock.all.order(created_at: :asc) # (lifehack) if we call from relation than we will get only relation data
+    # NOTICE (lifehack) if we call from relation than we will get only relation data
+    stocks = Stock.all.order(created_at: :asc)
 
     return 0 if stocks.empty?
 
@@ -29,7 +30,8 @@ class Stock < ApplicationRecord
   end
 
   def self.plus
-    stocks = Stock.all.order(created_at: :asc) # (lifehack) if we call from relation than we will get only relation data
+    # NOTICE (lifehack) if we call from relation than we will get only relation data
+    stocks = Stock.all.order(created_at: :asc)
     plus_text = []
     stocks.each do |stock|
       text = [stock.document, stock.value.to_s].join(': ') if stock.move == '+'
@@ -39,7 +41,8 @@ class Stock < ApplicationRecord
   end
 
   def self.minus
-    stocks = Stock.all.order(created_at: :asc) # (lifehack) if we call from relation than we will get only relation data
+    # NOTICE (lifehack) if we call from relation than we will get only relation data
+    stocks = Stock.all.order(created_at: :asc)
     minus_text = []
     stocks.each do |stock|
       text = [stock.document, stock.value.to_s].join(': ') if stock.move == '-'

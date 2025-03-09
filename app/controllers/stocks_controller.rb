@@ -1,3 +1,4 @@
+# StocksController
 class StocksController < ApplicationController
   load_and_authorize_resource
   before_action :set_stock, only: %i[ show edit update destroy ]
@@ -8,23 +9,19 @@ class StocksController < ApplicationController
     variants_with_stocks = Stock.group(:variant_id).count
     variants_with_stocks_ids = variants_with_stocks.keys
     @search = Variant.where(id: variants_with_stocks_ids).ransack(search_params)
-    # @search = Stock.includes(:variant).ransack(search_params)
-    # @search.sorts = "id desc" if @search.sorts.empty?
     @stocks = @search.result(distinct: true).paginate(page: params[:page], per_page: 100)
     respond_to do |format|
       format.html
     end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @stock = Stock.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @stock = Stock.new(stock_params)
@@ -62,11 +59,13 @@ class StocksController < ApplicationController
   end
 
   private
-    def set_stock
-      @stock = Stock.find(params[:id])
-    end
 
-    def stock_params
-      params.require(:stock).permit(:variant_id, :user_id, :stockable_id, :stockable_type, :move, :value)
-    end
+  def set_stock
+    @stock = Stock.find(params[:id])
+  end
+
+  def stock_params
+    params.require(:stock).permit(:variant_id, :user_id, :stockable_id, :stockable_type, :move, :value)
+  end
+  
 end

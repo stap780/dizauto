@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Varbinds</h1>
+
+<div id="varbinds">
+  <% @varbinds.each do |varbind| %>
+    <%= render varbind %>
+    <p>
+      <%= link_to "Show this varbind", varbind %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New varbind", new_varbind_path %>

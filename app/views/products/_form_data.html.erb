@@ -13,22 +13,22 @@
     <% end %>
   <% end if f.object.new_record? %>
 
-  <%= tag.div class: "mb-3" do %>
-    <%= tag.label(t('variants'), class: "form-label mb-3") %>
+  <%= tag.div class: "mt-3" do %>
+    <%= tag.label( Variant.model_name.human(count: 2) , class: "form-label mb-3") %>
     <%# not_use_this because change to canvas => turbo_frame_tag dom_id(f.object, dom_id(Variant.new)) %>
-    <%= link_to add_icon, new_product_variant_path(f.object), class: "btn btn-primary float-end mb-3", data: {turbo_frame: 'offcanvas_wrap', turbo_prefetch: false  } %>
+    <%= link_to add_icon, new_product_variant_path(f.object), class: "btn btn-primary float-end", data: {turbo_frame: 'offcanvas_wrap', turbo_prefetch: false  } %>
     <%= turbo_stream_from f.object, :variants %>
     
     <%= turbo_frame_tag f.object, :variants, data: { }, class: "table d-table" do %>
       <%= tag.div class:"d-table-row" do %>
-        <%= tag.div("#", class: "d-table-cell fw-bold")%>
-        <%= tag.div("", class: "d-table-cell")%>
-        <%= tag.div("sku", class: "d-table-cell fw-bold")%>
-        <%= tag.div("barcode", class: "d-table-cell fw-bold")%>
-        <%= tag.div("qt", class: "d-table-cell fw-bold")%>
-        <%= tag.div("cost_price", class: "d-table-cell fw-bold")%>
-        <%= tag.div("price", class: "d-table-cell fw-bold")%>
-        <%= tag.div("", class: "d-table-cell")%>
+        <%= tag.div( "#", class: "d-table-cell fw-bold")%>
+        <%= tag.div( "", class: "d-table-cell")%>
+        <%= tag.div( t("helpers.label.variant.sku"), class: "d-table-cell fw-bold")%>
+        <%= tag.div( t("helpers.label.variant.barcode"), class: "d-table-cell fw-bold")%>
+        <%= tag.div( t("helpers.label.variant.quantity"), class: "d-table-cell fw-bold")%>
+        <%= tag.div( t("helpers.label.variant.cost_price"), class: "d-table-cell fw-bold")%>
+        <%= tag.div( t("helpers.label.variant.price"), class: "d-table-cell fw-bold")%>
+        <%= tag.div( "", class: "d-table-cell")%>
       <% end %>
 
       <% f.object.variants.each do |variant| %>

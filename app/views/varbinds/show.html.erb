@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @varbind %>
+
+<div>
+  <%= link_to "Edit this varbind", edit_varbind_path(@varbind) %> |
+  <%= link_to "Back to varbinds", varbinds_path %>
+
+  <%= button_to "Destroy this varbind", @varbind, method: :delete %>
+</div>

@@ -1,4 +1,5 @@
 module Incases
+  # CommentsController < CommentsController
   class CommentsController < CommentsController
 
     private

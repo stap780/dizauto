@@ -21,6 +21,7 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
+
 ru:
   trigger_actions:
     incase_status_id#incase: "сменить статус убытка"
@@ -71,6 +72,8 @@ ru:
   cancel: "отменить"
   back: "назад"
   main: 'основные'
+  binds: 'связи'
+  varbinds: 'связи'
   shipping: 'доставка'
   add: 'добавить'
   save: "сохранить"
@@ -99,6 +102,11 @@ ru:
         audited_changes: "изменения"
         before: "до"
         version: "версия"
+      avito: &avito
+        profileid: "номер профиля"
+        api_secret: "секретный ключ API"
+        api_id: "идентификатор API"
+        title: "название"
       client:  &client
         surname: "фамилия"
         name: "имя"
@@ -364,6 +372,17 @@ ru:
         phone: "телефон"
         email: "email"
         role: "роль"
+      variant: &variant
+        sku: "артикул"
+        barcode: "штрихкод"
+        quantity: "количество"
+        cost_price: "цена закупки"
+        price: "цена"
+      varbind: &varbind
+        created_at: "создан"
+        varbindable_type: "тип"
+        varbindable_id: "связь"
+        value: "значение"
     models:
       client: 
         one: "клиент"
@@ -523,6 +542,9 @@ ru:
       variant: 
         one: "вариант"
         other: "варианты"
+      varbind: 
+        one: "связь"
+        other: "связи"
       warehouse: 
         one: "склад"
         other: склады
@@ -593,6 +615,8 @@ ru:
       success: обновили!
     remove_nested:
       success: удалили!
+  avitos:
+    <<: *model_system_flash
   clients:
     <<: *model_system_flash
   comments:
@@ -677,11 +701,17 @@ ru:
     <<: *model_system_flash
   templs:
     <<: *model_system_flash
+  variants:
+    <<: *model_system_flash
+  varbinds:
+    <<: *model_system_flash
   helpers:
     label:
       model_ai: "Модель ИИ"
       prompt: "Запрос"
       content: "Контент"
+      avito:
+        <<: *avito
       client:
         <<: *client
       company:
@@ -808,6 +838,10 @@ ru:
         role: "роль"
       warehouse:
         title: "название"
+      variant:
+        <<: *variant
+      varbind:
+        <<: *varbind
     select:
       prompt: "Выберите: "
     submit:

@@ -1,10 +1,9 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @variant %>
-
-<div>
-  <%= link_to "Edit this variant", edit_variant_path(@variant) %> |
-  <%= link_to "Back to variants", variants_path %>
-
-  <%= button_to "Destroy this variant", @variant, method: :delete %>
-</div>
+<%= turbo_frame_tag "offcanvasBinds" do %>
+    <div class="offcanvas-header pb-0">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+  <%= render partial: 'variants/binds', locals: {product: @product, variant: @variant} %>
+  </div>
+<% end %>
